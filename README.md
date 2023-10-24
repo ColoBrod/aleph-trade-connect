@@ -1,5 +1,7 @@
 # Архитектура приложения WMF CoffeeConnect
 
+Есть ли уже база данных для приложения? Посмотреть?
+
 ## Лейауты
 
 - LayoutAuth
@@ -104,6 +106,7 @@
     PieChart
     LineChart
   InfoBlock
+  FilterBlock
   ModalBox
 
 /pages
@@ -250,6 +253,7 @@
     locationId: number;
     path: string;
     number: string;
+  POST - добавить кофе-машину 
 
 /api/recipes
   GET
@@ -271,6 +275,11 @@
     machineId: number;
     datetime: Date;
 
+/api/users/:id
+  GET - Получить пользователя по 
+  POST - добавить пользователя в группу администратора
+  UPDATE - 
+
 /api/idletime | /api/downtime
 
 ```
@@ -287,6 +296,9 @@ postcss
 
 ## Вопросы
 
+- Есть ли форма подключения новой машинки?
+- Названия всех моделей уже известны?
+- Название - AlephTradeConnect
 - SKU - тоже самое, что и штрих-код
 - "Создать обращение" - это модальное окно? Как выглядит?
 - Карточку машинки делаем также в виде модального окна?
