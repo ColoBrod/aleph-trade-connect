@@ -15,8 +15,13 @@ import Docs from "~/components/pages/Docs";
 import analytics from './analytics';
 import maintenance from "./maintenance";
 import administration from "./administration";
+import profile from "./profile";
+
 import Contact from "~/components/pages/Contact";
-import Profile from "~/components/pages/Profile";
+import LayoutAuth from "~/components/layouts/LayoutAuth";
+import Login from "~/components/pages/Login";
+import Register from "~/components/pages/Register";
+// import Profile from "~/components/pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -30,21 +35,31 @@ const router = createBrowserRouter([
       analytics,
       maintenance,
       administration,
-      // { 
-      //   path: "administration", 
-      //   element: <InnerWithTabs tabs={[
-      //     { children: "Машины", path: `/administration/machines` },
-      //     { children: "Структура компании", path: `/administration/company-structure` },
-      //   ]} />,
-      //   children: [],
-      // },
-      { path: "profile", element: <Profile /> },
+      profile,
       { path: "contact", element: <Contact /> },
       { path: 'map', element: <Map />},
       { path: 'docs', element: <Docs />},
       { path: '*', element: <NotFound />},
     ],
-  }
+  },
+  {
+    path: "auth", 
+    element: <LayoutAuth />,
+    children: [
+      {
+        path: "",
+        element: <Navigate to="login" replace />,
+      },
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+    ],
+  },
 ]);
 
 export default router;

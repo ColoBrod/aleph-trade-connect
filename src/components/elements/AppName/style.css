@@ -1,0 +1,6 @@
+.app-name {
+  font-size: 2rem;
+  color: white;
+  margin-left: 1rem;
+  user-select: none;
+}

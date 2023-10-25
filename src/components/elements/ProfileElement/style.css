@@ -1,0 +1,20 @@
+.profile-element {
+  height: 100%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  user-select: none;
+  cursor: pointer;
+
+  &__icon {
+    height: 70%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    background-color: white;
+  }
+  &__name {
+    color: white;
+  }
+}

@@ -1,0 +1,22 @@
+.layout-auth {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  
+  &__left {
+    flex-grow: 1;
+    background-color: black;
+    background-image: url('img/bg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__right {
+    flex-basis: 40rem;
+    background-color: white;
+    padding: 1.5rem;
+  }
+}

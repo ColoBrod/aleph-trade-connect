@@ -1,10 +1,15 @@
 import React from 'react';
 import './style.css';
 
-const Button = () => {
+interface Props {
+  children: string;
+}
+
+const Button = (props: Props) => {
+  const { children } = props;
   return (
-    <div className='btn'>
-      Button
+    <div className='component-btn'>
+      { children }
     </div>
   );
 }

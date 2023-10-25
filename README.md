@@ -16,7 +16,48 @@
 ## Маршруты
 
 ~~~
-/settings - TODO: Убрать настройки в остальных маршрутах
+ 
+/analytics            - Аналитика
+  /trends             - Трендовая аналитика
+    /overview         - Обзор
+    /sales            - Продажи
+    /settings         - Настройки
+  /dayly-reports      - Ежедневные отчеты
+  /data-export        - Экспорт данных
+    /beverages        - Напитки 
+    /cleanings        - Читски
+/maintenance          - Состояние оборудования
+  /working-hours      - Время работы
+    /overview         - Обзор
+    /settings         - Настройки
+  /monitoring         - Мониторинг
+  /data-export        - Экспорт данных
+    /time             - Время    
+    /events           - События      
+/administration       - Администрирование
+  /machines           - Кофе-машины
+  /company-structure  - Структура компании
+/profile              - Профиль
+  /common             - Личные данные
+  /credentials        - Пароль      
+  /delete-account     - Удалить аккаунт 
+/contact              - Contact
+/map                  - Карта
+/docs                 - Справка       
+
+?display-modal-box=true
+  &page=
+    coffee-machine | new-ticket ? 
+  &tab=
+    common
+    location
+    monitoring
+    event-history
+    maintenance
+    spare-parts-replacement
+~~~
+
+~~~
 /analytics
   /trends
     /overview
