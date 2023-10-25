@@ -13,6 +13,10 @@ import Docs from "~/components/pages/Docs";
 
 // Routes
 import analytics from './analytics';
+import maintenance from "./maintenance";
+import administration from "./administration";
+import Contact from "~/components/pages/Contact";
+import Profile from "~/components/pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -24,23 +28,18 @@ const router = createBrowserRouter([
         element: <Navigate to="analytics" replace />, 
       },
       analytics,
-      { 
-        path: "maintenance", 
-        element: <InnerWithTabs tabs={[
-          { children: "Время работы", path: `/maintenance/working-hours` },
-          { children: "Мониторинг", path: `/maintenance/monitoring` },
-          { children: "Экспорт данных", path: `/maintenance/data-export` },
-        ]} />,
-        children: [],
-      },
-      { 
-        path: "administration", 
-        element: <InnerWithTabs tabs={[
-          { children: "Машины", path: `/administration/machines` },
-          { children: "Структура компании", path: `/administration/company-structure` },
-        ]} />,
-        children: [],
-      },
+      maintenance,
+      administration,
+      // { 
+      //   path: "administration", 
+      //   element: <InnerWithTabs tabs={[
+      //     { children: "Машины", path: `/administration/machines` },
+      //     { children: "Структура компании", path: `/administration/company-structure` },
+      //   ]} />,
+      //   children: [],
+      // },
+      { path: "profile", element: <Profile /> },
+      { path: "contact", element: <Contact /> },
       { path: 'map', element: <Map />},
       { path: 'docs', element: <Docs />},
       { path: '*', element: <NotFound />},

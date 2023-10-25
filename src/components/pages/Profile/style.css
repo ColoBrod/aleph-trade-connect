@@ -1,0 +1,13 @@
+.page-profile {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+
+  &__nav {
+    flex-basis: 30%;
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+}
