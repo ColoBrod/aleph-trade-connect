@@ -1,0 +1,21 @@
+import React from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import Tabs from '~/components/blocks/Tabs';
+import TopPanel from './TopPanel';
+import LeftPanel from './LeftPanel';
+
+import './style.css';
+
+const LayoutMain = () => {
+  return (
+    <div className="layout layout-main">
+      <TopPanel />
+      <LeftPanel />
+      <div className="layout-main__inner">
+        <Outlet />
+      </div>
+    </div>
+  );
+}
+ 
+export default LayoutMain;
