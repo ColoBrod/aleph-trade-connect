@@ -1,0 +1,12 @@
+.widget {
+
+  &-chart {
+    display: flex;
+    flex-direction: column;
+    
+  }
+
+  &-layout {
+
+  }
+}

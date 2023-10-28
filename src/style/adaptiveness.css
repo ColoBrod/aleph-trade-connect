@@ -23,7 +23,7 @@
 /* EXTRA SMALL */
 @media (--xs) {
   .container { width: 100%; }
-  .info-block { border-radius: 0; }
+  /* .info-block { border-radius: 0; } */
 }
 
 @media (--landscape) {

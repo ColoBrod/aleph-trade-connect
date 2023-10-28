@@ -3,6 +3,7 @@ import React, { Children } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
+import Analytics_Trends_Overview from "~/components/pages/Analytics/Trends/Overview";
 
 const analytics: RouteObject = { 
   path: "analytics", 
@@ -30,7 +31,7 @@ const analytics: RouteObject = {
         },
         {
           path: "overview",
-          element: <h1>Обзор</h1>,
+          element: <Analytics_Trends_Overview />,
         },
         {
           path: "settings",

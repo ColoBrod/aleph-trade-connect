@@ -9,4 +9,15 @@
   margin: auto;
   background-color: white;
   border: 1px solid black;
+
+  &__top-panel {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__close-btn {
+    cursor: pointer;
+    font-size: 2rem;
+    padding: .2rem;
+  }
 }

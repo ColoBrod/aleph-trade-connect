@@ -1,0 +1,9 @@
+.page-overview {
+
+  .page__content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  } 
+}

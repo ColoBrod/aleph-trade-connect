@@ -1,0 +1,37 @@
+.info-block {
+  padding: .7rem;
+  border-width: 1px;
+  border-color: var(--clr-info-block-border);
+  border-style: solid;
+  border-radius: .6rem;
+  background-color: var(--clr-info-bg);
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  /* &.with-chart {
+    display: flex;
+    flex-direction: column;
+    > div {
+      flex-grow: 1;
+    }
+  } */
+
+  &__header {
+    font-weight: 600;
+    font-size: 1.4rem;
+    color: var(--clr-font)
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+
+  /* &__table {
+    padding: 0;
+    position: relative;
+    height: 800px;
+    overflow: auto;
+  } */
+}
