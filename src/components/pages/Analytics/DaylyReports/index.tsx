@@ -10,6 +10,7 @@ import imgBeverage from './img/beverage.png';
 import imgCalendar from './img/calendar.png';
 import imgClock from './img/clock.png';
 import imgDispensing from './img/dispensing.png';
+import RegionTree from '~/components/blocks/RegionTree';
 
 const DaylyReports = () => {
   const period = 55;
@@ -24,7 +25,7 @@ const DaylyReports = () => {
       <div className="page__content">
 
         <div className="filters">
-
+          <RegionTree />
         </div>
 
         {/* Напитки по ресторанам */}
@@ -59,7 +60,7 @@ const DaylyReports = () => {
             align='left'
           />
           <Diagram 
-            id="dispensings-by-rest"
+            id="cleanings-by-rest"
             type="bar"
             direction="horizontal"
             legend={false}
@@ -90,7 +91,7 @@ const DaylyReports = () => {
             align='left'
           />
           <Diagram 
-            id="dispensings-by-rest"
+            id="dispensings-by-hours"
             type="bar"
             direction="vertical"
             legend={false}
@@ -121,7 +122,7 @@ const DaylyReports = () => {
             align='left'
           />
           <Diagram 
-            id="dispensings-by-rest"
+            id="dispensings-by-days"
             type="bar"
             direction="horizontal"
             legend={false}
@@ -145,7 +146,7 @@ const DaylyReports = () => {
             align='left'
           />
           <Diagram 
-            id="beverages-by-recipe"
+            id="dispensings-by-recipe"
             type="bar"
             direction="horizontal"
             legend={false}

@@ -53,10 +53,11 @@ body::after { left: 10px; bottom: 10px; }
   /* height: calc(100% - 6rem); */
   display: flex;
   flex-direction: column;
-  /* overflow: hidden; */
+  overflow-y: scroll;
 
   &__content {
     flex-grow: 1;
+    flex-shrink: 1;
     /* overflow-y: scroll; */
   }
 

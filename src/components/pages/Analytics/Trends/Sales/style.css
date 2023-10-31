@@ -1,0 +1,9 @@
+.page-analytics__trends__sales {
+
+  .page__content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 4.5fr 2fr 3fr;
+    grid-template-rows: repeat(2, 30rem);
+  }
+}

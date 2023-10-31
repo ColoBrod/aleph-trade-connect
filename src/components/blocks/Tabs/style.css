@@ -1,6 +1,6 @@
 .tabs {
   display: flex;
-  gap: 1rem;
+  /* gap: 1rem; */
   
   .tab {
     padding: 1rem 2rem;

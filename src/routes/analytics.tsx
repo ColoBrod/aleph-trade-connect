@@ -5,6 +5,7 @@ import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Analytics_Trends_Overview from "~/components/pages/Analytics/Trends/Overview";
 import DaylyReports from "~/components/pages/Analytics/DaylyReports";
+import Analytics_Trends_Sales from "~/components/pages/Analytics/Trends/Sales";
 
 const analytics: RouteObject = { 
   path: "analytics", 
@@ -40,7 +41,7 @@ const analytics: RouteObject = {
         },
         {
           path: "sales",
-          element: <h1>Продажи</h1>,
+          element: <Analytics_Trends_Sales />,
         },
       ]
     },

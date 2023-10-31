@@ -1,0 +1,8 @@
+.tab {
+  color: black;
+  background-color: bisque;
+  text-decoration: none;
+  &.active {
+    background-color: rgb(201, 160, 110);
+  }
+}

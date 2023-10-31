@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Chart, { BubbleDataPoint, ChartConfiguration, ChartData, ChartDataset, ChartTypeRegistry, Point } from 'chart.js/auto';
+import Chart, { BubbleDataPoint, CartesianScaleTypeRegistry, ChartConfiguration, ChartData, ChartDataset, ChartTypeRegistry, Point, ScaleOptionsByType, scales } from 'chart.js/auto';
+import { _DeepPartialObject } from 'chart.js/dist/types/utils';
 
 interface Props {
   id: string;
@@ -8,6 +9,9 @@ interface Props {
   legend?: boolean;
   labels: string[];
   datasets: ChartDataset<keyof ChartTypeRegistry, (number | [number, number] | Point | BubbleDataPoint | null)[]>[];
+  scales?: _DeepPartialObject<{
+    [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
+  }> | undefined;
 }
 
 class Diagram extends Component<Props> {
@@ -23,7 +27,7 @@ class Diagram extends Component<Props> {
     // data.labels = ;
     // data.datasets = ;
     // Other config props
-    const { legend: displayLegend = true, direction = "vertical", type } = props;
+    const { type, legend: displayLegend = true, direction = "vertical", scales } = props;
     this.config = {
       type,
       data: {
@@ -44,6 +48,7 @@ class Diagram extends Component<Props> {
           },
         },
         responsive: true,
+        scales: scales,
       }
     }
   }
