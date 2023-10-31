@@ -1,9 +1,9 @@
-.page-overview {
+.page-analytics__trends__overview {
 
   .page__content {
     display: grid;
     gap: 1rem;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: repeat(2, 30rem);
   } 
 }

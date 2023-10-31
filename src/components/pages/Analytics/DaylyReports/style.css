@@ -1,0 +1,15 @@
+.page-analytics__dayly-reports {
+
+  .page__content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 30rem repeat(2, 1fr);
+    grid-template-rows: repeat(3, 50rem);
+
+    .filters {
+      background-color: gray;
+      grid-row: 1 / -1;
+      grid-column: 1 / 2;
+    }
+  } 
+}

@@ -4,6 +4,7 @@ import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Analytics_Trends_Overview from "~/components/pages/Analytics/Trends/Overview";
+import DaylyReports from "~/components/pages/Analytics/DaylyReports";
 
 const analytics: RouteObject = { 
   path: "analytics", 
@@ -50,7 +51,7 @@ const analytics: RouteObject = {
       children: [
         {
           path: "",
-          element: <h1>Ежедневные отчеты</h1>,
+          element: <DaylyReports />,
         },
       ],
     },
