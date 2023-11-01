@@ -11,6 +11,7 @@ import imgCalendar from './img/calendar.png';
 import imgClock from './img/clock.png';
 import imgDispensing from './img/dispensing.png';
 import RegionTree from '~/components/blocks/RegionTree';
+import TimeRange from '~/components/elements/TimeRange';
 
 const DaylyReports = () => {
   const period = 55;

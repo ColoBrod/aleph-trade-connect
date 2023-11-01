@@ -1,8 +1,13 @@
 import React from 'react';
+import Iframe from 'react-iframe';
 
 const Map = () => {
   return (
-    <h1>Карта</h1>
+    <Iframe 
+      url='https://wmf24.ru/map'
+      height='100%'
+      frameBorder={0}
+    />
   );
 }
  

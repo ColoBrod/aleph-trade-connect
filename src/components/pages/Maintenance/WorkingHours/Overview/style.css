@@ -1,0 +1,8 @@
+.page-maintenance__working-hours__overview {
+  .page__content {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 4fr 1.5fr 2.5fr;
+    grid-template-rows: 30rem 30rem;
+  }
+}

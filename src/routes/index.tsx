@@ -24,6 +24,9 @@ import Register from "~/components/pages/Register";
 // import Profile from "~/components/pages/Profile";
 
 const router = createBrowserRouter([
+  /**
+   * Корневой раздел. Лэйаут - LayoutMain
+   */
   {
     path: "", 
     element: <LayoutMain />, 
@@ -42,6 +45,10 @@ const router = createBrowserRouter([
       { path: '*', element: <NotFound />},
     ],
   },
+  
+  /**
+   * Рздел авторизации. Лэйаут - LayoutAuth
+   */
   {
     path: "auth", 
     element: <LayoutAuth />,

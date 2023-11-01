@@ -4,6 +4,6 @@
     display: grid;
     gap: 1rem;
     grid-template-columns: 4.5fr 2fr 3fr;
-    grid-template-rows: repeat(2, 30rem);
+    grid-template-rows: repeat(2, 35rem);
   }
 }

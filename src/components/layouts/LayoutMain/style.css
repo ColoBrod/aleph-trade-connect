@@ -16,6 +16,11 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
+      gap: 1rem;
+      .spacer {
+        flex-grow: 1;
+      }
+
       a.contact-link {
         color: white;
         margin-left: 2rem;

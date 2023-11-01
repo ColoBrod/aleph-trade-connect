@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
+import Maintenance_WorkingHours_Overview from '~/components/pages/Maintenance/WorkingHours/Overview';
 
 const maintenance: RouteObject = { 
   path: "maintenance", 
@@ -18,8 +19,8 @@ const maintenance: RouteObject = {
     {
       path: "working-hours",
       element: <InnerWithNestedTabs tabs={[
-        { children: "Обзор", path: `/maintenance/working-hours/overview` },
         { children: "Настройки", path: `/maintenance/working-hours/settings` },
+        { children: "Обзор", path: `/maintenance/working-hours/overview` },
       ]} />,
       children: [
         {
@@ -28,7 +29,7 @@ const maintenance: RouteObject = {
         },
         {
           path: "overview",
-          element: <h1>Обзор</h1>,
+          element: <Maintenance_WorkingHours_Overview />,
         },
         {
           path: "settings",

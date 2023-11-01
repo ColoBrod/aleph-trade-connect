@@ -63,7 +63,7 @@ class Diagram extends Component<Props> {
   render() {
     const { id } = this.props;
 		return (
-      <div className='diagram'>
+      <div className={`diagram diagram__${id}`}>
         <canvas
           id={id}
           ref={this.chartRef}

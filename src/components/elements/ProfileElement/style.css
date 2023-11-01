@@ -1,12 +1,18 @@
 .profile-element {
+  position: relative;
   height: 100%;
   margin-left: auto;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 1rem;
-  user-select: none;
-  cursor: pointer;
+  margin-right: .4rem;
+
+  &__inner {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    user-select: none;
+    cursor: pointer;
+  }
 
   &__icon {
     height: 70%;
@@ -16,5 +22,33 @@
   }
   &__name {
     color: white;
+  }
+
+  &__popup {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: white;
+    border: 1px solid black;
+
+    > div {
+      padding: 1rem;
+      user-select: none;
+      cursor: pointer;
+    }
+
+    &__user {
+      border-width: 0 0 1px 0;
+      border-style: solid;
+      border-color: rgba(0,0,0,0.3);
+      &__full-name {
+        font-size: 1.5rem;
+      }
+      &__email {
+        font-size: 1.1rem;
+      }
+    }
+
   }
 }

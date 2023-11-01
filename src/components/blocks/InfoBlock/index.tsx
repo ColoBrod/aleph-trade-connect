@@ -5,7 +5,13 @@ import './style.css';
 
 
 interface Props {
-  layout: "chart" | "chart-2" | "chart-3" | "chart-solo" | "grid-2x2";
+  layout: "chart" 
+    | "chart-timerange"
+    | "chart-2" 
+    | "chart-3" 
+    | "chart-4" 
+    | "chart-solo" 
+    | "grid-2x2";
   divider?: boolean;
   header?: string;
   children: ReactNode
@@ -17,6 +23,7 @@ interface Props {
  *    chart       - 2 виджета справа
  *    chart-2     - 1 виджет сверху
  *    chart-3     - 2 виджета сверху
+ *    chart-4     - 1 виджет снизу
  *    chart-solo  - чарт занимает все пространство
  *    grid-2x2    - 4 виджета
  */

@@ -1,0 +1,22 @@
+.timerange {
+  &__output {
+    height: 10px;
+    width: 100%;
+    /* background-color: red; */
+    position: relative;
+  }
+
+  &__first, &__second {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 1.3rem;
+  }
+
+  &__first {
+    left: 10%;
+  }
+
+  &__second {
+    left: 70%;
+  }
+}
