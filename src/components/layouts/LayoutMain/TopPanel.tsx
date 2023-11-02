@@ -16,7 +16,7 @@ const TopPanel = (props: Props) => {
       <Link className='contact-link' to="/contact">Contact</Link>
       <div className="spacer"></div>
       <SearchBar />
-      <ProfileElement fullName="Лазарев Николай" />
+      <ProfileElement />
     </div>
   );
 }
