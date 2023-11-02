@@ -22,10 +22,8 @@
     - [`POST /api/analytics/trends/sales/dispensings-by-recipe`](#POST-apianalyticstrendssalesdispensings-by-recipe)
     - [`POST /api/analytics/trends/sales/dispensings-by-weekday-and-time`](#POST-apianalyticstrendssalesdispensings-by-weekday-and-time)
     - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#POST-apianalyticstrendssalesdispensings-previous-vs-current)
-    - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#POST-apianalyticstrendssalesdispensings-previous-vs-current)
     - [`POST /api/analytics/trends/sales/dispensings-by-path`](#POST-apianalyticstrendssalesdispensings-by-path)
     - [`POST /api/analytics/trends/dayly-reports/dispensings-by-restaurant`](#POST-apianalyticstrendsdayly-reportsdispensings-by-restaurant)
-    - [`POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`](#POST-apianalyticstrendsdayly-reportscleanings-by-restaurant)
     - [`POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`](#POST-apianalyticstrendsdayly-reportscleanings-by-restaurant)
     - [`POST /api/analytics/trends/dayly-reports/dispensings-by-hour`](#POST-apianalyticstrendsdayly-reportsdispensings-by-hour)
     - [`POST /api/analytics/trends/dayly-reports/dispensings-by-weekday`](#POST-apianalyticstrendsdayly-reportsdispensings-by-weekday)
@@ -448,26 +446,6 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/sales/dispensings-previous-vs-current`
-  #### Info:
-  График **Неделя к неделе** на странице **Аналитика - Трендовая аналитика - Продажи**
-  #### Request:
-  JSON в теле (body) запроса: [`Params`](#params)  
-  В запросе **не будет**:
-  - timeRange
-  - serialNumberSubstrings
-  #### Response:
-  ✔ 200
-  ~~~ts
-  {
-    // Сколько напитков было всего разлито на текущей и на предыдущей неделе
-    dispensingsByWeek: { 
-      previous: number; // Всего напитков на прошлой неделе
-      current: number; // Всего напитков на текущей неделе
-    }
-  }
-  ~~~
-
   ### `POST /api/analytics/trends/sales/dispensings-by-path`
   #### Info:
   График **Напитки по бизнес-юнитам** на странице **Аналитика - Трендовая аналитика - Продажи**
@@ -504,23 +482,6 @@ interface Params {
     dispensingsByRestaurant: { 
       name: string; // Название ресторана, например "Бургер-РУС 3276"
       dispensings: number; // Всего напитков разлито в этом ресторане.
-    }[]
-  }
-  ~~~
-
-  ### `POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`
-  #### Info:
-  График **Соблюдение правил чистки ресторанами** на странице **Аналитика - Ежедневные отчеты**
-  #### Request:
-  JSON в теле (body) запроса: [`Params`](#params)  
-  #### Response:
-  ✔ 200
-  ~~~ts
-  {
-    // Сколько в среднем 
-    cleaningsByRestaurant: { 
-      name: string; // Название ресторана, например "Бургер-РУС 3276"
-      cleanings: number; // Всего напитков разлито в этом ресторане.
     }[]
   }
   ~~~

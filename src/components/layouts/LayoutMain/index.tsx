@@ -28,5 +28,5 @@ const LayoutMain = () => {
     </div>
   );
 }
- 
+
 export default LayoutMain;
