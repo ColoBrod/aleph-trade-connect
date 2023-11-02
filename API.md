@@ -1,5 +1,137 @@
 # API docs
 
+## Навигация
+
+- [API docs](#api-docs)
+  - [Навигация](#навигация)
+  - [Общая информация](#общая-информация)
+  - [Params](#params)
+  - [Routes](#routes)
+    - [`GET /api/entities`](#get-apientities)
+      - [Info:](#info)
+      - [Request:](#request)
+      - [Response:](#response)
+    - [`GET /api/entities/coffee-machines`](#get-apientitiescoffee-machines)
+      - [Info:](#info-1)
+      - [Request:](#request-1)
+      - [Response:](#response-1)
+    - [`GET /api/entities/business-units`](#get-apientitiesbusiness-units)
+      - [Info:](#info-2)
+      - [Request:](#request-2)
+      - [Response:](#response-2)
+    - [`GET /api/entities/recipes`](#get-apientitiesrecipes)
+      - [Info:](#info-3)
+      - [Request:](#request-3)
+      - [Response:](#response-3)
+    - [`GET /api/entities/errors`](#get-apientitieserrors)
+      - [Info:](#info-4)
+      - [Request:](#request-4)
+      - [Response:](#response-4)
+    - [`POST /api/analytics/trends/header`](#post-apianalyticstrendsheader)
+      - [Info:](#info-5)
+      - [Request:](#request-5)
+      - [Response:](#response-5)
+    - [`POST /api/analytics/trends/overview/dispensings-by-date`](#post-apianalyticstrendsoverviewdispensings-by-date)
+      - [Info:](#info-6)
+      - [Request:](#request-6)
+      - [Response:](#response-6)
+    - [`POST /api/analytics/trends/overview/consumptions`](#post-apianalyticstrendsoverviewconsumptions)
+      - [Info:](#info-7)
+      - [Request:](#request-7)
+      - [Response:](#response-7)
+    - [`POST /api/analytics/trends/overview/cleanings`](#post-apianalyticstrendsoverviewcleanings)
+      - [Info:](#info-8)
+      - [Request:](#request-8)
+      - [Response:](#response-8)
+    - [`POST /api/analytics/trends/overview/dispensings-by-hierarchy-level`](#post-apianalyticstrendsoverviewdispensings-by-hierarchy-level)
+      - [Info:](#info-9)
+      - [Request:](#request-9)
+      - [Response:](#response-9)
+    - [`POST /api/analytics/trends/sales/dispensings-by-date`](#post-apianalyticstrendssalesdispensings-by-date)
+      - [Info:](#info-10)
+      - [Request:](#request-10)
+      - [Response:](#response-10)
+    - [`POST /api/analytics/trends/sales/dispensings-by-cup-size`](#post-apianalyticstrendssalesdispensings-by-cup-size)
+      - [Info:](#info-11)
+      - [Request:](#request-11)
+      - [Response:](#response-11)
+    - [`POST /api/analytics/trends/sales/dispensings-by-recipe`](#post-apianalyticstrendssalesdispensings-by-recipe)
+      - [Info:](#info-12)
+      - [Request:](#request-12)
+      - [Response:](#response-12)
+    - [`POST /api/analytics/trends/sales/dispensings-by-weekday-and-time`](#post-apianalyticstrendssalesdispensings-by-weekday-and-time)
+      - [Info:](#info-13)
+      - [Request:](#request-13)
+      - [Response:](#response-13)
+    - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#post-apianalyticstrendssalesdispensings-previous-vs-current)
+      - [Info:](#info-14)
+      - [Request:](#request-14)
+      - [Response:](#response-14)
+    - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#post-apianalyticstrendssalesdispensings-previous-vs-current-1)
+      - [Info:](#info-15)
+      - [Request:](#request-15)
+      - [Response:](#response-15)
+    - [`POST /api/analytics/trends/sales/dispensings-by-path`](#post-apianalyticstrendssalesdispensings-by-path)
+      - [Info:](#info-16)
+      - [Request:](#request-16)
+      - [Response:](#response-16)
+    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-restaurant`](#post-apianalyticstrendsdayly-reportsdispensings-by-restaurant)
+      - [Info:](#info-17)
+      - [Request:](#request-17)
+      - [Response:](#response-17)
+    - [`POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`](#post-apianalyticstrendsdayly-reportscleanings-by-restaurant)
+      - [Info:](#info-18)
+      - [Request:](#request-18)
+      - [Response:](#response-18)
+    - [`POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`](#post-apianalyticstrendsdayly-reportscleanings-by-restaurant-1)
+      - [Info:](#info-19)
+      - [Request:](#request-19)
+      - [Response:](#response-19)
+    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-hour`](#post-apianalyticstrendsdayly-reportsdispensings-by-hour)
+      - [Info:](#info-20)
+      - [Request:](#request-20)
+      - [Response:](#response-20)
+    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-weekday`](#post-apianalyticstrendsdayly-reportsdispensings-by-weekday)
+      - [Info:](#info-21)
+      - [Request:](#request-21)
+      - [Response:](#response-21)
+    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-recipe`](#post-apianalyticstrendsdayly-reportsdispensings-by-recipe)
+      - [Info:](#info-22)
+      - [Request:](#request-22)
+      - [Response:](#response-22)
+    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-cup-size`](#post-apianalyticstrendsdayly-reportsdispensings-by-cup-size)
+      - [Info:](#info-23)
+      - [Request:](#request-23)
+      - [Response:](#response-23)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-hour`](#post-apimaintenanceworking-hoursoverviewdowntime-by-hour)
+      - [Info:](#info-24)
+      - [Request:](#request-24)
+      - [Response:](#response-24)
+    - [`POST /api/maintenance/working-hours/overview/downtime-causes`](#post-apimaintenanceworking-hoursoverviewdowntime-causes)
+      - [Info:](#info-25)
+      - [Request:](#request-25)
+      - [Response:](#response-25)
+    - [`POST /api/maintenance/working-hours/overview/downtime-errors`](#post-apimaintenanceworking-hoursoverviewdowntime-errors)
+      - [Info:](#info-26)
+      - [Request:](#request-26)
+      - [Response:](#response-26)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-weekday`](#post-apimaintenanceworking-hoursoverviewdowntime-by-weekday)
+      - [Info:](#info-27)
+      - [Request:](#request-27)
+      - [Response:](#response-27)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-week`](#post-apimaintenanceworking-hoursoverviewdowntime-by-week)
+      - [Info:](#info-28)
+      - [Request:](#request-28)
+      - [Response:](#response-28)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-buisness-unit`](#post-apimaintenanceworking-hoursoverviewdowntime-by-buisness-unit)
+      - [Info:](#info-29)
+      - [Request:](#request-29)
+      - [Response:](#response-29)
+  - [Interfaces](#interfaces)
+    - [IByDay](#ibyday)
+    - [ICoffeeMachine](#icoffeemachine)
+    - [IBusinessUnit](#ibusinessunit)
+
 ## Общая информация
 
 Клиент в заголовках всегда передает:
@@ -15,8 +147,6 @@ Bearer токен используется для авторизация пол�
 страницы возвращаем ошибку 403. Если пользователь не авторизован - 401
 
 ## Params
-
-### Params1
 
 Фильтры передаются в виде теле (body) запроса в формате JSON.
 В качестве ID кофе-машин, передаю именно autoincrement id из БД, не alephId?
@@ -52,6 +182,38 @@ interface Params {
 ~~~
 
 ## Routes
+
+  ### `GET /api/entities`
+
+  #### Info:
+
+  **ВАЖНО**: Этот эндпоинт под вопросом. Можно объединить все эндпоинты `/api/entities` в один и запрашивать сразу после авторизации пользователя в системе.
+
+  - [`ICoffeeMachine`](#icoffeemachine)
+  - [`IBusinessUnit`](#ibusinessunit)
+
+
+  #### Request:
+  Без дополнительных параметров.
+
+  #### Response:
+
+  ✔ 200
+
+  ~~~ts
+  {
+    coffeeMachines: ICoffeeMachine[];
+    coffeeMachines: IBusinessUnit[];
+    recipes: {
+      id: number;
+      name: string; // Название рецепта
+    }[];
+    errors: {
+      id: number;
+      name: string; // Название ошибки
+    }[];
+  }
+  ~~~
 
   ### `GET /api/entities/coffee-machines`
 
@@ -91,6 +253,50 @@ interface Params {
   ~~~ts
   {
     coffeeMachines: IBusinessUnit[];
+  }
+  ~~~
+
+  ### `GET /api/entities/recipes`
+
+  #### Info:
+
+  Используется на странице **Аналитика - Трендовая Аналитика - Настройки**
+
+  #### Request:
+  Без дополнительных параметров.
+
+  #### Response:
+
+  ✔ 200
+
+  ~~~ts
+  {
+    recipes: {
+      id: number;
+      name: string; // Название рецепта
+    }[];
+  }
+  ~~~
+
+  ### `GET /api/entities/errors`
+
+  #### Info:
+
+  Используется на странице **Обслуживание - Время работы - Настройки**
+
+  #### Request:
+  Без дополнительных параметров.
+
+  #### Response:
+
+  ✔ 200
+
+  ~~~ts
+  {
+    errors: {
+      id: number;
+      name: string; // Название ошибки
+    }[];
   }
   ~~~
 
@@ -593,6 +799,25 @@ interface Params {
       previous: number; // Время простоя в секундах
       current: number; // Время простоя в секундах
     };
+  }
+  ~~~
+
+  ### `POST /api/maintenance/working-hours/overview/downtime-by-buisness-unit`
+  #### Info:
+  График **По бизнес юнитам** на странице **Состояние оборудования - Время работы - Обзор**
+  #### Request:
+  JSON в теле (body) запроса: [`Params`](#params)  
+  В запросе **не будет**:
+  - timeRange
+  - serialNumberSubstrings
+  #### Response:
+  ✔ 200
+  ~~~ts
+  {
+    downtimeByBuisnessUnit: {
+      name: string; // Название бизнес-юнита
+      downtime: number; // Время простоя в секундах
+    }[];
   }
   ~~~
 
