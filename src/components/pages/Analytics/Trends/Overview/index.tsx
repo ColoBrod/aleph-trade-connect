@@ -11,6 +11,10 @@ import imgMilk from './img/milk.png';
 import imgWater from './img/water.png';
 import imgChocolate from './img/chocolate.png';
 
+// Обертки инфо-блоков
+import DispensingsByDay from './DispensingsByDay';
+import Consumptions from './Consumptinos';
+
 const Overview = () => {
   const period = 55;
   // backgroundColor: '#3F3E43',
@@ -23,35 +27,10 @@ const Overview = () => {
 
       <div className="page__content">
 
-        {/* Напитки по дням */}
-        <InfoBlock layout="chart" header='Напитки по дням'>
-          <Diagram
-            id="dispensings-by-day"
-            type="bar"
-            labels={["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]}
-            datasets={[
-              {
-                label: 'Текущая неделя',
-                data: [13, 50, 32, 40, 35, 17, 28],
+        <Consumptions />
 
-              },
-              {
-                label: 'Предыдущая неделя',
-                data: [17, 43, 47, 45, 26, 25, 23],
-              },
-            ]}
-          />
-          <Widget 
-            amount={223} 
-            description="Выдач за текущую неделю"
-            layout="chart"
-          />
-          <Widget 
-            amount={527} 
-            description="Выдач за предыдущую неделю"
-            layout="chart"
-          />
-        </InfoBlock>
+        {/* Напитки по дням */}
+        <DispensingsByDay />
 
         {/* Расход ингридиентов */}
         <InfoBlock layout="grid-2x2" header='Расход ингридиентов'>

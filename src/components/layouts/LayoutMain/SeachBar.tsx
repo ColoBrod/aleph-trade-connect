@@ -78,7 +78,7 @@ const SearchBar = () => {
   const formatResult = (item: any) => {
     console.log(item);
     return (
-      <div style={{ background: "white", }} className="result-wrapper">
+      <div style={{  }} className="result-wrapper">
         <span className="result-span">id: {item.id}</span>
         <span className="result-span">name: {item.name}</span>
       </div>
@@ -86,21 +86,28 @@ const SearchBar = () => {
   };
 
   return (
-    <div className="top-panel__search-bar" style={{ marginLeft: "auto", marginRight: "0", width: '200px' }}>
+    <div className="panel-top__search-bar">
       <ReactSearchAutocomplete
-          items={items}
-          onSearch={handleOnSearch}
-          onHover={handleOnHover}
-          onSelect={handleOnSelect}
-          onFocus={handleOnFocus}
-          onClear={handleOnClear}
-          styling={{ 
-            // borderRadius: "0",
-            height: "30px",
-            zIndex: 4,
-          }} // To display it on top of the search box below
-          autoFocus
-        />
+        items={items}
+        onSearch={handleOnSearch}
+        onHover={handleOnHover}
+        onSelect={handleOnSelect}
+        onFocus={handleOnFocus}
+        onClear={handleOnClear}
+        placeholder='Поиск'
+        styling={{ 
+          // #707070 - font and icon color
+          iconColor: "#707070",
+          placeholderColor: "#707070",
+          border: "1px solid #D1D1D1",
+          searchIconMargin: '0 0 0 10px',
+          clearIconMargin: '4px 10px 0 0',
+          borderRadius: "4px",
+          height: "30px",
+          zIndex: 4,
+        }} // To display it on top of the search box below
+        autoFocus
+      />
     </div>
   );
 }

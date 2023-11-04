@@ -8,6 +8,10 @@ import { ARROW_UP, ARROW_DOWN } from './arrows';
 import { popupToggled } from '~/store/ui/profile';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
+// Images
+import imgAccount from './img/account.svg';
+import imgArrow from './img/arrow.svg';
+
 interface Props {
 }
 
@@ -48,10 +52,13 @@ const ProfileElement = (props: Props) => {
   return (
     <div className="profile-element">
       <div onClick={() => dispatch(popupToggled({}))} className="profile-element__inner">
-        <div className="profile-element__icon"></div>
+        <div className="profile-element__icon">
+          <img src={imgAccount} alt="" />
+        </div>
         <div className="profile-element__name">{firstName} {lastName}</div>
         <div className="profile-element__arrow">
-          { displayPopup ? ARROW_UP : ARROW_DOWN }
+          <img src={imgArrow} alt="" />
+          {/* { displayPopup ? ARROW_UP : ARROW_DOWN } */}
         </div>
       </div>
       {

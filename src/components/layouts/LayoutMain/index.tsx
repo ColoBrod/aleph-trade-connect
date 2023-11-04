@@ -7,8 +7,6 @@ import LeftPanel from './LeftPanel';
 
 import './style.css';
 
-
-
 const LayoutMain = () => {
   const location = useLocation().pathname;
   localStorage.setItem('location', location);

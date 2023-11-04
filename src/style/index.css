@@ -2,7 +2,7 @@
 @import 'media-queries';
 
 html {
-  font-family: 'Arial' sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 10px;
   color: var(--clr-font);
 }

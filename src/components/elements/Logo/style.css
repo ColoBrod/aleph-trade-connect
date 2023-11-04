@@ -3,12 +3,15 @@
   height: 100%;
   /* width: 40px; */
   aspect-ratio: 1 / 1;
-  background-color: greenyellow;
+  /* background-color: greenyellow; */
   border-radius: 15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   
   &-fixed {
-    width: 6rem;
-    height: 6rem;
+    width: 100px;
+    height: 100px;
   }
 
   &-square {

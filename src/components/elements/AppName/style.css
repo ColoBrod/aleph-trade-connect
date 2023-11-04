@@ -1,6 +1,11 @@
 .app-name {
-  font-size: 2rem;
+  font-family: "Impact", sans-serif;
+  /* font-family: "Segoe UI", Arial, sans-serif; */
+  font-size: 40px;
+  line-height: 49px;
+  font-weight: 400;
   color: white;
-  margin-left: 1rem;
+  /* margin-left: 1rem; */
   user-select: none;
 }
+

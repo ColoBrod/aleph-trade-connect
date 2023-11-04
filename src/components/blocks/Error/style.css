@@ -1,0 +1,21 @@
+.error {
+  margin: 10px;
+  background-image: linear-gradient(red, transparent);
+  border: 1px solid red;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+
+  &__header {
+    font-size: 2.4rem;
+    color: red;
+  }
+
+  &__message {
+    font-size: 1.2rem;
+    color: red;
+  }
+}

@@ -12,8 +12,9 @@ const TopPanel = (props: Props) => {
   return (
     <div className="panel panel-top">
       <Logo />
+      <div className="divider"></div>
       <AppName color="white" />
-      <Link className='contact-link' to="/contact">Contact</Link>
+      {/* <Link className='contact-link' to="/contact">Contact</Link> */}
       <div className="spacer"></div>
       <SearchBar />
       <ProfileElement />

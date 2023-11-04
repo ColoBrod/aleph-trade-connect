@@ -15,10 +15,9 @@
   }
 
   &__icon {
-    height: 70%;
+    width: 30px;
     aspect-ratio: 1 / 1;
-    border-radius: 50%;
-    background-color: white;
+    /* background-color: white; */
   }
   &__name {
     color: white;

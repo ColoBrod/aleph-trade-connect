@@ -258,7 +258,10 @@ interface Params {
 
   ~~~ts
   {
-    dispensingsByDay: IByDay;
+    dispensingsByDay: {
+      previousWeek: IByDay;
+      currentWeek: IByDay;
+    };
   }
   ~~~
 
@@ -570,6 +573,25 @@ interface Params {
   }
   ~~~
 
+  ### `POST /api/analytics/trends/data-export/dispensings`
+  #### Info:
+  Таблица на странице **Аналитика - Экспорт данных - Напитки**
+  #### Request:
+  JSON в теле (body) запроса: [`Params`](#params)  
+  - [`IBusinessUnit`](#ibusinessunit)
+  #### Response:
+  ✔ 200
+  ~~~ts
+  {
+    content: {
+      {
+        businessUnit: string | IBusinessUnit;
+        coffeeMachineModel: 
+      }
+    }[]
+  }
+  ~~~
+
   ### `POST /api/maintenance/working-hours/overview/downtime-by-hour`
   #### Info:
   График **Простои к/м по часам** на странице **Состояние оборудования - Время работы - Обзор**
@@ -699,13 +721,13 @@ interface Params {
 ### IByDay
 ~~~ts
 interface IByDay {
-  Mon: number;
-  Tue: number;
-  Wed: number;
-  Thu: number;
-  Fri: number;
-  Sut: number;
-  Sun: number;
+  mon: number;
+  tue: number;
+  wed: number;
+  thu: number;
+  fri: number;
+  sut: number;
+  sun: number;
 }
 ~~~
 
