@@ -1,3 +1,10 @@
+/**
+ * TODO
+ * 
+ * Отказзываемся от этого файла в пользу createAsyncThunk
+ */
+
+
 import axios from 'axios';
 
 import { AnyAction, Dispatch, Middleware, MiddlewareAPI, createAction } from "@reduxjs/toolkit";

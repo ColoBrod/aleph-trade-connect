@@ -5,7 +5,8 @@ import './style.css';
 
 
 interface Props {
-  layout: "chart" 
+  layout: "single-item"
+    | "chart" 
     | "chart-timerange"
     | "chart-2" 
     | "chart-3" 

@@ -12,8 +12,10 @@ import imgWater from './img/water.png';
 import imgChocolate from './img/chocolate.png';
 
 // Обертки инфо-блоков
-import DispensingsByDay from './DispensingsByDay';
+import DispensingsByDay from './DispensingsByDay';  
 import Consumptions from './Consumptinos';
+import Cleanings from './Cleanings';
+import AverageDispensingsPerMachine from './AverageDispensingsPerMachine';
 
 const Overview = () => {
   const period = 55;
@@ -26,114 +28,15 @@ const Overview = () => {
       <Header>Обзор</Header>
 
       <div className="page__content">
-
-        <Consumptions />
-
         {/* Напитки по дням */}
         <DispensingsByDay />
-
         {/* Расход ингридиентов */}
-        <InfoBlock layout="grid-2x2" header='Расход ингридиентов'>
-          <Widget 
-            icon={imgWater}
-            amount={506.39} 
-            toFixed={true}
-            description={<>Литров воды было использовано за последние {period} дней.</>}
-            layout="dashboard"
-          />
-          <Widget 
-            icon={imgMilk}
-            amount={183.14} 
-            toFixed={true}
-            description={<>Литров молока было использовано за последние {period} дней.</>}
-            layout="dashboard"
-          />
-          <Widget 
-            icon={imgCoffee}
-            amount={48.94} 
-            toFixed={true}
-            description={<>Кг. кофе было использовано за последние {period} дней.</>}
-            layout="dashboard"
-          />
-          <Widget 
-            icon={imgChocolate}
-            amount={1.92} 
-            toFixed={true}
-            description={<>Кг. шоколада было использовано за последние {period} дней.</>}
-            layout="dashboard"
-          />
-        </InfoBlock>
-
+        <Consumptions />
         {/* Очистки */}
-        <InfoBlock layout="chart" header='Очистки'>
-          <Diagram
-            id="cleanings"
-            type="bar"
-            labels={["Читски"]}
-            datasets={[
-              {
-                label: 'Текущая неделя',
-                data: [0.94],
-              },
-              {
-                label: 'Предыдущая неделя',
-                data: [1.07],
-              },
-            ]}
-          />
-          <Widget 
-            amount={0.94} 
-            toFixed={true}
-            description="Выдач за текущую неделю"
-            layout="chart"
-          />
-          <Widget 
-            amount={1.07} 
-            toFixed={true}
-            description="Выдач за предыдущую неделю"
-            layout="chart"
-          />
-        </InfoBlock>
-
+        <Cleanings />
         {/* Среднее количество напитков на одну машину */}
-        <InfoBlock layout="chart-solo" header='Среднее количество напитков на одну машину'>
-          <Diagram
-            id="average-dispensings-per-machine"
-            type="bar"
-            labels={["Среднее количество..."]}
-            datasets={[
-              {
-                label: 'Москва',
-                data: [312],
-              },
-              {
-                label: 'Санкт-Петербург',
-                data: [201],
-              },
-              {
-                label: 'Воронеж',
-                data: [48],
-              },
-            ]}
-          />
-        </InfoBlock>
+        <AverageDispensingsPerMachine />
       </div>
-      {/* 
-        TODO: Когда будет понятен окончательный выбор инструмента, убрать эти 
-        IFrame
-      */}
-      {/* <Iframe 
-        url="https://datalens.yandex/lzfn01fynp40a?_embedded=1&_no_controls=1&_lang=ru"
-        frameBorder={0}
-        width="100%" 
-        height="400px"
-      />
-      <Iframe 
-        url="https://datalens.yandex/s6m36b5kjr2ah?_embedded=1&_no_controls=1&_lang=ru"
-        frameBorder={0}
-        width="100%" 
-        height="400px"
-      /> */}
     </div>
   );
 }

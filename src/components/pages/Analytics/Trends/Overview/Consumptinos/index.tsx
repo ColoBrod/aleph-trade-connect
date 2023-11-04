@@ -20,15 +20,15 @@ const Consumptions = () => {
   // TODO - разобраться во втором параметре функции. Зачем мы передаем оба...
   useEffect(() => {
     if (consumptions.status === 'idle') dispatch(fetchConsumptions()); 
-  }, [consumptions.status, dispatch])
+  }, [consumptions.status]) // dispatch
 
   if (consumptions.status === 'loading') return (
-    <InfoBlock layout="chart-solo" header='Расход ингридиентов'>
+    <InfoBlock layout="single-item" header='Расход ингридиентов'>
       <Loader />
     </InfoBlock>
   );
   else if (consumptions.status === 'error') return (
-    <InfoBlock layout="chart-solo" header='Расход ингридиентов'>
+    <InfoBlock layout="single-item" header='Расход ингридиентов'>
       <Error message={consumptions.error} />
     </InfoBlock>
   );

@@ -1,26 +1,33 @@
-/**
- * Это обертка для инфо-блока, отвечающего за отрисовку графика
- * Связывает запрос к API и репрезентативные компоненты: 
- * InfoBlock, Diagram, Widget, Loader
- */
-
 import React, { useEffect } from 'react';
 import InfoBlock from '~/components/blocks/InfoBlock';
 import Widget from '~/components/elements/Widget';
-import Diagram from '~/components/elements/Diagram';
 import Loader from '~/components/blocks/Loader';
+import Error from '~/components/blocks/Error';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { loadDispensingsByDay } from '~/store/pages/analytics/trends/overview';
+import { fetchDispensingsByDay } from '~/store/pages/analytics/trends/overview';
+import Diagram from '~/components/elements/Diagram';
 
 const DispensingsByDay = () => {
-  return null;
-
-  const header = 'Напитки по дням'
+  const header = 'Расход ингридиентов';
   const dispatch = useAppDispatch();
-  const dispensingsByDay = useAppSelector(
-    (state) => state.overview.dispensingsByDay
+  const { dispensingsByDay } = useAppSelector(state => state.pages.analytics.trends.overview);
+
+  useEffect(() => {
+    if (dispensingsByDay.status === 'idle') dispatch(fetchDispensingsByDay()); 
+  }, [dispensingsByDay.status])
+
+  if (dispensingsByDay.status === 'loading') return (
+    <InfoBlock layout="single-item" header={header}>
+      <Loader />
+    </InfoBlock>
   );
+  else if (dispensingsByDay.status === 'error') return (
+    <InfoBlock layout="single-item" header={header}>
+      <Error message={dispensingsByDay.error} />
+    </InfoBlock>
+  );
+
   const { previousWeek, currentWeek } = dispensingsByDay.data;
   const previousWeekTotal = previousWeek.reduce(
     (acc, current) => acc + current,
@@ -29,18 +36,6 @@ const DispensingsByDay = () => {
   const currentWeekTotal = currentWeek.reduce(
     (acc, current) => acc + current,
     0
-  );
-  
-
-  useEffect(() => {
-    // @ts-ignore
-    dispatch(loadDispensingsByDay());
-  }, [dispatch]);
-
-  if (dispensingsByDay.status === 'loading') return (
-    <InfoBlock layout="chart-solo" header={header} >
-      <Loader />
-    </InfoBlock>
   );
 
   return (
