@@ -24,10 +24,8 @@ const Overview = () => {
 
   return (
     <div className='page page-analytics__trends__overview'>
-
-      <Header>Обзор</Header>
-
-      <div className="page__content">
+      {/* <Header>Обзор</Header> */}
+      <div className="page__content container">
         {/* Напитки по дням */}
         <DispensingsByDay />
         {/* Расход ингридиентов */}

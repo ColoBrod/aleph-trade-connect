@@ -45,6 +45,20 @@ class Diagram extends Component<Props> {
             display: displayLegend,
             align: 'start',
             position: 'top',
+            labels: {
+              // borderRadius: 4,
+              boxWidth: 8,
+              boxHeight: 8,
+              color: "#1D2129",
+              font: {
+                family: "'Segoi UI', sans-serif",
+                size: 14,
+              },
+            },
+            title: {
+              text: "Неделя",
+              display: false,
+            }
           },
         },
         responsive: true,

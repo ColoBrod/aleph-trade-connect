@@ -2,8 +2,6 @@ import React, { ReactNode } from 'react';
 
 import './style.css';
 
-
-
 interface Props {
   layout: "single-item"
     | "chart" 
@@ -15,6 +13,7 @@ interface Props {
     | "grid-2x2";
   divider?: boolean;
   header?: string;
+  className?: string;
   children: ReactNode
 }
 
@@ -29,10 +28,10 @@ interface Props {
  *    grid-2x2    - 4 виджета
  */
 const InfoBlock = (props: Props): ReactNode => {
-  const { layout, header, children: content } = props;
+  const { layout, header, children: content, className } = props;
 
   return (
-    <div className={`info-block layout-${layout}`}>
+    <div className={`info-block layout-${layout} ${className ? className : ''}`}>
       <div className="info-block__header">{header}</div>
       <div className="info-block__content">
         {content}

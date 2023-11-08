@@ -9,10 +9,10 @@ interface Props {
 const InnerWithNestedTabs = (props: Props) => {
   return (
     <>
+      <Tabs items={props.tabs} layout="bottom" />
       <div className="layout-main__content-area">
         <Outlet />
       </div>
-      <Tabs items={props.tabs} layout="bottom" />
     </>
   );
 }

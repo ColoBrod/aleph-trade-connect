@@ -7,10 +7,10 @@ import Error from '~/components/blocks/Error';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchConsumptions } from '~/store/pages/analytics/trends/overview';
 
-import imgCoffee from '../img/coffee.png';
-import imgMilk from '../img/milk.png';
-import imgWater from '../img/water.png';
-import imgChocolate from '../img/chocolate.png';
+import imgCoffee from './img/coffee.png';
+import imgMilk from './img/milk.png';
+import imgWater from './img/water.png';
+import imgChocolate from './img/chocolate.png';
 
 const Consumptions = () => {
   const period = 30;
@@ -36,33 +36,33 @@ const Consumptions = () => {
   const { water, milk, coffee, chocolate } = consumptions.data;
 
   return (
-    <InfoBlock layout="grid-2x2" header='Расход ингридиентов'>
+    <InfoBlock layout="grid-2x2" header='Расход ингридиентов' className='analytics__trends__consumptions'>
       <Widget 
         icon={imgWater}
         amount={water} 
         toFixed={true}
-        description={<>Литров воды было использовано за последние {period} дней.</>}
+        description={<>Литров воды за {period} дней.</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgMilk}
         amount={milk} 
         toFixed={true}
-        description={<>Литров молока было использовано за последние {period} дней.</>}
+        description={<>Литров молока за {period} дней.</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgCoffee}
         amount={coffee} 
         toFixed={true}
-        description={<>Кг. кофе было использовано за последние {period} дней.</>}
+        description={<>Кг. кофе за {period} дней.</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgChocolate}
         amount={chocolate} 
         toFixed={true}
-        description={<>Кг. шоколада было использовано за последние {period} дней.</>}
+        description={<>Кг. шоколада за {period} дней.</>}
         layout="dashboard"
       />
     </InfoBlock>

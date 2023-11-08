@@ -4,17 +4,11 @@
   height: 100%;
 
   display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: 100px 1fr;
+  grid-template-columns: 72px 1fr;
+  grid-template-rows: 72px 1fr;
 
   .panel {
     &-top {
-      &__search-bar {
-        width: 353px;
-        margin-left: auto;
-        margin-right: 0;
-      }
-
       position: relative;
       grid-column: 1 / -1;
       background-color: black;
@@ -24,11 +18,31 @@
       align-items: center;
       gap: 1rem;
 
+      &__inner {
+        position: absolute;
+        left: 72px;
+        width: calc(100% - 72px);
+        height: 100%;
+        
+        .container {
+          height: 100%;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+
+      &__search-bar {
+        width: 353px;
+        margin-left: auto;
+        margin-right: 0;
+      }
+
       .divider {
         position: absolute;
-        left: 100px;
+        left: 72px;
         transform: translateX(-50%);
-        height: 80px;
+        height: 60px;
         width: 2px;
         background-color: white;
         border-radius: 1px;
@@ -50,24 +64,31 @@
     &-left {
       display: flex;
       flex-direction: column;
-      gap: .7rem;
       background-color: black;
 
       &__item {
         display: block;
+        width: 72px;
         aspect-ratio: 1 / 1;
-        background-color: white;
-        border-radius: 50%;
-        color: black;
-        text-decoration: none;
         display: flex;
         justify-content: center;
         align-items: center;
-        font-weight: 700;
-        font-size: 2rem;
+        
+        img { 
+          width: 30px;
+          height: 30px;
+          transition: all .5s ease;
+          opacity: 0.5; 
+        }
+
+        &.active {
+          background-color: #705141;
+          box-shadow: 4px 4px 8px rgba(0,0,0,0.25) inset;
+          img { opacity: 1.0; }
+        }
       }
-      &__item:last-of-type {
-        margin-top: auto;
+      &__item:hover {
+        img { opacity: 1; }
       }
     }
   }
@@ -75,16 +96,21 @@
   &__inner {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 72px);
+
+    .tabs {
+      flex-shrink: 0;
+    }
     /* height: 100%; */
     /* overflow-y: scroll; */
   } 
 
   &__content-area {
     flex-grow: 1;
-    /* flex-shrink: 1; */
-    flex-basis: fill;
-    overflow: hidden;
+    flex-shrink: 1;
+    /* flex-basis: fill; */
+    /* overflow: hidden; */
+    overflow-y: scroll;
   }
   
 

@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByDay } from '~/store/pages/analytics/trends/overview';
 import Diagram from '~/components/elements/Diagram';
 
+import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
+
 const DispensingsByDay = () => {
   const header = 'Расход ингридиентов';
   const dispatch = useAppDispatch();
@@ -48,21 +50,25 @@ const DispensingsByDay = () => {
           {
             label: 'Текущая неделя',
             data: currentWeek,
+            backgroundColor: COLOR_1,
+            barThickness: 22,
           },
           {
             label: 'Предыдущая неделя',
             data: previousWeek,
+            backgroundColor: COLOR_2,
+            barThickness: 22,
           },
         ]}
       />
       <Widget 
         amount={currentWeekTotal} 
-        description="Выдач за текущую неделю"
+        description="Количество чашек. Текущая неделя."
         layout="chart"
       />
       <Widget 
         amount={previousWeekTotal} 
-        description="Выдач за предыдущую неделю"
+        description="Количество чашек. Предыдущая неделя."
         layout="chart"
       />
     </InfoBlock>

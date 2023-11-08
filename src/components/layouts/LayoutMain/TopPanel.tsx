@@ -13,11 +13,14 @@ const TopPanel = (props: Props) => {
     <div className="panel panel-top">
       <Logo />
       <div className="divider"></div>
-      <AppName color="white" />
-      {/* <Link className='contact-link' to="/contact">Contact</Link> */}
-      <div className="spacer"></div>
-      <SearchBar />
-      <ProfileElement />
+      <div className="panel-top__inner">
+        <div className="container">
+          <AppName color="white" />
+          <div className="spacer"></div>
+          <SearchBar />
+          <ProfileElement />
+        </div>
+      </div>
     </div>
   );
 }

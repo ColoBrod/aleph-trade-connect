@@ -1,14 +1,26 @@
 :root {
+  --shadow: 0 0 3px 1px rgba(0,0,0, 0.25);
+
+  /**
+   * New colors: 
+   */
+  --clr-font-light: #808080;  
+  --clr-font-primary: #49454F;
+  --clr-font-accent: #705141;
+  --clr-info-bg: #F3F3F3;
+  --clr-font: #303030; 
+
+  /**
+   * Old colors: 
+   */
   --clr-bg: #FBFBFB;
   --clr-info-block-border: #D8D8D8; 
 
   --clr-h1: #252423;
   --clr-h2: #323130;
 
-  --clr-info-bg: #F4F4F4;
   --clr-info-dark: #3F3E43;
   --clr-info-light: #999999;
-  --clr-font: #2D242B; 
 
   --clr-badge: #8D8D8D;
 

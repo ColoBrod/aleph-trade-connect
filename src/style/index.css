@@ -44,16 +44,18 @@ body::after { left: 10px; bottom: 10px; }
 }
 
 .container {
+  width: 1574px;
   margin: auto;
 }
 
 .page {
-  height: 100%;
-  padding: 1rem;
+  padding: 50px 0;
+  /* height: 100%; */
+  /* padding: 1rem; */
   /* height: calc(100% - 6rem); */
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 
   &__content {
     flex-grow: 1;

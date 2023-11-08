@@ -10,9 +10,9 @@ import Analytics_Trends_Sales from "~/components/pages/Analytics/Trends/Sales";
 const analytics: RouteObject = { 
   path: "analytics", 
   element: <InnerWithTabs tabs={[
-    { children: "Trends", path: `/analytics/trends` },
-    { children: "Dayly Reports", path: `/analytics/dayly-reports` },
-    { children: "Data Export", path: `/analytics/data-export` },
+    { children: "Трендовая аналитика", path: `/analytics/trends` },
+    { children: "Ежедневные отчеты", path: `/analytics/dayly-reports` },
+    { children: "Экспорт данных", path: `/analytics/data-export` },
   ]} />,
   children: [
     {

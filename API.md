@@ -418,13 +418,13 @@ interface Params {
       // По индексу 1 - напитки выданный в период с 1:00 - 1:59:59
       // ...
       // По индексу 23 - напитки выданный в период с 23:00 - 23:59:59
-      Mon: number[]; 
-      Tue: number[]; 
-      Wed: number[]; 
-      Thu: number[]; 
-      Fri: number[]; 
-      Sat: number[]; 
-      Sun: number[]; 
+      mon: number[]; 
+      tue: number[]; 
+      wed: number[]; 
+      thu: number[]; 
+      fri: number[]; 
+      sat: number[]; 
+      sun: number[]; 
     }
   }
   ~~~

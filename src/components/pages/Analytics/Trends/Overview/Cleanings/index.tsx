@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchCleanings } from '~/store/pages/analytics/trends/overview';
 import Diagram from '~/components/elements/Diagram';
 
+import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
+
 const Cleanings = () => {
   const header = 'Чистки';
   const dispatch = useAppDispatch();
@@ -36,27 +38,32 @@ const Cleanings = () => {
         id="cleanings"
         type="bar"
         labels={["Читски"]}
+        legend={false}
         datasets={[
           {
             label: 'Текущая неделя',
             data: [currentWeek],
+            backgroundColor: COLOR_1,
+            maxBarThickness: 102,
           },
           {
             label: 'Предыдущая неделя',
             data: [previousWeek],
+            backgroundColor: COLOR_2,
+            maxBarThickness: 102,
           },
         ]}
       />
       <Widget 
         amount={currentWeek} 
         toFixed={true}
-        description="Чистки за текущую неделю"
+        description="Чистка машины в день. Текущая неделя."
         layout="chart"
       />
       <Widget 
         amount={previousWeek} 
         toFixed={true}
-        description="Чистки за предыдущую неделю"
+        description="Чистка машины в день. Предыдущая неделя."
         layout="chart"
       />
     </InfoBlock>

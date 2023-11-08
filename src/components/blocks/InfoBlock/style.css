@@ -1,20 +1,22 @@
 .info-block {
-  padding: .7rem;
-  border-width: 1px;
-  border-color: var(--clr-info-block-border);
-  border-style: solid;
-  border-radius: .6rem;
+  padding: 16px;
+  /* border-width: 1px; */
+  /* border-color: var(--clr-info-block-border); */
+  /* border-style: solid; */
+  border-radius: 12px;
   background-color: var(--clr-info-bg);
   overflow: hidden;
 
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow);
 
   &__header {
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: 14px;
+    line-height: 20px;
     color: var(--clr-font);
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
   }
 
   &__content {

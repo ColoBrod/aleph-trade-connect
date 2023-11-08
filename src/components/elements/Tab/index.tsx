@@ -5,12 +5,13 @@ import { NavLink } from 'react-router-dom';
 export interface Props {
   children: string;
   path: string;
+  layout?: 'top' | 'bottom';
 }
 
 const Tab = (props: Props) => {
-  const { children, path } = props;
+  const { children, layout, path } = props;
   return (
-    <NavLink className="tab" to={path}>{children}</NavLink>
+    <NavLink className={`tab tab-${layout}`} to={path}>{children}</NavLink>
   );
 }
  

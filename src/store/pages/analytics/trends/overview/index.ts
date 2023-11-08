@@ -1,11 +1,11 @@
-import { createSlice, nanoid, createAsyncThunk } from "@reduxjs/toolkit"
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 // import { apiCallBegan } from "~/store/middleware/api";
 import axios from 'axios';
 import config from "~/config";
 
-const BASE_URL = config.api.url + "/analytics/trends/overview";
+import { Status } from '~/interfaces/common';
 
-type Status = 'idle' |'loading' | 'success' | 'error';
+const BASE_URL = config.api.url + "/analytics/trends/overview";
 
 interface OverviewState {
   dispensingsByDay: {

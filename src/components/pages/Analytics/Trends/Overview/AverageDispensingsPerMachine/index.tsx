@@ -7,6 +7,7 @@ import Error from '~/components/blocks/Error';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByHierarchyLevel } from '~/store/pages/analytics/trends/overview';
 import Diagram from '~/components/elements/Diagram';
+import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const AverageDispensingsPerMachine = () => {
   const header = 'Среднее количество напитков на одну машину';
@@ -28,16 +29,16 @@ const AverageDispensingsPerMachine = () => {
     </InfoBlock>
   );
 
-  const datasets = dispensingsPerMachineAverage.data.map(item => ({ label: item.name, data: [item.value] }));
-  // const { } = dispensingsPerMachineAverage.data;
-
+  const datasets = dispensingsPerMachineAverage.data.map((item, i) => ({ label: item.name, data: [item.value], backgroundColor: [COLOR_1, COLOR_2, COLOR_3][i] }));
+  //Среднее количество...
   return(
     <InfoBlock layout="chart-solo" header={header}>
       <Diagram
         id="average-dispensings-per-machine"
         type="bar"
-        labels={["Среднее количество..."]}
+        labels={[""]}
         datasets={datasets}
+        direction='horizontal'
       />
     </InfoBlock>
   );
