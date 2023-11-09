@@ -12,6 +12,7 @@ import imgClock from './img/clock.png';
 import imgDispensing from './img/dispensing.png';
 import RegionTree from '~/components/blocks/RegionTree';
 import TimeRange from '~/components/elements/TimeRange';
+import DatePicker from '~/components/elements/DatePicker';
 
 const DaylyReports = () => {
   const period = 55;
@@ -26,7 +27,33 @@ const DaylyReports = () => {
       <div className="page__content">
 
         <div className="filters">
-          <RegionTree />
+          <div className="filters-section">
+            <div className="filters-section__title">
+              Диапазон по времени
+            </div>
+            <div className="filters-section__subtitle">
+              (Максимум 62 дня назад)
+            </div>
+            <div className="filters-section__component">
+              <DatePicker />
+            </div>
+          </div>
+          <div className="filters-section">
+            <div className="filters-section__title">
+              Рестораны
+            </div>
+            <div className="filters-section__component">
+              <RegionTree />
+            </div>
+          </div>
+          <div className="filters-section">
+            <div className="filters-section__title">
+              Модель кофемашины
+            </div>
+            <div className="filters-section__component">
+              {/* Component area */}
+            </div>
+          </div>
         </div>
 
         {/* Напитки по ресторанам */}

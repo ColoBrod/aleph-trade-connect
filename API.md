@@ -85,7 +85,7 @@ interface Params {
     // может совпадать частично с фактическим номером кофе-машины
     serialNumberSubstrings: string[]; 
 
-    errors: number; // ID ошибок кофе-машин
+    errors: number[]; // ID ошибок кофе-машин
   }
 }
 
