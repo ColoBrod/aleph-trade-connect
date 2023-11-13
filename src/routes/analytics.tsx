@@ -6,6 +6,8 @@ import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Analytics_Trends_Overview from "~/components/pages/Analytics/Trends/Overview";
 import DaylyReports from "~/components/pages/Analytics/DaylyReports";
 import Analytics_Trends_Sales from "~/components/pages/Analytics/Trends/Sales";
+import Analytics_DataExport_Beverages from "~/components/pages/Analytics/DataExport/Beverages";
+import Analytics_DataExport_Cleanings from "~/components/pages/Analytics/DataExport/Cleanings";
 
 const analytics: RouteObject = { 
   path: "analytics", 
@@ -69,11 +71,11 @@ const analytics: RouteObject = {
         },
         {
           path: "beverages",
-          element: <h1>Напитки</h1>,
+          element: <Analytics_DataExport_Beverages />,
         },
         {
           path: "cleanings",
-          element: <h1>Чистки</h1>,
+          element: <Analytics_DataExport_Cleanings />,
         },
       ]
     },

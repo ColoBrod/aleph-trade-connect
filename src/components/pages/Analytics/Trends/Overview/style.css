@@ -1,12 +1,30 @@
+@import 'style/media-queries';
+
 .page-analytics__trends__overview {
 
   .page__content {
     display: grid;
     /* gap-ro: 1rem; */
     row-gap: 40px;
-    column-gap: 69px;
-    grid-template-columns: 854px 653px;
-    grid-template-rows: repeat(2, 350px);
+    @media (--xl) {
+      grid-template-columns: 854px 653px;
+      grid-template-rows: repeat(2, 350px);
+      column-gap: 69px;
+    }
+    @media (--lg) {
+      grid-template-columns: 653px 499px;
+      grid-template-rows: repeat(2, 268px);
+      column-gap: 68px;
+    }
+    @media (--md) {
+
+    }
+    @media (--sm) {
+
+    }
+    @media (--xs) {
+
+    }
   } 
 
   .info-block.analytics__trends__consumptions {

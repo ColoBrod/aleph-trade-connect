@@ -1,0 +1,57 @@
+.ddl {
+  &-outter {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  
+  &-label {
+    font-size: 14px;
+    line-height: 20px;
+    /* font-weight: bold; */
+  }
+
+  &-wrapper {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  &-wrapper::after {
+    display: block;
+    content: '';
+    z-index: 10;
+    width: 1px;
+    background-color: var(--clr-info-light);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 20px;
+  }
+
+  cursor: pointer;
+  height: 32px;
+  border-radius: 4px;
+  border-color: var(--clr-info-light);
+  border-width: 1px;
+  border-style: solid;
+  background-color: #ffffff;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 32px 5px 12px;
+  text-align: left;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("arrow.svg");
+  background-position: right 4px center;
+  background-repeat: no-repeat;
+
+  &::after {
+    
+  }
+
+  &:focus {
+    outline: none;
+  }
+}

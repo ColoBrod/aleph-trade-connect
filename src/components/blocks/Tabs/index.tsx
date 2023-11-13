@@ -1,4 +1,7 @@
 import React, { ReactNode } from 'react';
+import { MEDIA_LG_MIN } from '~/media-queries';
+// import { useMediaQuery } from 'react-responsive';
+import { use_LG_MIN } from '~/media-queries';
 
 import './style.css'
 
@@ -6,11 +9,8 @@ import './style.css'
 import Tab, { Props as TabProps }  from '~/components/elements/Tab';
 import { TabsLayout } from '~/interfaces/blocks-and-elements';
 import Widget from '~/components/elements/Widget';
+import HeaderWidgets from '../HeaderWidgets';
 
-// Images
-import imgCoffeeMaker from './img/coffee-maker.svg';
-import imgClock from './img/clock.svg';
-import imgCoffee from './img/coffee.svg';
 
 interface Props {
   layout: TabsLayout;
@@ -19,6 +19,13 @@ interface Props {
 
 const Tabs = (props: Props) => {
   const { layout, items } = props;
+
+  // const lgMin = useMediaQuery({
+  //   query: `(min-width: ${MEDIA_LG_MIN}px)`,
+  // });
+
+  const lgMin = use_LG_MIN();
+
   if (items.length === 0) return null;
   return (
     <nav className={`tabs tabs-${layout}`}>
@@ -27,27 +34,8 @@ const Tabs = (props: Props) => {
           items.map(item => <Tab layout={layout} key={item.path} path={item.path}>{item.children}</Tab>  )
         }
         {
-          layout === 'bottom'
-            ? <div className="header-widgets">
-                <Widget
-                  icon={imgCoffeeMaker}
-                  layout='header'
-                  amount={4}
-                  description={"Кофемашины"}
-                />
-                <Widget
-                  icon={imgCoffee}
-                  layout='header'
-                  amount={4120}
-                  description={"За 30 дней"}
-                />
-                <Widget
-                  icon={imgClock}
-                  layout='header'
-                  amount={"01.11.2023 14:55:46"}
-                  description={"Последнияя синхронизация"}
-                />
-              </div>
+          layout === 'bottom' && lgMin
+            ? <HeaderWidgets />
             : null
         }
       </div>

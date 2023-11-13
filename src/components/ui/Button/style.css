@@ -1,9 +1,17 @@
-.component-btn {
+.btn {
+  img {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
   display: inline-block;
-  padding: 1rem 1.6rem;
-  background-color: dodgerblue;
-  color: white;
-  border-radius: .4rem;
+  padding: 10px 32px;
+  background-color: #F8F8F8;
+  color: var(--clr-font);
+  border-radius: 6px;
   cursor: pointer;
   text-align: center;
+  font-size: 18px;
+  line-height: 20px;
+  box-shadow: var(--shadow);
 }

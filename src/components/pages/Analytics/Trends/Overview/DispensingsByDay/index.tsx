@@ -11,7 +11,7 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByDay = () => {
-  const header = 'Расход ингридиентов';
+  const header = 'Напитки по дням';
   const dispatch = useAppDispatch();
   const { dispensingsByDay } = useAppSelector(state => state.pages.analytics.trends.overview);
 
@@ -52,14 +52,30 @@ const DispensingsByDay = () => {
             data: currentWeek,
             backgroundColor: COLOR_1,
             barThickness: 22,
+            // barPercentage: 0.5,
+            // categoryPercentage: 0.5,
           },
           {
             label: 'Предыдущая неделя',
             data: previousWeek,
             backgroundColor: COLOR_2,
             barThickness: 22,
+            // barPercentage: 0.5,
+            // categoryPercentage: 0.5,
           },
         ]}
+        scales={{
+          x: {
+            grid: {
+              display: false,
+            },
+          },
+          y: {
+            border: {
+              dash: [4, 4],
+            }
+          },
+        }}
       />
       <Widget 
         amount={currentWeekTotal} 

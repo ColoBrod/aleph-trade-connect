@@ -14,7 +14,7 @@ const TopPanel = (props: Props) => {
       <Logo />
       <div className="divider"></div>
       <div className="panel-top__inner">
-        <div className="container">
+        <div className="container-fluid">
           <AppName color="white" />
           <div className="spacer"></div>
           <SearchBar />

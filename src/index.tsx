@@ -5,8 +5,9 @@ import { RouterProvider } from 'react-router-dom';
 // Styles
 import '@style/normalize.css';
 import '@style/index.css';
-import '@style/adaptiveness.css'
-import '@style/adaptiveness-debug.css'
+import '@style/inputs.css';
+import '@style/adaptiveness.css';
+import '@style/adaptiveness-debug.css';
 
 // 
 

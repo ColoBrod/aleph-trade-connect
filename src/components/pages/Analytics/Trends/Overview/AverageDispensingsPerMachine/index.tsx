@@ -29,16 +29,44 @@ const AverageDispensingsPerMachine = () => {
     </InfoBlock>
   );
 
-  const datasets = dispensingsPerMachineAverage.data.map((item, i) => ({ label: item.name, data: [item.value], backgroundColor: [COLOR_1, COLOR_2, COLOR_3][i] }));
-  //Среднее количество...
+  const data = dispensingsPerMachineAverage.data.map(item => item.value);
+  const labels = dispensingsPerMachineAverage.data.map(item => item.name)
+  
+    // label: item.name, 
+  const datasets = [{
+    data, 
+    label: "Выдачи по машине",
+    backgroundColor: COLOR_3,
+    barPercentage: 0.7,
+  }]
+
   return(
     <InfoBlock layout="chart-solo" header={header}>
       <Diagram
         id="average-dispensings-per-machine"
         type="bar"
-        labels={[""]}
+        legend={false}
+        labels={labels}
         datasets={datasets}
         direction='horizontal'
+        innerBarText={{
+          display: true
+        }}
+        scales={{
+          x: {
+            border: {
+              dash: [4,4],
+            }
+          },
+          y: {
+            grid: {
+              display:false,
+            },
+            ticks: {
+              display: false,
+            }
+          }
+        }}
       />
     </InfoBlock>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from '~/components/blocks/Header';
 import InfoBlock from '~/components/blocks/InfoBlock';
 
 import './style.css';
@@ -10,51 +9,18 @@ import imgBeverage from './img/beverage.png';
 import imgCalendar from './img/calendar.png';
 import imgClock from './img/clock.png';
 import imgDispensing from './img/dispensing.png';
-import RegionTree from '~/components/blocks/RegionTree';
-import TimeRange from '~/components/elements/TimeRange';
-import DatePicker from '~/components/elements/DatePicker';
+
+import FiltersAside from '~/components/blocks/FiltersAside';
 
 const DaylyReports = () => {
   const period = 55;
-  // backgroundColor: '#3F3E43',
-  // backgroundColor: '#999999',
 
   return (
     <div className='page page-analytics__dayly-reports'>
 
-      <Header>Ежедневные отчеты</Header>
+      <div className="page__content container container-left">
 
-      <div className="page__content">
-
-        <div className="filters">
-          <div className="filters-section">
-            <div className="filters-section__title">
-              Диапазон по времени
-            </div>
-            <div className="filters-section__subtitle">
-              (Максимум 62 дня назад)
-            </div>
-            <div className="filters-section__component">
-              <DatePicker />
-            </div>
-          </div>
-          <div className="filters-section">
-            <div className="filters-section__title">
-              Рестораны
-            </div>
-            <div className="filters-section__component">
-              <RegionTree />
-            </div>
-          </div>
-          <div className="filters-section">
-            <div className="filters-section__title">
-              Модель кофемашины
-            </div>
-            <div className="filters-section__component">
-              {/* Component area */}
-            </div>
-          </div>
-        </div>
+        <FiltersAside />
 
         {/* Напитки по ресторанам */}
         <InfoBlock layout="chart-2" header='Напитки по ресторанам'>

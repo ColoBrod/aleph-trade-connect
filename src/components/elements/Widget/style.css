@@ -86,7 +86,7 @@
     }
 
     .widget__description {
-      padding: 0 20px;
+      /* padding: 0 20px; */
       word-wrap: wrap;
       font-size: 14px;
       text-align: center;

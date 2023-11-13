@@ -6,13 +6,16 @@ interface Props {
   id: string;
   checked: boolean;
   label: string;
+  onClick?: (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
 }
 
 const Checkbox = (props: Props) => {
-  const { id, checked, label } = props;
+  const { id, checked, label, onClick: handleClick } = props;
+  // checked={checked}
+  // handleClick
   return (
     <div className='component-checkbox'>
-      <input type="checkbox" id={id} name={id} checked={checked} />
+      <input onClick={handleClick} type="checkbox" id={id} name={id}  />
       <label htmlFor={id}>{label}</label>
     </div>
   );

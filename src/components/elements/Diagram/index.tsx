@@ -1,6 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, ReactNode } from 'react';
+// import { useMediaQuery } from 'react-responsive'
 import Chart, { BubbleDataPoint, CartesianScaleTypeRegistry, ChartConfiguration, ChartData, ChartDataset, ChartTypeRegistry, Point, ScaleOptionsByType, scales } from 'chart.js/auto';
 import { _DeepPartialObject } from 'chart.js/dist/types/utils';
+
+import './plugin-inner-bar-text';
+
+import './style.css';
+
+// @ts-ignore
+// window.Chart = Chart;
+// @ts-ignore
+window.chart = {};
 
 interface Props {
   id: string;
@@ -12,6 +22,10 @@ interface Props {
   scales?: _DeepPartialObject<{
     [key: string]: ScaleOptionsByType<"radialLinear" | keyof CartesianScaleTypeRegistry>;
   }> | undefined;
+  innerBarText?: {
+    display: boolean;
+  };
+  doughnutInner?: ReactNode;
 }
 
 class Diagram extends Component<Props> {
@@ -19,6 +33,7 @@ class Diagram extends Component<Props> {
 	private chartRef = React.createRef<HTMLCanvasElement>();
 
   private config: ChartConfiguration;
+  private chart: any;
 
   constructor(props: Props) {
     super(props);
@@ -28,6 +43,9 @@ class Diagram extends Component<Props> {
     // data.datasets = ;
     // Other config props
     const { type, legend: displayLegend = true, direction = "vertical", scales } = props;
+    const { innerBarText } = props;
+    console.log("Inner bar text", innerBarText);
+    // innerBarText = innerBarText ? true : false;
     this.config = {
       type,
       data: {
@@ -38,6 +56,8 @@ class Diagram extends Component<Props> {
         maintainAspectRatio: false,
         indexAxis: direction === "horizontal" ? 'y' : 'x',
         plugins: {
+          // @ts-ignore
+          innerBarText: innerBarText ? innerBarText : false,
           colors: {
             enabled: false,
           },
@@ -63,27 +83,61 @@ class Diagram extends Component<Props> {
         },
         responsive: true,
         scales: scales,
+        elements: type === 'line' ? {
+          point: { radius: 0 },
+        } : undefined,
+        // @ts-ignore
+        cutout: type === "doughnut" ? 74 : undefined,
       }
     }
+    
   }
 
   componentDidMount() {
     const { config } = this;
+    const { id } = this.props;
     const node = this.chartRef.current;
 		const ctx = node?.getContext("2d");
-    if (ctx) new Chart(ctx, config);
+    if (ctx) this.chart = new Chart(ctx, config);
+    // @ts-ignore
+    window.chart[id] = this.chart;
+    // @ts-ignore
+    // if (this.chart) window.chart = this.chart;
 	}
 
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void {
+    // console.log(this.config.data.datasets)
+    const initial = JSON.stringify(this.config.data.datasets);
+    const final = JSON.stringify(this.props.datasets);
+    if (initial === final) return;
+    // Object.assign(this.config.data.datasets, this.props.datasets);
+    this.config.data.datasets = this.props.datasets;
+    this.chart.update(); // 'none'
+  }
+
   render() {
-    const { id } = this.props;
+    // const xl = useMediaQuery({ query: `(min-width: 1740px)` });
+    // const lg = useMediaQuery({ query: `(min-width: 1220px) and (max-width: 1739px)` });
+    const { id, type, doughnutInner } = this.props;
+    // console.log("xl:", xl);
+    // console.log("lg:", lg);
+    // this.chart.update();
+
 		return (
-      <div className={`diagram diagram__${id}`}>
+      <div className={`diagram diagram__${id}`} >
         <canvas
           id={id}
           ref={this.chartRef}
         />
+        {
+          type === 'doughnut' 
+            ? <div className="diagram__doughnut-inner">
+                { doughnutInner || "" }
+              </div>
+            : null
+        }
       </div>
-    )
+    );
 	}
 }
 

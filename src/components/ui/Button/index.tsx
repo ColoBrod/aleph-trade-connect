@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import './style.css';
 
 interface Props {
-  children: string;
+  children: ReactNode;
+  layout?: "light";
+  onClick?: () => void;
 }
 
 const Button = (props: Props) => {
-  const { children } = props;
+  const { children, layout = "light", onClick } = props;
   return (
-    <div className='component-btn'>
+    <div className={`btn btn-${layout}`} onClick={onClick}>
       { children }
     </div>
   );

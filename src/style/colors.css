@@ -9,6 +9,8 @@
   --clr-font-accent: #705141;
   --clr-info-bg: #F3F3F3;
   --clr-font: #303030; 
+  --clr-info-light: #999999;
+  --clr-scrollbar: #165DFF;
 
   /**
    * Old colors: 
@@ -20,7 +22,6 @@
   --clr-h2: #323130;
 
   --clr-info-dark: #3F3E43;
-  --clr-info-light: #999999;
 
   --clr-badge: #8D8D8D;
 

@@ -8,6 +8,8 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByDate } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
 
+import { COLOR_2 } from '~/components/elements/Diagram/colors';
+
 // import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByDate = () => {
@@ -39,6 +41,8 @@ const DispensingsByDate = () => {
     data.push(el.dispensings);
     total += el.dispensings;
   });
+  // Это значение для самой высокой горизонтальной линии
+  const maxValue = Math.max(...data) * 1.2;
 
   return (
     <InfoBlock layout="chart" header={header}>
@@ -50,10 +54,34 @@ const DispensingsByDate = () => {
         datasets={[
           {
             data: data,
+            fill: true,
+            borderColor: COLOR_2,
+            // @ts-ignore
+            backgroundColor: (context) => {
+              if (!context?.chart?.chartArea) return;
+              const { ctx, data, chartArea: { top, bottom } } = context.chart;
+              const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
+              gradientBg.addColorStop(0, '#C97917');
+              gradientBg.addColorStop(1, 'white');
+              return gradientBg;
+            }
           },
         ]}
         scales={{
-          y: { min: 0 },
+          x: {
+            grid: {
+              display: false,
+            }
+          },
+          y: { 
+            min: 0, 
+            max: maxValue,
+            border: { dash: [4, 4] },
+            grid: {
+              // drawTicks: true,
+              // tickBorderDash: [8, 4],
+            },
+          },
         }}
         
       />

@@ -1,0 +1,53 @@
+.filters.filters-aside {
+  padding: 0 16px;
+  /* background-color: gray; */
+  grid-row: 1 / -1;
+  grid-column: 1 / 2;
+  
+  .filters-section {
+    margin-bottom: 30px;
+  
+    /* Sections */
+  
+    &-restaurants {
+      /* .filters-section__component {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      } */
+      .search-input {
+        margin-bottom: 20px;
+      }
+    }
+  
+    .sn-badges {
+      margin-top: 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  
+    /* End-Sections */
+  
+    &__header {
+      margin-bottom: 20px;
+    }
+  
+    &__title {
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 20px;
+    }
+    &__subtitle {
+      font-size: 14px;
+      font-weight: 350;
+      line-height: 20px;
+    }
+    &__component {
+  
+    }
+  }
+}
+

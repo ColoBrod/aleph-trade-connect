@@ -7,12 +7,14 @@ import Error from '~/components/blocks/Error';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByRecipe } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
+import { COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByRecipe = () => {
   const period = 30;
   const header = 'Выдачи по рецептам';
   const dispatch = useAppDispatch();
   const { dispensingsByRecipe } = useAppSelector(state => state.pages.analytics.trends.sales);
+  
 
   useEffect(() => {
     if (dispensingsByRecipe.status === 'idle') dispatch(fetchDispensingsByRecipe()); 
@@ -51,8 +53,21 @@ const DispensingsByRecipe = () => {
         legend={false}
         labels={labels}
         datasets={[
-          { data },
+          { 
+            data,
+            // 13
+            barThickness: 13,
+            backgroundColor: COLOR_3,
+          },
         ]}
+        scales={{
+          x: {
+            border: { dash: [4, 4] },
+          },
+          y: {
+            grid: { display: false },
+          },
+        }}
       />
       <Widget 
         amount={mostPopular}

@@ -19,7 +19,7 @@ body {
 }
 
 body::before, body::after {
-  display: none;
+  display: block;
   color: #FCFCFC;
   font-weight: 400;
   position: fixed;
@@ -46,21 +46,26 @@ body::after { left: 10px; bottom: 10px; }
 .container {
   width: 1574px;
   margin: auto;
+
+  &-left {
+    margin-left: 0;
+  }
+
+  &-fluid {
+    width: 100% !important;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .page {
   padding: 50px 0;
-  /* height: 100%; */
-  /* padding: 1rem; */
-  /* height: calc(100% - 6rem); */
   display: flex;
   flex-direction: column;
-  /* overflow-y: scroll; */
 
   &__content {
     flex-grow: 1;
     flex-shrink: 1;
-    /* overflow-y: scroll; */
   }
 
   /* &__overview {

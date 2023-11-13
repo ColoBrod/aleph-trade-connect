@@ -42,6 +42,10 @@ interface SalesState {
       fri: number[];
       sat: number[];
       sun: number[];
+    };
+    filters: {
+      timeStart: number;
+      timeEnd: number;
     }
   };
   dispensingsByWeek: {
@@ -89,7 +93,11 @@ const initialState: SalesState = {
       fri: [],
       sat: [],
       sun: [],
-    }
+    },
+    filters: {
+      timeStart: 0,
+      timeEnd: 24,
+    },
   },
   dispensingsByWeek: {
     status: 'idle',
@@ -137,9 +145,18 @@ export const fetchDispensingsByPath = createAsyncThunk('analytics/trends/sales/d
 });
 
 const slice = createSlice({
-  name: 'overview',
+  name: 'sales',
   initialState,
-  reducers: {},
+  reducers: {
+    timeSet: (state, action) => {
+      const { timeStart, timeEnd } = action.payload;
+      if (typeof timeStart === 'number') 
+        state.dispensingsByWeekdayAndTime.filters.timeStart = timeStart;
+      if (typeof timeEnd === 'number')
+        state.dispensingsByWeekdayAndTime.filters.timeEnd = timeEnd;
+    }
+
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchDispensingsByDate.pending, (state, action) => {
@@ -181,7 +198,49 @@ const slice = createSlice({
         const { message } = action.error;
         if (message) state.dispensingsByRecipe.error = message;
       })
+      .addCase(fetchDispensingsByWeekdayAndTime.pending, (state, action) => {
+        state.dispensingsByWeekdayAndTime.status = 'loading';
+      })
+      .addCase(fetchDispensingsByWeekdayAndTime.fulfilled, (state, action) => {
+        state.dispensingsByWeekdayAndTime.status = 'success';
+        const { dispensings } = action.payload;
+        state.dispensingsByWeekdayAndTime.data = dispensings;
+      })
+      .addCase(fetchDispensingsByWeekdayAndTime.rejected, (state, action) => {
+        state.dispensingsByWeekdayAndTime.status = 'error';
+        const { message } = action.error;
+        if (message) state.dispensingsByWeekdayAndTime.error = message;
+      })
+
+      .addCase(fetchDispensingsByWeek.pending, (state, action) => {
+        state.dispensingsByWeek.status = 'loading';
+      })
+      .addCase(fetchDispensingsByWeek.fulfilled, (state, action) => {
+        state.dispensingsByWeek.status = 'success';
+        const { dispensingsByWeek } = action.payload;
+        state.dispensingsByWeek.data = dispensingsByWeek;
+      })
+      .addCase(fetchDispensingsByWeek.rejected, (state, action) => {
+        state.dispensingsByWeek.status = 'error';
+        const { message } = action.error;
+        if (message) state.dispensingsByWeek.error = message;
+      })
+
+      .addCase(fetchDispensingsByPath.pending, (state, action) => {
+        state.dispensingsByPath.status = 'loading';
+      })
+      .addCase(fetchDispensingsByPath.fulfilled, (state, action) => {
+        state.dispensingsByPath.status = 'success';
+        const { dispensingsByPath } = action.payload;
+        state.dispensingsByPath.data = dispensingsByPath;
+      })
+      .addCase(fetchDispensingsByPath.rejected, (state, action) => {
+        state.dispensingsByPath.status = 'error';
+        const { message } = action.error;
+        if (message) state.dispensingsByPath.error = message;
+      })
   },
 });
 
+export const { timeSet } = slice.actions;
 export default slice.reducer;

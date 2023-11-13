@@ -1,49 +1,75 @@
-.picker {
-  display: grid;
-  grid-template-columns: 115px 115px 53px;
-  grid-template-rows: 20px 40px;
-  row-gap: 0;
-  column-gap: 5px;
-
-  &__from-txt {
-
+.picker.picker-date {
+  .picker__input {
+    &::-webkit-calendar-picker-indicator {
+      background-image: url('calendar.svg');
+    }
   }
+}
 
-  &__to-txt {
+/* .picker {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 65px;
+  gap: 5px;
+  margin-bottom: 6px;
 
-  }
+  &__input {
+    position: relative;
+    display: inline-block;
+    width: 121px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    outline: none;
+    border-radius: 4px;
+    border-color: var(--clr-info-light);
+    border-width: 1px;
+    border-style: solid;
+    color: var(--clr-info-light);
+    text-align: right;
+    
 
-  &__from-input, &__to-input {
-    display: flex;
-    justify-content: space-between;
-    align-items: stretch;
+    &:focus {
+      color: var(--clr-font);
+      border-color: var(--clr-font-accent);
+    }
 
-    input { 
-      flex-basis: 100%;
-      flex-shrink: 1;
-      flex-grow: 1;
+    &::-webkit-calendar-picker-indicator {
+      color: rgba(0, 0, 0, 0);
+      opacity: 1;
+      display: block;
+      background-image: url('calendar.svg');
+      background-repeat: no-repeat;
+      width: 32px;
+      height: 32px;
+      background-position: 5px;
+      border-width: thin;
+    }
+
+    &::before {
+      color: var(--clr-font);
+      position: absolute;
+      display: block;
+      height: 13px;
+      line-height: 13px;
+      width: 30px;
+      text-align: left;
+      top: -17px;
+      left: 0;
+    }
+    &.start::before {
+      content: 'От';
+    }
+    &.end::before {
+      content: 'До';
     }
 
   }
 
-  &__from-input {
-    grid-row: 2 / 3;
-    grid-column: 1 / 2;
-  }
-
-  &__to-input {
-    grid-row: 2 / 3;
-    grid-column: 2 / 3;
-  }
-
   &__icon {
-    grid-row: 2 / 3;
-    grid-column: 3 / 4;
+    display: inline-block;
   }
 
-}
-
-.react-datepicker-wrapper {
-  height: 100%;
-
-}
+} */

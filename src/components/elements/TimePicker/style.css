@@ -1,0 +1,12 @@
+.picker.picker-time {
+  .picker__input {
+    text-align: left;
+
+    &::-webkit-calendar-picker-indicator {
+      width: 26px;
+      height: 26px;
+      background-image: url('clock.svg');
+      background-position-x: 4px;
+    }
+  }
+}

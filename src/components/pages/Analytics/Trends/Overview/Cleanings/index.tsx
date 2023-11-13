@@ -31,6 +31,7 @@ const Cleanings = () => {
   );
 
   const { previousWeek, currentWeek } = cleanings.data;
+  console.log([currentWeek])
 
   return(
     <InfoBlock layout="chart" header={header}>
@@ -45,14 +46,28 @@ const Cleanings = () => {
             data: [currentWeek],
             backgroundColor: COLOR_1,
             maxBarThickness: 102,
+            categoryPercentage: 0.6,
           },
           {
             label: 'Предыдущая неделя',
             data: [previousWeek],
             backgroundColor: COLOR_2,
             maxBarThickness: 102,
+            categoryPercentage: 0.6,
           },
         ]}
+        scales={{
+          x: {
+            grid: {
+              display: false,
+            }
+          },
+          y: {
+            border: {
+              dash: [4, 4],
+            }
+          }
+        }}
       />
       <Widget 
         amount={currentWeek} 

@@ -2,31 +2,11 @@
 
   .page__content {
     display: grid;
-    gap: 1rem;
-    grid-template-columns: 30rem repeat(2, 1fr);
-    grid-template-rows: repeat(3, 50rem);
+    gap: 40px 69px;
+    grid-template-columns: 285px repeat(2, 1fr);
+    grid-template-rows: repeat(3, 350px);
 
-    .filters {
-      /* background-color: gray; */
-      grid-row: 1 / -1;
-      grid-column: 1 / 2;
-    }
-
-    .filters-section {
-      &__title {
-        font-size: 16px;
-        font-weight: 600;
-        line-height: 20px;
-      }
-      &__subtitle {
-        font-size: 14px;
-        font-weight: 350;
-        line-height: 20px;
-      }
-      &__component {
-
-      }
-    }
+    
 
 
 
