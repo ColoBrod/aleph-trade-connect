@@ -20,6 +20,7 @@ import DispensingsByHour from './DispensingsByHours';
 import CleaningsByRestaurant from './CleaningsByRestaurant';
 import DispensingsByWeekday from './DispensiingsByWeekday';
 import DispensingsByRecipe from './DispensingsByRecipe';
+import DispensingsByCupSize from './DispensingsByCupSize';
 
 const DaylyReports = () => {
   const period = 55;
@@ -48,7 +49,8 @@ const DaylyReports = () => {
         <DispensingsByRecipe />
         
         {/* Напитки по размеру чашки */}
-        <InfoBlock layout="chart-7" header='Напитки по размеру чашки'>
+        <DispensingsByCupSize />
+        {/* <InfoBlock layout="chart-7" header='Напитки по размеру чашки'>
           <Diagram 
             id="beverages-by-cup-size"
             type="doughnut"
@@ -79,7 +81,7 @@ const DaylyReports = () => {
             layout='dayly-reports-3'
             align='center'
           />
-        </InfoBlock>
+        </InfoBlock> */}
 
 
       </div>

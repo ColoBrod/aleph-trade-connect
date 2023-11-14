@@ -5,7 +5,7 @@ import Loader from '~/components/blocks/Loader';
 import Error from '~/components/blocks/Error'
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { fetchDispensingsByRecipe } from '~/store/pages/analytics/dayly-reports'; 
+import { fetchDispensingsByCupSize } from '~/store/pages/analytics/dayly-reports'; 
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
@@ -20,7 +20,7 @@ const DispensingsByCupSize = () => {
   const { dispensingsByCupSize } = useAppSelector(state => state.pages.analytics.daylyReports);
 
   useEffect(() => {
-    if (dispensingsByCupSize.status === 'idle') dispatch(fetchDispensingsByRecipe()); 
+    if (dispensingsByCupSize.status === 'idle') dispatch(fetchDispensingsByCupSize()); 
   }, [dispensingsByCupSize.status]);
 
   if (dispensingsByCupSize.status === 'loading') return (
