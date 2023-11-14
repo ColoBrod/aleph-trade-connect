@@ -6,7 +6,15 @@
     grid-template-columns: 285px repeat(2, 1fr);
     grid-template-rows: repeat(3, 350px);
 
-    
+    .info-block .diagram__dispensings-by-hours {
+      overflow-x: scroll;
+      overflow-y: hidden;
+    }
+
+    .info-block .diagram #dispensings-by-hours {
+      /* height: 100%; */
+      /* width: 200%; */
+    }
 
 
 

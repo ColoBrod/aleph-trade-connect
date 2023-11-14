@@ -5,43 +5,40 @@ import Loader from '~/components/blocks/Loader';
 import Error from '~/components/blocks/Error'
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { fetchDispensingsByRestaurant } from '~/store/pages/analytics/dayly-reports'; 
+import { fetchCleaningsByRestaurant } from '~/store/pages/analytics/dayly-reports'; 
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
 
-const DispensingsByRestaurant = () => { 
-  const header = 'Напитки по ресторанам';
+const CleaningsByRestaurant = () => {
   const period = 30;
+  const header = "Соблюдение правил чистки ресторанами";
   const dispatch = useAppDispatch();
 
-  const { dispensingsByRestaurant } = useAppSelector(state => state.pages.analytics.daylyReports);
+  const { cleaningsByRestaurant } = useAppSelector(state => state.pages.analytics.daylyReports);
 
   useEffect(() => {
-    if (dispensingsByRestaurant.status === 'idle') dispatch(fetchDispensingsByRestaurant()); 
-  }, [dispensingsByRestaurant.status]);
+    if (cleaningsByRestaurant.status === 'idle') dispatch(fetchCleaningsByRestaurant()); 
+  }, [cleaningsByRestaurant.status]);
 
-  if (dispensingsByRestaurant.status === 'loading') return (
+  if (cleaningsByRestaurant.status === 'loading') return (
     <InfoBlock layout="single-item" header={header}>
       <Loader />
     </InfoBlock>
   );
-  else if (dispensingsByRestaurant.status === 'error') return (
+  else if (cleaningsByRestaurant.status === 'error') return (
     <InfoBlock layout="single-item" header={header}>
-      <Error message={dispensingsByRestaurant.error} />
+      <Error message={cleaningsByRestaurant.error} />
     </InfoBlock>
   );
-
-  const { data: list } = dispensingsByRestaurant;
-  const labels = list.map(item => item.name);
-  const data = list.map(item => item.dispensings);
-  const height = data.length <= 7 
-    ? "100%"
-    : `calc(100% + ${((data.length - 7) * 24)}px)`;
+  
+  const { data: responseData } = cleaningsByRestaurant;
+  const data = responseData.map(item => item.cleanings);
+  const labels = responseData.map(item => item.name);
 
   return (
     <InfoBlock layout="chart-5" header={header}>
       <Diagram 
-        id="dispensings-by-rest"
+        id="cleanings-by-rest"
         type="bar"
         direction="horizontal"
         legend={false}
@@ -50,8 +47,8 @@ const DispensingsByRestaurant = () => {
           {
             // label: 'Бургер-РУС 3276',
             data,
-            barThickness: 18,
-            backgroundColor: COLOR_2,
+            barThickness: 13,
+            backgroundColor: COLOR_3,
           },
         ]}
         scales={{
@@ -64,13 +61,10 @@ const DispensingsByRestaurant = () => {
             border: { dash: [4, 4] },
           }
         }}
-        responsive={true}
-        height={height}
-        // scroll
       />
       <Widget 
         amount={"Бургер-РУС 3276"}
-        description={`Лучшие рестораны за последние ${period} дней`}
+        description={`Самый недисциплинированный ресторан за последние ${period} дней`}
         layout='dayly-reports'
         align='left'
       />
@@ -78,4 +72,4 @@ const DispensingsByRestaurant = () => {
   );
 }
  
-export default DispensingsByRestaurant;
+export default CleaningsByRestaurant;

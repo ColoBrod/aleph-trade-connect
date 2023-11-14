@@ -1,11 +1,8 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-// import { apiCallBegan } from "~/store/middleware/api";
-import axios from 'axios';
-import config from "~/config";
-
+import { createSlice } from "@reduxjs/toolkit";
+import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
 import { Status } from '~/interfaces/common';
 
-const BASE_URL = config.api.url + "/analytics/trends/overview";
+const PAGE_URL = "/analytics/trends/overview";
 
 interface OverviewState {
   dispensingsByDay: {
@@ -79,25 +76,14 @@ const initialState: OverviewState = {
   }
 };
 
-export const fetchConsumptions = createAsyncThunk('analytics/trends/overview/consumptions', async () => {
-  const response = await axios.post(BASE_URL + '/consumptions');
-  return response.data;
-});
-
-export const fetchDispensingsByDay = createAsyncThunk('analytics/trends/overview/dispensings-by-day', async () => {
-  const response = await axios.post(BASE_URL + '/dispensings-by-day');
-  return response.data;
-});
-
-export const fetchCleanings = createAsyncThunk('analytics/trends/overview/cleanings', async () => {
-  const response = await axios.post(BASE_URL + '/cleanings');
-  return response.data;
-});
-
-export const fetchDispensingsByHierarchyLevel = createAsyncThunk('analytics/trends/overview/dispensings-by-hierarchy-level', async () => {
-  const response = await axios.post(BASE_URL + '/dispensings-by-hierarchy-level');
-  return response.data;
-});
+export const fetchConsumptions = 
+  createCustomAsyncThunk("post", PAGE_URL + "/consumptions");
+export const fetchDispensingsByDay = 
+  createCustomAsyncThunk("post", PAGE_URL + "/dispensings-by-day");
+export const fetchCleanings = 
+  createCustomAsyncThunk("post", PAGE_URL + "/cleanings");
+export const fetchDispensingsByHierarchyLevel = 
+  createCustomAsyncThunk("post", PAGE_URL + "/dispensings-by-hierarchy-level");
 
 const slice = createSlice({
   name: 'overview',

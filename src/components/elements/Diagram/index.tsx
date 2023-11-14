@@ -26,6 +26,9 @@ interface Props {
     display: boolean;
   };
   doughnutInner?: ReactNode;
+  responsive?: boolean;
+  width?: string;
+  height?: string;
 }
 
 class Diagram extends Component<Props> {
@@ -43,9 +46,7 @@ class Diagram extends Component<Props> {
     // data.datasets = ;
     // Other config props
     const { type, legend: displayLegend = true, direction = "vertical", scales } = props;
-    const { innerBarText } = props;
-    console.log("Inner bar text", innerBarText);
-    // innerBarText = innerBarText ? true : false;
+    const { innerBarText, responsive = true } = props;
     this.config = {
       type,
       data: {
@@ -81,7 +82,7 @@ class Diagram extends Component<Props> {
             }
           },
         },
-        responsive: true,
+        responsive,
         scales: scales,
         elements: type === 'line' ? {
           point: { radius: 0 },
@@ -118,27 +119,35 @@ class Diagram extends Component<Props> {
   render() {
     // const xl = useMediaQuery({ query: `(min-width: 1740px)` });
     // const lg = useMediaQuery({ query: `(min-width: 1220px) and (max-width: 1739px)` });
-    const { id, type, doughnutInner } = this.props;
+    const { id, type, doughnutInner, height = "", width = "" } = this.props;
     // console.log("xl:", xl);
     // console.log("lg:", lg);
     // this.chart.update();
 
+    if (id === "beverages-by-cup-size") console.log(this.config);
+
 		return (
       <div className={`diagram diagram__${id}`} >
-        <canvas
-          id={id}
-          ref={this.chartRef}
-        />
-        {
-          type === 'doughnut' 
-            ? <div className="diagram__doughnut-inner">
-                { doughnutInner || "" }
-              </div>
-            : null
-        }
+        <div className="diagram__inner" style={{ width, height }}>
+          <canvas
+            id={id}
+            ref={this.chartRef}
+            // width={width}
+            // height={height}
+          />
+          {
+            type === 'doughnut' 
+              ? <div className="diagram__doughnut-inner">
+                  { doughnutInner || "" }
+                </div>
+              : null
+          }
+        </div>
       </div>
     );
 	}
+
+
 }
 
 export default Diagram;

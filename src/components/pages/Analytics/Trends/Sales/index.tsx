@@ -17,7 +17,7 @@ import DispensingsByPath from './DispensingsByPath';
 const Sales = () => {
   return (
     <div className='page page-analytics__trends__sales'>
-      <div className="page__content container container-fluid">
+      <div className="page__content container">
         <DispensingsByDate />
         <DispensingsByCupSize />
         <DispensingsByRecipe />
