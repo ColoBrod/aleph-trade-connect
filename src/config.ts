@@ -3,7 +3,7 @@ const env = process.env.NODE_ENV as 'production' | 'development';
 const config = {
   production: {
     api: {
-      url: 'http://92.53.91.152:9000/api'
+      url: 'http://62.113.111.120:9000/api'
     },
   },
   development: {

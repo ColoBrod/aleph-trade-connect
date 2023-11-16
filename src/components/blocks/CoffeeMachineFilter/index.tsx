@@ -4,35 +4,44 @@ import Checkbox from '~/components/ui/Checkbox';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
 import './style.css'
-import { coffeeMachineModelsAllSelected } from '~/store/filters';
+import { coffeeMachineModelsAllSelected, coffeeMachineModelSelected } from '~/store/filters/analytics';
 
 const CoffeeMachineFilter = () => {
   const dispatch = useAppDispatch();
-  const { selectAll } = useAppSelector(state => state.filters.coffeeMachineModels);
-  const models = useAppSelector(state => state.filters.coffeeMachineModels.list);
+  const { selectAll } = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels);
+  const models = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels.list);
 
-  const handleSelectAll = (e: React.MouseEvent<HTMLInputElement, MouseEvent>): void => {
-    // @ts-ignore
-    // const { value } = e.currentTarget;
+  // console.log("Models:", models);
+
+  const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.currentTarget === null || e.currentTarget.parentNode === null) return;
     const input = e.currentTarget.parentNode.querySelector("input");
     if (!input) return;
-    const value = input?.value;
+    const value = input.checked;
     dispatch(coffeeMachineModelsAllSelected({ value }));
+  }
+
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    if (e.currentTarget === null || e.currentTarget.parentNode === null) return;
+    const input = e.currentTarget.parentNode.querySelector("input");
+    if (!input) return;
+    const id = input.id;
+    const checked = input.checked;
+    dispatch(coffeeMachineModelSelected({ id, checked }));
   }
 
   return (
     <div className="coffee-machine-filter">
-      <Checkbox checked={selectAll} onClick={handleSelectAll} id='select-all' label='Выбрать все' />
+      <Checkbox checked={selectAll} onChange={handleSelectAll} id='select-all' label='Выбрать все' />
       {
-        models.map(model => <Checkbox checked={model.checked} id={model.id} label={model.name} />)
+        models.map(model => <Checkbox 
+          key={model.id} 
+          checked={model.checked} 
+          id={model.id} 
+          onChange={handleCheck}
+          label={model.name} />
+        )
       }
-      {/* <Checkbox checked={true} id='coffee-machine-1' label='WMF 1500S+' />
-      <Checkbox checked={true} id='coffee-machine-2' label='WMF 5000' />
-      <Checkbox checked={false} id='coffee-machine-3' label='WMF 9000' />
-      <Checkbox checked={false} id='coffee-machine-4' label='WMF 9000' />
-      <Checkbox checked={false} id='coffee-machine-5' label='WMF 9000' />
-      <Checkbox checked={false} id='coffee-machine-6' label='WMF 9000' />
-      <Checkbox checked={false} id='coffee-machine-7' label='WMF 9000' /> */}
     </div>
   );
 }

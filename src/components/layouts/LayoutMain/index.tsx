@@ -4,6 +4,7 @@ import Tabs from '~/components/blocks/Tabs';
 import ModalBox from '~/components/blocks/ModalBox';
 import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
+import Calendar from '~/components/ui/Calendar';
 
 import './style.css';
 
@@ -23,6 +24,7 @@ const LayoutMain = () => {
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
       }
+      <Calendar onChange={(date: Date) => console.log(date)} date={new Date()} />
     </div>
   );
 }

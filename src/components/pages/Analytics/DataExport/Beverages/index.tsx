@@ -21,8 +21,8 @@ const Beverages = () => {
       <div className="page__content container container-left">
         <FiltersAside />
         <div className='filters-top'>
-          <Button>Обновить</Button>
-          <Button>
+          <Button layout='light'>Обновить</Button>
+          <Button layout='dark'>
             <>
               <img src={imgExcel} alt="Excel icon" />
               Скачать

@@ -15,6 +15,7 @@ const DispensingsByRestaurant = () => {
   const dispatch = useAppDispatch();
 
   const { dispensingsByRestaurant } = useAppSelector(state => state.pages.analytics.daylyReports);
+  const filters = useAppSelector(state => state.filters.analytics.daylyReports);
 
   useEffect(() => {
     if (dispensingsByRestaurant.status === 'idle') dispatch(fetchDispensingsByRestaurant()); 

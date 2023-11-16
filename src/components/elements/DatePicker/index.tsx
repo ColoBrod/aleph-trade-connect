@@ -5,7 +5,7 @@ import './style.css'
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
 const DatePicker = () => {
-  const { start, end } = useAppSelector(state => state.filters.dateRange);
+  // const { start, end } = useAppSelector(state => state.filters.analytics.common.dateRange);
 
   return (
     <div className="picker picker-date">

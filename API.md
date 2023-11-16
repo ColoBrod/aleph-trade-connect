@@ -166,7 +166,7 @@ interface Params {
 
   ~~~ts
   {
-    coffeeMachines: IBusinessUnit[];
+    businessUnits: IBusinessUnit[];
   }
   ~~~
 

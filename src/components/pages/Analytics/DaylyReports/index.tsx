@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import InfoBlock from '~/components/blocks/InfoBlock';
 
 import './style.css';
@@ -22,10 +22,19 @@ import DispensingsByWeekday from './DispensiingsByWeekday';
 import DispensingsByRecipe from './DispensingsByRecipe';
 import DispensingsByCupSize from './DispensingsByCupSize';
 
+import { useAppSelector, useAppDispatch } from '~/hooks';
+import { statusSetIdle } from '~/store/pages/analytics/dayly-reports';
+
 const DaylyReports = () => {
   const period = 55;
 
-  
+  const dispatch = useAppDispatch();
+  const filtersAnalytics = useAppSelector(state => state.filters.analytics.common);
+  const filtersDaylyReports = useAppSelector(state => state.filters.analytics.daylyReports);
+
+  useEffect(() => {
+    dispatch(statusSetIdle({}));
+  }, [filtersAnalytics, filtersDaylyReports])
 
   return (
     <div className='page page-analytics__dayly-reports'>

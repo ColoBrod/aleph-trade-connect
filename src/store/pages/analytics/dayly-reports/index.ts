@@ -122,7 +122,20 @@ const initialState: DaylyReportsState = {
 const slice = createSlice({
   name: 'daylyReports',
   initialState,
-  reducers: {},
+  reducers: {
+    statusSetIdle: (state, action) => {
+      // const keys = Object.keys(state);
+      // keys.forEach((key: keyof DaylyReportsState) => {
+      //   state[key].status = 'idle';
+      // })
+      state.dispensingsByRestaurant.status = 'idle';
+      state.cleaningsByRestaurant.status = 'idle';
+      state.dispensingsByHour.status = 'idle';
+      state.dispensingsByWeekday.status = 'idle';
+      state.dispensingsByRecipe.status = 'idle';
+      state.dispensingsByCupSize.status = 'idle';
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchDispensingsByRestaurant.pending, (state, action) => {
@@ -211,4 +224,5 @@ const slice = createSlice({
   },
 })
 
+export const { statusSetIdle } = slice.actions;
 export default slice.reducer;

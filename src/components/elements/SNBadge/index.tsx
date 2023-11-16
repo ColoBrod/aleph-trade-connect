@@ -3,7 +3,7 @@ import React, { MouseEvent } from 'react';
 import './style.css';
 
 import { useAppDispatch } from '~/hooks';
-import { serialNumberRemoved } from '~/store/filters';
+import { serialNumberRemoved } from '~/store/filters/analytics/dayly-reports';
 
 interface Props {
   children: string;

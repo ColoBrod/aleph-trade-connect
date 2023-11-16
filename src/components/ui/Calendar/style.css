@@ -1,0 +1,104 @@
+.calendar {
+  color: var(--clr-font-primary);
+  position: absolute;
+  z-index: 10;
+  top: 100px;
+  left: 100px;
+  background-color: #f3f3f3;
+  border-radius: 15px;
+  width: 360px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  user-select: none;
+  /* height: 404px; */
+
+  &__selection-row {
+    height: 64px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    /* CAC4D0 */
+    border-width: 0 0 1px 0;
+    border-style: solid;
+    border-color: #CAC4D0;
+  }
+  
+  &__month-picker, &__year-picker {
+    cursor: pointer;
+    
+    &::after {
+      padding-left: 6px;
+      font-size: 10px;
+      content: "▼";
+      text-align: super;
+    }
+  }
+
+  &__scroll-area {
+    height: 340px;
+    display: flex;
+    align-items: stretch;
+  }
+  &__month-area, &__year-area {
+    cursor: pointer;
+    flex: 0 0 50%;
+    overflow-y: scroll;
+    &::-webkit-scrollbar { display: none; }
+  }
+  &__month-area {
+  }
+  &__year-area {
+  }
+  &__month, &__year {
+    height: 48px;
+    line-height: 48px;
+    padding-left: 56px;
+    &.active {
+      background-color: #E2E2E3;
+      background-image: url('check.svg');
+      background-repeat: no-repeat;
+      background-position: 16px 12px;
+    }
+  }
+  &__grid {
+    height: 340px;
+    padding: 0 12px 4px;
+  }
+  &__grid-inner {
+    /* background-color: yellow; */
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(7, 48px);
+    grid-template-rows: repeat(6, 48px);
+  }
+  &__weekday, &__monthday {
+    align-self: center;
+    justify-self: center;
+    display: inline-block;
+    text-align: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    /* align-items: center; */
+  }
+  &__monthday {
+    cursor: pointer;
+    border-radius: 50%;
+    transition: .5s linear;
+    /* &:hover {
+      background-color: var(--clr-font-light);
+      color: white;
+    } */
+    &.active {
+      border-radius: 50%;
+      background-color: var(--clr-font-accent);
+      color: white;
+    }
+    &.disabled {
+      /* color: red; */
+      color: #a5a5a5;
+      /* cursor: not-allowed; */
+    }
+  }
+
+}
