@@ -73,7 +73,7 @@ const DispensingsByPath = () => {
       <Widget 
         amount={bestPath}
         description={<>Performs best within the last <b>{period}</b> days</>}
-        layout='chart'
+        layout='description'
         align='center'
       />
     </InfoBlock>

@@ -84,7 +84,7 @@ const DispensingsByWeek = () => {
       <Widget 
         amount={diff + "%"}
         description={description}
-        layout='chart'
+        layout='week-to-week'
         align='center'
       />
     </InfoBlock>

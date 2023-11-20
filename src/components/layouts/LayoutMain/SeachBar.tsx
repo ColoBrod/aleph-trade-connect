@@ -25,36 +25,6 @@ const SearchBar = () => {
     },
   ];
 
-  const manyItems = [...new Array(10000)].map((_, i) => ({
-    id: i,
-    name: `something${i}`,
-    description:
-      "Some description text, where the search will be performed too.",
-  }));
-
-  const movieItems = [
-    {
-      id: 0,
-      title: "Titanic",
-      description: "A movie about love",
-    },
-    {
-      id: 1,
-      title: "Dead Poets Society",
-      description: "A movie about poetry and the meaning of life",
-    },
-    {
-      id: 2,
-      title: "Terminator 2",
-      description: "A robot from the future is sent back in time",
-    },
-    {
-      id: 3,
-      title: "Alien 2",
-      description: "Ripley is back for a new adventure",
-    },
-  ];
-
   const handleOnSearch = (string: string, results: any) => {
     console.log(string, results);
   };
@@ -107,6 +77,7 @@ const SearchBar = () => {
           zIndex: 4,
         }} // To display it on top of the search box below
         autoFocus
+        // formatResult={formatResult}
       />
     </div>
   );

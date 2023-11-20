@@ -27,11 +27,8 @@ const DaylyReports = () => {
 
   return (
     <div className='page page-analytics__dayly-reports'>
-
       <div className="page__content container">
-
         <FiltersAside />
-
         {/* Напитки по ресторанам */}
         <DispensingsByRestaurant />
         {/* Соблюдение правил чистки ресторанами */}
@@ -39,16 +36,12 @@ const DaylyReports = () => {
         <CleaningsByRestaurant />
         {/* Напитки по часам */}
         <DispensingsByHour />
-
         {/* Напитки по дням */}
         <DispensingsByWeekday />
-
         {/* Напитки по рецепту */}
         <DispensingsByRecipe />
-        
         {/* Напитки по размеру чашки */}
         <DispensingsByCupSize />
-
       </div>
     </div>
   );

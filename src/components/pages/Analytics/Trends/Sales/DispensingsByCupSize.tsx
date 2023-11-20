@@ -70,7 +70,7 @@ const DispensingsByCupSize = () => {
       <Widget 
         amount={mostPopular}
         description={`Самый популярный размер чашки`}
-        layout='chart'
+        layout='chart-doughnut'
         align='center'
       />
     </InfoBlock>

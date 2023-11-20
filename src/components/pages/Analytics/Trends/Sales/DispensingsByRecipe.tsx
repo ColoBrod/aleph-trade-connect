@@ -72,7 +72,7 @@ const DispensingsByRecipe = () => {
       <Widget 
         amount={mostPopular}
         description={<>Самый популярный рецепт за последние <b>{period}</b> дней</>}
-        layout='chart'
+        layout='description'
         align='center'
       />
     </InfoBlock>

@@ -10,6 +10,9 @@ interface Props {
   description: ReactNode;
   layout?: "chart" 
     | "chart-small"
+    | "chart-doughnut"
+    | "description"
+    | "week-to-week"
     | "dayly-reports" 
     | "dayly-reports-2" 
     | "dayly-reports-3" 
@@ -22,6 +25,7 @@ interface Props {
     | "center" 
     | "right";
   toFixed?: boolean;
+  reverse?: boolean;
 }
 
 const Widget = (props: Props) => {
@@ -36,7 +40,7 @@ const Widget = (props: Props) => {
     // fontSizeDesc = 14,
   } = props;
   return (
-    <div className={`widget widget-${layout} ${align}`}>
+    <div className={`widget widget-${layout} ${align} `}>
       {icon ? <img className="widget__icon" src={icon} alt="" /> : null}
       <div className="widget__amount" >
         {toFixed && typeof amount === 'number' ? amount.toFixed(2) : amount}

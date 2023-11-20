@@ -10,6 +10,16 @@ import TimeRange from '~/components/elements/TimeRange/index';
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
 
+const weekFullName = {
+  "Пн": "Понедельник", 
+  "Вт": "Вторник", 
+  "Ср": "Среда", 
+  "Чт": "Четверг", 
+  "Пт": "Пятница", 
+  "Сб": "Суббота", 
+  "Вс": "Воскресенье",
+}
+
 const DispensingsByWeekdayAndTime = () => {
   const period = 30;
   const header = 'Выдачи по дню недели и времени';
@@ -82,15 +92,16 @@ const DispensingsByWeekdayAndTime = () => {
         }}
       />
       <Widget 
-        amount={bestDay}
+        // @ts-ignore
+        amount={weekFullName[bestDay]}
         description={<>Самый популярный день недели за последние <b>{period}</b> дней</>}
-        layout='chart'
+        layout='chart-doughnut'
         align='center'
       />
       <Widget 
         amount={total}
         description={<>Выдач всего</>}
-        layout='chart'
+        layout='chart-doughnut'
         align='center'
       />
       <TimeRange />
