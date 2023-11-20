@@ -8,6 +8,8 @@ export const MEDIA_MD_MAX = 1365;
 export const MEDIA_LG_MIN = 1366;
 export const MEDIA_LG_MAX = 1739;
 export const MEDIA_XL_MIN = 1740;
+export const MEDIA_XL_MAX = 1920;
+export const MEDIA_XXL_MIN = 1921;
 
 export const use_SM_MIN = () => useMediaQuery({
   query: `(min-width: ${MEDIA_SM_MIN}px)`
@@ -21,6 +23,10 @@ export const use_LG_MIN = () => useMediaQuery({
 export const use_XL_MIN = () => useMediaQuery({ 
   query: `(min-width: ${MEDIA_XL_MIN}px)`
 });
+export const use_XXL_MIN = () => useMediaQuery({ 
+  query: `(min-width: ${MEDIA_XXL_MIN}px)`
+});
+
 
 export const use_XS_MAX = () => useMediaQuery({
   query: `(max-width: ${MEDIA_XS_MAX}px)`
@@ -33,6 +39,9 @@ export const use_MD_MAX = () => useMediaQuery({
 });
 export const use_LG_MAX = () => useMediaQuery({
   query: `(max-width: ${MEDIA_LG_MAX}px)`
+});
+export const use_XL_MAX = () => useMediaQuery({
+  query: `(max-width: ${MEDIA_XL_MAX}px)`
 });
 
 export const use_XS = () => useMediaQuery({
@@ -48,5 +57,8 @@ export const use_LG = () => useMediaQuery({
   query: `(min-width: ${MEDIA_LG_MIN}px) and (max-width: ${MEDIA_LG_MAX}px)`
 });
 export const use_XL = () => useMediaQuery({
-  query: `(min-width: ${MEDIA_XL_MIN}px)`
+  query: `(min-width: ${MEDIA_XL_MIN}px) and (max-width: ${MEDIA_XL_MAX}px)`
+});
+export const use_XXL = () => useMediaQuery({
+  query: `(min-width: ${MEDIA_XXL_MIN}px)`
 });

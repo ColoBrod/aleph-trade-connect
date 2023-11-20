@@ -5,8 +5,6 @@ Chart.register({
   id: 'innerBarText',
   afterDatasetsDraw(chart, args, options: { display: boolean; }) {
     if (!options?.display) return;
-    console.log(options);
-
     const { ctx, data, chartArea: { left }, scales: { x, y } } = chart;
     if (data.datasets.length === 0) return;
     ctx.save();

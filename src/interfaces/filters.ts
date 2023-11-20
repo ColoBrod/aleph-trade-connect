@@ -30,11 +30,15 @@ export interface IFilters_Analytics {
     }[]
   };
   dateRange: IDateRange;
-  recipes: number[];
+  // recipes: number[];
 }
 
-export interface IFilters_Analytics_Trends extends IFilters_Analytics {
-  
+export interface IFilters_Analytics_Trends {
+  recipes: {
+    id: number;
+    name?: string;
+    active: boolean;
+  }[];
 }
 
 export interface IFilters_Analytics_DaylyReports {

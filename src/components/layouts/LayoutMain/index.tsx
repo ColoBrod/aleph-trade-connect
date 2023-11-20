@@ -6,9 +6,14 @@ import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
 import Calendar from '~/components/ui/Calendar';
 
+import { useAppDispatch } from '~/hooks';
+import { dateRangeSet } from '~/store/filters/analytics';
+import { displaySet } from '~/store/ui/calendar';
+
 import './style.css';
 
 const LayoutMain = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation().pathname;
   localStorage.setItem('location', location);
 
@@ -24,7 +29,13 @@ const LayoutMain = () => {
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
       }
-      <Calendar onChange={(date: Date) => console.log(date)} date={new Date()} />
+      <Calendar onChange={(id: string, date: Date) => {
+        const dd = date.getDate();
+        const mm = date.getMonth() + 1;
+        const yyyy = date.getFullYear();
+        dispatch(dateRangeSet({ id, date: `${mm}/${dd}/${yyyy}` }));
+        dispatch(displaySet({ visible: false }));
+      }} />
     </div>
   );
 }

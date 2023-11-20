@@ -94,6 +94,38 @@
     }
   }
 
+  &-chart-small {
+    text-align: left;
+    position: relative;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 16px;
+
+    .widget__icon {
+      display: none;
+      /* position: absolute;
+      bottom: -7px;
+      left: 0; */
+    }
+    .widget__amount {
+      /* padding-left: 35px; */
+      text-align: left;
+      font-size: 16px;
+      line-height: 20px;
+      color: var(--clr-font-accent);
+    }
+    .widget__description {
+      text-align: left;
+      height: 40px;
+      color: var(--clr-font);
+      word-wrap: wrap;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+
   &-chart-icon {
     display: grid;
     grid-template-columns: 3rem 1fr;

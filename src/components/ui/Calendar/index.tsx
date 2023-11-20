@@ -1,26 +1,47 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './style.css';
+import { useAppDispatch, useAppSelector } from '~/hooks';
+import { monthSet, yearSet } from '~/store/ui/calendar';
 
-const today = new Date();
-const current = {
-  date: today.getDate(),
-  month: today.getMonth(),
-  year: today.getFullYear(),
-}
+// const today = new Date();
+// const current = {
+//   date: today.getDate(),
+//   month: today.getMonth(),
+//   year: today.getFullYear(),
+// }
 const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
 interface CalendarProps {
-  date: Date;
   onChange: Function;
 }
 
 const Calendar = (props: CalendarProps) => {
-  const { date, onChange: handler } = props;
+  const { onChange: handler } = props;
+  const dispatch = useAppDispatch();
+  const calendar = useAppSelector(state => state.ui.calendar);
+  const { date: dateStr, id, month, year } = calendar;
+  const [m, d, y] = dateStr.split("/").map(el => parseInt(el));
+  const date = new Date(y, m-1, d);
+  const display = calendar.visible ? "block" : "none";
+  const left = calendar.x + "px";
+  const top = calendar.y + "px";
 
+  // const initialMonth = date.getMonth();
+  // const initialYear = date.getFullYear();
+
+  // console.log(date.getMonth(), date.getFullYear());
   const [pickMode, setPickMode] = useState("date");
-  const [month, setMonth] = useState(date.getMonth());
-  const [year, setYear] = useState(date.getFullYear());
-  
+  // useEffect(() => {
+  //   dispatch(monthSet({ month: initialMonth }));
+  //   dispatch(yearSet({ year: initialYear }));
+  // }, [date])
+  // const [month, setMonth] = useState(initialMonth);
+  // const [year, setYear] = useState(initialYear);
+  // console.log(date);
+  // console.log(pickMode);
+  // console.log(initialMonth, initialYear);
+  // console.log(month, year);
+
   const togglePickMode = () => setPickMode(pickMode === 'date' ? 'month' : 'date')
   const years = [...Array(50).keys()].map(index => 2023 + index)
 
@@ -30,9 +51,8 @@ const Calendar = (props: CalendarProps) => {
   const monthToDisplay = new Date(year, month);
   const dates = getDates(monthToDisplay);
 
-  return null;
   return (
-    <div className="calendar">
+    <div className="calendar" style={{ display, left, top }} >
       <div className="calendar__selection-row">
         <div className="calendar__month-picker" onClick={togglePickMode}>
           {curMonth}
@@ -73,7 +93,7 @@ const Calendar = (props: CalendarProps) => {
                     return (
                       <span 
                         key={`${mm}/${dd}/${yyyy}`}
-                        onClick={() => handler(dateObj)}
+                        onClick={() => handler(id, dateObj)}
                         className={`calendar__monthday ${disabled} ${active}`}>
                         {dd}
                       </span>
@@ -93,7 +113,7 @@ const Calendar = (props: CalendarProps) => {
                     <div 
                       key={m} 
                       onClick={() => {
-                        setMonth(i);
+                        dispatch(monthSet({ month: i }));
                         setPickMode('date')
                       }}
                       className={`calendar__month ${i === month ? 'active' : ''}`}>
@@ -107,7 +127,7 @@ const Calendar = (props: CalendarProps) => {
                   years.map((y) => 
                     <div 
                       onClick={() => {
-                        setYear(y);
+                        dispatch(yearSet({ year: y }));
                         setPickMode('date')
                       }}
                       key={y} 

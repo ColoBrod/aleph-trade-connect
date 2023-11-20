@@ -4,40 +4,47 @@
 
   .page__content {
     display: grid;
-    /* gap-ro: 1rem; */
     row-gap: 40px;
+    @media (--xxl) {
+      grid-template-columns: 854fr 653fr;
+      grid-template-rows: repeat(2, 350px);
+      column-gap: 69px;
+    }
     @media (--xl) {
       grid-template-columns: 854px 653px;
       grid-template-rows: repeat(2, 350px);
       column-gap: 69px;
     }
     @media (--lg) {
-      grid-template-columns: 653px 499px;
-      grid-template-rows: repeat(2, 268px);
-      column-gap: 68px;
+      grid-template-columns: 653fr 499fr;
+      grid-template-rows: repeat(2, 350px);
+      column-gap: 40px;
     }
     @media (--md) {
-
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 350px);
+      column-gap: 40px;
     }
     @media (--sm) {
-
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 350px);
+      column-gap: 40px;
     }
     @media (--xs) {
-
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(4, 350px);
+      column-gap: 40px;
     }
   } 
 
   .info-block.analytics__trends__consumptions {
     padding: 32px 40px;
-    /* gap: 22px 13px; */
     .info-block__header {
       display: none;
     }
 
     .info-block__content {
       gap: 13px;
-      /* column-gap: 13px;
-      row-gap: 22px; */
     }
   }
 }

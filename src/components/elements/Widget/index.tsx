@@ -2,14 +2,25 @@ import React, { ReactNode } from 'react';
 
 import './style.css';
 
+// TODO:
+// 
 interface Props {
   icon?: string;
   amount: number | string;
   description: ReactNode;
-  layout?: "chart" | "dayly-reports" | "dayly-reports-2" | "dayly-reports-3" | "chart-icon" | "header" | "dashboard";
+  layout?: "chart" 
+    | "chart-small"
+    | "dayly-reports" 
+    | "dayly-reports-2" 
+    | "dayly-reports-3" 
+    | "chart-icon" // Судя по всему не используется больше.
+    | "header" 
+    | "dashboard";
   // fontSizeAmount?: number;
   // fontSizeDesc?: number;
-  align?: "left" | "center" | "right";
+  align?: "left" 
+    | "center" 
+    | "right";
   toFixed?: boolean;
 }
 

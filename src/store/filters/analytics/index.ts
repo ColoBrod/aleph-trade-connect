@@ -4,6 +4,8 @@ import { IFilters_Analytics } from "~/interfaces/filters";
 
 // Reducers
 import daylyReportsReducer from "./dayly-reports";
+import trendsReducer from "./trends";
+import dataExportReducer from './data-export';
 
 const dateFrom = new Date();
 dateFrom.setDate(dateFrom.getDate() - 1);
@@ -32,13 +34,41 @@ const initialState: IFilters_Analytics = {
       end: dateToFmt,
     }
   },
-  recipes: [],
+  // recipes: [],
 }
 
 const slice = createSlice({
   name: 'analytics',
   initialState,
   reducers: {
+    dateRangeSet: (state, action) => {
+      const { id, date } = action.payload;
+      if (id === "date-start") {
+        state.dateRange.date.start = date;
+      }
+      else if (id === "date-end") {
+        state.dateRange.date.end = date;
+      }
+    },
+    dateRangeSet2: (state, action) => {
+
+      const { start, end } = action.payload;
+      const curDate = new Date();
+
+
+
+      const startDate = new Date()
+      startDate.setDate(curDate.getDate() + start);
+      const endDate = new Date()
+      endDate.setDate(curDate.getDate() + end);
+
+      state.dateRange.date.start = startDate.toLocaleDateString();
+      state.dateRange.date.end = endDate.toLocaleDateString();
+
+      // console.log(startDate);
+      // state.dateRange.date.start = `${startDate.getMonth()}/${startDate.getDate()}/${startDate.getFullYear()}`;
+      // state.dateRange.date.end = `${endDate.getMonth()}/${endDate.getDate()}/${endDate.getFullYear()}`;
+    },
     coffeeMachineModelsAllSelected: (state, action) => {
       const { value } = action.payload;
       state.coffeeMachineModels.selectAll = value;
@@ -57,11 +87,11 @@ const slice = createSlice({
     modelSearched: (state, action) => {
       const { substring } = action.payload;
     },
-    dateRangeSet: (state, action) => {
-      const { start, end } = action.payload;
-      if (start) state.dateRange.date.start = start;
-      if (end) state.dateRange.date.end = end;
-    },
+    // dateRangeSet: (state, action) => {
+    //   const { start, end } = action.payload;
+    //   if (start) state.dateRange.date.start = start;
+    //   if (end) state.dateRange.date.end = end;
+    // },
     businessUnitAdded: (state, action) => { },
     businessUnitRemoved: (state, action) => { },
     recipeAdded: (state, action) => { },
@@ -73,7 +103,15 @@ const slice = createSlice({
 const reducer = combineReducers({
   common: slice.reducer,
   daylyReports: daylyReportsReducer,
+  trends: trendsReducer,
+  dataExport: dataExportReducer,
 });
 
-export const { coffeeMachineModelsAllSelected, coffeeMachineModelSelected, modelSearched, dateRangeSet } = slice.actions;
+export const {
+  coffeeMachineModelsAllSelected,
+  coffeeMachineModelSelected,
+  modelSearched,
+  dateRangeSet,
+  dateRangeSet2,
+} = slice.actions;
 export default reducer;  

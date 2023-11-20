@@ -9,11 +9,13 @@ import { fetchDispensingsByDay } from '~/store/pages/analytics/trends/overview';
 import Diagram from '~/components/elements/Diagram';
 
 import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
+import { use_LG_MAX } from '~/media-queries';
 
 const DispensingsByDay = () => {
   const header = 'Напитки по дням';
   const dispatch = useAppDispatch();
   const { dispensingsByDay } = useAppSelector(state => state.pages.analytics.trends.overview);
+  const lgMax = use_LG_MAX();
 
   useEffect(() => {
     if (dispensingsByDay.status === 'idle') dispatch(fetchDispensingsByDay()); 
@@ -41,7 +43,7 @@ const DispensingsByDay = () => {
   );
 
   return (
-    <InfoBlock layout="chart" header={header} >
+    <InfoBlock layout={ lgMax ? "chart-6" : "chart"} header={header} >
       <Diagram
         id="dispensings-by-day"
         type="bar"
@@ -52,16 +54,12 @@ const DispensingsByDay = () => {
             data: currentWeek,
             backgroundColor: COLOR_1,
             barThickness: 22,
-            // barPercentage: 0.5,
-            // categoryPercentage: 0.5,
           },
           {
             label: 'Предыдущая неделя',
             data: previousWeek,
             backgroundColor: COLOR_2,
             barThickness: 22,
-            // barPercentage: 0.5,
-            // categoryPercentage: 0.5,
           },
         ]}
         scales={{
@@ -80,12 +78,14 @@ const DispensingsByDay = () => {
       <Widget 
         amount={currentWeekTotal} 
         description="Количество чашек. Текущая неделя."
-        layout="chart"
+        layout={ lgMax ? 'chart-small' : 'chart' }
+        align={ lgMax ? 'left' : 'center' }
       />
       <Widget 
         amount={previousWeekTotal} 
         description="Количество чашек. Предыдущая неделя."
-        layout="chart"
+        layout={ lgMax ? 'chart-small' : 'chart' }
+        align={ lgMax ? 'left' : 'center' }
       />
     </InfoBlock>
   );

@@ -26,6 +26,9 @@ module.exports = (env, argv) => ({
         exclude: /(node_modules)/,
         use: {
           loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+          },
         },
       },
       // CSS

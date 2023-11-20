@@ -2,12 +2,16 @@ import React, { ReactNode } from 'react';
 
 import './style.css';
 
+// TODO: 
+// Здесь есть лейауты, которые делают одно и то же. Кроме того, есть проблемы с
+// неймингом. Необходимо нормально переименовать.
 interface Props {
   layout: "single-item"
+    | 'info'
     | "chart" 
     | "chart-timerange"
-    | "chart-2" 
-    | "chart-3" 
+    | "chart-2" // TODO: deprecated
+    | "chart-3" // TODO: deprecated
     | "chart-4" 
     | "chart-5" 
     | "chart-6" 

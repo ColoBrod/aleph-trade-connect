@@ -1,3 +1,5 @@
+@import 'style/media-queries';
+
 .page-analytics__dayly-reports {
 
   .page__content {
@@ -11,12 +13,14 @@
       overflow-y: hidden;
     }
 
-    .info-block .diagram #dispensings-by-hours {
-      /* height: 100%; */
-      /* width: 200%; */
+    @media (--lg-max) {
+      gap: 40px 40px;
     }
 
-
+    @media (--md-max) {
+      grid-template-columns: 285px 1fr;
+      grid-template-rows: repeat(6, 350px);
+    }
 
   } 
 }

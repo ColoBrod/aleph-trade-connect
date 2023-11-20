@@ -10,6 +10,8 @@
   box-shadow: var(--shadow);
   overflow: hidden;
   user-select: none;
+  transform-origin: 0 0;
+  transform: scale(0.7);
   /* height: 404px; */
 
   &__selection-row {
@@ -61,7 +63,7 @@
     }
   }
   &__grid {
-    height: 340px;
+    /* height: 340px; */
     padding: 0 12px 4px;
   }
   &__grid-inner {

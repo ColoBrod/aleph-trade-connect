@@ -4,8 +4,9 @@ import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Analytics_Trends_Overview from "~/components/pages/Analytics/Trends/Overview";
-import DaylyReports from "~/components/pages/Analytics/DaylyReports";
 import Analytics_Trends_Sales from "~/components/pages/Analytics/Trends/Sales";
+import Analytics_Trends_Settings from "~/components/pages/Analytics/Trends/Settings";
+import DaylyReports from "~/components/pages/Analytics/DaylyReports";
 import Analytics_DataExport_Beverages from "~/components/pages/Analytics/DataExport/Beverages";
 import Analytics_DataExport_Cleanings from "~/components/pages/Analytics/DataExport/Cleanings";
 
@@ -39,7 +40,7 @@ const analytics: RouteObject = {
         },
         {
           path: "settings",
-          element: <h1>Настройки</h1>,
+          element: <Analytics_Trends_Settings />,
         },
         {
           path: "sales",

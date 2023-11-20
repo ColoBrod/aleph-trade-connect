@@ -1,12 +1,12 @@
-interface IBusinessUnit {
+export interface IBusinessUnit {
 
 }
 
-interface ICoffeeMachine {
+export interface ICoffeeMachine {
 
 }
 
-interface ICoffeeMachineModel {
+export interface ICoffeeMachineModel {
 
 }
 

@@ -1,5 +1,10 @@
 @import 'style/media-queries';
 
+/* EXTRA EXTRA LARGE */
+@media (--xxl) {
+  body::after { content: "XXL"; background: brown; }
+}
+
 /* EXTRA LARGE */
 @media (--xl) {
   body::after { content: "XL"; background: red; }

@@ -1,0 +1,48 @@
+.pagination {
+  display: flex;
+  gap: 5px;
+  flex-wrap: nowrap;
+
+  &__first, &__last, &__prev, &__next, &__page {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 6px;
+    border: 1px solid #BDBDBD;
+    color: var(--clr-font);
+    font-size: 14px;
+    line-height: 18px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    background-position: center;
+  }
+
+  &__page {
+    &.active {
+      color: white;
+      background-color: var(--clr-font-accent);
+    }
+
+    &.empty {
+      content: '...';
+      border: none;
+    }
+  }
+
+
+  &__first {
+    background-image: url('first.svg');
+  }
+  &__last {
+    background-image: url('last.svg');
+  }
+  &__prev {
+    background-image: url('previous.svg');
+  }
+  &__next {
+    background-image: url('next.svg');
+  }
+
+
+}

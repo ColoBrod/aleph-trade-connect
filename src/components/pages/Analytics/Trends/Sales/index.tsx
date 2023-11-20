@@ -1,11 +1,6 @@
 import React from 'react';
-import Header from '~/components/blocks/Header';
 
 import './style.css';
-import InfoBlock from '~/components/blocks/InfoBlock';
-import Widget from '~/components/elements/Widget';
-import Diagram from '~/components/elements/Diagram';
-import Loader from '~/components/blocks/Loader';
 // import TimeRange from '~/components/elements/TimeRange';
 import DispensingsByDate from './DispensingsByDate';
 import DispensingsByCupSize from './DispensingsByCupSize';

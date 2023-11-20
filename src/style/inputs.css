@@ -7,6 +7,8 @@
   margin-bottom: 6px;
 
   &__input {
+    cursor: pointer;
+    user-select: none;
     position: relative;
     display: inline-block;
     width: 121px;
@@ -21,7 +23,6 @@
     border-style: solid;
     color: var(--clr-info-light);
     text-align: right;
-    
 
     &:focus {
       color: var(--clr-font);
