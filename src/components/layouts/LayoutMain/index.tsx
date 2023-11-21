@@ -29,7 +29,7 @@ const LayoutMain = () => {
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
       }
-      <Calendar onChange={(id: string, date: Date) => {
+      <Calendar type='62-days' onChange={(id: string, date: Date) => {
         const dd = date.getDate();
         const mm = date.getMonth() + 1;
         const yyyy = date.getFullYear();

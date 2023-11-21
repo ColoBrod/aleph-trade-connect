@@ -1,6 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
 import { Status } from '~/interfaces/common';
+import { RootState } from "~/store";
 
 const PAGE_URL = "/analytics/trends/overview";
 
@@ -75,6 +76,16 @@ const initialState: OverviewState = {
     data: [],
   }
 };
+
+// const fetchDataThunk = (path: string) => {
+//   return createAsyncThunk<any, void, {state: RootState }>(path, async (arg, { getState }) => {
+//     const state = getState();
+//     const filters = Object.assign(
+//       {},
+
+//     )
+//   })
+// }
 
 export const fetchConsumptions = 
   createCustomAsyncThunk("post", PAGE_URL + "/consumptions");

@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import './style.css';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { monthSet, yearSet } from '~/store/ui/calendar';
+
+import imgArrowLeft from './arrow-left.svg';
+import imgArrowRight from './arrow-right.svg';
 
 // const today = new Date();
 // const current = {
@@ -9,14 +12,22 @@ import { monthSet, yearSet } from '~/store/ui/calendar';
 //   month: today.getMonth(),
 //   year: today.getFullYear(),
 // }
+
+type Period = { mm: number, yyyy: number };
+type PickMode = 'date' | 'month' | 'month-62';
+
+const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+const { dates: dates62, periods: periods62 } = get62();
+console.log(dates62);
 
 interface CalendarProps {
+  type?: "any-date" | "62-days";
   onChange: Function;
 }
 
 const Calendar = (props: CalendarProps) => {
-  const { onChange: handler } = props;
+  const { type = "any-date", onChange: handler } = props;
   const dispatch = useAppDispatch();
   const calendar = useAppSelector(state => state.ui.calendar);
   const { date: dateStr, id, month, year } = calendar;
@@ -26,23 +37,14 @@ const Calendar = (props: CalendarProps) => {
   const left = calendar.x + "px";
   const top = calendar.y + "px";
 
-  // const initialMonth = date.getMonth();
-  // const initialYear = date.getFullYear();
+  const [pickMode, setPickMode] = useState<PickMode>("date");
 
-  // console.log(date.getMonth(), date.getFullYear());
-  const [pickMode, setPickMode] = useState("date");
-  // useEffect(() => {
-  //   dispatch(monthSet({ month: initialMonth }));
-  //   dispatch(yearSet({ year: initialYear }));
-  // }, [date])
-  // const [month, setMonth] = useState(initialMonth);
-  // const [year, setYear] = useState(initialYear);
-  // console.log(date);
-  // console.log(pickMode);
-  // console.log(initialMonth, initialYear);
-  // console.log(month, year);
-
-  const togglePickMode = () => setPickMode(pickMode === 'date' ? 'month' : 'date')
+  const togglePickMode = () => {
+    if (type === 'any-date')
+      setPickMode(pickMode === 'date' ? 'month' : 'date');
+    else if (type === '62-days')
+      setPickMode(pickMode === 'date' ? 'month-62' : 'date');
+  }
   const years = [...Array(50).keys()].map(index => 2023 + index)
 
   const curMonth = months[month];
@@ -51,93 +53,189 @@ const Calendar = (props: CalendarProps) => {
   const monthToDisplay = new Date(year, month);
   const dates = getDates(monthToDisplay);
 
-  return (
-    <div className="calendar" style={{ display, left, top }} >
-      <div className="calendar__selection-row">
+  const shiftPeriod = (offset: number) => {
+    offset = Math.round(offset);
+    const curPeriodIndex = periods62.findIndex(
+      (p: Period) => p.mm === month && p.yyyy === year
+    );
+    const prevPeriod = periods62[curPeriodIndex + offset];
+    if (prevPeriod === undefined) return;
+    const mm = prevPeriod.mm;
+    const yyyy = prevPeriod.yyyy;
+    dispatch(monthSet({ month: mm }));
+    dispatch(yearSet({ year: yyyy }));
+  }
+
+  const renderSelectionRow = (): ReactNode => {
+    const curPeriodIndex = periods62.findIndex(
+      (p: Period) => p.mm === month && p.yyyy === year
+    );
+    const nextPeriodAvailable = periods62[curPeriodIndex - 1] === undefined
+      ? 'disabled'
+      : 'available'
+    const prevPeriodAvailable = periods62[curPeriodIndex + 1] === undefined
+      ? 'disabled'
+      : 'available'
+
+    if (type === 'any-date') return (
+      <>
         <div className="calendar__month-picker" onClick={togglePickMode}>
           {curMonth}
         </div>
         <div className="calendar__year-picker" onClick={togglePickMode}>
           {curYear}
         </div>
+      </>
+    );
+    else if (type === '62-days') return (
+      <>
+        <img 
+          className={`calendar__selection-arrow ${prevPeriodAvailable}`} 
+          src={imgArrowLeft} 
+          alt="Left arrow" 
+          onClick={() => shiftPeriod(1)}
+          />
+        <div className="calendar__year-month-picker" onClick={togglePickMode}>
+          {curMonth} {curYear} 
+        </div>
+        <img 
+          className={`calendar__selection-arrow ${nextPeriodAvailable}`} 
+          src={imgArrowRight} 
+          alt="Right arrow" 
+          onClick={() => shiftPeriod(-1)}
+          />
+      </>
+    )
+  }
+
+  const renderWeekdays = (): ReactNode => weekdays.map((wd, i) => (
+    <span key={i} className='calendar__weekday'>{wd}</span>
+  ));
+
+  const renderDates = (): ReactNode => dates.map(dateObj => {
+    const dd = dateObj.getDate();
+    const mm = dateObj.getMonth();
+    const yyyy = dateObj.getFullYear();
+    // let disabled: string;
+    const disabled: string = mm === month
+      ? ''
+      : 'disabled';
+    let unavailable = "";
+    if (type === '62-days') {
+      // @ts-ignore
+      const timeEnd = dates62.at(0).getTime();
+      // @ts-ignore
+      const timeStart = dates62.at(-1).getTime();
+      const curTime = dateObj.getTime();
+      if (curTime > timeEnd || curTime < timeStart) unavailable = 'unavailable';
+    }
+    const active = 
+      dd === date.getDate() && 
+      mm === date.getMonth() && 
+      yyyy === date.getFullYear()
+        ? 'active'
+        : '';
+    return (
+      <span 
+        key={`${mm}/${dd}/${yyyy}`}
+        onClick={() => {
+          if (unavailable === 'unavailable') return;
+          handler(id, dateObj)
+        }}
+        className={`calendar__monthday ${disabled} ${active} ${unavailable}`}>
+        {dd}
+      </span>
+    );
+  });
+
+  const renderMonthPicker = () => (
+    <div className="calendar__scroll-area">
+      <div className="calendar__month-area">
+        {
+          months.map((m, i) => 
+            <div 
+              key={m} 
+              onClick={() => {
+                dispatch(monthSet({ month: i }));
+                setPickMode('date')
+              }}
+              className={`calendar__month ${i === month ? 'active' : ''}`}>
+              {m}
+            </div>
+          )
+        }
+      </div>
+      <div className="calendar__year-area">
+        {
+          years.map((y) => 
+            <div 
+              onClick={() => {
+                dispatch(yearSet({ year: y }));
+                setPickMode('date')
+              }}
+              key={y} 
+              className={`calendar__year ${y === year ? 'active' : ''}`}>
+              {y}
+            </div>
+          )
+        }
+      </div>
+    </div>
+  );
+
+  const renderMonthPicker62 = () => {
+    return (
+      <div className="calendar__scroll-area">
+        <div className="calendar__year-month-area">
+          {
+            periods62.map((period: Period): ReactNode => {
+              const { mm, yyyy } = period
+              return (
+                <div 
+                  key={`${mm+1}/${yyyy}`}
+                  className={`
+                    calendar__year-month 
+                    ${mm === month && yyyy === year ? 'active' : ''}
+                  `}
+                  onClick={() => {
+                    dispatch(monthSet({ month: mm }));
+                    dispatch(yearSet({ year: yyyy }));
+                    setPickMode('date');
+                  }}
+                >
+                  {months[mm]} {yyyy}
+                </div>
+              )
+            })
+          }
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="calendar" style={{ display, left, top }} >
+      <div className="calendar__selection-row">
+        {renderSelectionRow()}
       </div>
       {
         pickMode === 'date' 
           ? <div className="calendar__grid">
               <div className="calendar__grid-inner">
-                <span className="calendar__weekday">Пн</span>
-                <span className="calendar__weekday">Вт</span>
-                <span className="calendar__weekday">Ср</span>
-                <span className="calendar__weekday">Чт</span>
-                <span className="calendar__weekday">Пт</span>
-                <span className="calendar__weekday">Сб</span>
-                <span className="calendar__weekday">Вс</span>
-
-                {
-                  dates.map(dateObj => {
-
-                    const dd = dateObj.getDate();
-                    const mm = dateObj.getMonth();
-                    const yyyy = dateObj.getFullYear();
-                    
-                    const disabled = mm === month
-                      ? ''
-                      : 'disabled';
-                    const active = 
-                      dd === date.getDate() && 
-                      mm === date.getMonth() && 
-                      yyyy === date.getFullYear()
-                        ? 'active'
-                        : '';
-                    // data-date={`${month}/${date}/${year}`}
-                    return (
-                      <span 
-                        key={`${mm}/${dd}/${yyyy}`}
-                        onClick={() => handler(id, dateObj)}
-                        className={`calendar__monthday ${disabled} ${active}`}>
-                        {dd}
-                      </span>
-                    );
-                  })
-                }
+                {renderWeekdays()}
+                {renderDates()}
               </div>
             </div>
           : null
       }
       {
         pickMode === 'month'
-          ? <div className="calendar__scroll-area">
-              <div className="calendar__month-area">
-                {
-                  months.map((m, i) => 
-                    <div 
-                      key={m} 
-                      onClick={() => {
-                        dispatch(monthSet({ month: i }));
-                        setPickMode('date')
-                      }}
-                      className={`calendar__month ${i === month ? 'active' : ''}`}>
-                      {m}
-                    </div>
-                  )
-                }
-              </div>
-              <div className="calendar__year-area">
-                {
-                  years.map((y) => 
-                    <div 
-                      onClick={() => {
-                        dispatch(yearSet({ year: y }));
-                        setPickMode('date')
-                      }}
-                      key={y} 
-                      className={`calendar__year ${y === year ? 'active' : ''}`}>
-                      {y}
-                    </div>
-                  )
-                }
-              </div>
-            </div>
+          ? renderMonthPicker()
+          : null
+      }
+      {
+        pickMode === 'month-62'
+          ? renderMonthPicker62()
           : null
       }
     </div>
@@ -148,21 +246,6 @@ function getDates(date: Date): Date[] {
   // Устанавливаем первый день месяца
   date = new Date(date);
   date.setDate(1);
-
-  // const status = "idle";
-  // switch (status) {
-  //   case "idle": 
-  //     myFunc()
-  //   case "status": return (
-  //     asheofuih
-  //   );
-  //   case "idle": return (
-
-  //   );
-  //   case "idle": return (
-
-  //   );
-  // }
 
   // Последний день месяца - number (30)
   const lastDay = new Date(
@@ -188,8 +271,6 @@ function getDates(date: Date): Date[] {
     0
   ).getDay());
 
-  // console.log(firstDayIndex, lastDayIndex);
-
   // Устанавливает Понедельник как 0, Вс - 6
   function fmtDayIndex(index: number) {
     index -= 1;
@@ -198,32 +279,39 @@ function getDates(date: Date): Date[] {
 
   const dates: Date[] = [];
 
-  // 
   let d = new Date(date);
   d.setDate(d.getDate() - (firstDayIndex + 1));
   for (let i = 0; i < firstDayIndex; i++) {
     d.setDate(d.getDate() + 1);
     dates.push(new Date(d));
-    // dates.unshift(d.toString());
   }
 
-  // d = new Date(date);
-
-  // 
   for (let i = 0; i < lastDay; i++) {
     d.setDate(d.getDate() + 1);
     dates.push(new Date(d));
   }
 
-  // console.log(dates);
-
-  //
   for (let i = lastDayIndex; i < 6; i++) {
     d.setDate(d.getDate() + 1);
     dates.push(new Date(d));
   }
 
   return dates;
+}
+
+function get62(): { dates: Date[], periods: Period[] } {
+  const dates: Date[] = [];
+  const periods: Period[] = [];
+  for (let i = 0; i < 62; i++) {
+    const date = new Date();
+    date.setDate(date.getDate() - i);
+    dates.push(date);
+    const mm = date.getMonth();
+    const yyyy = date.getFullYear();
+    const found = periods.find(p => p.mm === mm && p.yyyy === yyyy);
+    if (!found) periods.push({ mm, yyyy });
+  }
+  return { dates, periods };
 }
  
 export default Calendar;
