@@ -60,9 +60,11 @@
 
 import { combineReducers } from '@reduxjs/toolkit';
 import beveragesReducer from './beverages';
+import cleaningsReducer from './cleanings';
 
 const reducer = combineReducers({
-  beverages: beveragesReducer
+  beverages: beveragesReducer,
+  cleanings: cleaningsReducer,
 });
 
 export default reducer;  

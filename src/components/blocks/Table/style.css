@@ -1,0 +1,23 @@
+table.table-two-dimensional {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+
+  thead {
+    text-align: left;
+    border-width: 0 0 2px 0;
+    border-color: black;
+    border-style: solid;
+  }
+  
+  tr {
+    height: 49px;
+  }
+  
+  th, td {
+    padding: 8px 16px;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+

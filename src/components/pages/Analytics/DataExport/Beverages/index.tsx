@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import Button from '~/components/ui/Button';
 import './style.css';
 import DropDownList from '~/components/ui/DropDownList';
+import Table from '~/components/blocks/Table';
 
 import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
@@ -10,7 +11,6 @@ import FiltersAside from '~/components/blocks/FiltersAside';
 import Pagination from '~/components/elements/Pagination';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-// import { rowsSet } from '~/store/pages/analytics/trends/data-export/beverages';
 import { fetchBeverages, idleSet } from '~/store/pages/analytics/data-export/beverages';
 import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/beverages';
 
@@ -21,16 +21,46 @@ const Beverages = () => {
   const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.analytics.dataExport.beverages);
   const { activePage, perPage } = filtersBeverages.pagination;
 
+  // const headers = {
+  //   businessUnit: "Бизнес-единица",
+  //   restaurant: "Ресторан",
+  //   machineModel: "Модель машины",
+  //   serialNumber: "Номер машины",
+  //   date: "Дата",
+  //   time: "Время",
+  //   utc: "UTC+",
+  //   recipe: "Рецепт",
+  //   cupSize: "Размер чашки",
+  //   total: "Количество",
+  // }
+
   useEffect(() => {
     if (status === 'idle') dispatch(fetchBeverages());
   }, [status, activePage, perPage]);
 
   // if (status === 'loading') {}
 
+  const tableContent: (string|number)[][] = [
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер чашки", "Количество"]
+  ];
+
+  const tableRows = rows.map(row => [
+    row.federalDistrict + "/" + row.city,
+    row.restaurant,
+    row.machineModel,
+    row.serialNumber,
+    row.date,
+    row.time,
+    row.utc,
+    row.recipe,
+    row.cupSize,
+    row.total,
+  ]);
+  tableContent.push(...tableRows);
 
   return (
     <div className='page page-analytics__data-export__beverages'>
-      <div className="page__content container container-left">
+      <div className="page__content container container-fluid">
         <FiltersAside />
         <div className='filters-top'>
           <Button layout='light'>Обновить</Button>
@@ -43,8 +73,8 @@ const Beverages = () => {
           <DropDownList 
             onChange={(e) => {
               const value = parseInt(e.currentTarget.value);
-                dispatch(activePageSet(1));
-                dispatch(rowsPerPageSet(value));
+              dispatch(activePageSet(1));
+              dispatch(rowsPerPageSet(value));
             }} 
             value={perPage.toString()}
             label="Показать по" 
@@ -77,7 +107,8 @@ const Beverages = () => {
             activePage={activePage} />
         </div>
         <div className="table-wrapper">
-          <table>
+          <Table data={tableContent} />
+          {/* <table>
             <thead>
               <tr>
                 <th>Округ</th>
@@ -108,7 +139,7 @@ const Beverages = () => {
                 </tr>)
               }
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </div>
