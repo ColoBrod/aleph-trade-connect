@@ -11,7 +11,7 @@ interface Props {
 const TopPanel = (props: Props) => {
   return (
     <div className="panel panel-top">
-      <Logo />
+      <Logo fixed={true} />
       <div className="divider"></div>
       <div className="panel-top__inner">
         <div className="container-fluid">

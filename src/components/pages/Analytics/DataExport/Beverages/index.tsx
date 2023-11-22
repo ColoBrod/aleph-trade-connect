@@ -40,6 +40,16 @@ const Beverages = () => {
 
   // if (status === 'loading') {}
 
+  const pagination = <Pagination 
+    handler={
+      (pageIndex: number) => {
+        dispatch(activePageSet(pageIndex));
+        dispatch(idleSet({}))
+      }
+    } 
+    pagesTotal={pagesTotal} 
+    activePage={activePage} />
+
   const tableContent: (string|number)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер чашки", "Количество"]
   ];
@@ -96,7 +106,8 @@ const Beverages = () => {
             { value: "9", innerHTML: "+ 09:00" },
             { value: "10", innerHTML: "+ 10:00" },
           ]} />
-          <Pagination 
+          {pagination}
+          {/* <Pagination 
             handler={
               (pageIndex: number) => {
                 dispatch(activePageSet(pageIndex));
@@ -104,10 +115,11 @@ const Beverages = () => {
               }
             } 
             pagesTotal={pagesTotal} 
-            activePage={activePage} />
+            activePage={activePage} /> */}
         </div>
         <div className="table-wrapper">
           <Table data={tableContent} />
+          
           {/* <table>
             <thead>
               <tr>
@@ -140,6 +152,9 @@ const Beverages = () => {
               }
             </tbody>
           </table> */}
+        </div>
+        <div className="filters-bottom">
+          {pagination}
         </div>
       </div>
     </div>

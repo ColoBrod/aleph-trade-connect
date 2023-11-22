@@ -3,10 +3,11 @@ import React from 'react';
 import './style.css'
 // import { use_XS, use_SM, use_MD, use_LG, use_XL } from '~/media-queries';
 interface Props {
-  color: string;
+  layout?: 'header' | 'main';
+  color?: string;
 }
 
-const AppName = ({ color }: Props) => {
+const AppName = ({ layout = 'header', color = "light" }: Props) => {
   color = color === "dark" ? "black" : "white";
   // const xs = use_XS();
   // const sm = use_SM();
@@ -14,7 +15,7 @@ const AppName = ({ color }: Props) => {
   // const lg = use_LG();
   // const xl = use_XL();
   return (
-    <div style={{ color }} className="app-name">
+    <div style={{ color }} className={`app-name app-name-${layout}`}>
       AlephTradeConnect
     </div>
   );

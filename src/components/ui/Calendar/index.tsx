@@ -19,7 +19,6 @@ type PickMode = 'date' | 'month' | 'month-62';
 const weekdays = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 const { dates: dates62, periods: periods62 } = get62();
-console.log(dates62);
 
 interface CalendarProps {
   type?: "any-date" | "62-days";

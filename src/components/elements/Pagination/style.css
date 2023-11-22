@@ -1,12 +1,16 @@
+$gap: 5px;
+$pageSize: 20px;
+
 .pagination {
   display: flex;
-  gap: 5px;
+  gap: $gap;
   flex-wrap: nowrap;
 
   &__first, &__last, &__prev, &__next, &__page {
     display: inline-block;
-    width: 20px;
-    height: 20px;
+    flex-shrink: 0;
+    width: $pageSize;
+    height: $pageSize;
     border-radius: 6px;
     border: 1px solid #BDBDBD;
     color: var(--clr-font);
@@ -16,6 +20,15 @@
     cursor: pointer;
     user-select: none;
     background-position: center;
+  }
+
+  &__pages {
+    display: inline-flex;
+    gap: $gap;
+    /* 20 * 7 + 6 * 5 = 170 */
+    flex: 0 0  calc($pageSize * 7 + $gap * 6);
+    /* justify-content динамически расчитывается в TS-коде */
+    align-items: center;
   }
 
   &__page {

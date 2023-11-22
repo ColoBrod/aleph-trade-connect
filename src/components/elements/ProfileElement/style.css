@@ -2,7 +2,7 @@
   position: relative;
   height: 100%;
   margin-left: auto;
-  padding: 7px 3px 3px;
+  padding: 7px 3px 7px 3px;
 
   &__inner {
     height: 100%;

@@ -1,11 +1,33 @@
 .page-login {
-  color: black;
+  color: var(--clr-font);
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  gap: 1rem;
+  gap: 13px;
+  padding: 0 12px;
+
+  .logo {
+    img {
+      width: 70px;
+    }
+  }
+
+  .app-name {
+    font-size: 32px;
+    line-height: 122.5%;
+  }
+
+  .form-inputs {
+    width: 100%;
+    padding: 29px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 10px;
+  }
 
   input[type="text"] {
     width: 100%;

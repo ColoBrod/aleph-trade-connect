@@ -1,6 +1,6 @@
 .logo {
   display: block;
-  height: 100%;
+  /* height: 100%; */
   /* width: 40px; */
   aspect-ratio: 1 / 1;
   /* background-color: greenyellow; */
@@ -10,13 +10,26 @@
   justify-content: center;
 
   img {
+    width: 100%;
     display: block;
-    width: 31.29px;
+    /* width: 31.29px; */
+  }
+
+  &.light {
+    img {  }
   }
   
+  &.dark {
+    img { filter: invert(1); }
+  }
+
   &-fixed {
-    width: 100px;
-    height: 100px;
+    width: 72px;
+    height: 72px;
+    img {
+      width: 31.29px;
+      display: block;
+    }
   }
 
   &-square {

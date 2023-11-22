@@ -14,8 +14,8 @@ const Table = (props: TableProps) => {
     <table className='table-two-dimensional'>
       <thead>
         <tr>
-          {headers.map((th) => (
-            <th>{th}</th>
+          {headers.map((th, i) => (
+            <th key={i}>{th}</th>
           ))}
         </tr>
       </thead>
@@ -23,9 +23,9 @@ const Table = (props: TableProps) => {
         {data.map((row, i) => {
           if (i === 0) return null;
           return (
-            <tr>
-              {row.map((td) => (
-                <td>{td}</td>
+            <tr key={i}>
+              {row.map((td, k) => (
+                <td key={k}>{td}</td>
               ))}
             </tr>
           );

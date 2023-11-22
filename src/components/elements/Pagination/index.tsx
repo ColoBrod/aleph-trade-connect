@@ -20,13 +20,31 @@ const Pagination = (props: Props) => {
       pages.push(<span onClick={() => handler(i)} key={i} className="pagination__page">{i.toFixed(0)}</span>);
   }
 
+  const justifyContent = activePage < pagesTotal / 2
+    ? 'flex-start'
+    : 'flex-end';
+
   return (
     <div className="pagination">
-      <span onClick={() => handler(1)} className="pagination__first"></span>
-      <span onClick={() => handler(activePage -1)} className="pagination__prev"></span>
-      {pages}
-      <span onClick={() => handler(activePage + 1)} className="pagination__next"></span>
-      <span onClick={() => handler(pagesTotal)} className="pagination__last"></span>
+      <span 
+        onClick={() => handler(1)} 
+        className="pagination__first">
+      </span>
+      <span 
+        onClick={() => activePage - 1 > 0 && handler(activePage -1) } 
+        className="pagination__prev">
+      </span>
+      <span className='pagination__pages' style={{ justifyContent }}>
+        {pages}
+      </span>
+      <span 
+        onClick={() => activePage + 1 <= pagesTotal && handler(activePage + 1)} 
+        className="pagination__next">
+      </span>
+      <span 
+        onClick={() => handler(pagesTotal)} 
+        className="pagination__last">
+      </span>
     </div>
   );
 }
