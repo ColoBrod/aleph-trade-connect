@@ -29,3 +29,11 @@ export interface Filters {
 
   errors: number[]; // ID ошибок кофе-машин
 }
+
+// export const initialState: Filters = {
+//   businessUnits: [],
+//   coffeeMachineSubstring: "",
+//   coffeeMachineModels: {
+
+//   },
+// }

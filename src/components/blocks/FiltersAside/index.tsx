@@ -10,10 +10,17 @@ import { serialNumberAdded } from '~/store/filters/analytics/dayly-reports';
 import SNBadge from '~/components/elements/SNBadge';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
+import { businessUnitsSet } from '~/store/filters/analytics';
 
 const FiltersAside = () => {
   const dispatch = useAppDispatch();
   const { serialNumbers } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const { businessUnits } = useAppSelector(state => state.entities.data);
+  const checked = businessUnits.map(unit => {
+    if (unit.type === 0) return unit.id.toString();
+  })
+
+  console.log("Business Units: ", businessUnits)
 
   return (
     <div className="filters filters-aside">
@@ -34,7 +41,12 @@ const FiltersAside = () => {
           <div className="filters-section__title">Рестораны</div>
         </div>
         <div className="filters-section__component">
-          <RegionTree />
+          <RegionTree 
+            onCheck={(checked) => {
+              dispatch(businessUnitsSet(checked))
+            }} 
+            items={businessUnits} 
+            />
         </div>
       </div>
       <div className="filters-section">

@@ -3,7 +3,7 @@ import './style.css';
 
 interface Props {
   children: ReactNode;
-  layout?: "light" | "dark";
+  layout?: "light" | "dark" | "dark-shadow";
   onClick?: () => void;
 }
 

@@ -34,13 +34,16 @@ const initialState: IFilters_Analytics = {
       end: dateToFmt,
     }
   },
-  // recipes: [],
+  recipes: [],
 }
 
 const slice = createSlice({
   name: 'analytics',
   initialState,
   reducers: {
+    businessUnitsSet: (state, action) => {
+      state.businessUnits = action.payload;
+    },
     dateRangeSet: (state, action) => {
       const { id, date } = action.payload;
       if (id === "date-start") {
@@ -108,6 +111,7 @@ const reducer = combineReducers({
 });
 
 export const {
+  businessUnitsSet,
   coffeeMachineModelsAllSelected,
   coffeeMachineModelSelected,
   modelSearched,

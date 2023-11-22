@@ -20,6 +20,7 @@ export interface IDateRange {
 
 export interface IFilters_Analytics {
   businessUnits: number[];
+  recipes: number[];
   coffeeMachineModels: {
     substring: string;
     selectAll: boolean;
@@ -53,4 +54,24 @@ export interface IFilters_Analytics_DaylyReports {
 
 export interface IFilters_Analytics_DataExport extends IFilters_Analytics {
   serialNumbers: string[];
+}
+
+export const initialFilters_Analytics: IFilters_Analytics = {
+  businessUnits: [],
+  recipes: [],
+  coffeeMachineModels: {
+    substring: "",
+    selectAll: true,
+    list: [],
+  },
+  dateRange: {
+    date: {
+      start: "11/21/2023",
+      end: "11/22/2023",
+    },
+    time: {
+      start: "00:00",
+      end: "08:00",
+    },
+  },
 }

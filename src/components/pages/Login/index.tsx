@@ -14,8 +14,10 @@ const Login = () => {
 
   return (
     <div className="page page-login">
-      <Logo fixed={true} color='dark' />
-      <AppName color="dark" />
+      <div className="logo-section">
+        <Logo fixed={true} active={false} color='dark' />
+        <AppName color="dark" />
+      </div>
       <div className="form-inputs">
         <TextInput 
           name='username'
@@ -39,9 +41,17 @@ const Login = () => {
           placeholder='Password' 
           />
       </div>
-      <Checkbox id='remember-me' label='Запомнить меня' checked={true} />
-      <Button>Войти</Button>
-      <Button>Зарегистрироваться</Button>
+      <Button layout='dark-shadow'>Вход</Button>
+      <span className="another-login-methods">
+        другие способы входа
+
+      </span>
+      {/* <span style={{ height: '40px', lineHeight: '40px', fontSize: '14px', textAlign: 'center', cursor: 'pointer' }}>
+      </span> */}
+      <Button layout='dark-shadow'>Отправить SMS</Button>
+      {/* <Checkbox id='remember-me' label='Запомнить меня' checked={true} /> */}
+      {/* <Button>Войти</Button> */}
+      {/* <Button>Зарегистрироваться</Button> */}
     </div>
   );
 }

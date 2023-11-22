@@ -5,7 +5,7 @@ interface State {
 }
 
 const initialState: State = {
-  display: 'login',
+  display: 'logo',
 }
 
 const slice = createSlice({

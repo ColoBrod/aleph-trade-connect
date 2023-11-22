@@ -1,29 +1,12 @@
 import React from 'react';
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import { IBusinessUnit, ICoffeeMachine } from '~/interfaces/entities';
 
-const SearchBar = () => {
-  const items = [
-    {
-      id: 0,
-      name: "Cobol",
-    },
-    {
-      id: 1,
-      name: "JavaScript",
-    },
-    {
-      id: 2,
-      name: "Basic",
-    },
-    {
-      id: 3,
-      name: "PHP",
-    },
-    {
-      id: 4,
-      name: "Java",
-    },
-  ];
+interface Props {
+  items: (ICoffeeMachine | IBusinessUnit)[];
+}
+
+const SearchBar = ({ items }: Props) => {
 
   const handleOnSearch = (string: string, results: any) => {
     console.log(string, results);
@@ -46,11 +29,10 @@ const SearchBar = () => {
   };
 
   const formatResult = (item: any) => {
-    console.log(item);
     return (
-      <div style={{  }} className="result-wrapper">
-        <span className="result-span">id: {item.id}</span>
-        <span className="result-span">name: {item.name}</span>
+      <div className="result-wrapper">
+        <span className="result-span">{item.id}</span> - 
+        <span className="result-span">{item.name}</span>
       </div>
     );
   };
@@ -77,7 +59,7 @@ const SearchBar = () => {
           zIndex: 4,
         }} // To display it on top of the search box below
         autoFocus
-        // formatResult={formatResult}
+        formatResult={formatResult}
       />
     </div>
   );

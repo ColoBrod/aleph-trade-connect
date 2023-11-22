@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import CheckboxTree, { OnCheckNode, OnExpandNode, Node } from 'react-checkbox-tree';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
-import nodes from './data';
+// import nodes from './data';
 
 // Центральный, Северо-Западный, Южный, Приволжский, Уральский, Сибирский, Дальневосточный, Северо-Кавказский
 // import imgBeverage from './img/beverage.png';
@@ -14,19 +14,28 @@ import imgArrowRight from './img/arrow-right.svg';
 
 
 import './style.css';
+import { IBusinessUnit } from '~/interfaces/entities';
+
+// type TreeItem = IBusinessUnit;
+
+// interface TreeNode {
+//   value: number;
+//   label: string;
+//   children: TreeNode[];
+// }
 
 interface Props {
-
+  items: IBusinessUnit[];
+  onCheck: (checked: string[]) => void;
 }
 
 class RegionTree extends React.Component<Props> {
   state = {
-    checked: [],
+    checked: ["1001"],
     expanded: [],
     filterText: '',
-    filteredNodes: nodes,
+    filteredNodes: [],
   };
-  
 
   constructor(props: Props) {
     super(props);
@@ -35,10 +44,15 @@ class RegionTree extends React.Component<Props> {
     this.onFilterChange = this.onFilterChange.bind(this);
     this.filterTree = this.filterTree.bind(this);
     this.filterNodes = this.filterNodes.bind(this);
+
+    // This checks all deeply nested business units
+    // this.state.checked = this.props.items.map(unit => unit.id.toString())
   }
 
   render() {
+    const { items } = this.props;
     const { checked, expanded, filterText, filteredNodes } = this.state;
+    if (items.length === 0) return null;
 
     return (
       <>
@@ -56,7 +70,7 @@ class RegionTree extends React.Component<Props> {
               parentOpen: null,
               leaf: null,
             }}
-            nodes={filteredNodes}
+            nodes={filteredNodes} // filteredNodes
             checked={checked}
             expanded={expanded}
             onCheck={this.onCheck}
@@ -67,24 +81,61 @@ class RegionTree extends React.Component<Props> {
     );
   }
 
-  onCheck(checked: string[]): void {
+  componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void {
+    if (prevProps.items.length === this.props.items.length) return;
+    const { items } = this.props;
+    const filteredNodes = this.buildTree(items);
+    const checked = items.map(unit => {
+      if (unit.type === 0) return unit.id.toString();
+    })
+    this.setState({ checked, filteredNodes });
+  }
+
+  componentDidMount(): void {
+    // console.log("Items:", items);
+    // const nodes = this.buildTree(items);
+    // console.log("Nodes:", nodes);
+    // this.setState({ filterNodes: nodes }, () => console.log("State:", this.state));
+  }
+
+  onCheck(checked: string[], node: OnCheckNode): void {
+    const { onCheck: handler } = this.props;
+    // console.log(checked);
     this.setState({ checked });
+    handler(checked);
   }
 
   onExpand(expanded: string[]): void {
     this.setState({ expanded }, () => console.log(this.state.expanded));
   }
 
+  private buildTree(data: IBusinessUnit[], parentId = 0): Node[] {
+    const tree: Node[] = [];
+    data.forEach((item: IBusinessUnit) => {
+      if (item.parentId === parentId) {
+        const children = this.buildTree(data, item.id);
+        const node: Node = {
+          value: item.id.toString(),
+          label: item.name,
+          children: children.length > 0 ? children : []
+        };
+        tree.push(node);
+      }
+    });
+    return tree;
+  }
+
+  // TODO: Adjust this method
   filterTree() {
     const { filterText } = this.state;
 
     // Reset nodes back to unfiltered state
     if (!filterText) {
-      this.setState({ filteredNodes: nodes });
+      // this.setState({ filteredNodes: nodes });
       return;
     }
 
-    this.setState({ filteredNodes: nodes.reduce(this.filterNodes, []) });
+    // this.setState({ filteredNodes: nodes.reduce(this.filterNodes, []) });
   }
 
   onFilterChange(e: ChangeEvent<HTMLInputElement>) {

@@ -1,16 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios";
-import config from "~/config";
 import { Status } from "~/interfaces/common";
+import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
+import { apiCallPending, apiCallRejected, apiCallFullfilled } from "~/store/utils";
+import {
+  ICoffeeMachine,
+  ICoffeeMachineModel,
+  IBusinessUnit,
+  IRecipe,
+  IError
+} from "~/interfaces/entities";
 
-const BASE_URL = config.api.url + "/entities";
+
+const PAGE_URL = "/entities";
 
 interface Entities {
   status: Status;
   error: string;
   data: {
-    dispensings: number;
-    coffeeMachines: number[];
+    // dispensings: number;
+    coffeeMachines: ICoffeeMachine[];
+    coffeeMachineModels: ICoffeeMachineModel[];
+    businessUnits: IBusinessUnit[];
+    recipes: IRecipe[];
+    errors: IError[];
   };
 }
 
@@ -18,18 +30,24 @@ const initialState: Entities = {
   status: 'idle',
   error: "",
   data: {
-    dispensings: 0,
+    // dispensings: 0,
     coffeeMachines: [],
+    coffeeMachineModels: [],
+    businessUnits: [],
+    recipes: [],
+    errors: [],
   },
 };
 
-export const fetchDispensings = createAsyncThunk('entities/dispensings', async () => {
-  const response = await axios.get(BASE_URL + '/dispensings');
-  return response.data;
-});
+export const fetchEntities = createCustomAsyncThunk("get", PAGE_URL);
+
+// export const fetchDispensings = createAsyncThunk('entities/dispensings', async () => {
+//   const response = await axios.get(BASE_URL + '/dispensings');
+//   return response.data;
+// });
 
 const slice = createSlice({
-  name: 'dispensings',
+  name: 'entities',
   initialState,
   reducers: {
     // getDispensings: (state, action) => {
@@ -37,21 +55,12 @@ const slice = createSlice({
   }, 
   extraReducers(builder) {
     builder
-      .addCase(fetchDispensings.pending, (state, action) => {
-        state.status = 'loading';
+      .addCase(fetchEntities.pending, apiCallPending)
+      .addCase(fetchEntities.fulfilled, (state, action) => {
+        state.data = action.payload;
       })
-      .addCase(fetchDispensings.fulfilled, (state, action) => {
-        state.status = 'success';
-        const { dispensingsByDate } = action.payload;
-        // state.dispensingsByDate.data = dispensingsByDate;
-      })
-      .addCase(fetchDispensings.rejected, (state, action) => {
-        // state.dispensingsByDate.status = 'error';
-        const { message } = action.error;
-        // if (message) state.dispensingsByDate.error = message;
-      })
+      .addCase(fetchEntities.rejected, apiCallRejected)
   }
-
 });
 
 // export const { getDispensings } = slice.actions;

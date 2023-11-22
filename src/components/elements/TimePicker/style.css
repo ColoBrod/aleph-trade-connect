@@ -1,12 +1,22 @@
 .picker.picker-time {
   .picker__input {
     text-align: left;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding-left: 10px;
 
-    &::-webkit-calendar-picker-indicator {
+    /* width: 26px;
+    height: 26px; */
+    background-image: url('clock.svg');
+    background-size: 26px 26px;
+    background-position: right 2px top 6px;
+    background-repeat: no-repeat;
+
+    /* &::-webkit-calendar-picker-indicator {
       width: 26px;
       height: 26px;
       background-image: url('clock.svg');
       background-position-x: 4px;
-    }
+    } */
   }
 }

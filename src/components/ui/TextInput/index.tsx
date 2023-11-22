@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useRef } from 'react';
+import React, { ChangeEventHandler, useRef, useState } from 'react';
 
 import "./style.css";
 import imgShowPassword from './show-password.svg'
@@ -14,14 +14,20 @@ interface Props {
 
 const TextInput = (props: Props) => {
   const { 
-    type = 'text',
+    type: typeProp = 'text',
     name, 
     value = "", 
     label = "", 
     placeholder = "",
     onChange: handleChange,
   } = props;
-  const ref = useRef();
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
+  const type = typeProp === 'text'
+    ? 'text'
+    : visible === true
+      ? 'text'
+      : 'password';
 
   return (
     <div className="input-text">
@@ -36,14 +42,12 @@ const TextInput = (props: Props) => {
         placeholder={ placeholder ? placeholder : "" } 
         />
       {
-        type === 'password' 
+        typeProp === 'password' 
           ? <img 
               className='icon-show-password' 
-              onClick={e => {
-
-              }}
+              onClick={e => setVisible(!visible)}
               src={imgShowPassword} 
-              alt="" 
+              alt="Icon - show password" 
             />
           : null
       }

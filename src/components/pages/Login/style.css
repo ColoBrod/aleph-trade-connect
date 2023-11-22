@@ -4,11 +4,19 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   gap: 13px;
   padding: 0 12px;
 
+  .logo-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+  }
+
   .logo {
+    text-align: center;
     img {
       width: 70px;
     }
@@ -35,6 +43,14 @@
   
   .component-checkbox {
     width: 100%;
+  }
+
+  .another-login-methods {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
   }
 
   .component-btn {

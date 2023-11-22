@@ -1,22 +1,32 @@
-export interface IBusinessUnit {
-
-}
-
 export interface ICoffeeMachine {
-
+  id: number;
+  modelId: number;
+  businessUnitId: number;
+  name: string;
+  code: string;
 }
 
 export interface ICoffeeMachineModel {
-
+  id: number;
+  name: string;
 }
 
-interface IRecipe {
-
+export interface IBusinessUnit {
+  id: number;
+  parentId: number;
+  name: string;
+  type: number;
+  chatTelegramId: string;
+  address?: string;
 }
 
-/**
- * Ошибки кофе-машин
- */
-interface IError {
+export interface IRecipe {
+  id: number;
+  name: string;
+}
 
+export interface IError {
+  id: number;
+  code: string;
+  name: string;
 }

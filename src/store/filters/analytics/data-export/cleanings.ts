@@ -10,7 +10,7 @@ interface State extends StateWithPagination {
 
 const initialState: State = {
   pagination: {
-    perPage: 10,
+    perPage: 20,
     activePage: 1,
   },
 }

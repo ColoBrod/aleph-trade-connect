@@ -1,14 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import AppName from '~/components/elements/AppName';
 import Logo from '~/components/elements/Logo';
 import ProfileElement from '~/components/elements/ProfileElement';
 import SearchBar from './SeachBar';
 
+import { useAppDispatch, useAppSelector } from '~/hooks';
+
 interface Props {
+
 }
 
 const TopPanel = (props: Props) => {
+  const { coffeeMachines, businessUnits } = useAppSelector(state => state.entities.data);
+  const items = [...coffeeMachines, ...businessUnits];
+  // console.log("ITEMS:", coffeeMachines);
+
   return (
     <div className="panel panel-top">
       <Logo fixed={true} />
@@ -17,7 +23,8 @@ const TopPanel = (props: Props) => {
         <div className="container-fluid">
           <AppName color="white" />
           <div className="spacer"></div>
-          <SearchBar />
+          {/* items={items} */}
+          <SearchBar items={items} />
           <ProfileElement />
         </div>
       </div>
