@@ -25,9 +25,9 @@ const analytics: RouteObject = {
     {
       path: "trends",
       element: <InnerWithNestedTabs tabs={[
+        { children: "Настройки", path: `/analytics/trends/settings` },
         { children: "Обзор", path: `/analytics/trends/overview` },
         { children: "Продажи", path: `/analytics/trends/sales` },
-        { children: "Настройки", path: `/analytics/trends/settings` },
       ]} />,
       children: [
         {

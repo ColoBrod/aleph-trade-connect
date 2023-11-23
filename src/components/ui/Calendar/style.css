@@ -61,16 +61,21 @@
   }
   &__year-area {
   }
+  &__month, &__year {
+    padding-left: 56px;
+  }
   &__month, &__year, &__year-month {
     height: 48px;
     line-height: 48px;
-    padding-left: 56px;
     &.active {
       background-color: #E2E2E3;
       background-image: url('check.svg');
       background-repeat: no-repeat;
       background-position: 16px 12px;
     }
+  }
+  &__year-month {
+    text-align: center;
   }
   &__selection-arrow {
     &.available {

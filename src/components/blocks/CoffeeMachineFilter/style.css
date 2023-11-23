@@ -6,24 +6,4 @@
   * {
     direction: ltr;
   }
-
-  &::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  &::-webkit-scrollbar-track {
-    /* background: red; */
-    background-image: linear-gradient(to right, #d6d6d6, #EEEEEE);
-    border-radius: 3px;
-  }
-  
-  &::-webkit-scrollbar-thumb {
-    /* 0D5B9F */
-    /* background-image: linear-gradient(to right, #0D5B9F, #0E66B2); */
-    /* background-color: var(--clr-scrollbar); */
-    background-color: #0E66B2;
-    border-radius: 3px;
-    /* border: 3px solid transparent; */
-  }
-
 }

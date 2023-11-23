@@ -27,7 +27,7 @@ const HeaderWidgets = () => {
         icon={imgClock}
         layout='header'
         amount={"01.11.2023 14:55:46"}
-        description={"Последнияя синхронизация"}
+        description={"Последняя синхронизация"}
       />
     </div>
   );

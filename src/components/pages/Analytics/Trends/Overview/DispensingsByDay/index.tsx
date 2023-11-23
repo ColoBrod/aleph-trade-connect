@@ -77,13 +77,13 @@ const DispensingsByDay = () => {
       />
       <Widget 
         amount={currentWeekTotal} 
-        description="Количество чашек. Текущая неделя."
+        description="Количество чашек. Текущая неделя"
         layout={ lgMax ? 'chart-small' : 'chart' }
         align={ lgMax ? 'left' : 'center' }
       />
       <Widget 
         amount={previousWeekTotal} 
-        description="Количество чашек. Предыдущая неделя."
+        description="Количество чашек. Предыдущая неделя"
         layout={ lgMax ? 'chart-small' : 'chart' }
         align={ lgMax ? 'left' : 'center' }
       />

@@ -10,7 +10,7 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByCupSize = () => {
-  const header = 'Выдачи по размеру чашки (S-M-L)';
+  const header = 'По размеру чашки (S-M-L)';
   const dispatch = useAppDispatch();
   const { dispensingsByCupSize } = useAppSelector(state => state.pages.analytics.trends.sales);
 
@@ -69,7 +69,7 @@ const DispensingsByCupSize = () => {
       />
       <Widget 
         amount={mostPopular}
-        description={`Самый популярный размер чашки`}
+        description={`Это самый популярный размер чашки`}
         layout='chart-doughnut'
         align='center'
       />

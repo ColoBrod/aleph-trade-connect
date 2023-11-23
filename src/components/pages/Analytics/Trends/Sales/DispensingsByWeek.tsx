@@ -10,7 +10,7 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByWeek = () => {
-  const header = 'Выдачи на прошлой и текущей неделе';
+  const header = 'Неделя к неделе';
 
   const dispatch = useAppDispatch();
   const { dispensingsByWeek } = useAppSelector(state => state.pages.analytics.trends.sales);

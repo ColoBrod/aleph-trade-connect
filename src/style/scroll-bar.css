@@ -1,0 +1,20 @@
+*::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background-image: linear-gradient(to right, #d6d6d6, #EEEEEE);
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #0E66B2;
+  border-radius: 3px;
+}
+
+* {
+  scrollbar-width: 6px;
+  scrollbar-color: #0E66B2 transparent;
+  /* scrollbar-color: var(--clr-badge) transparent; */
+}

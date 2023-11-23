@@ -1,10 +1,10 @@
-import React, { ReactNode } from 'react';
+import React, { MouseEventHandler, ReactNode } from 'react';
 import './style.css';
 
 interface Props {
   children: ReactNode;
   layout?: "light" | "dark" | "dark-shadow";
-  onClick?: () => void;
+  onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 const Button = (props: Props) => {

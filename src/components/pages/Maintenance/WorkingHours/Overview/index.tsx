@@ -94,7 +94,7 @@ const Overview = () => {
           />
           <Widget 
             amount={"Пятница"}
-            description={<>Самый популярный день недели за последние <b>{period}</b> дней</>}
+            description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
             layout='chart'
             align='center'
           />

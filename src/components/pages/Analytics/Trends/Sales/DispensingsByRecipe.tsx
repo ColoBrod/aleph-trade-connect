@@ -11,7 +11,7 @@ import { COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByRecipe = () => {
   const period = 30;
-  const header = 'Выдачи по рецептам';
+  const header = 'По рецептам';
   const dispatch = useAppDispatch();
   const { dispensingsByRecipe } = useAppSelector(state => state.pages.analytics.trends.sales);
   
@@ -45,7 +45,7 @@ const DispensingsByRecipe = () => {
   });
 
   return (
-    <InfoBlock layout="chart-4" header='Выдачи по рецептам'>
+    <InfoBlock layout="chart-4" header={header}>
       <Diagram 
         id="dispensings-by-recipe"
         type="bar"
@@ -72,8 +72,8 @@ const DispensingsByRecipe = () => {
       <Widget 
         amount={mostPopular}
         description={<>Самый популярный рецепт за последние <b>{period}</b> дней</>}
-        layout='description'
-        align='center'
+        layout='dayly-reports'
+        align='left'
       />
     </InfoBlock>
   );

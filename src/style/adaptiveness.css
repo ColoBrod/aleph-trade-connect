@@ -39,6 +39,7 @@
     padding-left: 40px;
     padding-right: 40px;
     width: 100%; 
+    min-width: 880px;
   }
   /* .container { width: 460px; } */
 }
@@ -49,6 +50,7 @@
     padding-left: 40px;
     padding-right: 40px;
     width: 100%; 
+    min-width: 880px;
   }
   /* .info-block { border-radius: 0; } */
 }

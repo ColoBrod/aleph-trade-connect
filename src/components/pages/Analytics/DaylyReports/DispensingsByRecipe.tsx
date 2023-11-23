@@ -12,7 +12,7 @@ import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
 import imgBeverage from './img/beverage.svg';
 
 const DispensingsByRecipe = () => { 
-  const header = 'Напитки по рецепту';
+  const header = 'По рецептам';
   const period = 30;
   const dispatch = useAppDispatch();
 

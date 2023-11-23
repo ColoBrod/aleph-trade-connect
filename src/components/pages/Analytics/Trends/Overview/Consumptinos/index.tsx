@@ -41,28 +41,28 @@ const Consumptions = () => {
         icon={imgWater}
         amount={water} 
         toFixed={true}
-        description={<>Литров воды за {period} дней.</>}
+        description={<>Литров воды за {period} дней</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgMilk}
         amount={milk} 
         toFixed={true}
-        description={<>Литров молока за {period} дней.</>}
+        description={<>Литров молока за {period} дней</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgCoffee}
         amount={coffee} 
         toFixed={true}
-        description={<>Кг. кофе за {period} дней.</>}
+        description={<>Килограмм кофе за {period} дней</>}
         layout="dashboard"
       />
       <Widget 
         icon={imgChocolate}
         amount={chocolate} 
         toFixed={true}
-        description={<>Кг. шоколада за {period} дней.</>}
+        description={<>Килограмм шоколада за {period} дней</>}
         layout="dashboard"
       />
     </InfoBlock>

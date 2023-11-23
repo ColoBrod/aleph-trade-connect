@@ -10,7 +10,8 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const AverageDispensingsPerMachine = () => {
-  const header = 'Среднее количество напитков на одну машину';
+  const period = 30;
+  const header = `Среднее количество напитков за ${period} дней на одну машину`;
   const dispatch = useAppDispatch();
   const { dispensingsPerMachineAverage } = useAppSelector(state => state.pages.analytics.trends.overview);
 

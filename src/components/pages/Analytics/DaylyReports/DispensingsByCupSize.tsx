@@ -13,7 +13,7 @@ import imgBeverage40 from './img/beverage-40.svg';
 import imgDispensing40 from './img/dispensing-40.svg';
 
 const DispensingsByCupSize = () => { 
-  const header = 'Напитки по размеру чашки';
+  const header = 'По размеру чашки (S-M-L)';
   const period = 30;
   const dispatch = useAppDispatch();
 
@@ -42,7 +42,7 @@ const DispensingsByCupSize = () => {
   //   : `calc(100% + ${((data.length - 7) * 24)}px)`;
 
   return (
-    <InfoBlock layout="chart-7" header='Напитки по размеру чашки'>
+    <InfoBlock layout="chart-7" header={header}>
       <Diagram 
         id="beverages-by-cup-size"
         type="doughnut"

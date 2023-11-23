@@ -22,7 +22,7 @@ const weekFullName = {
 
 const DispensingsByWeekdayAndTime = () => {
   const period = 30;
-  const header = 'Выдачи по дню недели и времени';
+  const header = 'Напитки по дням недели и часам';
   const dispatch = useAppDispatch();
   const { dispensingsByWeekdayAndTime } = useAppSelector(state => state.pages.analytics.trends.sales);
   // const { timeStart, timeEnd } = dispensingsByWeekdayAndTime.filters;
@@ -94,13 +94,13 @@ const DispensingsByWeekdayAndTime = () => {
       <Widget 
         // @ts-ignore
         amount={weekFullName[bestDay]}
-        description={<>Самый популярный день недели за последние <b>{period}</b> дней</>}
+        description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
         layout='chart-doughnut'
         align='center'
       />
       <Widget 
         amount={total}
-        description={<>Выдач всего</>}
+        description={<>напитков было приготовлено</>}
         layout='chart-doughnut'
         align='center'
       />

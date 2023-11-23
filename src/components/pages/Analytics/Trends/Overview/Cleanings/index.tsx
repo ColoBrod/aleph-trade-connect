@@ -72,13 +72,13 @@ const Cleanings = () => {
       <Widget 
         amount={currentWeek} 
         toFixed={true}
-        description="Чистка машины в день. Текущая неделя."
+        description="Чистка машины в день. Текущая неделя"
         layout="chart"
       />
       <Widget 
         amount={previousWeek} 
         toFixed={true}
-        description="Чистка машины в день. Предыдущая неделя."
+        description="Чистка машины в день. Предыдущая неделя"
         layout="chart"
       />
     </InfoBlock>
