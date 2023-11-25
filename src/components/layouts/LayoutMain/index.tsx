@@ -3,11 +3,9 @@ import { Outlet, useLocation } from 'react-router-dom';
 import ModalBox from '~/components/blocks/ModalBox';
 import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
-import Calendar from '~/components/ui/Calendar';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { dateRangeSet } from '~/store/filters/analytics';
-import { displaySet } from '~/store/ui/calendar';
+// import { dateRangeSet } from '~/store/filters/analytics';
 import { fetchEntities } from '~/store/entities';
 
 import './style.css';
@@ -35,13 +33,16 @@ const LayoutMain = () => {
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
       }
-      <Calendar type='62-days' onChange={(id: string, date: Date) => {
+      {/* <Calendar type='62-days' onChange={(id: string, date: Date) => {
         const dd = date.getDate();
         const mm = date.getMonth() + 1;
         const yyyy = date.getFullYear();
-        dispatch(dateRangeSet({ id, date: `${mm}/${dd}/${yyyy}` }));
+        const payload = id === 'date-start'
+          ? { start: `${mm}/${dd}/${yyyy}` }
+          : { end: `${mm}/${dd}/${yyyy}` };
+        dispatch(dateRangeSet(payload));
         dispatch(displaySet({ visible: false }));
-      }} />
+      }} /> */}
     </div>
   );
 }

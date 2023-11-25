@@ -1,22 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IFilters_Analytics_Trends } from "~/interfaces/filters";
+import InitialFilters from "../../initial";
+import { _recipeToggled } from "~/store/filters/utils";
+import { _dateRangeSet } from "~/store/filters/utils";
 
-const initialState: IFilters_Analytics_Trends = {
-  recipes: [],
-}
+// export const initialState = new InitialFilters('analytics/trends') as IFilters_Analytics_Trends; 
+// const serializable = { ...initialState };
+
+const state = new InitialFilters('analytics/trends');
+const initialState = { ...state } as IFilters_Analytics_Trends;
 
 const slice = createSlice({
   name: 'trends', 
   initialState,
   reducers: {
-    recipeToggled: (state, action) => {
-      const id = action.payload;
-      const rIndex = state.recipes.indexOf(id);
-      if (rIndex === -1) state.recipes.push(id);
-      else state.recipes.splice(rIndex, 1);
-    },
+    dateRangeSet: _dateRangeSet,
+    recipeToggled: _recipeToggled,
   },
 })
 
-export const { recipeToggled } = slice.actions;
+export const { dateRangeSet, recipeToggled } = slice.actions;
 export default slice.reducer;

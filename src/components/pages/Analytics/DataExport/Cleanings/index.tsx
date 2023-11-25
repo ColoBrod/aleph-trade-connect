@@ -12,6 +12,7 @@ import Pagination from '~/components/elements/Pagination';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchCleanings, idleSet } from '~/store/pages/analytics/data-export/cleanings';
 import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/cleanings';
+import Loader from '~/components/blocks/Loader';
 
 const Cleanings = () => {
   
@@ -47,8 +48,8 @@ const Cleanings = () => {
       <div className="page__content container container-fluid">
         <FiltersAside />
         <div className='filters-top'>
-          <Button layout='light'>Обновить</Button>
-          <Button layout='light'>
+          <Button onClick={() => console.log("empty")}  layout='light'>Обновить</Button>
+          <Button onClick={() => console.log("empty")}  layout='light'>
             <>
               <img src={imgExcel} alt="Excel icon" />
               Скачать
@@ -59,6 +60,7 @@ const Cleanings = () => {
               const value = parseInt(e.currentTarget.value);
               dispatch(activePageSet(1));
               dispatch(rowsPerPageSet(value));
+              dispatch(idleSet({}))
             }} 
             value={perPage.toString()}
             label="Показать по" 
@@ -69,7 +71,7 @@ const Cleanings = () => {
               { value: "50", innerHTML: "50" },
             ]} 
           />
-          <DropDownList label="UTC" name='utc' items={[
+          {/* <DropDownList label="UTC" name='utc' items={[
             { value: "2", innerHTML: "+ 02:00" },
             { value: "3", innerHTML: "+ 03:00" },
             { value: "4", innerHTML: "+ 04:00" },
@@ -79,7 +81,7 @@ const Cleanings = () => {
             { value: "8", innerHTML: "+ 08:00" },
             { value: "9", innerHTML: "+ 09:00" },
             { value: "10", innerHTML: "+ 10:00" },
-          ]} />
+          ]} /> */}
           <Pagination 
             handler={
               (pageIndex: number) => {
@@ -91,7 +93,11 @@ const Cleanings = () => {
             activePage={activePage} />
         </div>
         <div className="table-wrapper">
-          <Table data={tableContent} />
+          {
+            status === 'loading'
+              ? <Loader />
+              : <Table data={tableContent} />
+          }
         </div>
       </div>
     </div>

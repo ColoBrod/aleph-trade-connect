@@ -1,24 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { StateWithPagination, _activePageSet, _rowsPerPageSet } from "./utils";
+import { _activePageSet, _rowsPerPageSet } from "./utils";
+import { _dateRangeSet } from "~/store/filters/utils";
+import InitialFilters from "~/store/filters/initial";
+import { IFilters_Analytics_DataExport_Cleanings } from "~/interfaces/filters";
 
-interface State extends StateWithPagination {
-  pagination: {
-    perPage: number;
-    activePage: number;
-  };
-}
+const state = new InitialFilters('analytics/data-export/cleanings');
+export const initialState = { ...state } as IFilters_Analytics_DataExport_Cleanings;
 
-const initialState: State = {
-  pagination: {
-    perPage: 20,
-    activePage: 1,
-  },
-}
+// interface State extends StateWithPagination {
+//   pagination: {
+//     perPage: number;
+//     activePage: number;
+//   };
+// }
+
+// const initialState: State = {
+//   pagination: {
+//     perPage: 20,
+//     activePage: 1,
+//   },
+// }
 
 const slice = createSlice({
-  name: 'data-export',
+  name: 'cleanings',
   initialState,
   reducers: {
+    // dateRangeSet: funcDateRangeSet,
     rowsPerPageSet: _rowsPerPageSet,
     activePageSet: _activePageSet,
   },

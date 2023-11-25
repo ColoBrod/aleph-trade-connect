@@ -40,11 +40,6 @@ class Diagram extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    // const { config } = this;
-    // const { data } = config;
-    // data.labels = ;
-    // data.datasets = ;
-    // Other config props
     const { type, legend: displayLegend = true, direction = "vertical", scales } = props;
     const { innerBarText, responsive = true } = props;
     this.config = {
@@ -117,15 +112,7 @@ class Diagram extends Component<Props> {
   }
 
   render() {
-    // const xl = useMediaQuery({ query: `(min-width: 1740px)` });
-    // const lg = useMediaQuery({ query: `(min-width: 1220px) and (max-width: 1739px)` });
     const { id, type, doughnutInner, height = "", width = "" } = this.props;
-    // console.log("xl:", xl);
-    // console.log("lg:", lg);
-    // this.chart.update();
-
-    if (id === "beverages-by-cup-size") console.log(this.config);
-
 		return (
       <div className={`diagram diagram__${id}`} >
         <div className="diagram__inner" style={{ width, height }}>

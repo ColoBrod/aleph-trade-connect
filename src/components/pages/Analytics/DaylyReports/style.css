@@ -3,6 +3,7 @@
 .page-analytics__dayly-reports {
 
   .page__content {
+    position: relative;
     display: grid;
     gap: 40px 69px;
     grid-template-columns: 285px repeat(2, 1fr);

@@ -49,3 +49,16 @@ export const apiCallFullfilled = <T extends State>(
   state.status = 'success';
   Object.assign(state, action.payload);
 }
+
+export const apiCallFullfilledToData = <T extends State>(
+  state: T,
+  action: PayloadAction<any, string, {
+    arg: void;
+    requestId: string;
+    requestStatus: "fulfilled";
+  }, never>
+) => {
+  state.status = 'success';
+  // @ts-ignore
+  if (data in state) Object.assign(state.data, action.payload);
+}

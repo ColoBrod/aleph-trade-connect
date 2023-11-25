@@ -12,13 +12,24 @@
     line-height: 24px;
     font-size: 16px;
     padding-left: 32px;
-    background-image: url("img/unchecked.png");
+    /* background-image: url("img/unchecked.png"); */
     background-repeat: no-repeat;
     font-weight: bold;
   }
 
-  input:checked ~ label {
+  /* input:checked ~ label {
+    background-image: url("img/checked.png");
+  } */
+
+  &.checked label {
     background-image: url("img/checked.png");
   }
 
+  &.unchecked label {
+    background-image: url("img/unchecked.png");
+  }
+
+  &.half-checked label {
+    background-image: url("img/half-checked.png");
+  }
 }

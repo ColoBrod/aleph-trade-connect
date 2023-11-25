@@ -10,7 +10,7 @@ const DatePicker = () => {
 
   // e: MouseEvent<HTMLInputElement, MouseEvent<Element, MouseEvent>>
 
-  const { start, end } = useAppSelector(state => state.filters.analytics.common.dateRange.date);
+  const { start, end } = useAppSelector(state => state.filters.analytics.daylyReports.dateRange.date);
   const dispatch = useAppDispatch();
   
   const handleClick = (e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => {

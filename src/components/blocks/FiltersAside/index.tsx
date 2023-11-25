@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import './style.css';
 import DatePicker from '~/components/elements/DatePicker';
@@ -11,6 +11,17 @@ import SNBadge from '~/components/elements/SNBadge';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { businessUnitsSet } from '~/store/filters/analytics';
+import { coffeeMachineModelSelected } from '~/store/filters/analytics';
+
+interface Props {
+  component: {
+    DatePicker: ReactNode;
+    TimePicker: ReactNode;
+    RegionTree: ReactNode;
+    CoffeeMachineFilter: ReactNode;
+    SerialNumbers: ReactNode;
+  },
+}
 
 const FiltersAside = () => {
   const dispatch = useAppDispatch();
@@ -19,8 +30,9 @@ const FiltersAside = () => {
   const checked = businessUnits.map(unit => {
     if (unit.type === 0) return unit.id.toString();
   })
-
-  console.log("Business Units: ", businessUnits)
+  const filtersCoffeeMachineModels = useAppSelector(
+    state => state.filters.analytics.common.coffeeMachineModels.list
+  )
 
   return (
     <div className="filters filters-aside">
@@ -55,7 +67,7 @@ const FiltersAside = () => {
         </div>
         <div className="filters-section__component">
           {/* <SearchInput onChange={(e) => console.log(e.target.value)} /> */}
-          <CoffeeMachineFilter />
+          <CoffeeMachineFilter checked={filtersCoffeeMachineModels} reducer={coffeeMachineModelSelected} />
         </div>
       </div>
       <div className="filters-section">

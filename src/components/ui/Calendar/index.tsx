@@ -1,17 +1,10 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import './style.css';
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { monthSet, yearSet } from '~/store/ui/calendar';
+import { displaySet, monthSet, yearSet } from '~/store/ui/calendar';
 
 import imgArrowLeft from './arrow-left.svg';
 import imgArrowRight from './arrow-right.svg';
-
-// const today = new Date();
-// const current = {
-//   date: today.getDate(),
-//   month: today.getMonth(),
-//   year: today.getFullYear(),
-// }
 
 type Period = { mm: number, yyyy: number };
 type PickMode = 'date' | 'month' | 'month-62';
@@ -22,11 +15,11 @@ const { dates: dates62, periods: periods62 } = get62();
 
 interface CalendarProps {
   type?: "any-date" | "62-days";
-  onChange: Function;
+  actionCreator: Function;
 }
 
 const Calendar = (props: CalendarProps) => {
-  const { type = "any-date", onChange: handler } = props;
+  const { type = "any-date", actionCreator } = props;
   const dispatch = useAppDispatch();
   const calendar = useAppSelector(state => state.ui.calendar);
   const { date: dateStr, id, month, year } = calendar;
@@ -139,7 +132,15 @@ const Calendar = (props: CalendarProps) => {
         key={`${mm}/${dd}/${yyyy}`}
         onClick={() => {
           if (unavailable === 'unavailable') return;
-          handler(id, dateObj)
+          const dd = dateObj.getDate();
+          const mm = dateObj.getMonth() + 1;
+          const yyyy = dateObj.getFullYear();
+          const payload = id === 'date-start'
+            ? { start: `${mm}/${dd}/${yyyy}` }
+            : { end: `${mm}/${dd}/${yyyy}` };
+          dispatch(actionCreator(payload))
+          dispatch(displaySet({ visible: false }))
+          // handler(id, dateObj)
         }}
         className={`calendar__monthday ${disabled} ${active} ${unavailable}`}>
         {dd}

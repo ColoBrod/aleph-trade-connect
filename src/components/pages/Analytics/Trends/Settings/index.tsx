@@ -10,6 +10,7 @@ import RecipesFilter from '~/components/blocks/RecipesFilter';
 import { useAppSelector, useAppDispatch } from '~/hooks';
 import { businessUnitsSet } from '~/store/filters/analytics';
 import { recipeToggled } from '~/store/filters/analytics/trends';
+import { coffeeMachineModelSelected } from '~/store/filters/analytics';
 
 const Settings = () => {
   const { recipes, businessUnits, coffeeMachineModels } = useAppSelector(
@@ -22,6 +23,9 @@ const Settings = () => {
     if (unit.type === 0) return unit.id.toString();
   });
   const dispatch = useAppDispatch()
+  const filtersCoffeeMachineModels = useAppSelector(
+    state => state.filters.analytics.common.coffeeMachineModels.list
+  )
 
   return (
     <div className="page page-analytics__trends__settings">
@@ -44,7 +48,10 @@ const Settings = () => {
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Модель кофе-машины'>
-          <CoffeeMachineFilter />
+          <CoffeeMachineFilter 
+            checked={filtersCoffeeMachineModels} 
+            reducer={coffeeMachineModelSelected}
+            />
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Рецепты'>

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import { Status } from "~/interfaces/common";
 import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
-import { apiCallPending, apiCallRejected, apiCallFullfilled } from "~/store/utils";
+import { apiCallPending, apiCallRejected } from "~/store/utils";
 import {
   ICoffeeMachine,
   ICoffeeMachineModel,
@@ -10,14 +10,12 @@ import {
   IError
 } from "~/interfaces/entities";
 
-
 const PAGE_URL = "/entities";
 
-interface Entities {
+export interface Entities {
   status: Status;
   error: string;
   data: {
-    // dispensings: number;
     coffeeMachines: ICoffeeMachine[];
     coffeeMachineModels: ICoffeeMachineModel[];
     businessUnits: IBusinessUnit[];
@@ -26,11 +24,10 @@ interface Entities {
   };
 }
 
-const initialState: Entities = {
+export const initialState: Entities = {
   status: 'idle',
   error: "",
   data: {
-    // dispensings: 0,
     coffeeMachines: [],
     coffeeMachineModels: [],
     businessUnits: [],
@@ -41,17 +38,10 @@ const initialState: Entities = {
 
 export const fetchEntities = createCustomAsyncThunk("get", PAGE_URL);
 
-// export const fetchDispensings = createAsyncThunk('entities/dispensings', async () => {
-//   const response = await axios.get(BASE_URL + '/dispensings');
-//   return response.data;
-// });
-
 const slice = createSlice({
   name: 'entities',
   initialState,
   reducers: {
-    // getDispensings: (state, action) => {
-    // },
   }, 
   extraReducers(builder) {
     builder
@@ -63,5 +53,4 @@ const slice = createSlice({
   }
 });
 
-// export const { getDispensings } = slice.actions;
 export default slice.reducer;

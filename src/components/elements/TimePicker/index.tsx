@@ -26,7 +26,7 @@ const TimePicker = (props: Props) => {
     const id = `time-${type}`;
     return (
       <select onChange={handleChange} name={id} id={id} className={`picker__input ${type}`}>
-        {time.map((t, i) => <option value={i}>{t}</option>)}
+        {time.map((t, i) => <option key={i} value={i}>{t}</option>)}
       </select>
     );
   }

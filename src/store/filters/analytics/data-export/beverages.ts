@@ -1,14 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { _activePageSet, _rowsPerPageSet, StateWithPagination } from "./utils";
+import { _activePageSet, _rowsPerPageSet } from "./utils";
+import InitialFilters from "~/store/filters/initial";
+import { IFilters_Analytics_DataExport_Beverages } from "~/interfaces/filters";
 
-interface State extends StateWithPagination {}
+const state = new InitialFilters('analytics/data-export/beverages');
+export const initialState = { ...state } as IFilters_Analytics_DataExport_Beverages;
 
-const initialState: State = {
-  pagination: {
-    perPage: 10,
-    activePage: 1,
-  },
-}
+// interface State extends StateWithPagination {}
+
+// const initialState: State = {
+//   pagination: {
+//     perPage: 10,
+//     activePage: 1,
+//   },
+// }
 
 // createAsyncThunk<any, void, { state: RootState }>(path, async (arg, { getState }) => {
 //   const state = getState();
@@ -33,7 +38,7 @@ const initialState: State = {
 // })
 
 const slice = createSlice({
-  name: 'data-export',
+  name: 'beverages',
   initialState,
   reducers: {
     rowsPerPageSet: _rowsPerPageSet,

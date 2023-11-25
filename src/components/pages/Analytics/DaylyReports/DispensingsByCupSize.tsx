@@ -40,6 +40,15 @@ const DispensingsByCupSize = () => {
   // const height = data.length <= 7 
   //   ? "100%"
   //   : `calc(100% + ${((data.length - 7) * 24)}px)`;
+  let maxValue = 0;
+  let maxIndex = -1;
+  data.forEach((value, i) => {
+    if (value > maxValue) {
+      maxValue = value;
+      maxIndex = i;
+    }
+  });
+  const maxLabel = labels[maxIndex];
 
   return (
     <InfoBlock layout="chart-7" header={header}>
@@ -61,14 +70,14 @@ const DispensingsByCupSize = () => {
       />
       <Widget 
         icon={imgBeverage40}
-        amount={"2358 раздачи"}
+        amount={maxValue + " раздачи"}
         description={`Были поданы чашки размера Regular за последние ${period} дней`}
         layout='dayly-reports-3'
         align='center'
       />
       <Widget 
         icon={imgDispensing40}
-        amount={"Американо 200мл"}
+        amount={maxLabel}
         description={`Самый популярный рецепт для чашки обычного размера`}
         layout='dayly-reports-3'
         align='center'

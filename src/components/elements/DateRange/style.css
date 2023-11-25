@@ -11,9 +11,9 @@
     top: -16px;
     transform: translateX(100%);
     display: block;
-    width: 59px;
+    width: 89px;
     height: 40px;
-    background-image: url('time-bg.svg');
+    background-image: url('date-bg.svg');
     background-repeat: no-repeat;
     position: absolute;
     /* transform: translateX(-50%); */
@@ -23,6 +23,7 @@
     color: var(--clr-font-accent);
     padding: 6px;
     border-radius: 2px;
+    &:hover { z-index: 3; }
   }
 
   &__first {

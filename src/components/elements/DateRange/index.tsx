@@ -3,7 +3,7 @@ import { Range, getTrackBackground } from "react-range";
 
 import { useAppDispatch, useAppSelector } from "~/hooks";
 // import { timeSet } from "~/store/pages/analytics/trends/sales";
-import { dateRangeSet2 } from "~/store/filters/analytics";
+import { dateRangeSet } from "~/store/filters/analytics/trends";
 
 import './style.css';
 
@@ -17,8 +17,8 @@ interface Props {
 const DateRange = (props: Props) => {
 
   let { start: dateStart, end: dateEnd }: any = useAppSelector(
-    state => state.filters.analytics.common.dateRange.date
-    // state => state.pages.analytics.trends.sales.dispensingsByWeekdayAndTime.filters
+    state => state.filters.analytics.trends.dateRange.date
+    // state => state.filters.analytics.common.dateRange.date
   );
 
   const dispatch = useAppDispatch();
@@ -42,7 +42,19 @@ const DateRange = (props: Props) => {
 
   console.log(first, second)
 
-  // console.log("diff:", diff);
+  const handleChange = (values: number[]) => {
+    if (Math.abs(values[0]) - Math.abs(values[1]) < 1) return;
+    const startValue = values[0];
+    const endValue = values[1];
+    const curDate = new Date();
+    const startDate = new Date()
+    startDate.setDate(curDate.getDate() + startValue);
+    const endDate = new Date()
+    endDate.setDate(curDate.getDate() + endValue);
+    const start = startDate.toLocaleDateString();
+    const end = endDate.toLocaleDateString();
+    dispatch(dateRangeSet({ start, end }));
+  }
 
   return (
     <div
@@ -56,10 +68,10 @@ const DateRange = (props: Props) => {
     >
       <div className="daterange__output">
         <div style={{ right: first }} className="daterange__first">
-          {dateStart.getDate()}/{dateStart.getMonth() + 1}
+          {dateStart.getDate()}.{dateStart.getMonth() + 1}.{dateStart.getFullYear()}
         </div>
         <div style={{ right: second }} className="daterange__second">
-          {dateEnd.getDate()}/{dateEnd.getMonth() + 1}
+          {dateEnd.getDate()}.{dateEnd.getMonth() + 1}.{dateEnd.getFullYear()}
         </div>
       </div>
       <Range
@@ -69,10 +81,12 @@ const DateRange = (props: Props) => {
         max={MAX}
         allowOverlap={false}
         onChange={(values) => {
-          // if (values[1] - values[0] > -1) return;
-          const start = values[0];
-          const end = values[1];
-          dispatch(dateRangeSet2({ start, end }));
+          handleChange(values);
+          // console.log(values[0], values[1]);
+          // if (Math.abs(values[0]) - Math.abs(values[1]) < 1) return;
+          // const start = values[0];
+          // const end = values[1];
+          // dispatch(dateRangeSet({ start, end }));
         }}
         renderTrack={({ props, children }) => {
           return(
