@@ -7,16 +7,52 @@ import Table from '~/components/blocks/Table';
 
 import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
+
 import Pagination from '~/components/elements/Pagination';
+import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchCleanings, idleSet } from '~/store/pages/analytics/data-export/cleanings';
 import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/cleanings';
-import Loader from '~/components/blocks/Loader';
+import DatePicker from '~/components/elements/DatePicker';
+import TimePicker from '~/components/elements/TimePicker';
+import RegionTree from '~/components/blocks/RegionTree';
+import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
+import SerialNumbersFilter from '~/components/blocks/SerialNumbersFilter';
+import { 
+  serialNumberAdded, 
+  serialNumberRemoved 
+} from '~/store/filters/analytics/data-export';
+import { 
+  dateRangeSet, 
+  timeRangeSet, 
+} from '~/store/filters/analytics/data-export';
+import { 
+  coffeeMachineModelSelected ,
+  businessUnitsSet,
+  businessUnitsExpanded,
+  businessUnitsFilterChanged,
+} from '~/store/filters/analytics';
+import Calendar from '~/components/ui/Calendar';
+
 
 const Cleanings = () => {
-  
   const dispatch = useAppDispatch();
+  const filtersAnalytics = useAppSelector(state => state.filters.analytics.common);
+  const filtersAnalyticsDataExport = useAppSelector(state => state.filters.analytics.dataExport.shared);
+
+  const { date, time } = useAppSelector(state => state.filters.analytics.dataExport.shared.dateRange);
+  const { 
+    list: filtersSerialNumbers 
+  } = useAppSelector(state => state.filters.analytics.dataExport.shared.serialNumbers);
+  const { 
+    list: filtersCoffeeMachineModels,
+  } = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels);
+  const {
+    businessUnits: filtersBusinessUnits
+  } = useAppSelector(state => state.filters.analytics.common);
+
+  const { businessUnits } = useAppSelector(state => state.entities.data);
   const filtersCleanings = useAppSelector(state => state.filters.analytics.dataExport.cleanings);
   const { status, error, pagesTotal, cleanings: rows } = useAppSelector(state => state.pages.analytics.dataExport.cleanings);
   const { activePage, perPage } = filtersCleanings.pagination;
@@ -43,10 +79,42 @@ const Cleanings = () => {
   ]);
   tableContent.push(...tableRows);
 
+  const datePicker = <DatePicker dateRangeSet={dateRangeSet} date={{...date}} />
+  const timePicker = <TimePicker timeRangeSet={timeRangeSet} time={{...time}} />
+
+  const regionTree = <RegionTree 
+    actions={{
+      businessUnitsSet,
+      businessUnitsExpanded,
+      businessUnitsFilterChanged,
+    }}
+    items={businessUnits}
+    selector={filtersBusinessUnits}
+  />
+
+  const coffeeMachineFilter = <CoffeeMachineFilter 
+    checked={filtersCoffeeMachineModels} 
+    reducer={coffeeMachineModelSelected} 
+  />
+
+  const serialNumbersFilter = <SerialNumbersFilter 
+    handleAdd={serialNumberAdded} 
+    handleRemove={serialNumberRemoved} 
+    items={filtersSerialNumbers} 
+  />
+
   return (
     <div className='page page-analytics__data-export__cleanings'>
       <div className="page__content container container-fluid">
-        <FiltersAside />
+        <FiltersAside 
+          component={{
+            datePicker,
+            timePicker,
+            coffeeMachineFilter,
+            regionTree,
+            serialNumbersFilter,
+          }}
+        />
         <div className='filters-top'>
           <Button onClick={() => console.log("empty")}  layout='light'>Обновить</Button>
           <Button onClick={() => console.log("empty")}  layout='light'>

@@ -39,9 +39,6 @@ const DateRange = (props: Props) => {
   const second = Math.abs((diffTime2 / 62) * 100).toFixed(2) + "%";
   const diff = diffTime2 - diffTime1;
 
-
-  console.log(first, second)
-
   const handleChange = (values: number[]) => {
     if (Math.abs(values[0]) - Math.abs(values[1]) < 1) return;
     const startValue = values[0];

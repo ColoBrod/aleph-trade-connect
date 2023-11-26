@@ -31,7 +31,6 @@ const Cleanings = () => {
   );
 
   const { previousWeek, currentWeek } = cleanings.data;
-  console.log([currentWeek])
 
   return(
     <InfoBlock layout="chart" header={header}>

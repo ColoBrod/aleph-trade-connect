@@ -3,17 +3,18 @@ import React, { MouseEvent } from 'react';
 import './style.css';
 
 import { useAppDispatch } from '~/hooks';
-import { serialNumberRemoved } from '~/store/filters/analytics/dayly-reports';
+// import { serialNumberRemoved } from '~/store/filters/analytics/dayly-reports';
 
 interface Props {
   children: string;
+  handleRemove: Function;
 }
 
 const SNBadge = (props: Props) => {
-  const { children } = props;
+  const { children, handleRemove } = props;
   const dispatch = useAppDispatch();
 
-  const handleClick = () => dispatch(serialNumberRemoved({ substring: children }));
+  const handleClick = () => dispatch(handleRemove({ substring: children }));
 
   return (
     <div className="sn-badge">

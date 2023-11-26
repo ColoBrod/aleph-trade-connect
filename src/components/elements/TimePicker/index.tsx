@@ -1,6 +1,8 @@
-import React, { ChangeEventHandler, ReactNode } from 'react';
+import React, { ChangeEvent, ChangeEventHandler, ReactNode } from 'react';
 
 import './style.css'
+import { IFiltersDateRange } from '~/interfaces/filters';
+import { useAppDispatch } from '~/hooks';
 
 // import { useAppDispatch, useAppSelector } from '~/hooks';
 
@@ -13,28 +15,42 @@ for (let i = 0; i < 24; i++) {
 }
 
 interface Props {
-  start?: number | string;
-  end?: number | string;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
+  time: IFiltersDateRange['dateRange']['time'];
+  timeRangeSet: Function;
+  // start?: number | string;
+  // end?: number | string;
+  // onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 
 const TimePicker = (props: Props) => {
   // const { start, end } = useAppSelector(state => state.filters.dateRange);
-  const { onChange: handleChange } = props;
+  const { time: timeObj, timeRangeSet } = props;
+  const dispatch = useAppDispatch();
 
-  const renderPicker = (type: "start" | "end"): ReactNode => {
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { id, value } = e.target;
+    if (id.includes('start')) dispatch(timeRangeSet({ start: value }));
+    if (id.includes('end')) dispatch(timeRangeSet({ end: value }));
+    // console.log(id, value);
+    
+    // dispatch(timeRangeSet())
+    
+  }
+
+  const renderPicker = (type: "start" | "end", value: string): ReactNode => {
+    if (value === undefined) value = "00:00"
     const id = `time-${type}`;
     return (
-      <select onChange={handleChange} name={id} id={id} className={`picker__input ${type}`}>
-        {time.map((t, i) => <option key={i} value={i}>{t}</option>)}
+      <select defaultValue={value} onChange={handleChange} name={id} id={id} className={`picker__input ${type}`}>
+        {time.map((t, i) => <option key={i} value={t}>{t}</option>)}
       </select>
     );
   }
 
   return (
     <div className="picker picker-time">
-      {renderPicker("start")}
-      {renderPicker("end")}
+      {renderPicker("start", timeObj.start)}
+      {renderPicker("end", timeObj.end)}
       {/* <DropDownList items={items} name='time-start'/>
       <DropDownList items={items} name='time-end'/> */}
       {/* <input className='picker__input start' step="3600" type="time" name="time-start" id="time-start"  />

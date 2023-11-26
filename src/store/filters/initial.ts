@@ -46,7 +46,12 @@ class InitialFilters {
 
   private static businessUnits(path: keyof Filters): IFiltersBusinessUnits {
     return {
-      businessUnits: [1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1009, 1010, 1011, 1012, 1013],
+      businessUnits: {
+        checked: ['1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011', '1012', '1013'],
+        expanded: [],
+        filteredNodes: [],
+        filterText: '',
+      },
     };
   }
 

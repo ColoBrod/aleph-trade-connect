@@ -9,7 +9,7 @@ import dataExportReducer from './data-export';
 import InitialFilters from "../initial";
 
 // Shared functions
-import { _coffeeMachineModelSelected } from "~/store/filters/utils";
+import { _businessUnitsExpanded, _businessUnitsFilterChanged, _businessUnitsSet, _coffeeMachineModelSelected } from "~/store/filters/utils";
 
 const dateFrom = new Date();
 dateFrom.setDate(dateFrom.getDate() - 1);
@@ -24,9 +24,13 @@ const slice = createSlice({
   name: 'analytics',
   initialState,
   reducers: {
-    businessUnitsSet: (state, action) => {
-      state.businessUnits = action.payload;
-    },
+    businessUnitsSet: _businessUnitsSet,
+    businessUnitsExpanded: _businessUnitsExpanded,
+    businessUnitsFilterChanged: _businessUnitsFilterChanged,
+
+    // businessUnitsSet: (state, action) => {
+    //   state.businessUnits = action.payload;
+    // },
     // dateRangeSet: (state, action) => {
     //   const { start, end } = action.payload;
       // if (start) state.dateRange
@@ -57,11 +61,6 @@ const slice = createSlice({
     //   // state.dateRange.date.start = `${startDate.getMonth()}/${startDate.getDate()}/${startDate.getFullYear()}`;
     //   // state.dateRange.date.end = `${endDate.getMonth()}/${endDate.getDate()}/${endDate.getFullYear()}`;
     // },
-    coffeeMachineModelsAllSelected: (state, action) => {
-      const { value } = action.payload;
-      // state.coffeeMachineModels.selectAll = value;
-      // state.coffeeMachineModels.list.forEach(el => el.checked = value);
-    },
     coffeeMachineModelSelected: _coffeeMachineModelSelected,
 
     // (state, action) => {
@@ -75,18 +74,18 @@ const slice = createSlice({
       //   state.coffeeMachineModels.selectAll = true;
 
     // },
-    modelSearched: (state, action) => {
-      const { substring } = action.payload;
-    },
+    // modelSearched: (state, action) => {
+    //   const { substring } = action.payload;
+    // },
     // dateRangeSet: (state, action) => {
     //   const { start, end } = action.payload;
     //   if (start) state.dateRange.date.start = start;
     //   if (end) state.dateRange.date.end = end;
     // },
-    businessUnitAdded: (state, action) => { },
-    businessUnitRemoved: (state, action) => { },
-    recipeAdded: (state, action) => { },
-    recipeRemoved: (state, action) => { },
+    // businessUnitAdded: (state, action) => { },
+    // businessUnitRemoved: (state, action) => { },
+    // recipeAdded: (state, action) => { },
+    // recipeRemoved: (state, action) => { },
   },
 
 })
@@ -100,9 +99,10 @@ const reducer = combineReducers({
 
 export const {
   businessUnitsSet,
-  coffeeMachineModelsAllSelected,
+  businessUnitsExpanded,
+  businessUnitsFilterChanged,
   coffeeMachineModelSelected,
-  modelSearched,
+  // modelSearched,
   // dateRangeSet,
   // dateRangeSet2,
 } = slice.actions;

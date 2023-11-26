@@ -1,3 +1,6 @@
+import { Node as TreeNode } from 'react-checkbox-tree';
+
+
 /**
  * Время передается строкой типа "00:00", "23:00"...
  */
@@ -16,12 +19,17 @@ export interface IFiltersDateRange {
       start: string;
       end: string;
     };
-    time?: IFiltersTimeRange;
+    time: IFiltersTimeRange;
   };
 }
 
 export interface IFiltersBusinessUnits {
-  businessUnits: number[];
+  businessUnits: {
+    checked: string[];
+    expanded: string[];
+    filterText: string;
+    filteredNodes: TreeNode[];
+  };
 }
 
 export interface IFiltersRecipes {

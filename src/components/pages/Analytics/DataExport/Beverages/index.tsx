@@ -14,10 +14,45 @@ import Loader from '~/components/blocks/Loader';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchBeverages, idleSet } from '~/store/pages/analytics/data-export/beverages';
 import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/beverages';
+import DatePicker from '~/components/elements/DatePicker';
+import TimePicker from '~/components/elements/TimePicker';
+import RegionTree from '~/components/blocks/RegionTree';
+import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
+import SerialNumbersFilter from '~/components/blocks/SerialNumbersFilter';
+import { 
+  serialNumberAdded, 
+  serialNumberRemoved 
+} from '~/store/filters/analytics/data-export';
+import { 
+  dateRangeSet, 
+  timeRangeSet, 
+} from '~/store/filters/analytics/data-export';
+import { 
+  coffeeMachineModelSelected,
+  businessUnitsSet,
+  businessUnitsExpanded,
+  businessUnitsFilterChanged,
+} from '~/store/filters/analytics';
+import Calendar from '~/components/ui/Calendar';
 
 const Beverages = () => {
-
   const dispatch = useAppDispatch();
+  // TODO fetch variables from these filtersAnalytics and filtersAnalyticsDataExport
+  const filtersAnalytics = useAppSelector(state => state.filters.analytics.common);
+  const filtersAnalyticsDataExport = useAppSelector(state => state.filters.analytics.dataExport.shared);
+
+  const { date, time } = useAppSelector(state => state.filters.analytics.dataExport.shared.dateRange);
+  const { 
+    list: filtersSerialNumbers 
+  } = useAppSelector(state => state.filters.analytics.dataExport.shared.serialNumbers);
+  const { 
+    list: filtersCoffeeMachineModels,
+  } = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels);
+  const {
+    businessUnits: filtersBusinessUnits
+  } = useAppSelector(state => state.filters.analytics.common);
+
+  const { businessUnits } = useAppSelector(state => state.entities.data);
   const filtersBeverages = useAppSelector(state => state.filters.analytics.dataExport.beverages);
   const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.analytics.dataExport.beverages);
   const { activePage, perPage } = filtersBeverages.pagination;
@@ -55,12 +90,46 @@ const Beverages = () => {
   ]);
   tableContent.push(...tableRows);
 
+  const datePicker = <DatePicker dateRangeSet={dateRangeSet} date={{...date}} />
+  const timePicker = <TimePicker timeRangeSet={timeRangeSet} time={{...time}} />
+
+  const regionTree = <RegionTree 
+    actions={{
+      businessUnitsSet,
+      businessUnitsExpanded,
+      businessUnitsFilterChanged,
+    }}
+    items={businessUnits}
+    selector={filtersBusinessUnits}
+  />
+
+  const coffeeMachineFilter = <CoffeeMachineFilter 
+    checked={filtersCoffeeMachineModels} 
+    reducer={coffeeMachineModelSelected} 
+  />
+
+  const serialNumbersFilter = <SerialNumbersFilter 
+    handleAdd={serialNumberAdded} 
+    handleRemove={serialNumberRemoved} 
+    items={filtersSerialNumbers} 
+  />
+  
   return (
     <div className='page page-analytics__data-export__beverages'>
       <div className="page__content container container-fluid">
-        <FiltersAside />
+        <FiltersAside 
+          component={{
+            datePicker,
+            timePicker,
+            coffeeMachineFilter,
+            regionTree,
+            serialNumbersFilter,
+          }}
+        />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")} layout='light'>Обновить</Button>
+          <Button onClick={() => console.log("empty")} layout='light'>
+            Обновить
+          </Button>
           <Button onClick={() => console.log("empty")} layout='light'>
             <>
               <img src={imgExcel} alt="Excel icon" />
@@ -83,17 +152,6 @@ const Beverages = () => {
               { value: "50", innerHTML: "50" },
             ]} 
           />
-          {/* <DropDownList label="UTC" name='utc' items={[
-            { value: "2", innerHTML: "+ 02:00" },
-            { value: "3", innerHTML: "+ 03:00" },
-            { value: "4", innerHTML: "+ 04:00" },
-            { value: "5", innerHTML: "+ 05:00" },
-            { value: "6", innerHTML: "+ 06:00" },
-            { value: "7", innerHTML: "+ 07:00" },
-            { value: "8", innerHTML: "+ 08:00" },
-            { value: "9", innerHTML: "+ 09:00" },
-            { value: "10", innerHTML: "+ 10:00" },
-          ]} /> */}
           {pagination}
         </div>
         <div className="table-wrapper">
@@ -106,6 +164,7 @@ const Beverages = () => {
         <div className="filters-bottom">
           {pagination}
         </div>
+        <Calendar type='62-days' actionCreator={dateRangeSet} />
       </div>
     </div>
   );

@@ -21,7 +21,6 @@ const SearchBar = ({ items }: Props) => {
   };
 
   const handleOnFocus = () => {
-    console.log("Focused");
   };
 
   const handleOnClear = () => {

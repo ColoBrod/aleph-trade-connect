@@ -15,8 +15,19 @@ import DispensingsByCupSize from './DispensingsByCupSize';
 import { useAppSelector, useAppDispatch } from '~/hooks';
 import { statusSetIdle } from '~/store/pages/analytics/dayly-reports';
 import { initialState as initialFiltersAnalytics } from '~/store/filters/analytics';
-import { initialState as initialFiltersDaylyReports } from '~/store/filters/analytics/dayly-reports';
-import { dateRangeSet } from '~/store/filters/analytics/dayly-reports';
+import { initialState as initialFiltersDaylyReports, serialNumberAdded, serialNumberRemoved } from '~/store/filters/analytics/dayly-reports';
+import { dateRangeSet, timeRangeSet } from '~/store/filters/analytics/dayly-reports';
+import { 
+  coffeeMachineModelSelected,
+  businessUnitsSet,
+  businessUnitsExpanded,
+  businessUnitsFilterChanged,
+} from '~/store/filters/analytics';
+import DatePicker from '~/components/elements/DatePicker';
+import TimePicker from '~/components/elements/TimePicker';
+import RegionTree from '~/components/blocks/RegionTree';
+import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
+import SerialNumbersFilter from '~/components/blocks/SerialNumbersFilter';
 
 const DaylyReports = () => {
   const period = 55;
@@ -25,6 +36,19 @@ const DaylyReports = () => {
   const filtersAnalytics = useAppSelector(state => state.filters.analytics.common);
   const filtersDaylyReports = useAppSelector(state => state.filters.analytics.daylyReports);
   
+  const { date, time } = useAppSelector(state => state.filters.analytics.daylyReports.dateRange);
+  const { 
+    list: filtersSerialNumbers 
+  } = useAppSelector(state => state.filters.analytics.daylyReports.serialNumbers);
+  const { 
+    list: filtersCoffeeMachineModels,
+  } = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels);
+  const {
+    businessUnits: filtersBusinessUnits
+  } = useAppSelector(state => state.filters.analytics.common);
+
+  const { businessUnits } = useAppSelector(state => state.entities.data);
+
   /**
    * Перезагружаем графики на странице каждый раз, когда пользователь меняет
    * фильтры на странице.
@@ -37,10 +61,42 @@ const DaylyReports = () => {
       dispatch(statusSetIdle({}));
   }, [filtersAnalytics, filtersDaylyReports])
 
+  const datePicker = <DatePicker dateRangeSet={dateRangeSet} date={{...date}} />
+  const timePicker = <TimePicker timeRangeSet={timeRangeSet} time={{...time}} />
+
+  const regionTree = <RegionTree 
+    actions={{
+      businessUnitsSet,
+      businessUnitsExpanded,
+      businessUnitsFilterChanged,
+    }}
+    items={businessUnits}
+    selector={filtersBusinessUnits}
+  />
+
+  const coffeeMachineFilter = <CoffeeMachineFilter 
+    checked={filtersCoffeeMachineModels} 
+    reducer={coffeeMachineModelSelected} 
+  />
+
+  const serialNumbersFilter = <SerialNumbersFilter 
+    handleAdd={serialNumberAdded} 
+    handleRemove={serialNumberRemoved} 
+    items={filtersSerialNumbers} 
+  />
+
   return (
     <div className='page page-analytics__dayly-reports'>
       <div className="page__content container">
-        <FiltersAside />
+        <FiltersAside 
+          component={{
+            datePicker,
+            timePicker,
+            regionTree,
+            coffeeMachineFilter,
+            serialNumbersFilter,
+          }}
+        />
         {/* Напитки по ресторанам */}
         <DispensingsByRestaurant />
         {/* Соблюдение правил чистки ресторанами */}
