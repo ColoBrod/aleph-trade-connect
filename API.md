@@ -69,9 +69,9 @@ Bearer токен используется для авторизация пол�
 interface Params {
   filters: {
     
-    businessUnits: number[]; // Массив с ID бизнес-юнитов
+    businessUnits: string[]; // Массив с ID бизнес-юнитов
     
-    coffeeMachineModels: number[]; // Массив с ID кофе-машин
+    coffeeMachineModels: string[]; // Массив с ID кофе-машин
     
     dateRange: {
       start: string;  // Дата начала в виде строки, например - "17.12.2023"
@@ -475,7 +475,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/dispensings-by-restaurant`
+  ### `POST /api/analytics/dayly-reports/dispensings-by-restaurant`
   #### Info:
   График **Напитки по ресторанам** на странице **Аналитика - Ежедневные отчеты**
   #### Request:
@@ -493,7 +493,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`
+  ### `POST /api/analytics/dayly-reports/cleanings-by-restaurant`
   #### Info:
   График **Соблюдение правил чистки ресторанами** на странице **Аналитика - Ежедневные отчеты**
   #### Request:
@@ -510,7 +510,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/dispensings-by-hour`
+  ### `POST /api/analytics/dayly-reports/dispensings-by-hour`
   #### Info:
   График **Напитки по часам** на странице **Аналитика - Ежедневные отчеты**
   #### Request:
@@ -527,7 +527,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/dispensings-by-weekday`
+  ### `POST /api/analytics/dayly-reports/dispensings-by-weekday`
   #### Info:
   График **Напитки по дням** на странице **Аналитика - Ежедневные отчеты**
   - [`IByDay`](#ibyday)  
@@ -542,7 +542,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/dispensings-by-recipe`
+  ### `POST /api/analytics/dayly-reports/dispensings-by-recipe`
   #### Info:
   График **Напитки по рецептам** на странице **Аналитика - Ежедневные отчеты**
   #### Request:
@@ -559,7 +559,7 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/dayly-reports/dispensings-by-cup-size`
+  ### `POST /api/analytics/dayly-reports/dispensings-by-cup-size`
   #### Info:
   График **Напитки по размеру чашки** на странице **Аналитика - Ежедневные отчеты**
   #### Request:
@@ -577,22 +577,73 @@ interface Params {
   }
   ~~~
 
-  ### `POST /api/analytics/trends/data-export/dispensings`
+  ### `POST /api/analytics/data-export/beverages`
   #### Info:
   Таблица на странице **Аналитика - Экспорт данных - Напитки**
   #### Request:
   JSON в теле (body) запроса: [`Params`](#params)  
-  - [`IBusinessUnit`](#ibusinessunit)
+  ~~~ts
+  {
+    filters: {
+      pagination: {
+        activePage: number;
+        perPage: number;
+      }
+    }
+  }
+  ~~~
   #### Response:
   ✔ 200
   ~~~ts
   {
-    content: {
-      {
-        businessUnit: string | IBusinessUnit;
-        coffeeMachineModel: 
+    { 
+      federalDistrict: string;
+      city: string;
+      restaurant: string;
+      machineModel: string;
+      serialNumber: number, 
+      date: string;
+      time: string;
+      utc: string; 
+      type: string;
+      planned: number;
+      total: number;
+    },
+  }
+  ~~~
+
+  ### `POST /api/analytics/data-export/cleanings`
+  #### Info:
+  Таблица на странице **Аналитика - Экспорт данных - Напитки**
+  #### Request:
+  JSON в теле (body) запроса: [`Params`](#params)  
+  ~~~ts
+  {
+    filters: {
+      pagination: {
+        activePage: number;
+        perPage: number;
       }
-    }[]
+    }
+  }
+  ~~~
+  #### Response:
+  ✔ 200
+  ~~~ts
+  {
+    { 
+      federalDistrict: string;
+      city: string;
+      restaurant: string;
+      machineModel: string;
+      serialNumber: number, 
+      date: string;
+      time: string;
+      utc: string; 
+      cupSize: string;
+      total: number;
+      recipe:	string;
+    },
   }
   ~~~
 
@@ -738,18 +789,23 @@ interface IByDay {
 ### ICoffeeMachine
 ~~~ts
 interface ICoffeeMachine {
-  id: number;
+  id: string; // Aleph id
   code: string;
   name: string;
-  type: string;
-  restAlephId: string;
+  type: string; // Model
+  restId: string; // Rest aleph id
   status: number;
+
   connectType
   sim
   routerModel
   routerSN
   operator
   vpnServer
+
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string;
 }
 ~~~
 
@@ -758,12 +814,12 @@ interface ICoffeeMachine {
 enum Type { FEDERAL_DISTRICT: 1, SUBJECT: 2, LOCALITY: 3, RESTAURANT: 4 }
 
 interface IBusinessUnit {
-  id
-  name
+  id: string;
+  parentId: string;
+  name: string;
   type: Type;
-  clientAlephId
-  parentAlephId
-  chatTelegramId
+  chatTelegramId: string;
+  address?: string;
 }
 ~~~
 
