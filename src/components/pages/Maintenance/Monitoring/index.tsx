@@ -12,8 +12,7 @@ import FiltersAside from '~/components/blocks/FiltersAside';
 import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { fetchBeverages, idleSet } from '~/store/pages/analytics/data-export/beverages';
-import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/beverages';
+import { rowsPerPageSet, activePageSet } from '~/store/filters/maintenance/monitoring';
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
@@ -150,7 +149,7 @@ const Monitoring = () => {
               const value = parseInt(e.currentTarget.value);
               dispatch(activePageSet(1));
               dispatch(rowsPerPageSet(value));
-              dispatch(idleSet({}))
+              // dispatch(idleSet({}))
             }} 
             value={perPage.toString()}
             label="Показать по" 

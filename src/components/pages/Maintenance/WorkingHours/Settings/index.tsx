@@ -22,7 +22,7 @@ const Settings = () => {
     state => state.entities.data
   );
   const { businessUnits: businessUnitsFilters } = useAppSelector(
-    state => state.filters.analytics.common
+    state => state.filters.maintenance.shared
   );
   const businessUnitsActions = {
     businessUnitsSet,
@@ -38,14 +38,10 @@ const Settings = () => {
 
   const dispatch = useAppDispatch()
   const filtersCoffeeMachineModels = useAppSelector(
-    state => state.filters.analytics.common.coffeeMachineModels.list
+    state => state.filters.maintenance.shared.coffeeMachineModels.list
+    // state => state.filters.analytics.common.coffeeMachineModels.list
   );
 
-  // console.log(businessUnits);
-
-  console.log("Errors:", errors);
-  console.log("Filters:", errorsFilters);
-  
   return (
     <div className="page page-analytics__maintenance__settings  page-shared__settings">
       <div className="page__content container">

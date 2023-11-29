@@ -10,6 +10,7 @@ import Tab, { Props as TabProps }  from '~/components/elements/Tab';
 import { TabsLayout } from '~/interfaces/blocks-and-elements';
 import Widget from '~/components/elements/Widget';
 import HeaderWidgets from '../HeaderWidgets';
+import { useLocation } from 'react-router-dom';
 
 
 interface Props {
@@ -20,6 +21,8 @@ interface Props {
 
 const Tabs = (props: Props) => {
   const { layout, items, colors = 'default' } = props;
+  const { pathname } = useLocation();
+  const display = pathname.includes('analytics') ? true : false;
 
   // const lgMin = useMediaQuery({
   //   query: `(min-width: ${MEDIA_LG_MIN}px)`,
@@ -35,7 +38,7 @@ const Tabs = (props: Props) => {
           items.map(item => <Tab layout={layout} key={item.path} path={item.path}>{item.children}</Tab>  )
         }
         {
-          layout === 'bottom' && lgMin
+          layout === 'bottom' && lgMin && display
             ? <HeaderWidgets />
             : null
         }
