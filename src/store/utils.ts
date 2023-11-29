@@ -4,6 +4,7 @@ import { Status } from "~/interfaces/common";
 interface State {
   status: Status;
   error: string;
+  data?: Object;
 }
 
 export const apiCallPending = (
@@ -47,6 +48,7 @@ export const apiCallFullfilled = <T extends State>(
   }, never>
 ) => {
   state.status = 'success';
+  console.log(action.payload);
   Object.assign(state, action.payload);
 }
 
@@ -58,7 +60,6 @@ export const apiCallFullfilledToData = <T extends State>(
     requestStatus: "fulfilled";
   }, never>
 ) => {
-  state.status = 'success';
-  // @ts-ignore
-  if (data in state) Object.assign(state.data, action.payload);
+  // state.status = 'success';
+  // if ('data' in state) Object.assign(state.data, action.payload);
 }

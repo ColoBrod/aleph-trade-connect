@@ -1,47 +1,94 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
+import { Status } from "~/interfaces/common";
+import { RootState } from "~/store";
+import axios from "axios";
+import config from "~/config";
+import { apiCallPending, apiCallRejected } from "~/store/utils";
+
 
 // Внимание!!! Это другой URL, не тот же, что используется на остальных страницах
 const BASE_URL = "https://wmf24.ru/api";
 
-interface IRow {
+export interface IRow {
   id: number;
   name?: string; // Только в Пушере
   company: string;
   device_code: string;
   error_code: string;
-  start_time: string;
-  error_text: {
-    description: string;
-  };
+  start_datetime: string;
+  error_text: string;
   updated_at: string;
   created_at: string;
 }
 
-interface IRowFmt {
-  
+export interface IRowFmt {
+  id: number;
+  businessUnit: string;
+  model: string;
+  path: string;
+  serialNumber: string;
+  errorCode: string;
+  errorDesc: string;
+  date: string;
+  time: string;
+  duration: string;
 }
 
 interface State {
+  status: Status;
+  error: string;
   data: IRow[];
 }
 
 const initialState: State = {
+  status: 'idle',
+  error: '',
   data: [],
 };
 
-const fetchEvents = createCustomAsyncThunk("get", `${BASE_URL}/consoledata`);
-const updateTime = createCustomAsyncThunk("get", `${BASE_URL}/timeerrordown`);
+export const fetchEvents = createAsyncThunk<any, void, { state: RootState }>(
+  '/consoledata', 
+  async (arg, { getState }) => {
+    const state = getState();
+    const config = {
+      url: BASE_URL + '/consoledata',
+      method: 'get',
+    };
+    const response = await axios(config);
+    return response.data;
+  }
+)
+
+export const updateTime = createAsyncThunk<any, void, { state: RootState }>(
+  '/timeerrordown', 
+  async (arg, { getState }) => {
+    const state = getState();
+    const config = {
+      url: BASE_URL + '/timeerrordown',
+      method: 'post',
+    };
+    const response = await axios(config);
+    console.log("Timer:", response.data);
+    return response.data;
+  }
+)
+
+// createCustomAsyncThunk("get", `${BASE_URL}/consoledata`);
+// createCustomAsyncThunk("post", `${BASE_URL}/timeerrordown`);
 
 const slice = createSlice({
   name: 'monitoring',
-  initialState: {},
+  initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchEvents.)
-    // builder
-      // .addCase()
+      .addCase(fetchEvents.pending, apiCallPending)
+      .addCase(fetchEvents.fulfilled, (state, action) => {
+        state.status = 'success';
+        state.data = action.payload;
+      })
+      .addCase(fetchEvents.rejected, apiCallRejected)
   },
 })
 

@@ -1,9 +1,7 @@
-import React, { MouseEventHandler } from 'react';
+import React from 'react';
 import './style.css';
 
-import { useAppDispatch, useAppSelector } from '~/hooks';
 import Button from '~/components/ui/Button';
-import { recipeToggled } from '~/store/filters/analytics/trends';
 import { IRecipe } from '~/interfaces/entities';
 
 interface Props {

@@ -5,7 +5,8 @@ import InfoBlock from '~/components/blocks/InfoBlock';
 import RegionTree from '~/components/blocks/RegionTree'; 
 import DateRange from '~/components/elements/DateRange';
 import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
-import RecipesFilter from '~/components/blocks/RecipesFilter';
+// import RecipesFilter from '~/components/blocks/RecipesFilter';
+import ErrorsFilter from '~/components/blocks/ErrorsFilter';
 
 import { useAppSelector, useAppDispatch } from '~/hooks';
 import { 
@@ -13,8 +14,8 @@ import {
   businessUnitsExpanded, 
   businessUnitsFilterChanged 
 } from '~/store/filters/maintenance';
-// import { recipeToggled } from '~/store/filters/analytics/trends';
 import { coffeeMachineModelSelected } from '~/store/filters/maintenance';
+import { errorToggled } from '~/store/filters/maintenance';
 
 const Settings = () => {
   const { errors, businessUnits, coffeeMachineModels } = useAppSelector(
@@ -28,8 +29,8 @@ const Settings = () => {
     businessUnitsExpanded,
     businessUnitsFilterChanged,
   };
-  const { recipes: recipesFilters } = useAppSelector(
-    state => state.filters.analytics.trends
+  const { errors: errorsFilters } = useAppSelector(
+    state => state.filters.maintenance.shared
   );
   // const checked = businessUnits.map(unit => {
   //   if (unit.type === 0) return unit.id.toString();
@@ -41,6 +42,9 @@ const Settings = () => {
   );
 
   // console.log(businessUnits);
+
+  console.log("Errors:", errors);
+  console.log("Filters:", errorsFilters);
   
   return (
     <div className="page page-analytics__maintenance__settings  page-shared__settings">
@@ -74,13 +78,18 @@ const Settings = () => {
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Рецепты'>
-          <RecipesFilter 
+          <ErrorsFilter
+            filters={errorsFilters}
+            errors={errors}
+            onClick={(id: number) => dispatch(errorToggled(id))}
+            />
+          {/* <RecipesFilter 
             filters={recipesFilters}
             recipes={errors}
             onClick={(id: number) => {
               // dispatch(recipeToggled(id))
             }}
-          />
+          /> */}
         </InfoBlock>
 
       </div>

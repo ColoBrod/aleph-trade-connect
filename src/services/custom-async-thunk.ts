@@ -93,10 +93,12 @@ function fmtFilters(original: IFilters_Analytics & IFilters_Analytics_DaylyRepor
   const filters: any = {};
   // : any = structuredClone(original);
   // if ('businessUnits' in filters) filters.businessUnits
-  if ('coffeeMachineModels' in original) filters.coffeeMachineModels = 
-    original.coffeeMachineModels.list
-      .filter(model => model.checked === true)
-      .map(model => model.id);
+
+  // TODO - Check this commented peace of code
+  // if ('coffeeMachineModels' in original) filters.coffeeMachineModels = 
+  //   original.coffeeMachineModels.list
+  //     .filter(model => model.checked === true)
+  //     .map(model => model.id);
 
   if ('serialNumbers' in original) 
     filters.serialNumbers = original.serialNumbers.list;

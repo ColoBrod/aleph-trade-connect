@@ -36,8 +36,8 @@ class InitialFilters {
     'analytics/data-export/beverages': ['pagination'],
     'analytics/data-export/cleanings': ['pagination'],
 
-    'maintenance': ['businessUnits', 'coffeeMachineModels'],
-    'maintenance/working-hours': ['dateRange', 'errors'],
+    'maintenance': ['businessUnits', 'coffeeMachineModels', 'errors'],
+    'maintenance/working-hours': ['dateRange'],
     'maintenance/monitoring': ['businessUnits', 'pagination'],
     'maintenance/data-export': ['dateRange', 'businessUnits', 'coffeeMachineModels', 'serialNumbers'],
     'maintenance/data-export/time': ['pagination'],
@@ -86,7 +86,7 @@ class InitialFilters {
 
   private static dateRange(path: keyof Filters): IFiltersDateRange {
     const dateFrom = new Date();
-    dateFrom.setDate(dateFrom.getDate() - 1);
+    dateFrom.setDate(dateFrom.getDate() - 62);
     const dateTo = new Date();
     const dateFromFmt = dateFrom.toLocaleDateString("en-US");
     const dateToFmt = dateTo.toLocaleDateString("en-US");

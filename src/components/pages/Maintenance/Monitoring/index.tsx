@@ -17,6 +17,7 @@ import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-ex
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
+import { fetchEvents, updateTime } from '~/store/pages/maintenance/monitoring';
 
 import { 
   businessUnitsSet,
@@ -25,10 +26,13 @@ import {
 } from '~/store/filters/maintenance';
 import Pagination from '~/components/elements/Pagination';
 
+import { IRow, IRowFmt } from '~/store/pages/maintenance/monitoring';
+
 const Monitoring = () => {
   const { type } = useParams();
   const dispatch = useAppDispatch();
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
+  const { status, error, data } = useAppSelector(state => state.pages.maintenance.monitoring)
   const { businessUnits } = useAppSelector(state => state.entities.data);
   const {
     businessUnits: filtersBusinessUnits
@@ -37,6 +41,17 @@ const Monitoring = () => {
   const { activePage, perPage } = filtersMonitoring.pagination;
 
   // const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.maintenance.mon);
+
+  useEffect(() => {
+    let intervalId: number;
+    if (status === 'idle') {
+      dispatch(fetchEvents());
+      dispatch(updateTime());
+      // @ts-ignore
+      intervalId = setInterval(() => dispatch(updateTime()), 10_000)
+    }
+    return () => clearInterval(intervalId)
+  }, [status])
 
   const regionTree = <RegionTree 
     actions={{
@@ -48,11 +63,47 @@ const Monitoring = () => {
     selector={filtersBusinessUnits}
   />
 
+  // console.log("Data:", );
+
+  const formatData = (data: IRow[]): IRowFmt[] => {
+    const fmt = data.map(row => {
+      const match = row.company.match(/.*, (.*)/);
+      const path = match === null ? row.company : match[1];
+      // const [date, time] = row.start_datetime.split(" ") as [string, string];
+      const date = new Date(row.start_datetime);
+      return ({
+        id: row.id,
+        businessUnit: "",
+        model: "",
+        path,
+        serialNumber: row.device_code,
+        errorCode: row.error_code,
+        errorDesc: row.error_text,
+        date: date.toLocaleDateString('ru-RU'),
+        time: date.toLocaleTimeString('ru-RU'),
+        duration: "",
+      })
+    })
+    return fmt;
+  }
+
+  const fmt = formatData(data);
+  const fmtArr = fmt.map((row: IRowFmt) => [
+    row.businessUnit, 
+    row.path,
+    row.model,
+    row.serialNumber,
+    row.errorCode,
+    row.errorDesc,
+    row.date,
+    row.time,
+    row.duration,
+  ]);
+
   const tableContent: (string|number)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата", "Время", "Длительность" ],
+    ...fmtArr,
   ];
-
-  // tableContent.push()
 
   const pagination = <Pagination
     handler={

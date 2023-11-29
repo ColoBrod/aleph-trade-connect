@@ -115,7 +115,8 @@ export interface IFilters_Analytics_DataExport_Cleanings
 export interface IFilters_Maintenance
   extends
     IFiltersBusinessUnits,
-    IFiltersCoffeeMachineModels {}
+    IFiltersCoffeeMachineModels,
+    IFiltersErrors {}
 
 export interface IFilters_Maintenance_WorkingHours
   extends

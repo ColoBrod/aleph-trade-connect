@@ -6,6 +6,7 @@ import {
   _businessUnitsExpanded, 
   _businessUnitsFilterChanged,
   _coffeeMachineModelSelected,
+  _errorToggled,
 } from "~/store/filters/utils";
 
 import monitoringReducer from './monitoring';
@@ -21,6 +22,7 @@ const slice = createSlice({
     businessUnitsExpanded: _businessUnitsExpanded,
     businessUnitsFilterChanged: _businessUnitsFilterChanged,
     coffeeMachineModelSelected: _coffeeMachineModelSelected,
+    errorToggled: _errorToggled,
   },
 });
 
@@ -37,6 +39,7 @@ export const {
   businessUnitsExpanded,
   businessUnitsFilterChanged,
   coffeeMachineModelSelected,
+  errorToggled,
 } = slice.actions;
 
 export default reducer;  

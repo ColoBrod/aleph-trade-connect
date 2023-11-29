@@ -5,6 +5,7 @@ import {
   IFiltersRecipes, 
   IFiltersSerialNumbers,
   IFiltersPagination,
+  IFiltersErrors,
 } from "~/interfaces/filters";
 
 export const _businessUnitsSet = (
@@ -65,6 +66,17 @@ export const _recipeToggled = (
   const recipeIndex = recipes.indexOf(id);
   if (recipeIndex === -1) recipes.push(id);
   else recipes.splice(recipeIndex, 1);
+}
+
+export const _errorToggled = (
+  state: IFiltersErrors, 
+  action: { type: string; payload: number }
+) => {
+  const { errors } = state;
+  const id = action.payload;
+  const errorIndex = errors.indexOf(id);
+  if (errorIndex === -1) errors.push(id);
+  else errors.splice(errorIndex, 1);
 }
 
 export const _dateRangeSet = (
