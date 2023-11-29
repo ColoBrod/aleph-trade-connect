@@ -62,7 +62,7 @@ const Cleanings = () => {
   }, [status, activePage, perPage]);
 
   const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата", "Время", "UTC+", "Тип чистки", "Плановое количество", "Фактическое количество"]
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата", "Время", "UTC+", "Тип чистки", "План. кол-во", "Факт. кол-во"]
   ];
 
   const tableRows = rows.map(row => [
@@ -104,7 +104,7 @@ const Cleanings = () => {
   />
 
   return (
-    <div className='page page-analytics__data-export__cleanings'>
+    <div className='page page-analytics__data-export__cleanings page-shared__table'>
       <div className="page__content container container-fluid">
         <FiltersAside 
           component={{
@@ -167,6 +167,7 @@ const Cleanings = () => {
               : <Table data={tableContent} />
           }
         </div>
+        <Calendar type='62-days' actionCreator={dateRangeSet} />
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ interface Props {
 
 const DatePicker = ({ dateRangeSet, date }: Props) => {
   
-  console.log("dateRangeSet", dateRangeSet);
   // const { start, end } = useAppSelector(state => state.filters.analytics.common.dateRange);
 
   // e: MouseEvent<HTMLInputElement, MouseEvent<Element, MouseEvent>>
@@ -23,17 +22,23 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
   
   const handleClick = (e: MouseEvent<HTMLInputElement, globalThis.MouseEvent>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    const { id, innerHTML: date } = e.currentTarget;
+    // const { id, innerHTML: date } = e.currentTarget;
+    const { id, dataset: { date } } = e.currentTarget;
     dispatch(displaySet({ id, date, x: rect.left, y: rect.top + rect.height }));
   }
 
+  const s = date.start.split('/');
+  const e = date.end.split('/');
+  const start = `${s[1]}.${s[0]}.${s[2]}`;
+  const end = `${e[1]}.${e[0]}.${e[2]}`;
+
   return (
     <div className="picker picker-date">
-      <div onClick={handleClick} className="picker__input start" id="date-start">
-        { date.start }
+      <div onClick={handleClick} className="picker__input start" id="date-start" data-date={date.start}>
+        { start }
       </div>
-      <div onClick={handleClick} className="picker__input end" id="date-end">
-        { date.end }
+      <div onClick={handleClick} className="picker__input end" id="date-end" data-date={date.end}>
+        { end }
       </div>
       {/* <input onClick={handleClick} className='picker__input start' type="date" name="date-start" id="date-start" />
       <input onClick={handleClick} className='picker__input end' type="date" name="date-start" id="date-end" /> */}

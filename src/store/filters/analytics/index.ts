@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// TODO - Should it be imported from redux-toolkit???
 import { combineReducers } from "redux";
 import { IFilters_Analytics } from "~/interfaces/filters";
 
@@ -9,13 +10,12 @@ import dataExportReducer from './data-export';
 import InitialFilters from "../initial";
 
 // Shared functions
-import { _businessUnitsExpanded, _businessUnitsFilterChanged, _businessUnitsSet, _coffeeMachineModelSelected } from "~/store/filters/utils";
-
-const dateFrom = new Date();
-dateFrom.setDate(dateFrom.getDate() - 1);
-const dateTo = new Date();
-const dateFromFmt = dateFrom.toLocaleDateString();
-const dateToFmt = dateTo.toLocaleDateString();
+import { 
+  _businessUnitsExpanded, 
+  _businessUnitsFilterChanged, 
+  _businessUnitsSet, 
+  _coffeeMachineModelSelected 
+} from "~/store/filters/utils";
 
 const state = new InitialFilters('analytics'); 
 export const initialState = { ...state } as IFilters_Analytics;
@@ -54,8 +54,8 @@ const slice = createSlice({
     //   startDate.setDate(curDate.getDate() + start);
     //   const endDate = new Date()
     //   endDate.setDate(curDate.getDate() + end);
-    //   // state.dateRange.date.start = startDate.toLocaleDateString();
-    //   // state.dateRange.date.end = endDate.toLocaleDateString();
+    //   // state.dateRange.date.start = startDate.toLocaleDateString("en-US");
+    //   // state.dateRange.date.end = endDate.toLocaleDateString("en-US");
 
     //   // console.log(startDate);
     //   // state.dateRange.date.start = `${startDate.getMonth()}/${startDate.getDate()}/${startDate.getFullYear()}`;

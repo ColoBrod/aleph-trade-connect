@@ -13,8 +13,6 @@ interface Props {
   value?: string;
 }
 
-// React.ChangeEvent<HTMLSelectElement>
-
 const DropDownList = (props: Props) => {
   const { name, items, label, onChange: handler, value } = props;
   
@@ -28,7 +26,7 @@ const DropDownList = (props: Props) => {
           : null
       }
       <div className="ddl-wrapper" >
-        <select className="ddl" value={value} name={name} id={name} onChange={handler}>
+        <select className="ddl" defaultValue={value} name={name} id={name} onChange={handler}>
           {
             items.map((item, i): React.ReactNode => 
               <option key={i} value={item.value}>{item.innerHTML}</option>

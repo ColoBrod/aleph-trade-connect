@@ -17,6 +17,14 @@ interface Filters {
   'analytics/data-export': FilterKey[];
   'analytics/data-export/beverages': FilterKey[];
   'analytics/data-export/cleanings': FilterKey[];
+
+  'maintenance': FilterKey[];
+  'maintenance/working-hours': FilterKey[];
+  'maintenance/monitoring': FilterKey[];
+  'maintenance/data-export': FilterKey[];
+  'maintenance/data-export/time': FilterKey[];
+  'maintenance/data-export/events': FilterKey[];
+
 }
 
 class InitialFilters {
@@ -27,6 +35,13 @@ class InitialFilters {
     'analytics/data-export': [ 'dateRange', 'serialNumbers', 'recipes' ],
     'analytics/data-export/beverages': ['pagination'],
     'analytics/data-export/cleanings': ['pagination'],
+
+    'maintenance': ['businessUnits', 'coffeeMachineModels'],
+    'maintenance/working-hours': ['dateRange', 'errors'],
+    'maintenance/monitoring': ['businessUnits', 'pagination'],
+    'maintenance/data-export': ['dateRange', 'businessUnits', 'coffeeMachineModels', 'serialNumbers'],
+    'maintenance/data-export/time': ['pagination'],
+    'maintenance/data-export/events': ['pagination'],
   }
 
   public businessUnits?: IFiltersBusinessUnits['businessUnits'];
@@ -35,6 +50,7 @@ class InitialFilters {
   public dateRange?: IFiltersDateRange['dateRange'];
   public serialNumbers?: IFiltersSerialNumbers['serialNumbers'];
   public beverages?: IFiltersBeverages['beverages'];
+  public pagination?: IFiltersPagination['pagination'];
 
   constructor(path: keyof Filters) {
     const filtersKeys = InitialFilters.map[path];
@@ -47,7 +63,9 @@ class InitialFilters {
   private static businessUnits(path: keyof Filters): IFiltersBusinessUnits {
     return {
       businessUnits: {
-        checked: ['1001', '1002', '1003', '1004', '1005', '1006', '1007', '1008', '1009', '1010', '1011', '1012', '1013'],
+        checked: [
+          '1001','1002','1003','1004','1005','1006','1007','1008','1009','1010','1011','1012','1013','1014','1015','1016','1017','1018','1019','1020','1021','1022','1023','1024','1025','1026','1027','1028','1029','1030','1031','1032','1033','1034','1035','1036','1037','1038','1039','1040','1041','1042','1043','1044','1045','1046','1047','1048','1049','1050','1051','1052','1053','1054','1055'
+        ],
         expanded: [],
         filteredNodes: [],
         filterText: '',
@@ -61,14 +79,6 @@ class InitialFilters {
         substring: "",
         list: [
           1, 2, 3, 4, 5, 6, 7, 8
-          // 1 - 8
-          // { checked: true, id: 'coffee-machine-1', name: 'WMF 1500S+' },
-          // { checked: true, id: 'coffee-machine-2', name: 'WMF 5000' },
-          // { checked: true, id: 'coffee-machine-3', name: 'WMF 6000' },
-          // { checked: true, id: 'coffee-machine-4', name: 'WMF 7000' },
-          // { checked: true, id: 'coffee-machine-5', name: 'WMF 8000' },
-          // { checked: true, id: 'coffee-machine-6', name: 'WMF 9000' },
-          // { checked: true, id: 'coffee-machine-7', name: 'WMF 9000' },
         ],
       },
     };
@@ -78,8 +88,8 @@ class InitialFilters {
     const dateFrom = new Date();
     dateFrom.setDate(dateFrom.getDate() - 1);
     const dateTo = new Date();
-    const dateFromFmt = dateFrom.toLocaleDateString();
-    const dateToFmt = dateTo.toLocaleDateString();
+    const dateFromFmt = dateFrom.toLocaleDateString("en-US");
+    const dateToFmt = dateTo.toLocaleDateString("en-US");
     return {
       dateRange: {
         date: {

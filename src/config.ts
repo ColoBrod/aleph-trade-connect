@@ -6,6 +6,11 @@ const config = {
       url: 'http://62.113.111.120:9000/api'
     },
   },
+  // production: {
+  //   api: {
+  //     url: 'http://92.53.91.152:9000/api'
+  //   },
+  // },
   development: {
     api: {
       url: 'http://localhost:9000/api'

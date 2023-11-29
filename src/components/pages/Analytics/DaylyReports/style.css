@@ -16,10 +16,12 @@
 
     @media (--lg-max) {
       gap: 40px 40px;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 350px);
     }
 
     @media (--md-max) {
-      grid-template-columns: 285px 1fr;
+      grid-template-columns: 1fr;
       grid-template-rows: repeat(6, 350px);
     }
 

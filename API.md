@@ -722,13 +722,13 @@ interface Params {
   ~~~ts
   {
     downtimeByWeekday: {
-      Mon: number; // Время простоя в секундах
-      Tue: number;
-      Wed: number;
-      Thu: number;
-      Fri: number;
-      Sat: number;
-      Sun: number;
+      mon: number; // Время простоя в секундах
+      tue: number;
+      wed: number;
+      thu: number;
+      fri: number;
+      sat: number;
+      sun: number;
     };
   }
   ~~~

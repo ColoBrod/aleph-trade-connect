@@ -38,7 +38,7 @@ const AverageDispensingsPerMachine = () => {
     data, 
     label: "Выдачи по машине",
     backgroundColor: COLOR_3,
-    barPercentage: 0.7,
+    barPercentage: 0.6,
   }]
 
   return(
@@ -51,7 +51,8 @@ const AverageDispensingsPerMachine = () => {
         datasets={datasets}
         direction='horizontal'
         innerBarText={{
-          display: true
+          display: true,
+          pos: 'left', 
         }}
         scales={{
           x: {

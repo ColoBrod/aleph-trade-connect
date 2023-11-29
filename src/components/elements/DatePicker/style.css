@@ -1,10 +1,9 @@
 .picker.picker-date {
   .picker__input {
-
+    color: var(--clr-font);
     text-align: left;
     padding-left: 6px;
     line-height: 40px;
-
     background-image: url('calendar.svg');
     background-repeat: no-repeat;
     background-size: 32px 32px;

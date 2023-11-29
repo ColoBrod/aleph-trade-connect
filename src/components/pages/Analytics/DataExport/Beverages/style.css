@@ -1,36 +1,68 @@
+/* @import 'style/media-queries';
+
 .page-analytics__data-export__beverages {
   .page__content {
     
     display: grid;
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: auto 1fr auto;
+    position: relative;
     
-    .filters-aside {
-      grid-column: 1 / 2;
-      grid-row: 1 / 4;
-    }
-
     .filters-top {
-      grid-column: 2 / 3;
-      grid-row: 1 / 2;
-
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
       gap: 24px;
     }
-    
-    .table-wrapper {
-      grid-column: 2 / 3;
-      grid-row: 2 / 3;
-    }
 
     .filters-bottom {
-      grid-column: 2 / 3;
-      grid-row: 3 / 4;
       display: flex;
       justify-content: center;
     }
+
+    @media (--xl-min) {
+      grid-template-columns: 300px 1fr;
+      grid-template-rows: auto 1fr auto;
+      
+      .filters-aside {
+        grid-column: 1 / 2;
+        grid-row: 1 / 4;
+      }
+
+      .filters-top {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+      }
+      
+      .table-wrapper {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+      }
+  
+      .filters-bottom {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+      }
+    }
+
+    @media (--lg-max) {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr auto;
+
+      .filters-top {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+      }
+      
+      .table-wrapper {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+      }
+  
+      .filters-bottom {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+      }
+    }
+
   }
-}
+} */

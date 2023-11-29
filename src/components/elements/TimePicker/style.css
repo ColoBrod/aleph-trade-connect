@@ -1,5 +1,7 @@
 .picker.picker-time {
   .picker__input {
+    color: var(--clr-font);
+
     text-align: left;
     -webkit-appearance: none;
     -moz-appearance: none;

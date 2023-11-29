@@ -39,13 +39,15 @@ const Settings = () => {
   const filtersCoffeeMachineModels = useAppSelector(
     state => state.filters.analytics.common.coffeeMachineModels.list
   );
+
+  // console.log(businessUnits);
   
   return (
-    <div className="page page-analytics__trends__settings">
+    <div className="page page-analytics__trends__settings page-shared__settings">
       <div className="page__content container">
         
-        <InfoBlock layout='info' header='Обратите внимание: данные доступны только за последние 62 дня'>
-        </InfoBlock>
+        {/* <InfoBlock layout='info' header='Обратите внимание: данные доступны только за последние 62 дня'>
+        </InfoBlock> */}
 
         <InfoBlock layout='single-item' header='Структура ресторанов'>
           <RegionTree 
@@ -61,6 +63,7 @@ const Settings = () => {
 
         <InfoBlock layout='single-item' header='Период данных'>
           <DateRange />
+          <div className="data-available-for-the-last-62-days">Обратите внимание: данные доступны только за последние 62 дня</div>
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Модель кофе-машины'>

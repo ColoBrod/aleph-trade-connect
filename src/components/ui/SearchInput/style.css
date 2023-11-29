@@ -10,7 +10,8 @@
     padding-left: 28px;
     border-width: 0 0 1px 0;
     border-color: var(--clr-info-light);
-    color: var(--clr-info-light);
+    color: var(--clr-font);
+    /* color: var(--clr-info-light); */
   }
   input:focus,
   input:active {

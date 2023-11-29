@@ -73,7 +73,7 @@ const Beverages = () => {
     />
 
   const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер чашки", "Количество"]
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер ч.", "Кол-во"]
   ];
 
   const tableRows = rows.map(row => [
@@ -115,7 +115,7 @@ const Beverages = () => {
   />
   
   return (
-    <div className='page page-analytics__data-export__beverages'>
+    <div className='page page-analytics__data-export__beverages page-shared__table'>
       <div className="page__content container container-fluid">
         <FiltersAside 
           component={{

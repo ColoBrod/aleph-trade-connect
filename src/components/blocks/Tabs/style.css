@@ -39,7 +39,36 @@
     margin-right: 0;
   }
 
+  &.colorschema-monitoring {
+    .tab[href="/maintenance/monitoring/all"]::before {
+      /* background-color: red; */
+    }
+    .tab[href="/maintenance/monitoring/events"]::before {
+      background-color: #40F800;
+      box-shadow: 0 0 5px 0 #40F800;
+    }
+    .tab[href="/maintenance/monitoring/info"]::before {
+      background-color: #FFE500;
+      box-shadow: 0 0 5px 0 #FFE500;
+    }
+    .tab[href="/maintenance/monitoring/maintanence"]::before {
+      background-color: #FF8D3A;
+      box-shadow: 0 0 5px 0 #FF8D3A;
+    }
+    .tab[href="/maintenance/monitoring/errors"]::before {
+      background-color: #FF0000;
+      box-shadow: 0 0 5px 0 #FF0000;
+    }
+    .tab[href="/maintenance/monitoring/tech-info"]::before {
+      background-color: #0047FF;
+      box-shadow: 0 0 5px 0 #0047FF;
+    }
+    /* .tab::before {
+    } */
+  }
+
 }
+
 
 .header-widgets {
   

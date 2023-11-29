@@ -1,4 +1,11 @@
-import { IFiltersBusinessUnits, IFiltersCoffeeMachineModels, IFiltersDateRange, IFiltersRecipes, IFiltersSerialNumbers } from "~/interfaces/filters";
+import { 
+  IFiltersBusinessUnits, 
+  IFiltersCoffeeMachineModels, 
+  IFiltersDateRange, 
+  IFiltersRecipes, 
+  IFiltersSerialNumbers,
+  IFiltersPagination,
+} from "~/interfaces/filters";
 
 export const _businessUnitsSet = (
   state: IFiltersBusinessUnits,
@@ -103,4 +110,22 @@ export const _serialNumberRemoved = (
   const { list } = state.serialNumbers;
   const index = list.indexOf(substring);
   list.splice(index, 1);
+}
+
+export const _rowsPerPageSet = (
+  state: IFiltersPagination, 
+  action: { type: string; payload: any; }
+) => {
+  const perPage = action.payload;
+  if (perPage === undefined) return;
+  state.pagination.perPage = perPage;
+}
+
+export const _activePageSet = (
+  state: IFiltersPagination, 
+  action: { type: string; payload: any; }
+) => {
+  const page = action.payload;
+  if (page === undefined) return;
+  state.pagination.activePage = page;
 }

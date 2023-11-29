@@ -1,5 +1,10 @@
 .diagram {
   position: relative;
+
+  &__inner {
+    overflow: hidden;
+  }
+
   &__doughnut-inner {
     position: absolute;
     left: 50%;

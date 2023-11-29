@@ -15,10 +15,11 @@ import HeaderWidgets from '../HeaderWidgets';
 interface Props {
   layout: TabsLayout;
   items: TabProps[];
+  colors?: 'default' | 'monitoring';
 }
 
 const Tabs = (props: Props) => {
-  const { layout, items } = props;
+  const { layout, items, colors = 'default' } = props;
 
   // const lgMin = useMediaQuery({
   //   query: `(min-width: ${MEDIA_LG_MIN}px)`,
@@ -28,7 +29,7 @@ const Tabs = (props: Props) => {
 
   if (items.length === 0) return null;
   return (
-    <nav className={`tabs tabs-${layout}`}>
+    <nav className={`tabs tabs-${layout} colorschema-${colors}`}>
       <div className="container">
         {
           items.map(item => <Tab layout={layout} key={item.path} path={item.path}>{item.children}</Tab>  )

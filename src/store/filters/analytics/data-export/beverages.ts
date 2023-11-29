@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { _activePageSet, _rowsPerPageSet } from "./utils";
+import { _activePageSet, _rowsPerPageSet } from "~/store/filters/utils";
 import InitialFilters from "~/store/filters/initial";
 import { IFilters_Analytics_DataExport_Beverages } from "~/interfaces/filters";
 

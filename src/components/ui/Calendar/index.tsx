@@ -1,7 +1,8 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useState, useEffect, MouseEvent } from 'react';
 import './style.css';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { displaySet, monthSet, yearSet } from '~/store/ui/calendar';
+import { useLocation } from 'react-router-dom';
 
 import imgArrowLeft from './arrow-left.svg';
 import imgArrowRight from './arrow-right.svg';
@@ -26,6 +27,7 @@ const Calendar = (props: CalendarProps) => {
   const [m, d, y] = dateStr.split("/").map(el => parseInt(el));
   const date = new Date(y, m-1, d);
   const display = calendar.visible ? "block" : "none";
+  const visibility = calendar.visible ? "visible" : "hidden";
   const left = calendar.x + "px";
   const top = calendar.y + "px";
 
@@ -44,6 +46,26 @@ const Calendar = (props: CalendarProps) => {
 
   const monthToDisplay = new Date(year, month);
   const dates = getDates(monthToDisplay);
+  const location = useLocation();
+
+  useEffect(() => {
+    dispatch(displaySet({ visible: false }))
+  }, [location])
+
+  useEffect(() => {
+    if (!calendar.visible) return
+    const handleClickOutside = (e: MouseEvent<Document>): void => {
+      // @ts-ignore
+      if (e.target.classList.contains('picker__input')) return
+      // @ts-ignore
+      if (e.target.closest('.calendar')) return;
+      dispatch(displaySet({ visible: false }))
+    }
+    // @ts-ignore
+    document.addEventListener('click', handleClickOutside); 
+    // @ts-ignore
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [calendar.visible, location])
 
   const shiftPeriod = (offset: number) => {
     offset = Math.round(offset);
@@ -313,5 +335,7 @@ function get62(): { dates: Date[], periods: Period[] } {
   }
   return { dates, periods };
 }
- 
+
+
+
 export default Calendar;

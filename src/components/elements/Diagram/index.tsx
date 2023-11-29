@@ -24,6 +24,7 @@ interface Props {
   }> | undefined;
   innerBarText?: {
     display: boolean;
+    pos: 'left' | 'right' | 'top';
   };
   doughnutInner?: ReactNode;
   responsive?: boolean;

@@ -1,4 +1,4 @@
-import { IFiltersPagination } from "~/interfaces/filters";
+// import { IFiltersPagination } from "~/interfaces/filters";
 
 // export interface StateWithPagination {
 //   pagination: {
@@ -7,19 +7,19 @@ import { IFiltersPagination } from "~/interfaces/filters";
 //   }
 // }
 
-interface Action {
-  type: string;
-  payload: any;
-}
+// interface Action {
+//   type: string;
+//   payload: any;
+// }
 
-export const _rowsPerPageSet = (state: IFiltersPagination, action: Action) => {
-  const perPage = action.payload;
-  if (perPage === undefined) return;
-  state.pagination.perPage = perPage;
-}
+// export const _rowsPerPageSet = (state: IFiltersPagination, action: Action) => {
+//   const perPage = action.payload;
+//   if (perPage === undefined) return;
+//   state.pagination.perPage = perPage;
+// }
 
-export const _activePageSet = (state: IFiltersPagination, action: Action) => {
-  const page = action.payload;
-  if (page === undefined) return;
-  state.pagination.activePage = page;
-}
+// export const _activePageSet = (state: IFiltersPagination, action: Action) => {
+//   const page = action.payload;
+//   if (page === undefined) return;
+//   state.pagination.activePage = page;
+// }

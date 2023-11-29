@@ -3,6 +3,8 @@ import React, { MouseEvent } from 'react';
 import './style.css';
 
 import { useAppDispatch } from '~/hooks';
+import imgCross from './cross.svg';
+
 // import { serialNumberRemoved } from '~/store/filters/analytics/dayly-reports';
 
 interface Props {
@@ -19,7 +21,8 @@ const SNBadge = (props: Props) => {
   return (
     <div className="sn-badge">
       <span className="sn-badge__content">{children}</span>
-      <span className="sn-badge__close-btn" onClick={handleClick}>X</span>
+      <img src={imgCross} alt="Удалить" onClick={handleClick} className="sn-badge__close-btn" />
+      {/* <span className="sn-badge__close-btn" onClick={handleClick}></span> */}
     </div>
   );
 }

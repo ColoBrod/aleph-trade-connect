@@ -1,21 +1,18 @@
 import React from 'react';
 import './style.css'
-import Header from '~/components/blocks/Header';
 import InfoBlock from '~/components/blocks/InfoBlock';
 import Diagram from '~/components/elements/Diagram';
 import Widget from '~/components/elements/Widget';
 import TimeRange from '~/components/elements/TimeRange';
+import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
 const Overview = () => {
   const period = 30;
 
   return (
     <div className='page page-maintenance__working-hours__overview'>
-
-      <Header>Обзор</Header>
-
-      <div className="page__content">
-        <InfoBlock layout='chart' header='Простои кофе-машин по часам'>
+      <div className="page__content container">
+        <InfoBlock layout='chart' header='Простои по часам'>
           <Diagram
             id="downtime-by-hours"
             type="bar"
@@ -24,22 +21,36 @@ const Overview = () => {
               {
                 label: 'Сегодня',
                 data: [0.5,0.6,0.2,1,0.3,0.4,0.45,0.15,0.7,0.8,0.32,0.17,0.26,0.37,0.40],
-
+                backgroundColor: COLOR_1,
+                barThickness: 17,
               },
               {
                 label: 'Вчера',
                 data: [0.29,0.34,0.1,1,1.2,0.45,0.13,0.47,0.22,0.05,0.9,0.36,0.2,0.71,0.8],
+                backgroundColor: COLOR_2,
+                barThickness: 17,
               },
             ]}
+            scales={{
+              x: {
+                grid: {
+                  display: false,
+                }
+              },
+              y: {
+                border: { dash: [4, 4] },
+              }
+            }}
+            width={'1150px'}
           />
           <Widget 
             amount={"1ч 32м"} 
-            description={<>Сренднее время простоя одной к/м <b>сегодня</b></>}
+            description={<>Сренднее время простоя одной машины <b>сегодня</b></>}
             layout="chart"
           />
           <Widget 
             amount={"2ч 47м"} 
-            description={<>Сренднее время простоя одной к/м <b>вчера</b></>}
+            description={<>Сренднее время простоя одной машины <b>вчера</b></>}
             layout="chart"
           />
 
@@ -49,14 +60,26 @@ const Overview = () => {
           <Diagram 
             id="downtime-causes"
             type="doughnut"
-            legend={true}
+            legend={false}
             labels={["26% поломка", "74% обслуживание"]}
             datasets={[
               {
                 data: [26, 74],
+                backgroundColor: [COLOR_1, COLOR_2],
               },
             ]}
+            doughnutInner={<><span className="cup-size">Обслуживание</span><br /><span className='dispensings'>74%</span></>}
           />
+          <Widget 
+            amount='74%'
+            description="обслуживание"
+            align='center'
+            />
+          <Widget 
+            amount='26%'
+            description="поломка"
+            align='center'
+            />
         </InfoBlock>
 
         <InfoBlock layout='chart-4' header='Наиболее популярные ошибки'>
@@ -69,18 +92,20 @@ const Overview = () => {
             datasets={[
               {
                 data: [315, 280, 245, 200, 146, 99],
+                barThickness: 13,
+                backgroundColor: COLOR_3,
               },
             ]}
           />
           <Widget 
             amount={"Ошибка 1"}
-            description={<>самая популярная за последние <b>{period}</b> дней</>}
-            layout='chart'
-            align='center'
+            description={<>Самые популярные за последние <b>{period}</b> дней</>}
+            layout='description'
+            align='left'
           />
         </InfoBlock>
 
-        <InfoBlock layout='chart-timerange' header='Простои кофе-машин по дням'>
+        <InfoBlock layout='chart-timerange' header='Простои по дням'>
           <Diagram 
             id="downtimes-by-weekday-and-time"
             type="bar"
@@ -89,8 +114,20 @@ const Overview = () => {
             datasets={[
               {
                 data: [315, 200, 280, 245, 420, 146, 99],
+                barThickness: 40,
+                backgroundColor: COLOR_2,
               },
             ]}
+            scales={{
+              x: {
+                grid: {
+                  display: false,
+                }
+              },
+              y: {
+                border: { dash: [4, 4] },
+              }
+            }}
           />
           <Widget 
             amount={"Пятница"}
@@ -113,12 +150,25 @@ const Overview = () => {
             id="downtimes-week-to-week"
             type="bar"
             legend={false}
-            labels={["Пред. неделя", "Тек. неделя"]}
+            labels={["Предыдущая", "Текущая"]}
             datasets={[
               {
                 data: [527, 223],
+                backgroundColor: [COLOR_2, COLOR_1],
+                barThickness: 64,
+                categoryPercentage: 1,
               },
             ]}
+            scales={{
+              x: {
+                grid: {
+                  display: false,
+                }
+              },
+              y: {
+                border: { dash: [4, 4] },
+              }
+            }}
           />
           <Widget 
             amount={"-58%"}
@@ -138,8 +188,28 @@ const Overview = () => {
             datasets={[
               {
                 data: [360, 270],
+                backgroundColor: COLOR_3,
+                barThickness: 36,
               },
             ]}
+            scales={{
+              y: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  display: false,
+                }
+              },
+              x: { 
+                min: 0, 
+                border: { dash: [4, 4] },
+              },
+            }}
+            innerBarText={{
+              display: true,
+              pos: 'right',
+            }}
           />
           <Widget 
             amount={"Москва"}

@@ -69,6 +69,7 @@ const DispensingsByPath = () => {
         }}
         innerBarText={{
           display: true,
+          pos: 'left',
         }}
       />
       <Widget 

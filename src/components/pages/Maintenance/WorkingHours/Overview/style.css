@@ -5,4 +5,19 @@
     grid-template-columns: 4fr 1.5fr 2.5fr;
     grid-template-rows: 30rem 30rem;
   }
+
+  .diagram__downtime-by-hours {
+    .diagram__inner {
+      /* overflow: scroll; */
+    }
+  }
+
+  .diagram__downtime-causes {
+    .diagram__inner {
+      width: 185px;
+      height: 185px;
+      margin: auto;
+    }
+  }
+
 }

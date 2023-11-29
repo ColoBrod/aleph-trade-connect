@@ -112,6 +112,36 @@ export interface IFilters_Analytics_DataExport_Cleanings
   extends 
     IFiltersPagination {}
 
+export interface IFilters_Maintenance
+  extends
+    IFiltersBusinessUnits,
+    IFiltersCoffeeMachineModels {}
+
+export interface IFilters_Maintenance_WorkingHours
+  extends
+    IFiltersDateRange,
+    IFiltersErrors {}
+
+export interface IFilters_Maintenance_Monitoring
+  extends
+    IFiltersBusinessUnits,
+    IFiltersPagination {}
+
+export interface IFilters_Maintenance_DataExport
+  extends
+    IFiltersDateRange,
+    IFiltersBusinessUnits,
+    IFiltersCoffeeMachineModels,
+    IFiltersSerialNumbers {}
+
+export interface IFilters_Maintenance_DataExport_Time
+  extends
+    IFiltersPagination {}
+
+export interface IFilters_Maintenance_DataExport_Events
+  extends
+    IFiltersPagination {}
+
 // export const initialFilters_Analytics: IFilters_Analytics = {
 //   businessUnits: [],
 //   recipes: [],

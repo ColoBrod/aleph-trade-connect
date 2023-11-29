@@ -48,8 +48,8 @@ const DateRange = (props: Props) => {
     startDate.setDate(curDate.getDate() + startValue);
     const endDate = new Date()
     endDate.setDate(curDate.getDate() + endValue);
-    const start = startDate.toLocaleDateString();
-    const end = endDate.toLocaleDateString();
+    const start = startDate.toLocaleDateString("en-US");
+    const end = endDate.toLocaleDateString("en-US");
     dispatch(dateRangeSet({ start, end }));
   }
 

@@ -3,6 +3,9 @@ import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Maintenance_WorkingHours_Overview from '~/components/pages/Maintenance/WorkingHours/Overview';
+import Maintenance_WorkingHours_Settings from '~/components/pages/Maintenance/WorkingHours/Settings';
+import Maintenance_Monitoring from '~/components/pages/Maintenance/Monitoring';
+
 
 const maintenance: RouteObject = { 
   path: "maintenance", 
@@ -33,18 +36,28 @@ const maintenance: RouteObject = {
         },
         {
           path: "settings",
-          element: <h1>Настройки</h1>,
+          element: <Maintenance_WorkingHours_Settings />,
         },
       ],
     },
     {
       path: "monitoring",
       element: <InnerWithNestedTabs tabs={[
+        { children: "Все",                    path: `/maintenance/monitoring/all` },
+        { children: "События",                path: `/maintenance/monitoring/events` },
+        { children: "Информация",             path: `/maintenance/monitoring/info` },
+        { children: "Обслуживание",           path: `/maintenance/monitoring/maintanence` },
+        { children: "Ошибки",                 path: `/maintenance/monitoring/errors` },
+        { children: "Техническая информация", path: `/maintenance/monitoring/tech-info` },
       ]} />,
       children: [
         {
           path: "",
-          element: <h1>Мониторинг</h1>,
+          element: <Navigate to="all" replace />,
+        },
+        {
+          path: ":type",
+          element: <Maintenance_Monitoring />,
         },
       ],
     },

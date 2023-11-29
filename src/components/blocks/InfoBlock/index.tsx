@@ -18,6 +18,7 @@ interface Props {
     | "chart-7" 
     | "chart-solo" 
     | "grid-2x2";
+    // | "chart-doughnut-small";
   divider?: boolean;
   header?: string;
   className?: string;
