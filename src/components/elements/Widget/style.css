@@ -316,6 +316,31 @@
     }
   }
 
+  &-downtime-cause {
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+
+    .widget__icon {
+      display: none;
+    }
+
+    .widget__amount {
+      font-size: 24px;
+      line-height: 20px;
+      font-weight: 600;
+    }
+
+    .widget__description {
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+    }
+
+
+  }
+
 
   &-header {
     .widget__amount {}

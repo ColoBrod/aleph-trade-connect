@@ -18,7 +18,8 @@ interface Props {
     | "dayly-reports-3" 
     | "chart-icon" // Судя по всему не используется больше.
     | "header" 
-    | "dashboard";
+    | "dashboard"
+    | "downtime-cause";
   // fontSizeAmount?: number;
   // fontSizeDesc?: number;
   align?: "left" 

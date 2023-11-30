@@ -298,4 +298,29 @@
     }
   }
 
+  &.layout-downtime-causes {
+    .info-block__content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 18px;
+
+      .diagram {
+        flex-grow: 1;
+        flex-basis: 185px;
+        flex-shrink: 1;
+        overflow: hidden;
+      }
+
+      .widget:nth-child(2) {
+        margin-top: 6px;
+      }
+
+      .widget:nth-child(2) {
+      }
+
+    }
+  }
+
 }

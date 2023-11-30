@@ -56,7 +56,7 @@ const Overview = () => {
 
         </InfoBlock>
 
-        <InfoBlock layout='chart-4' header='Причины простоев'>
+        <InfoBlock layout='downtime-causes' header='Причины простоев'>
           <Diagram 
             id="downtime-causes"
             type="doughnut"
@@ -71,11 +71,13 @@ const Overview = () => {
             doughnutInner={<><span className="cup-size">Обслуживание</span><br /><span className='dispensings'>74%</span></>}
           />
           <Widget 
+            layout='downtime-cause'
             amount='74%'
             description="обслуживание"
             align='center'
             />
           <Widget 
+            layout='downtime-cause'
             amount='26%'
             description="поломка"
             align='center'
@@ -132,14 +134,14 @@ const Overview = () => {
           <Widget 
             amount={"Пятница"}
             description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
-            layout='chart'
+            layout='chart-doughnut'
             align='center'
           />
           <Widget 
             amount={"18ч 13м"}
             toFixed={true}
             description={<>простоя всего</>}
-            layout='chart'
+            layout='chart-doughnut'
             align='center'
           />
           <TimeRange />
@@ -173,7 +175,7 @@ const Overview = () => {
           <Widget 
             amount={"-58%"}
             description={<>меньше ошибок чем на <b>прошлой</b> неделе</>}
-            layout='chart'
+            layout='week-to-week'
             align='center'
           />
         </InfoBlock>
@@ -208,14 +210,14 @@ const Overview = () => {
             }}
             innerBarText={{
               display: true,
-              pos: 'right',
+              pos: 'left',
             }}
           />
           <Widget 
             amount={"Москва"}
-            description={<>Москва простаивает больше за последние <b>{period}</b> дней</>}
-            layout='chart'
-            align='center'
+            description={<>Москва самая простаивающая за последние <b>{period}</b> дней</>}
+            layout='dayly-reports'
+            align='left'
           />
         </InfoBlock>
       </div>

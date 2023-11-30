@@ -17,7 +17,8 @@ interface Props {
     | "chart-6" 
     | "chart-7" 
     | "chart-solo" 
-    | "grid-2x2";
+    | "grid-2x2"
+    | "downtime-causes";
     // | "chart-doughnut-small";
   divider?: boolean;
   header?: string;
