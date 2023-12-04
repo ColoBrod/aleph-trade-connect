@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { _activePageSet, _rowsPerPageSet } from "~/store/filters/utils";
+import { _activePageSet, _rowsPerPageSet, _orderBySet } from "~/store/filters/utils";
 import { _dateRangeSet } from "~/store/filters/utils";
 import InitialFilters from "~/store/filters/initial";
 import { IFilters_Analytics_DataExport_Cleanings } from "~/interfaces/filters";
@@ -28,8 +28,9 @@ const slice = createSlice({
     // dateRangeSet: funcDateRangeSet,
     rowsPerPageSet: _rowsPerPageSet,
     activePageSet: _activePageSet,
+    orderBySet: _orderBySet,
   },
 });
 
-export const { rowsPerPageSet, activePageSet } = slice.actions;
+export const { rowsPerPageSet, activePageSet, orderBySet } = slice.actions;
 export default slice.reducer;

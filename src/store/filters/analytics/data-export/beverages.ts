@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { _activePageSet, _rowsPerPageSet } from "~/store/filters/utils";
+import { _activePageSet, _rowsPerPageSet, _orderBySet } from "~/store/filters/utils";
 import InitialFilters from "~/store/filters/initial";
 import { IFilters_Analytics_DataExport_Beverages } from "~/interfaces/filters";
 
@@ -43,6 +43,7 @@ const slice = createSlice({
   reducers: {
     rowsPerPageSet: _rowsPerPageSet,
     activePageSet: _activePageSet,
+    orderBySet: _orderBySet,
     // rowsPerPageSet: (state, action) => {
     //   const perPage = action.payload;
     //   if (perPage === undefined) return;
@@ -61,5 +62,5 @@ const slice = createSlice({
   },
 });
 
-export const { rowsPerPageSet, activePageSet } = slice.actions;
+export const { rowsPerPageSet, activePageSet, orderBySet } = slice.actions;
 export default slice.reducer;

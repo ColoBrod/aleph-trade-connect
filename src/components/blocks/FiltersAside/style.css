@@ -90,13 +90,13 @@
   .filters-aside {
     position: absolute;
     width: 285px;
-    height: 100%;
+    height: calc(100% + 16px);
     background-color: white;
     z-index: 1;
-    top: 0;
+    top: -16px;
     left: 0;
     &__inner {
-      padding-top: 16px;
+      padding-top: 32px;
     }
   }
 }

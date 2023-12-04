@@ -1,83 +1,94 @@
 import React, { useEffect } from 'react';
 
-import Button from '~/components/ui/Button';
-import './style.css';
+import Button from "~/components/ui/Button";
 import DropDownList from '~/components/ui/DropDownList';
 import Table from '~/components/blocks/Table';
 
-import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
-
 import Pagination from '~/components/elements/Pagination';
 import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { fetchBeverages, idleSet } from '~/store/pages/analytics/data-export/beverages';
-import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/analytics/data-export/beverages';
+import { fetchEvents, idleSet } from '~/store/pages/maintenance/data-export/events';
+import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/maintenance/data-export/events';
+
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
 import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
 import SerialNumbersFilter from '~/components/blocks/SerialNumbersFilter';
-import { 
-  serialNumberAdded, 
-  serialNumberRemoved 
-} from '~/store/filters/analytics/data-export';
-import { 
-  dateRangeSet, 
-  timeRangeSet, 
-} from '~/store/filters/analytics/data-export';
+
+import { serialNumberAdded, serialNumberRemoved, dateRangeSet, timeRangeSet } from '~/store/filters/maintenance/data-export';
 import { 
   coffeeMachineModelSelected,
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
-} from '~/store/filters/analytics';
+} from '~/store/filters/maintenance';
 import Calendar from '~/components/ui/Calendar';
 
-const Beverages = () => {
+const Events = () => {
   const dispatch = useAppDispatch();
-  // TODO fetch variables from these filtersAnalytics and filtersAnalyticsDataExport
-  const filtersAnalytics = useAppSelector(state => state.filters.analytics.common);
-  const filtersAnalyticsDataExport = useAppSelector(state => state.filters.analytics.dataExport.shared);
-
-  const { date, time } = useAppSelector(state => state.filters.analytics.dataExport.shared.dateRange);
+  const { date, time } = useAppSelector(state => state.filters.maintenance.dataExport.shared.dateRange);
   const { 
     list: filtersSerialNumbers 
-  } = useAppSelector(state => state.filters.analytics.dataExport.shared.serialNumbers);
-  const { 
-    list: filtersCoffeeMachineModels,
-  } = useAppSelector(state => state.filters.analytics.common.coffeeMachineModels);
+  } = useAppSelector(state => state.filters.maintenance.dataExport.shared.serialNumbers);
+
+  const {
+    list: filtersCoffeeMachineModels
+  } = useAppSelector(state => state.filters.maintenance.shared.coffeeMachineModels);
+
   const {
     businessUnits: filtersBusinessUnits
-  } = useAppSelector(state => state.filters.analytics.common);
+  } = useAppSelector(state => state.filters.maintenance.shared);
 
   const { businessUnits } = useAppSelector(state => state.entities.data);
-  const filtersBeverages = useAppSelector(state => state.filters.analytics.dataExport.beverages);
-  const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.analytics.dataExport.beverages);
-  const { activePage, perPage } = filtersBeverages.pagination;
-  const { orderBy } = useAppSelector(state => state.filters.analytics.dataExport.beverages);
+  const filtersEvents = useAppSelector(state => state.filters.maintenance.dataExport.events);
+  const { status, error, pagesTotal, events: rows } = useAppSelector(
+    state => state.pages.maintenance.dataExport.events
+  );
+  const { activePage, perPage } = filtersEvents.pagination;
 
   useEffect(() => {
-    if (status === 'idle') dispatch(fetchBeverages());
-  }, [status, activePage, perPage]);
+    if (status === 'idle') dispatch(fetchEvents());
+  }, [status, activePage, perPage])
 
-  const pagination = <Pagination 
+  const pagination = <Pagination
     handler={
       (pageIndex: number) => {
         dispatch(activePageSet(pageIndex));
-        dispatch(idleSet({}))
+        dispatch(idleSet(null));
       }
-    } 
-    pagesTotal={pagesTotal} 
-    activePage={activePage} 
+    }
+    pagesTotal={pagesTotal}
+    activePage={activePage}
     />
 
-  const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер ч.", "Кол-во"]
+  const tableContent: (string | number)[][] = [
+    [
+      "Бизнес-единица",
+      "Ресторан",
+      "Модель машины",
+      "Серийный номер",
+      "Код ошибки",
+      "Описание ошибки",
+      "Дата",
+      "Время",
+      "UTC+",
+      "Длительность",
+    ],
   ];
   const tableKeys: string[] = [
-    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'date', 'time', 'utc', 'recipe', 'cupSize', 'total'
+    "businessUnit",
+    "restaurant",
+    "machineModel",
+    "serialNumber",
+    "errorCode",
+    "errorDesc",
+    "date",
+    "time",
+    "utc",
+    "duration",
   ];
 
   const tableRows = rows.map(row => [
@@ -85,13 +96,14 @@ const Beverages = () => {
     row.restaurant,
     row.machineModel,
     row.serialNumber,
+    row.errorCode,
+    row.errorDesc,
     row.date,
     row.time,
     row.utc,
-    row.recipe,
-    row.cupSize,
-    row.total,
+    row.duration,
   ]);
+
   tableContent.push(...tableRows);
 
   const datePicker = <DatePicker dateRangeSet={dateRangeSet} date={{...date}} />
@@ -118,7 +130,6 @@ const Beverages = () => {
     items={filtersSerialNumbers} 
   />
 
-  
   return (
     <div className='page page-analytics__data-export__beverages page-shared__table'>
       <div className="page__content container container-fluid">
@@ -134,12 +145,6 @@ const Beverages = () => {
         <div className='filters-top'>
           <Button onClick={() => console.log("empty")} layout='light'>
             Обновить
-          </Button>
-          <Button onClick={() => console.log("empty")} layout='light'>
-            <>
-              <img src={imgExcel} alt="Excel icon" />
-              Скачать
-            </>
           </Button>
           <DropDownList 
             onChange={(e) => {
@@ -166,11 +171,8 @@ const Beverages = () => {
               : <Table 
                   data={tableContent} 
                   keys={tableKeys} 
-                  orderBy={orderBy} 
-                  handleSort={(key: string): void => {
-                    dispatch(orderBySet(key));
-                    dispatch(idleSet(null));
-                  }} />
+                  sortAction={orderBySet} 
+                />
           }
         </div>
         <div className="filters-bottom">
@@ -182,4 +184,4 @@ const Beverages = () => {
   );
 }
  
-export default Beverages;
+export default Events;

@@ -10,6 +10,7 @@ import {
 } from "~/store/filters/utils";
 
 import monitoringReducer from './monitoring';
+import dataExportReducer from './data-export';
 
 const state = new InitialFilters('maintenance');
 export const initialState = { ...state } as IFilters_Maintenance;
@@ -29,6 +30,7 @@ const slice = createSlice({
 const reducer = combineReducers({
   shared: slice.reducer,
   monitoring: monitoringReducer,
+  dataExport: dataExportReducer,
   // daylyReports: daylyReportsReducer,
   // trends: trendsReducer,
   // dataExport: dataExportReducer,

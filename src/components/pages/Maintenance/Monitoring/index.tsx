@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { channel } from '~/services/pusher';
 
 import Button from '~/components/ui/Button';
 import './style.css';
@@ -25,13 +26,14 @@ import {
 } from '~/store/filters/maintenance';
 import Pagination from '~/components/elements/Pagination';
 
-import { IRow, IRowFmt } from '~/store/pages/maintenance/monitoring';
+import { IRow, IRowFmt, idleSet } from '~/store/pages/maintenance/monitoring';
+import { IPusherMap } from '~/interfaces/pusher';
 
 const Monitoring = () => {
   const { type } = useParams();
   const dispatch = useAppDispatch();
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
-  const { status, error, data } = useAppSelector(state => state.pages.maintenance.monitoring)
+  const { status, error, data, orderBy } = useAppSelector(state => state.pages.maintenance.monitoring)
   const { businessUnits } = useAppSelector(state => state.entities.data);
   const {
     businessUnits: filtersBusinessUnits
@@ -42,10 +44,18 @@ const Monitoring = () => {
   // const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.maintenance.mon);
 
   useEffect(() => {
+    channel.bind('map', (data: IPusherMap) => {
+      dispatch(idleSet(null));
+      console.log("Sent from pusher:", data);
+    });
+    return () => { channel.unbind('map'); }
+  }, [status])
+
+  useEffect(() => {
     let intervalId: number;
     if (status === 'idle') {
       dispatch(fetchEvents());
-      dispatch(updateTime());
+      // dispatch(updateTime());
       // @ts-ignore
       intervalId = setInterval(() => dispatch(updateTime()), 10_000)
     }
@@ -86,7 +96,19 @@ const Monitoring = () => {
     return fmt;
   }
 
+  const sortData = (
+    data: IRowFmt[],
+    orderBy: keyof IRowFmt,
+    desc: boolean
+  ): IRowFmt[] =>
+    data.sort((a, b) => {
+      if (a[orderBy] < b[orderBy]) return desc ? -1 : 1;
+      else if (a[orderBy] > b[orderBy]) return desc ? 1 : -1;
+      return 0;
+    });
+
   const fmt = formatData(data);
+  // sortData(fmt, )
   const fmtArr = fmt.map((row: IRowFmt) => [
     row.businessUnit, 
     row.path,
@@ -102,6 +124,18 @@ const Monitoring = () => {
   const tableContent: (string|number)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата", "Время", "Длительность" ],
     ...fmtArr,
+  ];
+
+  const tableKeys: string[] = [
+    "businessUnit",
+    "path",
+    "model",
+    "serialNumber",
+    "errorCode",
+    "errorDesc",
+    "date",
+    "time",
+    "duration",
   ];
 
   const pagination = <Pagination
@@ -166,7 +200,7 @@ const Monitoring = () => {
           {
             status === 'loading'
               ? <Loader />
-              : <Table data={tableContent} />
+              : <Table data={tableContent} keys={tableKeys} />
           }
         </div>
         <div className="filters-bottom">

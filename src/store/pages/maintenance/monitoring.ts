@@ -39,12 +39,14 @@ interface State {
   status: Status;
   error: string;
   data: IRow[];
+  orderBy: keyof IRowFmt | "";
 }
 
 const initialState: State = {
   status: 'idle',
   error: '',
   data: [],
+  orderBy: "",
 };
 
 export const fetchEvents = createAsyncThunk<any, void, { state: RootState }>(
@@ -80,7 +82,11 @@ export const updateTime = createAsyncThunk<any, void, { state: RootState }>(
 const slice = createSlice({
   name: 'monitoring',
   initialState,
-  reducers: {},
+  reducers: {
+    idleSet: (state, action) => {
+      state.status = 'idle';
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchEvents.pending, apiCallPending)
@@ -92,4 +98,7 @@ const slice = createSlice({
   },
 })
 
+export const {
+  idleSet
+} = slice.actions;
 export default slice.reducer;

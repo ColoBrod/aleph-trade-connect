@@ -5,6 +5,8 @@ import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 import Maintenance_WorkingHours_Overview from '~/components/pages/Maintenance/WorkingHours/Overview';
 import Maintenance_WorkingHours_Settings from '~/components/pages/Maintenance/WorkingHours/Settings';
 import Maintenance_Monitoring from '~/components/pages/Maintenance/Monitoring';
+import Maintenance_DataExport_Time from '~/components/pages/Maintenance/DataExport/Time';
+import Maintenance_DataExport_Events from '~/components/pages/Maintenance/DataExport/Events';
 
 
 const maintenance: RouteObject = { 
@@ -74,11 +76,11 @@ const maintenance: RouteObject = {
         },
         {
           path: "time",
-          element: <h1>Время</h1>,
+          element: <Maintenance_DataExport_Time />,
         },
         {
           path: "events",
-          element: <h1>События</h1>,
+          element: <Maintenance_DataExport_Events />,
         },
       ],
     },

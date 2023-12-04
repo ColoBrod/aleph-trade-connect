@@ -14,6 +14,15 @@
   --clr-scrollbar: #165DFF;
 
   /**
+   * Monitoring colors:
+   */
+  --clr-err-event: #40F800;
+  --clr-err-info: #FFE500;
+  --clr-err-maintenance: #FF8D3A;
+  --clr-err-error: #FF0000;
+  --clr-err-tech-info: #0047FF;
+
+  /**
    * Old colors: 
    */
   --clr-bg: #FBFBFB;

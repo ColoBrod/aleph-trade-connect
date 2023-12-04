@@ -44,24 +44,24 @@
       /* background-color: red; */
     }
     .tab[href="/maintenance/monitoring/events"]::before {
-      background-color: #40F800;
-      box-shadow: 0 0 5px 0 #40F800;
+      background-color: var(--clr-err-event);
+      box-shadow: 0 0 5px 0 var(--clr-err-event);
     }
     .tab[href="/maintenance/monitoring/info"]::before {
-      background-color: #FFE500;
-      box-shadow: 0 0 5px 0 #FFE500;
+      background-color: var(--clr-err-info);
+      box-shadow: 0 0 5px 0 var(--clr-err-info);
     }
     .tab[href="/maintenance/monitoring/maintanence"]::before {
-      background-color: #FF8D3A;
-      box-shadow: 0 0 5px 0 #FF8D3A;
+      background-color: var(--clr-err-maintenance);
+      box-shadow: 0 0 5px 0 var(--clr-err-maintenance);
     }
     .tab[href="/maintenance/monitoring/errors"]::before {
-      background-color: #FF0000;
-      box-shadow: 0 0 5px 0 #FF0000;
+      background-color: var(--clr-err-error);
+      box-shadow: 0 0 5px 0 var(--clr-err-error);
     }
     .tab[href="/maintenance/monitoring/tech-info"]::before {
-      background-color: #0047FF;
-      box-shadow: 0 0 5px 0 #0047FF;
+      background-color: var(--clr-err-tech-info);
+      box-shadow: 0 0 5px 0 var(--clr-err-tech-info);
     }
     /* .tab::before {
     } */

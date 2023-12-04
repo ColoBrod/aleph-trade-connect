@@ -37,7 +37,7 @@ const Cleanings = () => {
       <Diagram
         id="cleanings"
         type="bar"
-        labels={["Читски"]}
+        labels={["Чистки"]}
         legend={false}
         datasets={[
           {

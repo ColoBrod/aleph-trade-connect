@@ -6,6 +6,7 @@ import {
   IFiltersSerialNumbers,
   IFiltersPagination,
   IFiltersErrors,
+  IFiltersOrderBy,
 } from "~/interfaces/filters";
 
 export const _businessUnitsSet = (
@@ -140,4 +141,19 @@ export const _activePageSet = (
   const page = action.payload;
   if (page === undefined) return;
   state.pagination.activePage = page;
+}
+
+export const _orderBySet = (
+  state: IFiltersOrderBy, 
+  action: { type: string; payload: string; }
+) => {
+  const column = action.payload;
+  const { order } = state.orderBy
+  if (state.orderBy.column === column) 
+    state.orderBy.order = order === 'desc' ? 'asc' : 'desc';
+  else Object.assign(state.orderBy, { column, order: 'desc' })
+
+  // if (state.)
+  // if (page === undefined) return;
+  // state.pagination.activePage = page;
 }

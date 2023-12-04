@@ -13,7 +13,7 @@ import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchCleanings, idleSet } from '~/store/pages/analytics/data-export/cleanings';
-import { rowsPerPageSet, activePageSet } from '~/store/filters/analytics/data-export/cleanings';
+import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/analytics/data-export/cleanings';
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
@@ -56,6 +56,7 @@ const Cleanings = () => {
   const filtersCleanings = useAppSelector(state => state.filters.analytics.dataExport.cleanings);
   const { status, error, pagesTotal, cleanings: rows } = useAppSelector(state => state.pages.analytics.dataExport.cleanings);
   const { activePage, perPage } = filtersCleanings.pagination;
+  const { orderBy } = useAppSelector(state => state.filters.analytics.dataExport.cleanings);
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchCleanings());
@@ -64,6 +65,10 @@ const Cleanings = () => {
   const tableContent: (string|number)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата", "Время", "UTC+", "Тип чистки", "План. кол-во", "Факт. кол-во"]
   ];
+
+  const tableKeys: string[] = [
+    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'date', 'time', 'utc', 'type', 'planned', 'total'
+  ]
 
   const tableRows = rows.map(row => [
     row.federalDistrict + "/" + row.city,
@@ -164,7 +169,14 @@ const Cleanings = () => {
           {
             status === 'loading'
               ? <Loader />
-              : <Table data={tableContent} />
+              : <Table 
+                  data={tableContent} 
+                  keys={tableKeys} 
+                  orderBy={orderBy} 
+                  handleSort={(key: string): void => {
+                    dispatch(orderBySet(key));
+                    dispatch(idleSet(null));
+                  }} />
           }
         </div>
         <Calendar type='62-days' actionCreator={dateRangeSet} />

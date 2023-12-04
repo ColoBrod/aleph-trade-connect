@@ -7,6 +7,7 @@ interface State {
   data?: Object;
 }
 
+
 export const apiCallPending = (
   state: State, 
   action: PayloadAction<undefined, string, {

@@ -70,6 +70,13 @@ export interface IFiltersPagination {
   };
 }
 
+export interface IFiltersOrderBy {
+  orderBy: {
+    column: string;
+    order: 'asc' | 'desc';
+  }
+}
+
 export interface IFilters_Analytics
   extends 
     IFiltersBusinessUnits,
@@ -106,11 +113,13 @@ export interface IFilters_Analytics_DataExport
 
 export interface IFilters_Analytics_DataExport_Beverages
   extends 
-    IFiltersPagination {}
+    IFiltersPagination,
+    IFiltersOrderBy {}
 
 export interface IFilters_Analytics_DataExport_Cleanings
   extends 
-    IFiltersPagination {}
+    IFiltersPagination,
+    IFiltersOrderBy {}
 
 export interface IFilters_Maintenance
   extends
@@ -131,8 +140,6 @@ export interface IFilters_Maintenance_Monitoring
 export interface IFilters_Maintenance_DataExport
   extends
     IFiltersDateRange,
-    IFiltersBusinessUnits,
-    IFiltersCoffeeMachineModels,
     IFiltersSerialNumbers {}
 
 export interface IFilters_Maintenance_DataExport_Time
@@ -141,7 +148,8 @@ export interface IFilters_Maintenance_DataExport_Time
 
 export interface IFilters_Maintenance_DataExport_Events
   extends
-    IFiltersPagination {}
+    IFiltersPagination,
+    IFiltersOrderBy {}
 
 // export const initialFilters_Analytics: IFilters_Analytics = {
 //   businessUnits: [],
