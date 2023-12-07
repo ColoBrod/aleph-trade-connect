@@ -12,10 +12,11 @@ import { useAppSelector, useAppDispatch } from '~/hooks';
 import { 
   businessUnitsSet, 
   businessUnitsExpanded, 
-  businessUnitsFilterChanged 
+  businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/maintenance';
 import { coffeeMachineModelSelected } from '~/store/filters/maintenance';
-import { errorToggled } from '~/store/filters/maintenance';
+import { errorToggled, errorsSelected, errorsUnselected } from '~/store/filters/maintenance';
 
 const Settings = () => {
   const { errors, businessUnits, coffeeMachineModels } = useAppSelector(
@@ -28,6 +29,7 @@ const Settings = () => {
     businessUnitsSet,
     businessUnitsExpanded,
     businessUnitsFilterChanged,
+    businessUnitsSelectedAll,
   };
   const { errors: errorsFilters } = useAppSelector(
     state => state.filters.maintenance.shared
@@ -73,11 +75,18 @@ const Settings = () => {
             />
         </InfoBlock>
 
-        <InfoBlock layout='single-item' header='Рецепты'>
+        <InfoBlock layout='single-item' header='Ошибки'>
           <ErrorsFilter
             filters={errorsFilters}
             errors={errors}
             onClick={(id: number) => dispatch(errorToggled(id))}
+            handleSelectAll={() => {
+              const ids = errors.map(error => error.id)
+              dispatch(errorsSelected(ids))
+            }}
+            handleUnselectAll={() => {
+              dispatch(errorsUnselected())
+            }}
             />
           {/* <RecipesFilter 
             filters={recipesFilters}

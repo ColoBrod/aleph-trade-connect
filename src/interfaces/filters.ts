@@ -135,7 +135,8 @@ export interface IFilters_Maintenance_WorkingHours
 export interface IFilters_Maintenance_Monitoring
   extends
     IFiltersBusinessUnits,
-    IFiltersPagination {}
+    IFiltersPagination,
+    IFiltersOrderBy {}
 
 export interface IFilters_Maintenance_DataExport
   extends
@@ -144,7 +145,8 @@ export interface IFilters_Maintenance_DataExport
 
 export interface IFilters_Maintenance_DataExport_Time
   extends
-    IFiltersPagination {}
+    IFiltersPagination,
+    IFiltersOrderBy {}
 
 export interface IFilters_Maintenance_DataExport_Events
   extends

@@ -22,13 +22,18 @@ const Overview = () => {
                 label: 'Сегодня',
                 data: [0.5,0.6,0.2,1,0.3,0.4,0.45,0.15,0.7,0.8,0.32,0.17,0.26,0.37,0.40],
                 backgroundColor: COLOR_1,
-                barThickness: 17,
+                // barThickness: 17,
+                barPercentage: 1,
+                categoryPercentage: .6,
+
               },
               {
                 label: 'Вчера',
                 data: [0.29,0.34,0.1,1,1.2,0.45,0.13,0.47,0.22,0.05,0.9,0.36,0.2,0.71,0.8],
                 backgroundColor: COLOR_2,
-                barThickness: 17,
+                // barThickness: 17,
+                barPercentage: 1,
+                categoryPercentage: .6,
               },
             ]}
             scales={{

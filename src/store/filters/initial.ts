@@ -49,15 +49,13 @@ class InitialFilters {
 
     "maintenance": ["businessUnits", "coffeeMachineModels", "errors"],
     "maintenance/working-hours": ["dateRange"],
-    "maintenance/monitoring": ["businessUnits", "pagination"],
+    "maintenance/monitoring": ["pagination", "orderBy"],
     "maintenance/data-export": [
       "dateRange",
-      "businessUnits",
-      "coffeeMachineModels",
       "serialNumbers",
     ],
-    "maintenance/data-export/time": ["pagination"],
-    "maintenance/data-export/events": ["pagination"],
+    "maintenance/data-export/time": ["pagination", "orderBy"],
+    "maintenance/data-export/events": ["pagination", "orderBy"],
   };
 
   public businessUnits?: IFiltersBusinessUnits["businessUnits"];
@@ -212,10 +210,11 @@ class InitialFilters {
   }
 
   private static orderBy(path: keyof Filters): IFiltersOrderBy {
+    const column = path === 'maintenance/monitoring' ? 'datetime' : "";
     return {
       orderBy: {
-        column: "",
-        order: "desc",
+        column,
+        order: "asc",
       },
     };
   }

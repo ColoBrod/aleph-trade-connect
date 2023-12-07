@@ -7,6 +7,15 @@
   }
 }
 
+.checkbox-id-region-tree-select-all {
+  /* padding-left: 20px; */
+  /* background-color: red; */
+  label {
+    margin-left: 14px;
+  }
+
+}
+
 .rct-node {
 }
 

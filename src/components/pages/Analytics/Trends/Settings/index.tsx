@@ -11,9 +11,10 @@ import { useAppSelector, useAppDispatch } from '~/hooks';
 import { 
   businessUnitsSet, 
   businessUnitsExpanded, 
-  businessUnitsFilterChanged 
+  businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/analytics';
-import { recipeToggled } from '~/store/filters/analytics/trends';
+import { recipeToggled, recipesSelected, recipesUnselected } from '~/store/filters/analytics/trends';
 import { coffeeMachineModelSelected } from '~/store/filters/analytics';
 
 const Settings = () => {
@@ -27,6 +28,7 @@ const Settings = () => {
     businessUnitsSet,
     businessUnitsExpanded,
     businessUnitsFilterChanged,
+    businessUnitsSelectedAll,
   };
   const { recipes: recipesFilters } = useAppSelector(
     state => state.filters.analytics.trends
@@ -79,6 +81,15 @@ const Settings = () => {
             recipes={recipes}
             onClick={(id: number) => {
               dispatch(recipeToggled(id))
+            }}
+            handleSelectAll={() => {
+
+              const ids = recipes.map(recipe => recipe.id)
+              console.log(ids)
+              dispatch(recipesSelected(ids))
+            }}
+            handleUnselectAll={() => {
+              dispatch(recipesUnselected())
             }}
           />
         </InfoBlock>

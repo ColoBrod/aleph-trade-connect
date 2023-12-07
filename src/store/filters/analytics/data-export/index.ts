@@ -3,7 +3,7 @@ import beveragesReducer from './beverages';
 import cleaningsReducer from './cleanings';
 import InitialFilters from "~/store/filters/initial";
 import { IFilters_Analytics_DataExport } from "~/interfaces/filters";
-import { _dateRangeSet, _timeRangeSet, _serialNumberAdded, _serialNumberRemoved } from "../../utils";
+import { _dateRangeSet, _timeRangeSet, _serialNumberAdded, _serialNumberRemoved, _serialNumbersRemovedAll } from "../../utils";
 
 // interface State {
 //   beverages: {
@@ -62,6 +62,7 @@ const slice = createSlice({
     timeRangeSet: _timeRangeSet,
     serialNumberAdded: _serialNumberAdded,
     serialNumberRemoved: _serialNumberRemoved,
+    serialNumbersRemovedAll: _serialNumbersRemovedAll,
   },
 });
 
@@ -77,5 +78,6 @@ export const {
   timeRangeSet,
   serialNumberAdded,
   serialNumberRemoved,
+  serialNumbersRemovedAll,
 } = slice.actions;
 export default reducer;  

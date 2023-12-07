@@ -1,0 +1,11 @@
+.sn-badges__remove-all {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  color: var(--clr-font-primary);
+  margin-top: 6px;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

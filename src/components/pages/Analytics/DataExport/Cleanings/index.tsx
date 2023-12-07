@@ -32,6 +32,7 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/analytics';
 import Calendar from '~/components/ui/Calendar';
 
@@ -63,11 +64,11 @@ const Cleanings = () => {
   }, [status, activePage, perPage]);
 
   const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата", "Время", "UTC+", "Тип чистки", "План. кол-во", "Факт. кол-во"]
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата и время", "UTC+", "Тип чистки", "План. кол-во", "Факт. кол-во"]
   ];
 
   const tableKeys: string[] = [
-    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'date', 'time', 'utc', 'type', 'planned', 'total'
+    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'datetime', 'utc', 'type', 'planned', 'total'
   ]
 
   const tableRows = rows.map(row => [
@@ -75,8 +76,7 @@ const Cleanings = () => {
     row.restaurant,
     row.machineModel,
     row.serialNumber,
-    row.date,
-    row.time,
+    row.date + " " + row.time,
     row.utc,
     row.type,
     row.planned,
@@ -92,6 +92,7 @@ const Cleanings = () => {
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll,
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}
@@ -121,7 +122,7 @@ const Cleanings = () => {
           }}
         />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")}  layout='light'>Обновить</Button>
+          <Button onClick={() => dispatch(idleSet(null))}  layout='light'>Обновить</Button>
           <Button onClick={() => console.log("empty")}  layout='light'>
             <>
               <img src={imgExcel} alt="Excel icon" />

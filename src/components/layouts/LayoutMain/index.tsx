@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchEntities } from '~/store/entities';
 
 import './style.css';
+import Tooltip from '~/components/ui/Tooltip';
 
 const LayoutMain = () => {
   const dispatch = useAppDispatch();
@@ -33,16 +34,7 @@ const LayoutMain = () => {
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
       }
-      {/* <Calendar type='62-days' onChange={(id: string, date: Date) => {
-        const dd = date.getDate();
-        const mm = date.getMonth() + 1;
-        const yyyy = date.getFullYear();
-        const payload = id === 'date-start'
-          ? { start: `${mm}/${dd}/${yyyy}` }
-          : { end: `${mm}/${dd}/${yyyy}` };
-        dispatch(dateRangeSet(payload));
-        dispatch(displaySet({ visible: false }));
-      }} /> */}
+      <Tooltip />
     </div>
   );
 }

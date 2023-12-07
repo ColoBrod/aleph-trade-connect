@@ -5,8 +5,7 @@
   .page__content {
     display: grid;
     gap: 20px;
-    grid-template-columns: 717fr 328fr 442fr;
-    grid-template-rows: repeat(2, 350px);
+    
 
     /* @media (--lg) {
       grid-template-columns: 3fr 4fr;
@@ -36,9 +35,13 @@
         grid-column: 2 / 3;
       }
     } */
-    @media (--xl) {
+    @media (--xxl) {
       grid-template-columns: 717fr 328fr 442fr;
       grid-template-rows: repeat(2, 350px);
+    }
+    @media (--xl) {
+      grid-template-columns: 717fr 328fr 442fr;
+      grid-template-rows: repeat(2, 300px);
     }
     @media (--lg) {
       grid-template-columns: 717fr 328fr 442fr;

@@ -1,0 +1,50 @@
+/* $tooltip-color: rgba(0,0,0, 0.8); */
+
+.tooltip {
+  position: absolute;
+  transform: translateY(-50%);
+  padding: 10px;
+  border-radius: 10px;
+  background-color: rgba(0,0,0, 0.8);
+  color: white;
+  transition: all 0.3s ease;
+  z-index: 100;
+  
+  &::before {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    width: 16px; height: 16px;
+    border-width: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    left: -16px;
+    border-style: solid;
+    border-color: transparent rgba(0,0,0, 0.8) transparent transparent;
+  }
+
+  &_visible {
+    display: block;
+  }
+
+  &_hidden {
+    display: none;
+
+  }
+
+  &_bottom {
+
+  }
+
+  &_top {
+
+  }
+
+  &_left {
+
+  }
+
+  &_right::before {
+    
+  }
+}

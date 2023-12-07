@@ -4,6 +4,7 @@ import Button from "~/components/ui/Button";
 import DropDownList from '~/components/ui/DropDownList';
 import Table from '~/components/blocks/Table';
 
+import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
 import Pagination from '~/components/elements/Pagination';
 import Loader from '~/components/blocks/Loader';
@@ -24,6 +25,7 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/maintenance';
 import Calendar from '~/components/ui/Calendar';
 
@@ -48,6 +50,7 @@ const Events = () => {
     state => state.pages.maintenance.dataExport.events
   );
   const { activePage, perPage } = filtersEvents.pagination;
+  const { orderBy } = useAppSelector(state => state.filters.maintenance.dataExport.events);
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchEvents());
@@ -72,8 +75,7 @@ const Events = () => {
       "Серийный номер",
       "Код ошибки",
       "Описание ошибки",
-      "Дата",
-      "Время",
+      "Дата и время",
       "UTC+",
       "Длительность",
     ],
@@ -85,8 +87,7 @@ const Events = () => {
     "serialNumber",
     "errorCode",
     "errorDesc",
-    "date",
-    "time",
+    "datetime",
     "utc",
     "duration",
   ];
@@ -98,8 +99,7 @@ const Events = () => {
     row.serialNumber,
     row.errorCode,
     row.errorDesc,
-    row.date,
-    row.time,
+    row.date + " " + row.time,
     row.utc,
     row.duration,
   ]);
@@ -114,6 +114,7 @@ const Events = () => {
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll,
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}
@@ -143,8 +144,14 @@ const Events = () => {
           }}
         />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")} layout='light'>
+          <Button onClick={() => dispatch(idleSet(null))} layout='light'>
             Обновить
+          </Button>
+          <Button onClick={() => console.log("empty")} layout='light'>
+            <>
+              <img src={imgExcel} alt="Excel icon" />
+              Скачать
+            </>
           </Button>
           <DropDownList 
             onChange={(e) => {
@@ -171,8 +178,11 @@ const Events = () => {
               : <Table 
                   data={tableContent} 
                   keys={tableKeys} 
-                  sortAction={orderBySet} 
-                />
+                  orderBy={orderBy} 
+                  handleSort={(key: string): void => {
+                    dispatch(orderBySet(key));
+                    dispatch(idleSet(null));
+                  }} />
           }
         </div>
         <div className="filters-bottom">

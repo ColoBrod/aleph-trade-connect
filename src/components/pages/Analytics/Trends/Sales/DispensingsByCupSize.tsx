@@ -8,11 +8,17 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByCupSize } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
+import { use_XL } from '~/media-queries';
 
 const DispensingsByCupSize = () => {
   const header = 'По размеру чашки (S-M-L)';
   const dispatch = useAppDispatch();
+  const isXL = use_XL();
   const { dispensingsByCupSize } = useAppSelector(state => state.pages.analytics.trends.sales);
+
+  // useEffect(() => {
+  //   console.log("XL:", isXL)
+  // }, [isXL])
 
   useEffect(() => {
     if (dispensingsByCupSize.status === 'idle') dispatch(fetchDispensingsByCupSize()); 
@@ -65,6 +71,7 @@ const DispensingsByCupSize = () => {
           
         ]}
         doughnutInner={<><span className="cup-size">{mostPopularInner}</span><br /><span className='dispensings'>{max}</span></>}
+        cutout={isXL ? 50 : 84}
           // <>{mostPopular}<br>{max}</> 
       />
       <Widget 

@@ -32,4 +32,17 @@
   &.half-checked label {
     background-image: url("img/half-checked.png");
   }
+  
+
+  &.checked.color-event label { background-image: url("img/checked-event.png") }
+  &.checked.color-info label { background-image: url("img/checked-info.png") }
+  &.checked.color-maintenance label { background-image: url("img/checked-maintenance.png") }
+  &.checked.color-error label { background-image: url("img/checked-error.png") }
+  &.checked.color-tech-info label { background-image: url("img/checked-tech-info.png") }
+
+  &.unchecked.color-event label { background-image: url("img/unchecked-event.png") }
+  &.unchecked.color-info label { background-image: url("img/unchecked-info.png") }
+  &.unchecked.color-maintenance label { background-image: url("img/unchecked-maintenance.png") }
+  &.unchecked.color-error label { background-image: url("img/unchecked-error.png") }
+  &.unchecked.color-tech-info label { background-image: url("img/unchecked-tech-info.png") }
 }

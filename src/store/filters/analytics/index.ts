@@ -14,6 +14,7 @@ import {
   _businessUnitsExpanded, 
   _businessUnitsFilterChanged, 
   _businessUnitsSet, 
+  _businessUnitsSelectedAll,
   _coffeeMachineModelSelected 
 } from "~/store/filters/utils";
 
@@ -27,6 +28,7 @@ const slice = createSlice({
     businessUnitsSet: _businessUnitsSet,
     businessUnitsExpanded: _businessUnitsExpanded,
     businessUnitsFilterChanged: _businessUnitsFilterChanged,
+    businessUnitsSelectedAll: _businessUnitsSelectedAll,
 
     // businessUnitsSet: (state, action) => {
     //   state.businessUnits = action.payload;
@@ -101,6 +103,7 @@ export const {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
   coffeeMachineModelSelected,
   // modelSearched,
   // dateRangeSet,

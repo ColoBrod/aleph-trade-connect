@@ -13,66 +13,76 @@ import FiltersAside from '~/components/blocks/FiltersAside';
 import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
-import { rowsPerPageSet, activePageSet } from '~/store/filters/maintenance/monitoring';
+import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/maintenance/monitoring';
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
-import { fetchEvents, updateTime } from '~/store/pages/maintenance/monitoring';
+import { fetchEvents, updateTime, utcSet } from '~/store/pages/maintenance/monitoring';
 
 import { 
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll
 } from '~/store/filters/maintenance';
 import Pagination from '~/components/elements/Pagination';
 
 import { IRow, IRowFmt, idleSet } from '~/store/pages/maintenance/monitoring';
+import { IFiltersOrderBy } from '~/interfaces/filters';
 import { IPusherMap } from '~/interfaces/pusher';
+import EventsFilter from '~/components/blocks/EventsFilter';
 
 const Monitoring = () => {
   const { type } = useParams();
   const dispatch = useAppDispatch();
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
-  const { status, error, data, orderBy } = useAppSelector(state => state.pages.maintenance.monitoring)
+  const { status, error, data, utc } = useAppSelector(state => state.pages.maintenance.monitoring)
+  // const { orderBy } =
   const { businessUnits } = useAppSelector(state => state.entities.data);
   const {
     businessUnits: filtersBusinessUnits
   } = useAppSelector(state => state.filters.maintenance.shared);
 
-  const { activePage, perPage } = filtersMonitoring.pagination;
+  const { pagination: { activePage, perPage }, orderBy } = filtersMonitoring;
+  const pagesTotal = Math.ceil(data.length / perPage);
 
   // const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.maintenance.mon);
+  console.log(utc);
 
   useEffect(() => {
     channel.bind('map', (data: IPusherMap) => {
       dispatch(idleSet(null));
-      console.log("Sent from pusher:", data);
     });
     return () => { channel.unbind('map'); }
   }, [status])
 
   useEffect(() => {
-    let intervalId: number;
     if (status === 'idle') {
       dispatch(fetchEvents());
       // dispatch(updateTime());
-      // @ts-ignore
-      intervalId = setInterval(() => dispatch(updateTime()), 10_000)
     }
-    return () => clearInterval(intervalId)
   }, [status])
+  
+  useEffect(() => {
+    let intervalId: any;
+    intervalId = setInterval(() => {
+      dispatch(updateTime())
+    }, 3000)
+    return () => clearInterval(intervalId)
+  }, [])
 
   const regionTree = <RegionTree 
     actions={{
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll,
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}
   />
-
-  // console.log("Data:", );
+  
+  const eventsFilter = <EventsFilter />;
 
   const formatData = (data: IRow[]): IRowFmt[] => {
     const fmt = data.map(row => {
@@ -80,6 +90,8 @@ const Monitoring = () => {
       const path = match === null ? row.company : match[1];
       // const [date, time] = row.start_datetime.split(" ") as [string, string];
       const date = new Date(row.start_datetime);
+      const datetime = date.toLocaleString('ru-RU', { timeZone: utc })
+
       return ({
         id: row.id,
         businessUnit: "",
@@ -88,9 +100,11 @@ const Monitoring = () => {
         serialNumber: row.device_code,
         errorCode: row.error_code,
         errorDesc: row.error_text,
-        date: date.toLocaleDateString('ru-RU'),
-        time: date.toLocaleTimeString('ru-RU'),
-        duration: "",
+        dateObj: date,
+        datetime,
+        // date: date.toLocaleDateString('ru-RU'),
+        // time: date.toLocaleTimeString('ru-RU'),
+        duration: row.duration,
       })
     })
     return fmt;
@@ -98,31 +112,56 @@ const Monitoring = () => {
 
   const sortData = (
     data: IRowFmt[],
-    orderBy: keyof IRowFmt,
-    desc: boolean
-  ): IRowFmt[] =>
-    data.sort((a, b) => {
-      if (a[orderBy] < b[orderBy]) return desc ? -1 : 1;
-      else if (a[orderBy] > b[orderBy]) return desc ? 1 : -1;
+    orderBy: IFiltersOrderBy['orderBy'],
+  ): IRowFmt[] => {
+    const sorted = [...data];
+    sorted.sort((a, b) => {
+      let itemA, itemB;
+      // @ts-ignore
+      const { column, order } = orderBy;
+      if (column === 'datetime') {
+        // @ts-ignore
+        itemA = new Date(a.dateObj);
+        // @ts-ignore
+        itemB = new Date(b.dateObj);
+        // console.log("Dates", itemA, itemB);
+      }
+      else if (column === 'serialNumber') {
+        itemA = parseInt(a[column]);
+        itemB = parseInt(b[column]);
+      }
+      else {
+        // @ts-ignore
+        itemA = a[column];
+        // @ts-ignore
+        itemB = b[column];
+      }
+      if (itemA < itemB) return order === 'desc' ? -1 : 1;
+      else if (itemA > itemB) return order === 'desc' ? 1 : -1;
       return 0;
     });
+    return sorted;
+  }
+  
+  // const curPage =
 
   const fmt = formatData(data);
-  // sortData(fmt, )
-  const fmtArr = fmt.map((row: IRowFmt) => [
+  console.log("DATA:", fmt);
+  const sorted = sortData(fmt, orderBy)
+  const page = sorted.slice((activePage - 1) * perPage, activePage * perPage);
+  const fmtArr = page.map((row: IRowFmt) => [
     row.businessUnit, 
     row.path,
     row.model,
     row.serialNumber,
     row.errorCode,
     row.errorDesc,
-    row.date,
-    row.time,
+    row.datetime,
     row.duration,
   ]);
 
   const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата", "Время", "Длительность" ],
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата и время", "Длительность" ],
     ...fmtArr,
   ];
 
@@ -133,17 +172,18 @@ const Monitoring = () => {
     "serialNumber",
     "errorCode",
     "errorDesc",
-    "date",
-    "time",
+    "datetime",
     "duration",
   ];
 
   const pagination = <Pagination
     handler={
-      (pageIndex: number) => 1
+      (pageIndex: number) => {
+        dispatch(activePageSet(pageIndex))
+      }
     }
-    pagesTotal={10}
-    activePage={1}
+    pagesTotal={pagesTotal}
+    activePage={activePage}
     />
 
   return (
@@ -152,30 +192,32 @@ const Monitoring = () => {
         <FiltersAside 
           component={{
             regionTree,
+            eventsFilter,
           }}
         />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")} layout='light'>
+          {/* <Button onClick={() => console.log("empty")} layout='light'>
             Обновить
-          </Button>
+          </Button> */}
           <DropDownList
             onChange={(e) => {
-              console.log(e.currentTarget.value)
+              // const utc = parseInt(e.currentTarget.value);
+              dispatch(utcSet(e.currentTarget.value));
             }}
-            value={'3'}
+            value={utc}
             label='UTC+'
             name='utc'
             items={[
-              { value: '0', innerHTML: "+00:00" },
-              { value: '1', innerHTML: "+01:00" },
-              { value: '2', innerHTML: "+02:00" },
-              { value: '3', innerHTML: "+03:00" },
-              { value: '4', innerHTML: "+04:00" },
-              { value: '5', innerHTML: "+05:00" },
-              { value: '6', innerHTML: "+06:00" },
-              { value: '7', innerHTML: "+07:00" },
-              { value: '8', innerHTML: "+08:00" },
-              { value: '9', innerHTML: "+09:00" },
+              { value: '+00:00', innerHTML: "+00:00" },
+              { value: '+01:00', innerHTML: "+01:00" },
+              { value: '+02:00', innerHTML: "+02:00" },
+              { value: '+03:00', innerHTML: "+03:00" },
+              { value: '+04:00', innerHTML: "+04:00" },
+              { value: '+05:00', innerHTML: "+05:00" },
+              { value: '+06:00', innerHTML: "+06:00" },
+              { value: '+07:00', innerHTML: "+07:00" },
+              { value: '+08:00', innerHTML: "+08:00" },
+              { value: '+09:00', innerHTML: "+09:00" },
             ]}
           />
           <DropDownList 
@@ -189,6 +231,8 @@ const Monitoring = () => {
             label="Показать по" 
             name='pages' 
             items={[
+              { value: "2", innerHTML: "2" },
+              { value: "3", innerHTML: "3" },
               { value: "10", innerHTML: "10" },
               { value: "20", innerHTML: "20" },
               { value: "50", innerHTML: "50" },
@@ -200,7 +244,14 @@ const Monitoring = () => {
           {
             status === 'loading'
               ? <Loader />
-              : <Table data={tableContent} keys={tableKeys} />
+              : <Table 
+                  data={tableContent} 
+                  keys={tableKeys} 
+                  handleSort={(key: string): void => {
+                    dispatch(orderBySet(key));
+                  }}
+                  orderBy={orderBy}
+                  />
           }
         </div>
         <div className="filters-bottom">

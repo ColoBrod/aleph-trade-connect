@@ -4,13 +4,14 @@ import Button from "~/components/ui/Button";
 import DropDownList from '~/components/ui/DropDownList';
 import Table from '~/components/blocks/Table';
 
+import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
 import Pagination from '~/components/elements/Pagination';
 import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchTime, idleSet } from '~/store/pages/maintenance/data-export/time';
-import { rowsPerPageSet, activePageSet } from '~/store/filters/maintenance/data-export/time';
+import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/maintenance/data-export/time';
 
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
@@ -24,6 +25,7 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/maintenance';
 import Calendar from '~/components/ui/Calendar';
 
@@ -48,6 +50,7 @@ const Time = () => {
     state => state.pages.maintenance.dataExport.time
   );
   const { activePage, perPage } = filtersTime.pagination;
+  const { orderBy } = filtersTime;
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchTime());
@@ -70,8 +73,7 @@ const Time = () => {
       "Ресторан",
       "Модель машины",
       "Серийный номер",
-      "Дата",
-      "Время",
+      "Дата и время",
       "UTC+",
       "Время работы с",
       "Простой по поломке с",
@@ -84,8 +86,7 @@ const Time = () => {
     "restaurant",
     "machineModel",
     "serialNumber",
-    "date",
-    "time",
+    "datetime",
     "utc",
     "uptimeFrom",
     "downtimeByBreakdown",
@@ -98,8 +99,7 @@ const Time = () => {
     row.restaurant,
     row.machineModel,
     row.serialNumber,
-    row.date,
-    row.time,
+    row.date + " " + row.time,
     row.utc,
     row.uptimeFrom,
     row.downtimeByBreakdown,
@@ -117,6 +117,7 @@ const Time = () => {
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}
@@ -146,8 +147,14 @@ const Time = () => {
           }}
         />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")} layout='light'>
+          <Button onClick={() => dispatch(idleSet(null))} layout='light'>
             Обновить
+          </Button>
+          <Button onClick={() => console.log("empty")} layout='light'>
+            <>
+              <img src={imgExcel} alt="Excel icon" />
+              Скачать
+            </>
           </Button>
           <DropDownList 
             onChange={(e) => {
@@ -171,7 +178,14 @@ const Time = () => {
           {
             status === 'loading'
               ? <Loader />
-              : <Table data={tableContent} keys={tableKeys} />
+              : <Table 
+                  data={tableContent} 
+                  keys={tableKeys} 
+                  orderBy={orderBy} 
+                  handleSort={(key: string): void => {
+                    dispatch(orderBySet(key));
+                    dispatch(idleSet(null));
+                  }} />
           }
         </div>
         <div className="filters-bottom">

@@ -34,7 +34,7 @@ const Pagination = (props: Props) => {
         onClick={() => activePage - 1 > 0 && handler(activePage -1) } 
         className="pagination__prev">
       </span>
-      <span className='pagination__pages' style={{ justifyContent }}>
+      <span className={`pagination__pages ${pagesTotal <= 3 ? 'pagination__pages-' + pagesTotal : ''}`} style={{ justifyContent }}>
         {pages}
       </span>
       <span 

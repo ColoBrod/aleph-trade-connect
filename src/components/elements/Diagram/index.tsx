@@ -30,6 +30,7 @@ interface Props {
   responsive?: boolean;
   width?: string;
   height?: string;
+  cutout?: number; // Only for doughnut chart
 }
 
 class Diagram extends Component<Props> {
@@ -41,7 +42,7 @@ class Diagram extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    const { type, legend: displayLegend = true, direction = "vertical", scales } = props;
+    const { type, legend: displayLegend = true, direction = "vertical", scales, cutout = 74 } = props;
     const { innerBarText, responsive = true } = props;
     this.config = {
       type,
@@ -84,7 +85,9 @@ class Diagram extends Component<Props> {
           point: { radius: 0 },
         } : undefined,
         // @ts-ignore
-        cutout: type === "doughnut" ? 74 : undefined,
+        cutout: type === "doughnut" 
+          ? cutout 
+          : undefined,
       }
     }
     

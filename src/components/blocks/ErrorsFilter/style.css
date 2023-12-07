@@ -3,6 +3,25 @@
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
 
+  &__controls {
+    right: 0; top: -34px;
+    position: absolute;
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  &__clear, &__select-all {
+    color: var(--clr-font-primary);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &__clear:hover, &__select-all:hover {
+    text-decoration: none;
+    /* font-weight: bold; */
+  }
+
   .btn {
     padding: 10px 19.5px;
     font-size: 14px;

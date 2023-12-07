@@ -26,6 +26,8 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
     const { id, dataset: { date } } = e.currentTarget;
     dispatch(displaySet({ id, date, x: rect.left, y: rect.top + rect.height }));
   }
+  
+  // const handleChange = (e)
 
   const s = date.start.split('/');
   const e = date.end.split('/');
@@ -40,8 +42,8 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
       <div onClick={handleClick} className="picker__input end" id="date-end" data-date={date.end}>
         { end }
       </div>
-      {/* <input onClick={handleClick} className='picker__input start' type="date" name="date-start" id="date-start" />
-      <input onClick={handleClick} className='picker__input end' type="date" name="date-start" id="date-end" /> */}
+      {/* <input onClick={handleClick} value={start} className='picker__input start' type="text" name="date-start" id="date-start" />
+      <input onClick={handleClick} value={end} className='picker__input end' type="text" name="date-end" id="date-end" /> */}
     </div>
   );
 }

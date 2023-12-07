@@ -13,6 +13,7 @@ import './style.css';
 import { IBusinessUnit } from '~/interfaces/entities';
 import { useAppDispatch } from '~/hooks';
 import { IFiltersBusinessUnits } from '~/interfaces/filters';
+import Checkbox from '~/components/ui/Checkbox';
 
 // checkModel - Specifies which checked nodes should be stored in the checked array. Accepts 'leaf' or 'all'.
 
@@ -23,11 +24,12 @@ interface Props {
     businessUnitsSet: Function;
     businessUnitsExpanded: Function;
     businessUnitsFilterChanged: Function;
+    businessUnitsSelectedAll: Function;
   };
 }
 
 const RegionTree = (props: Props) => {
-  const { selector, actions } = props;
+  const { items, selector, actions } = props;
   const { checked, expanded, filterText, filteredNodes } = selector
   const dispatch = useAppDispatch();
   const nodes = buildTree(props.items);
@@ -44,9 +46,33 @@ const RegionTree = (props: Props) => {
     dispatch(actions.businessUnitsExpanded(expanded));
   }
 
+  const renderCheckbox = () => {
+    let n: 0 | 1 | 2;
+    const ids = items.filter(item => item.type === 0).map(item => item.id);
+
+    console.log("IDs:", ids);
+    console.log("Checked:", checked);
+
+    if (ids.length === checked.length) n = 1;
+    else if (checked.length === 0) n = 0;
+    else n = 2;
+    return (
+      <Checkbox 
+        id={"region-tree-select-all"} 
+        label='Выбрать все' 
+        checked={n}  
+        onChange={() => {
+          // console.log(actions.businessUnitsSelectedAll)
+          dispatch(actions.businessUnitsSelectedAll(ids))
+        }}
+        />
+    )
+  }
+
   return (
     <>
       <SearchInput onChange={onFilterChange} />
+      {nodes.length >= 2 ? renderCheckbox() : null}
       <div className="searchbox-tree-wrapper">
         <CheckboxTree
           iconsClass="fa4"

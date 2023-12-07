@@ -21,7 +21,8 @@ import CoffeeMachineFilter from '~/components/blocks/CoffeeMachineFilter';
 import SerialNumbersFilter from '~/components/blocks/SerialNumbersFilter';
 import { 
   serialNumberAdded, 
-  serialNumberRemoved 
+  serialNumberRemoved,
+  serialNumbersRemovedAll
 } from '~/store/filters/analytics/data-export';
 import { 
   dateRangeSet, 
@@ -32,6 +33,7 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/analytics';
 import Calendar from '~/components/ui/Calendar';
 
@@ -74,10 +76,10 @@ const Beverages = () => {
     />
 
   const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата", "Время", "UTC+", "Рецепт", "Размер ч.", "Кол-во"]
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Номер машины", "Дата и Время", "UTC+", "Рецепт", "Размер ч.", "Кол-во"]
   ];
   const tableKeys: string[] = [
-    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'date', 'time', 'utc', 'recipe', 'cupSize', 'total'
+    'businessUnit', 'restaurant', 'machineModel', 'serialNumber', 'datetime', 'utc', 'recipe', 'cupSize', 'total'
   ];
 
   const tableRows = rows.map(row => [
@@ -85,8 +87,7 @@ const Beverages = () => {
     row.restaurant,
     row.machineModel,
     row.serialNumber,
-    row.date,
-    row.time,
+    row.date + " " + row.time,
     row.utc,
     row.recipe,
     row.cupSize,
@@ -102,6 +103,7 @@ const Beverages = () => {
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll,
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}
@@ -115,6 +117,7 @@ const Beverages = () => {
   const serialNumbersFilter = <SerialNumbersFilter 
     handleAdd={serialNumberAdded} 
     handleRemove={serialNumberRemoved} 
+    handleRemoveAll={serialNumbersRemovedAll}
     items={filtersSerialNumbers} 
   />
 
@@ -132,7 +135,7 @@ const Beverages = () => {
           }}
         />
         <div className='filters-top'>
-          <Button onClick={() => console.log("empty")} layout='light'>
+          <Button onClick={() => dispatch(idleSet(null))} layout='light'>
             Обновить
           </Button>
           <Button onClick={() => console.log("empty")} layout='light'>

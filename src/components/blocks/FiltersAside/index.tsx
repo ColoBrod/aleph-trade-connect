@@ -15,6 +15,7 @@ interface Props {
     regionTree?: ReactNode;
     coffeeMachineFilter?: ReactNode;
     serialNumbersFilter?: ReactNode;
+    eventsFilter?: ReactNode;
   },
 }
 
@@ -101,6 +102,18 @@ const FiltersAside = (props: Props) => {
       </div>
     </div>
   )
+  
+  const renderEventsFilter = (): ReactNode => (
+    <div className="filters-section">
+      <div className="filters-section__header">
+        <div className="filters-section__title">Типы событий:</div>
+      </div>
+      <div className="filters-section__component">
+        {component.eventsFilter}
+        {/* <SerialNumbersFilter handleAdd={serialNumberAdded} handleRemove={serialNumberRemoved} items={filtersSerialNumbers} /> */}
+      </div>
+    </div>
+  )
 
   return (
     <>
@@ -115,6 +128,7 @@ const FiltersAside = (props: Props) => {
           {component.regionTree ? renderRestaurantsSection() : null}
           {component.coffeeMachineFilter ? renderCoffeeMachines() : null}
           {component.serialNumbersFilter ? renderSerialNumbers() : null}
+          {component.eventsFilter ? renderEventsFilter() : null}
         </div>
       </div>
     </>

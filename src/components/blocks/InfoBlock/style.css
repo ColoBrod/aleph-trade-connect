@@ -48,7 +48,8 @@
       text-align: center;
       font-style: italic;
       left: 0;
-      bottom: 0;
+      bottom: 22%;
+      transform: translateY(50%);
     }
   }
 
@@ -177,6 +178,7 @@
   &.layout-chart-4 {
     .info-block__content {
       display: flex;
+      height: calc(100% - 36px);
       flex-direction: column;
       justify-content: space-between;
       /* align-items: center; */
@@ -216,12 +218,8 @@
   /* Чарт и 2 виджета снизу. */
   &.layout-chart-6 {
     .info-block__content {
-      /* display: flex; */
-      /* flex-direction: column;
-      justify-content: flex-start;
-      align-items: stretch;
-      gap: 16px; */
       display: grid;
+      height: calc(100% - 36px);
       grid-template-columns: 1fr 1fr;
       grid-template-rows: 186px 73px;
       gap: 14px;

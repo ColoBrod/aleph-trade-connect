@@ -25,16 +25,32 @@ table.table-two-dimensional {
   th {
     cursor: pointer;
     user-select: none;
-    background-image: url('img/default.png');
+    /* background-image: url('img/default.png'); */
     background-position: right 5px top 10px;
     background-repeat: no-repeat;
 
-    &.asc {
+    &::after {
+      content: '';
+      padding-left: 10px;
+      /* color: black; */
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    &.asc::after {
+      content: '↓';
+    }
+
+    &.desc::after {
+      content: '↑';
+    }
+
+    /* &.asc {
       background-image: url('img/up_arrow.png');
     }
     &.desc {
       background-image: url('img/down_arrow.png');
-    }
+    } */
   }
 
   th, td {
@@ -43,15 +59,57 @@ table.table-two-dimensional {
     line-height: 24px;
   }
 
+  .err-badge {
+    display: inline-block;
+    padding: 4px 6px;
+    /* padding: 0.25rem 0.4rem; */
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 4px;
+    font-size: 75%;
+    line-height: 75%;
+    /* border-radius: 4px; */
+    /* min-width: 30px; */
+    /* font-size: 14px;
+    line-height: 14px; */
+    text-align: center;
+    font-weight: 700;
+    user-select: none;
+
+    &.err-event {
+      background-color: var(--clr-err-event);
+      color: white;
+    }
+    &.err-info {
+      background-color: var(--clr-err-info);
+      color: white;
+    }
+    &.err-maintenance {
+      background-color: var(--clr-err-maintanance);
+      color: var(--clr-font);
+    }
+    &.err-error {
+      background-color: var(--clr-err-error);
+      color: white;
+    }
+    &.err-tech-info {
+      background-color: var(--clr-err-tech-info);
+      color: white;
+    }
+  }
+
   .table__cell {
+    &-errorCode {
+      text-align: center;
+    }
     &-errorDesc {
       &::before {
-        margin: 0 6px 0 6px;
+        /* margin: 0 6px 0 6px;
         content: '';
         display: inline-block;
         width: 12px;
         height: 12px;
-        border-radius: 6px;
+        border-radius: 6px; */
       }
       &.err-event::before { 
         background-color: var(--clr-err-event);

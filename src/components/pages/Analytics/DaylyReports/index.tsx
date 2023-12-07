@@ -22,6 +22,7 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
+  businessUnitsSelectedAll,
 } from '~/store/filters/analytics';
 import DatePicker from '~/components/elements/DatePicker';
 import TimePicker from '~/components/elements/TimePicker';
@@ -69,6 +70,7 @@ const DaylyReports = () => {
       businessUnitsSet,
       businessUnitsExpanded,
       businessUnitsFilterChanged,
+      businessUnitsSelectedAll,
     }}
     items={businessUnits}
     selector={filtersBusinessUnits}

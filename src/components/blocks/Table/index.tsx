@@ -57,10 +57,14 @@ const Table = (props: TableProps) => {
                 row.map((td, k, row) => {
                   const field = keys[k];
                   // field === 'errorDesc'
-                  const errClass = field === 'errorDesc' || field === 'errorCode'
-                    ? "err-" + error[row[k-1]]
+                  // field === 'errorDesc' ||
+                  const errClass = field === 'errorCode'
+                    ? "err-" + error[row[k]]
                     : "";
-                  return (<td key={k} className={`table__cell table__cell-${field} ${errClass }`}>{td}</td>)
+                  const innerHTML = field !== 'errorCode'
+                    ? td
+                    : <span className={`err-badge ${errClass}`}>{td}</span>
+                  return (<td key={k} className={`table__cell table__cell-${field} ${errClass }`}>{innerHTML}</td>)
                 })
               }
             </tr>

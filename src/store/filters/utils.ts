@@ -16,6 +16,17 @@ export const _businessUnitsSet = (
   state.businessUnits.checked = action.payload;
 }
 
+export const _businessUnitsSelectedAll = (
+  state: IFiltersBusinessUnits,
+  action: { type: string; payload: string[] }
+) => {
+  const { checked } = state.businessUnits;  
+  console.log("Payload:", action.payload);
+  if (checked.length === 0) state.businessUnits.checked = action.payload;
+  else state.businessUnits.checked = [];
+  // if (checked.length === 0) state.businessUnits.checked = action.payload;
+}
+
 export const _businessUnitsExpanded = (
   state: IFiltersBusinessUnits,
   action: { type: string; payload: string[]; },
@@ -69,6 +80,29 @@ export const _recipeToggled = (
   else recipes.splice(recipeIndex, 1);
 }
 
+export const _recipesUnselected = (
+  state: IFiltersRecipes
+) => {
+  const { recipes } = state;
+  recipes.length = 0;
+}
+
+export const _recipesSelected = (
+  state: IFiltersRecipes,
+  action: { type: string; payload: number[]; }
+) => {
+  const ids = action.payload;
+  // console.log("STATE:", state);
+  // console.log("ids:", ids);
+  // console.log("initial:", state.recipes);
+  // state.recipes.concat(ids);
+  // console.log("final:", state.recipes);
+  ids.forEach(id => {
+    if (state.recipes.includes(id)) return;
+    state.recipes.push(id);
+  })
+}
+
 export const _errorToggled = (
   state: IFiltersErrors, 
   action: { type: string; payload: number }
@@ -78,6 +112,24 @@ export const _errorToggled = (
   const errorIndex = errors.indexOf(id);
   if (errorIndex === -1) errors.push(id);
   else errors.splice(errorIndex, 1);
+}
+
+export const _errorsSelected = (
+  state: IFiltersErrors, 
+  action: { type: string; payload: number[]; }
+) => {
+  const ids = action.payload;
+  ids.forEach(id => {
+    if (state.errors.includes(id)) return;
+    state.errors.push(id);
+  })
+}
+
+export const _errorsUnselected = (
+  state: IFiltersErrors
+) => {
+  const { errors } = state;
+  errors.length = 0;
 }
 
 export const _dateRangeSet = (
@@ -125,6 +177,15 @@ export const _serialNumberRemoved = (
   list.splice(index, 1);
 }
 
+export const _serialNumbersRemovedAll = (
+  state: IFiltersSerialNumbers,
+  action: { type: string; }
+) => {
+  state.serialNumbers.list.length = 0;
+  // const index = list.indexOf(substring);
+  // list.splice(index, 1);
+}
+
 export const _rowsPerPageSet = (
   state: IFiltersPagination, 
   action: { type: string; payload: any; }
@@ -157,3 +218,9 @@ export const _orderBySet = (
   // if (page === undefined) return;
   // state.pagination.activePage = page;
 }
+
+// export const _eventSet = (
+
+// ) => {
+
+// }
