@@ -60,6 +60,7 @@ export const fetchEvents = createAsyncThunk<any, void, { state: RootState }>(
       method: 'get',
     };
     const response = await axios(config);
+    console.log(response.data)
     return response.data;
   }
 )

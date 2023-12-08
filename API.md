@@ -1,3 +1,9 @@
+Цвета ошибок:
+
+
+
+
+
 # API docs
 
 Линия тренда
@@ -71,7 +77,7 @@ EventType
 ~~~ts
 interface Params {
   filters: {
-    
+
     businessUnits: string[]; // Массив с ID бизнес-юнитов
     
     coffeeMachineModels: string[]; // Массив с ID кофе-машин
@@ -128,7 +134,7 @@ interface Params {
   ~~~ts
   {
     coffeeMachines: ICoffeeMachine[];
-    coffeeMachines: IBusinessUnit[];
+    businessUnits: IBusinessUnit[];
     recipes: {
       id: number;
       name: string; // Название рецепта
@@ -791,15 +797,27 @@ interface Params {
   ~~~ts
   {
     id: number;
-    name: string;
-    company: string;
-    deviceCode: string;
-    errorCode: string;
+    coffeeMachineId: string;
     startDateTime: string;
-    endDateTime: string;
-    errorText: string;
     duration: string;
+    errorCode: string;
+    errorText: string;
   }[];
+  ~~~
+
+  Пример JSON:
+  ~~~json
+  [
+    {
+      "id": 655,
+      "coffeeMachineId": "4NfMx-6huNY-3GmU1-KH3Y5-uvbMH",
+      "startDateTime": "2023-08-23 12:01:43",
+      "duration": "8 дней 22 часа",
+      "errorCode": "50",
+      "errorText": "Неизвестная ошибка"
+    },
+    ...
+  ]
   ~~~
   
   ### `POST /api/timeerrordown`
