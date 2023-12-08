@@ -25,7 +25,6 @@ const Overview = () => {
                 // barThickness: 17,
                 barPercentage: 1,
                 categoryPercentage: .6,
-
               },
               {
                 label: 'Вчера',

@@ -32,8 +32,8 @@ const RecipesFilter = ({ recipes, filters, onClick: handleClick, handleSelectAll
         })
       }    
       <div className="recipes-filter__controls">
-        <span onClick={handleUnselectAll} className="recipes-filter__clear">[-] Очистить</span>
-        <span onClick={handleSelectAll} className="recipes-filter__select-all">[+] Добавить все</span>
+        <span onClick={handleUnselectAll} className="recipes-filter__clear">Очистить</span>
+        <span onClick={handleSelectAll} className="recipes-filter__select-all">Добавить все</span>
       </div>
     </div>
   );

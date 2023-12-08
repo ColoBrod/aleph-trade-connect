@@ -32,8 +32,8 @@ const ErrorsFilter = ({ errors, filters, onClick: handleClick, handleSelectAll, 
         })
       }    
       <div className="errors-filter__controls">
-        <span onClick={handleUnselectAll} className="errors-filter__clear">[-] Очистить</span>
-        <span onClick={handleSelectAll} className="errors-filter__select-all">[+] Добавить все</span>
+        <span onClick={handleUnselectAll} className="errors-filter__clear">Очистить</span>
+        <span onClick={handleSelectAll} className="errors-filter__select-all">Добавить все</span>
       </div>
     </div>
   );

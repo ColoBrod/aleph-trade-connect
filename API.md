@@ -65,6 +65,9 @@ Bearer токен используется для авторизация пол�
 Фильтры передаются в виде теле (body) запроса в формате JSON.
 В качестве ID кофе-машин, передаю именно autoincrement id из БД, не alephId?
 
+interfaces:
+EventType
+
 ~~~ts
 interface Params {
   filters: {
@@ -90,12 +93,20 @@ interface Params {
     serialNumberSubstrings: string[]; 
 
     errors: number[]; // ID ошибок кофе-машин
+
+    eventTypes: EventType[]; // Список типов событий ('error', 'event' ...)
   }
 }
 
 ~~~
 
 ## Routes
+
+  ### `POST /auth/login`
+
+  ### `POST /auth/login`
+
+
 
   ### `GET /api/entities`
 
@@ -771,7 +782,60 @@ interface Params {
   }
   ~~~
 
+  ### `GET /api/consoledata`
+  #### Info:
+  #### Request:
+  Фильтры: eventTypes, businessUnits
+  #### Response:
+  ✔ 200
+  ~~~ts
+  {
+    id: number;
+    name: string;
+    company: string;
+    deviceCode: string;
+    errorCode: string;
+    startDateTime: string;
+    endDateTime: string;
+    errorText: string;
+    duration: string;
+  }[];
+  ~~~
+  
+  ### `POST /api/timeerrordown`
+
+  #### Request:
+  ~~~ts
+  {
+    ids: number[];
+  }
+  ~~~
+  #### Response:
+  ✔ 200
+  ~~~ts
+  {
+    id: number;
+    name: string;
+    company: string;
+    deviceCode: string;
+    errorCode: string;
+    startDateTime: string;
+    endDateTime: string;
+    errorText: string;
+    duration: string;
+  }[];
+  ~~~
+
+  ### Pusher
+  
+
+
 ## Interfaces
+
+### EventType
+~~~ts
+type EventType = 'event' | 'info' | 'maintenance' | 'error' | 'tech-info';
+~~~
 
 ### IByDay
 ~~~ts

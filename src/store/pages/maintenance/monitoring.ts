@@ -129,6 +129,7 @@ const slice = createSlice({
       .addCase(updateTime.fulfilled, (state, action) => {
         // console.log(action.payload);
         state.data.forEach((row, i) => {
+          // @ts-ignore
           const proxy = action.payload.find(r => r.id === row.id);
           if (proxy) row.duration = proxy.end_datetime;
           else state.data.splice(i, 1);

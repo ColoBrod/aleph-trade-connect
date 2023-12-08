@@ -33,7 +33,7 @@ const SerialNumbersFilter = ({ handleAdd, handleRemove, handleRemoveAll, items }
               className='sn-badges__remove-all' 
               onClick={() => {
                 if (handleRemoveAll) dispatch(handleRemoveAll(null))
-              }}>[-] Удалить все</div>
+              }}>Удалить все</div>
           : null
       }
       <div className="sn-badges">

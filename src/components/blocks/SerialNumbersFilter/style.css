@@ -4,6 +4,7 @@
   font-size: 14px;
   color: var(--clr-font-primary);
   margin-top: 6px;
+  font-style: italic;
 
   &:hover {
     text-decoration: none;

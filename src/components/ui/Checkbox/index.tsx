@@ -29,7 +29,7 @@ const Checkbox = (props: Props) => {
 
   return (
     <div className={`component-checkbox ${style} checkbox-id-${id} color-${color}`}>
-      <input onChange={handleClick} type="checkbox" id={id} name={id} checked={checked}  />
+      <input onChange={handleClick} type="checkbox" id={id} name={id} checked={checked} />
       <label htmlFor={id}>{label}</label>
     </div>
   );

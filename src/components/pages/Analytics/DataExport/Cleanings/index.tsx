@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 
 import Button from '~/components/ui/Button';
 import './style.css';
@@ -63,8 +63,8 @@ const Cleanings = () => {
     if (status === 'idle') dispatch(fetchCleanings());
   }, [status, activePage, perPage]);
 
-  const tableContent: (string|number)[][] = [
-    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата и время", "UTC+", "Тип чистки", "План. кол-во", "Факт. кол-во"]
+  const tableContent: (string|number|ReactNode)[][] = [
+    ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Дата и время", "UTC+", "Тип чистки", <>План.<br/>кол-во</>, <>Факт.<br/>кол-во</>]
   ];
 
   const tableKeys: string[] = [
