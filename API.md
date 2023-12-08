@@ -828,22 +828,37 @@ interface Params {
     ids: number[];
   }
   ~~~
+  Пример JSON:
+  ~~~json
+  {
+    "ids": [ 655, 1024, 713 ]
+  }
+  ~~~
   #### Response:
   ✔ 200
   ~~~ts
   {
     id: number;
-    name: string;
-    company: string;
-    deviceCode: string;
-    errorCode: string;
-    startDateTime: string;
-    endDateTime: string;
-    errorText: string;
     duration: string;
   }[];
   ~~~
-
+  Пример JSON:
+  ~~~json
+  [
+    {
+      "id": 655,
+      "duration": "8 дней 23 часа",
+    },
+    {
+      "id": 1024,
+      "duration": "5 мин 14 сек",
+    },
+    {
+      "id": 713,
+      "duration": "1 час 21 мин",
+    },
+  ]
+  ~~~
   ### Pusher
   
 
@@ -892,9 +907,9 @@ interface ICoffeeMachine {
 ~~~
 
 ### IBusinessUnit
-~~~ts
-enum Type { FEDERAL_DISTRICT: 1, SUBJECT: 2, LOCALITY: 3, RESTAURANT: 4 }
+enum Type { RESTAURANT: 1, CLIENT: 2, STRUCTURE: 3 }
 
+~~~ts
 interface IBusinessUnit {
   id: string;
   parentId: string;
