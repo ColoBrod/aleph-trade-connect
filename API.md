@@ -83,24 +83,44 @@ interface Params {
     coffeeMachineModels: string[]; // Массив с ID кофе-машин
     
     dateRange: {
-      start: string;  // Дата начала в виде строки, например - "17.12.2023"
-      end: string;    // Дата конца в виде строки, например - "19.12.2023"
+      date: {
+        start: string;  // Дата начала в виде строки, например - "17.12.2023"
+        end: string;    // Дата конца в виде строки, например - "19.12.2023"
+      },
+      time: {
+        start: string;  // Время начала в виде строки, например "09:00"
+        end: string;    // Время окончания в виде строки, например "21:00"
+      }
     };
 
-    timeRange: {
-      start: string;  // Время начала в виде строки, например "09:00"
-      end: string;    // Время окончания в виде строки, например "21:00"
-    };
+    beverages: number[]; // Базовый тип напитка. Что это?
 
     recipes: number[]; // Массив с ID рецептов.
 
+    errors: number[]; // ID ошибок кофе-машин
+    
     // Серийные номера кофе-машин. Поиск по подстроке или по регулярному выражению
     // может совпадать частично с фактическим номером кофе-машины
     serialNumberSubstrings: string[]; 
 
-    errors: number[]; // ID ошибок кофе-машин
+    // Пагинация в таблицах. perPage - количество записей выводимых на одну стра-
+    // ницу. activePage - номер текущей страниццы. 
+    // perPage - LIMIT
+    // activePage - OFFSET
+    pagination: {
+      perPage: number;
+      activePage: number;
+    };
 
-    eventTypes: EventType[]; // Список типов событий ('error', 'event' ...)
+    // Порядок в котором выводится информация таблицы
+    // 
+    orderBy: {
+      // Ключ поля по которому производится сортировка, например "startDateTime"
+      column: string; 
+      // Порядок, asc - восходящий, desc - нисходящий.
+      order: 'asc' | 'desc';
+    };
+
   }
 }
 
@@ -109,10 +129,7 @@ interface Params {
 ## Routes
 
   ### `POST /auth/login`
-
   ### `POST /auth/login`
-
-
 
   ### `GET /api/entities`
 
