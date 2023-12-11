@@ -9,5 +9,6 @@ export const error: IError = {
   "62": "event",
   "69": "tech-info",
   "9664": "error",
-
 };
+
+export const eventTypes: ErrorType[] = ['event', 'info', 'maintenance', 'error', 'tech-info']

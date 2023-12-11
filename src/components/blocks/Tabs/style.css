@@ -43,7 +43,7 @@
     .tab[href="/maintenance/monitoring/all"]::before {
       /* background-color: red; */
     }
-    .tab[href="/maintenance/monitoring/events"]::before {
+    .tab[href="/maintenance/monitoring/event"]::before {
       background-color: var(--clr-err-event);
       box-shadow: 0 0 5px 0 var(--clr-err-event);
     }
@@ -51,11 +51,11 @@
       background-color: var(--clr-err-info);
       box-shadow: 0 0 5px 0 var(--clr-err-info);
     }
-    .tab[href="/maintenance/monitoring/maintanence"]::before {
+    .tab[href="/maintenance/monitoring/maintenance"]::before {
       background-color: var(--clr-err-maintenance);
       box-shadow: 0 0 5px 0 var(--clr-err-maintenance);
     }
-    .tab[href="/maintenance/monitoring/errors"]::before {
+    .tab[href="/maintenance/monitoring/error"]::before {
       background-color: var(--clr-err-error);
       box-shadow: 0 0 5px 0 var(--clr-err-error);
     }

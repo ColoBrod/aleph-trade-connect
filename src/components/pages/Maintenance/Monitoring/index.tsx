@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { channel } from '~/services/pusher';
 
 import Button from '~/components/ui/Button';
@@ -23,18 +23,22 @@ import {
   businessUnitsSet,
   businessUnitsExpanded,
   businessUnitsFilterChanged,
-  businessUnitsSelectedAll
+  businessUnitsSelectedAll,
 } from '~/store/filters/maintenance';
 import Pagination from '~/components/elements/Pagination';
 
 import { IRow, IRowFmt, idleSet } from '~/store/pages/maintenance/monitoring';
+import { eventSet } from '~/store/filters/maintenance/monitoring';
 import { IFiltersOrderBy } from '~/interfaces/filters';
 import { IPusherMap } from '~/interfaces/pusher';
 import EventsFilter from '~/components/blocks/EventsFilter';
 
+import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
+
 const Monitoring = () => {
   const { type } = useParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
   const { status, error, data, utc } = useAppSelector(state => state.pages.maintenance.monitoring)
   // const { orderBy } =
@@ -42,12 +46,26 @@ const Monitoring = () => {
   const {
     businessUnits: filtersBusinessUnits
   } = useAppSelector(state => state.filters.maintenance.shared);
+  // const {  } = useAppSelector(state => state.filters.maintenance.monitoring);
 
-  const { pagination: { activePage, perPage }, orderBy } = filtersMonitoring;
+  const { pagination: { activePage, perPage }, orderBy, events } = filtersMonitoring;
   const pagesTotal = Math.ceil(data.length / perPage);
+  // const { pathname } = useLocation();
 
-  // const { status, error, pagesTotal, beverages: rows } = useAppSelector(state => state.pages.maintenance.mon);
-  console.log(utc);
+  useEffect(() => {
+    if (type === 'all') {
+      const json = localStorage.getItem('filters/maintenance/monitoring/events');
+      console.log("JSON:", json);
+      const eventList = json ? JSON.parse(json) : eventTypes;
+      dispatch(eventSet(eventList));
+    }
+    // @ts-ignore
+    else if (eventTypes.includes(type)) dispatch(eventSet([type]))
+  }, [type])
+
+  useEffect(() => {
+    if (events.length > 1 && type !== 'all') navigate('/maintenance/monitoring/all');
+  }, [events.length])
 
   useEffect(() => {
     channel.bind('map', (data: IPusherMap) => {
@@ -82,7 +100,7 @@ const Monitoring = () => {
     selector={filtersBusinessUnits}
   />
   
-  const eventsFilter = <EventsFilter />;
+  const eventsFilter = <EventsFilter events={events} action={eventSet} />;
 
   const formatData = (data: IRow[]): IRowFmt[] => {
     const fmt = data.map(row => {
@@ -142,12 +160,20 @@ const Monitoring = () => {
     });
     return sorted;
   }
+
+  const filterData = (data: IRow[]): IRow[] => {
+    return data.filter(row => {
+      const type = errorType[row.error_code];
+      if (events.includes(type)) return true;
+      else return false;
+    })
+  }
   
   // const curPage =
 
-  const fmt = formatData(data);
-  console.log("DATA:", fmt);
-  const sorted = sortData(fmt, orderBy)
+  const filtered = filterData(data);
+  const fmt = formatData(filtered);
+  const sorted = sortData(fmt, orderBy);
   const page = sorted.slice((activePage - 1) * perPage, activePage * perPage);
   const fmtArr = page.map((row: IRowFmt) => [
     row.businessUnit, 

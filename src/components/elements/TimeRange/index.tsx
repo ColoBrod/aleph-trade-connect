@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Range, getTrackBackground } from "react-range";
 
 import { useAppDispatch, useAppSelector } from "~/hooks";
-import { timeSet } from "~/store/pages/analytics/trends/sales";
+// import { timeSet } from "~/store/pages/analytics/trends/sales";
 
 import './style.css';
 
@@ -11,13 +11,17 @@ const MIN = 0;
 const MAX = 24;
 
 interface Props {
+  timeStart: number;
+  timeEnd: number;
+  action: Function;
 }
 
 const TimeRange = (props: Props) => {
 
-  const { timeStart, timeEnd } = useAppSelector(
-    state => state.pages.analytics.trends.sales.dispensingsByWeekdayAndTime.filters
-  );
+  const { timeStart, timeEnd, action } = props;
+  // const { timeStart, timeEnd } = useAppSelector(
+  //   state => state.pages.analytics.trends.sales.dispensingsByWeekdayAndTime.filters
+  // );
   const dispatch = useAppDispatch();
 
   const first = ((timeStart / 24) * 100).toFixed(2) + "%";
@@ -50,7 +54,7 @@ const TimeRange = (props: Props) => {
         allowOverlap={false}
         onChange={(values) => {
           if (values[1] - values[0] < 1) return;
-          dispatch(timeSet({ timeStart: values[0], timeEnd: values[1] }))
+          dispatch(action({ timeStart: values[0], timeEnd: values[1] }))
         }}
         renderTrack={({ props, children }) => {
           return(

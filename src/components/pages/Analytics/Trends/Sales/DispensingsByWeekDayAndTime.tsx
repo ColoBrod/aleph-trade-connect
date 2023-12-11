@@ -28,7 +28,6 @@ const DispensingsByWeekdayAndTime = () => {
   // const { timeStart, timeEnd } = dispensingsByWeekdayAndTime.filters;
   const { timeStart, timeEnd } = useAppSelector(state => state.pages.analytics.trends.sales.dispensingsByWeekdayAndTime.filters);
 
-
   useEffect(() => {
     if (dispensingsByWeekdayAndTime.status === 'idle') dispatch(fetchDispensingsByWeekdayAndTime()); 
   }, [dispensingsByWeekdayAndTime.status])
@@ -104,7 +103,11 @@ const DispensingsByWeekdayAndTime = () => {
         layout='chart-doughnut'
         align='center'
       />
-      <TimeRange />
+      <TimeRange
+        timeStart={timeStart}
+        timeEnd={timeEnd}
+        action={timeSet}
+        />
     </InfoBlock>
   )
 

@@ -8,6 +8,7 @@ import {
   IFiltersOrderBy,
   IFiltersRecipes,
   IFiltersSerialNumbers,
+  IFiltersEvents,
 } from "~/interfaces/filters";
 import { RootState } from "..";
 
@@ -20,7 +21,8 @@ type FilterKey =
   | "errors"
   | "beverages"
   | "pagination"
-  | "orderBy";
+  | "orderBy"
+  | "events";
 
 interface Filters {
   "analytics": FilterKey[];
@@ -49,13 +51,13 @@ class InitialFilters {
 
     "maintenance": ["businessUnits", "coffeeMachineModels", "errors"],
     "maintenance/working-hours": ["dateRange"],
-    "maintenance/monitoring": ["pagination", "orderBy"],
+    "maintenance/monitoring": ["pagination", "orderBy", "events"],
     "maintenance/data-export": [
       "dateRange",
       "serialNumbers",
     ],
     "maintenance/data-export/time": ["pagination", "orderBy"],
-    "maintenance/data-export/events": ["pagination", "orderBy"],
+    "maintenance/data-export/events": ["pagination", "orderBy", "events"],
   };
 
   public businessUnits?: IFiltersBusinessUnits["businessUnits"];
@@ -216,6 +218,12 @@ class InitialFilters {
         column,
         order: "asc",
       },
+    };
+  }
+
+  private static events(path: keyof Filters): IFiltersEvents {
+    return {
+      events: ['event', 'info', 'error', 'tech-info', "maintenance"],
     };
   }
 }

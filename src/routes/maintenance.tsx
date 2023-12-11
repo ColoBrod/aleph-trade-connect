@@ -46,10 +46,10 @@ const maintenance: RouteObject = {
       path: "monitoring",
       element: <InnerWithNestedTabs tabs={[
         { children: "Все",                    path: `/maintenance/monitoring/all` },
-        { children: "События",                path: `/maintenance/monitoring/events` },
+        { children: "События",                path: `/maintenance/monitoring/event` },
         { children: "Информация",             path: `/maintenance/monitoring/info` },
-        { children: "Обслуживание",           path: `/maintenance/monitoring/maintanence` },
-        { children: "Ошибки",                 path: `/maintenance/monitoring/errors` },
+        { children: "Обслуживание",           path: `/maintenance/monitoring/maintenance` },
+        { children: "Ошибки",                 path: `/maintenance/monitoring/error` },
         { children: "Техническая информация", path: `/maintenance/monitoring/tech-info` },
       ]} />,
       children: [

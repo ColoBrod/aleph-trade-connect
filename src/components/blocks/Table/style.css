@@ -85,7 +85,7 @@ table.table-two-dimensional {
       color: white;
     }
     &.err-maintenance {
-      background-color: var(--clr-err-maintanance);
+      background-color: var(--clr-err-maintenance);
       color: var(--clr-font);
     }
     &.err-error {
@@ -120,8 +120,8 @@ table.table-two-dimensional {
         box-shadow: 0 0 5px 0 var(--clr-err-info);
       }
       &.err-maintenance::before { 
-        background-color: var(--clr-err-maintanance);
-        box-shadow: 0 0 5px 0 var(--clr-err-maintanance);
+        background-color: var(--clr-err-maintenance);
+        box-shadow: 0 0 5px 0 var(--clr-err-maintenance);
       }
       &.err-error::before { 
         background-color: var(--clr-err-error);

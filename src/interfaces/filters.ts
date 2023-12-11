@@ -1,4 +1,5 @@
 import { Node as TreeNode } from 'react-checkbox-tree';
+import { ErrorType } from '~/services/errors';
 
 
 /**
@@ -77,6 +78,10 @@ export interface IFiltersOrderBy {
   }
 }
 
+export interface IFiltersEvents {
+  events: ErrorType[];
+}
+
 export interface IFilters_Analytics
   extends 
     IFiltersBusinessUnits,
@@ -136,7 +141,8 @@ export interface IFilters_Maintenance_Monitoring
   extends
     IFiltersBusinessUnits,
     IFiltersPagination,
-    IFiltersOrderBy {}
+    IFiltersOrderBy, 
+    IFiltersEvents {}
 
 export interface IFilters_Maintenance_DataExport
   extends

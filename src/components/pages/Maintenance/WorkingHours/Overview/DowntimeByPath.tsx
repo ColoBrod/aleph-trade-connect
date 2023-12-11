@@ -1,9 +1,6 @@
 import React from 'react';
 
-interface Props {
-}
-
-const DowntimeByPath = (props: Props) => {
+const DowntimeByPath = () => {
   return (<></>);
 }
  

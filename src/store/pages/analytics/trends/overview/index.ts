@@ -1,7 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
 import { Status } from '~/interfaces/common';
-import { RootState } from "~/store";
 
 const PAGE_URL = "/analytics/trends/overview";
 

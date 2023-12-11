@@ -6,150 +6,37 @@ import Widget from '~/components/elements/Widget';
 import TimeRange from '~/components/elements/TimeRange';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
+import DowntimeByHours from './DowntimeByHours';
+import DowntimeCauses from './DowntimeCauses';
+import DowntimeErrors from './DowntimeErrors';
+import DowntimeByWeekdayAndTime from './DowntimeByWeekdayAndTime';
+import DowntimeByWeek from './DowntimeByWeek';
+import DowntimeByPath from './DowntimeByPath';
+
 const Overview = () => {
   const period = 30;
 
   return (
     <div className='page page-maintenance__working-hours__overview'>
       <div className="page__content container">
-        <InfoBlock layout='chart' header='Простои по часам'>
-          <Diagram
-            id="downtime-by-hours"
-            type="bar"
-            labels={["7","8","9","10","11","12","13","14","15","16","17","18","19","20","21"]}
-            datasets={[
-              {
-                label: 'Сегодня',
-                data: [0.5,0.6,0.2,1,0.3,0.4,0.45,0.15,0.7,0.8,0.32,0.17,0.26,0.37,0.40],
-                backgroundColor: COLOR_1,
-                // barThickness: 17,
-                barPercentage: 1,
-                categoryPercentage: .6,
-              },
-              {
-                label: 'Вчера',
-                data: [0.29,0.34,0.1,1,1.2,0.45,0.13,0.47,0.22,0.05,0.9,0.36,0.2,0.71,0.8],
-                backgroundColor: COLOR_2,
-                // barThickness: 17,
-                barPercentage: 1,
-                categoryPercentage: .6,
-              },
-            ]}
-            scales={{
-              x: {
-                grid: {
-                  display: false,
-                }
-              },
-              y: {
-                border: { dash: [4, 4] },
-              }
-            }}
-            width={'1150px'}
-          />
-          <Widget 
-            amount={"1ч 32м"} 
-            description={<>Сренднее время простоя одной машины <b>сегодня</b></>}
-            layout="chart"
-          />
-          <Widget 
-            amount={"2ч 47м"} 
-            description={<>Сренднее время простоя одной машины <b>вчера</b></>}
-            layout="chart"
-          />
+      
+        {/* Простои по часам */}
+        <DowntimeByHours />
+        {/* Причиные простоев */}
+        <DowntimeCauses />
+        {/* Наиболее популярные ошибки */}
+        <DowntimeErrors />
+        {/* Простои по дням */}
+        <DowntimeByWeekdayAndTime />
+        {/* Неделя к неделе */}
+        {/* По бизнес-юнитам */}
 
-        </InfoBlock>
 
-        <InfoBlock layout='downtime-causes' header='Причины простоев'>
-          <Diagram 
-            id="downtime-causes"
-            type="doughnut"
-            legend={false}
-            labels={["26% поломка", "74% обслуживание"]}
-            datasets={[
-              {
-                data: [26, 74],
-                backgroundColor: [COLOR_1, COLOR_2],
-              },
-            ]}
-            doughnutInner={<><span className="cup-size">Обслуживание</span><br /><span className='dispensings'>74%</span></>}
-          />
-          <Widget 
-            layout='downtime-cause'
-            amount='74%'
-            description="обслуживание"
-            align='center'
-            />
-          <Widget 
-            layout='downtime-cause'
-            amount='26%'
-            description="поломка"
-            align='center'
-            />
-        </InfoBlock>
+        
 
-        <InfoBlock layout='chart-4' header='Наиболее популярные ошибки'>
-          <Diagram 
-            id="most-common-issues"
-            type="bar"
-            direction='horizontal'
-            legend={false}
-            labels={["Ошибка 1", "Ошибка 2", "Ошибка 3", "Ошибка 4", "Ошибка 5", "Ошибка 6"]}
-            datasets={[
-              {
-                data: [315, 280, 245, 200, 146, 99],
-                barThickness: 13,
-                backgroundColor: COLOR_3,
-              },
-            ]}
-          />
-          <Widget 
-            amount={"Ошибка 1"}
-            description={<>Самые популярные за последние <b>{period}</b> дней</>}
-            layout='description'
-            align='left'
-          />
-        </InfoBlock>
+        
 
-        <InfoBlock layout='chart-timerange' header='Простои по дням'>
-          <Diagram 
-            id="downtimes-by-weekday-and-time"
-            type="bar"
-            legend={false}
-            labels={["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"]}
-            datasets={[
-              {
-                data: [315, 200, 280, 245, 420, 146, 99],
-                barThickness: 40,
-                backgroundColor: COLOR_2,
-              },
-            ]}
-            scales={{
-              x: {
-                grid: {
-                  display: false,
-                }
-              },
-              y: {
-                border: { dash: [4, 4] },
-              }
-            }}
-          />
-          <Widget 
-            amount={"Пятница"}
-            description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
-            layout='chart-doughnut'
-            align='center'
-          />
-          <Widget 
-            amount={"18ч 13м"}
-            toFixed={true}
-            description={<>простоя всего</>}
-            layout='chart-doughnut'
-            align='center'
-          />
-          <TimeRange />
-        </InfoBlock>
+        
 
         <InfoBlock layout='chart-4' header='Неделя к неделе'>
           <Diagram 

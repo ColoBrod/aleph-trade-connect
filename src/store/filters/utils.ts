@@ -7,7 +7,9 @@ import {
   IFiltersPagination,
   IFiltersErrors,
   IFiltersOrderBy,
+  IFiltersEvents,
 } from "~/interfaces/filters";
+import { ErrorType } from "~/services/errors";
 
 export const _businessUnitsSet = (
   state: IFiltersBusinessUnits,
@@ -219,8 +221,20 @@ export const _orderBySet = (
   // state.pagination.activePage = page;
 }
 
-// export const _eventSet = (
-
-// ) => {
-
-// }
+export const _eventSet = (
+  state: IFiltersEvents,
+  action: { type: string; payload: ErrorType | ErrorType[]; }
+) => {
+  const { payload } = action;
+  if (Array.isArray(payload)) {
+    const events = payload;
+    state.events = events;
+  }
+  else {
+    const event = payload;
+    const index = state.events.indexOf(payload);
+    if (index === -1) state.events.push(event);
+    else state.events.splice(index, 1);
+    localStorage.setItem('filters/maintenance/monitoring/events', JSON.stringify(state.events))
+  }
+}

@@ -9,8 +9,6 @@ import Cleanings from './Cleanings';
 import AverageDispensingsPerMachine from './AverageDispensingsPerMachine';
 
 const Overview = () => {
-  const period = 55;
-
   return (
     <div className='page page-analytics__trends__overview'>
       <div className="page__content container">

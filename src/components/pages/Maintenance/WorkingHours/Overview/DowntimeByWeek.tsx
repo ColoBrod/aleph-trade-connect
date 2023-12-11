@@ -1,9 +1,6 @@
 import React from 'react';
 
-interface Props {
-}
-
-const DowntimeByWeek = (props: Props) => {
+const DowntimeByWeek = () => {
   return (<></>);
 }
  

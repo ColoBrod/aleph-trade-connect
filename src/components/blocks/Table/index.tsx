@@ -76,7 +76,7 @@ const Table = (props: TableProps) => {
 }
 
 // function getErrClass(code: string) {
-//   // "event", "info", "maintanence", "error", "tech-info"
+//   // "event", "info", "maintenance", "error", "tech-info"
 //   const errors = {
 //     "0": "info",
 //   }

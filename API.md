@@ -99,8 +99,8 @@ interface Params {
 
     errors: number[]; // ID ошибок кофе-машин
     
-    // Серийные номера кофе-машин. Поиск по подстроке или по регулярному выражению
-    // может совпадать частично с фактическим номером кофе-машины
+    // Массив с серийными номерами кофе-машин. Поиск по подстроке или по регуля-
+    // рному выражению может совпадать частично с фактическим номером кофе-машины
     serialNumberSubstrings: string[]; 
 
     // Пагинация в таблицах. perPage - количество записей выводимых на одну стра-
@@ -138,7 +138,10 @@ interface Params {
   **ВАЖНО**: Этот эндпоинт под вопросом. Можно объединить все эндпоинты `/api/entities` в один и запрашивать сразу после авторизации пользователя в системе.
 
   - [`ICoffeeMachine`](#icoffeemachine)
+  - [`ICoffeeMachineModel`](#icoffeemachinemodel)
   - [`IBusinessUnit`](#ibusinessunit)
+  - [`IRecipe`](#irecipe)
+  - [`IError`](#ierror)
 
 
   #### Request:
@@ -147,10 +150,10 @@ interface Params {
   #### Response:
 
   ✔ 200
-
   ~~~ts
   {
     coffeeMachines: ICoffeeMachine[];
+    coffeeMachineModels: ICoffeeMachineModel[];
     businessUnits: IBusinessUnit[];
     recipes: {
       id: number;
@@ -158,10 +161,15 @@ interface Params {
     }[];
     errors: {
       id: number;
+      code: string;
       name: string; // Название ошибки
     }[];
   }
   ~~~
+  #### Пример JSON
+  ~~~json
+  ~~~
+
 
   ### `GET /api/entities/coffee-machines`
 
@@ -813,7 +821,7 @@ interface Params {
   ✔ 200
   ~~~ts
   {
-    id: number;
+    id: string;
     coffeeMachineId: string;
     startDateTime: string;
     duration: string;
@@ -826,7 +834,7 @@ interface Params {
   ~~~json
   [
     {
-      "id": 655,
+      "id": "655",
       "coffeeMachineId": "4NfMx-6huNY-3GmU1-KH3Y5-uvbMH",
       "startDateTime": "2023-08-23 12:01:43",
       "duration": "8 дней 22 часа",
@@ -904,37 +912,75 @@ interface IByDay {
 ~~~ts
 interface ICoffeeMachine {
   id: string; // Aleph id
+  modelId: number; // ID модели
+  restaurantId: string; // Aleph ID ресторана
   code: string;
   name: string;
   type: string; // Model
-  restId: string; // Rest aleph id
+  restarauntId: string; // Rest aleph id
   status: number;
+}
+~~~
 
-  connectType
-  sim
-  routerModel
-  routerSN
-  operator
-  vpnServer
 
-  createdAt: string;
-  updatedAt: string;
-  deletedAt: string;
+
+### ICoffeeMachineVendor
+~~~ts
+interface ICoffeeMachineVendor {
+  id: number; // ID
+  name: string;
+}
+~~~
+
+### ICoffeeMachineModel
+~~~ts
+interface ICoffeeMachineModel {
+  id: string; // Aleph Id
+  name: string;
+  vendorId: number;
 }
 ~~~
 
 ### IBusinessUnit
-enum Type { RESTAURANT: 1, CLIENT: 2, STRUCTURE: 3 }
 
 ~~~ts
+enum Type { RESTAURANT: 1, CLIENT: 2, STRUCTURE: 3 }
+
 interface IBusinessUnit {
   id: string;
   parentId: string;
   name: string;
   type: Type;
   chatTelegramId: string;
+
+  // Ресторан
   address?: string;
+  lat?: string;
+  lon?: string;
 }
 ~~~
 
+### IError
+~~~ts
+interface IError {
+  id: string;
+  type: string; // 1d 1a
+  code: number;
+  description: string; 
+}
+~~~
 
+### IRecipe
+~~~ts
+// interface IRecipe {
+
+// }
+~~~
+
+### IRecipeBaseType 
+~~~ts
+interface IRecipeBaseType {
+  id: string;
+  
+}
+~~~
