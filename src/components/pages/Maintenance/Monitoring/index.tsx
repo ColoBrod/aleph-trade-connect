@@ -114,7 +114,16 @@ const Monitoring = () => {
       const path = match === null ? row.company : match[1];
       // const [date, time] = row.start_datetime.split(" ") as [string, string];
       const date = new Date(row.start_datetime);
-      const datetime = date.toLocaleString('ru-RU', { timeZone: utc })
+
+      let datetime;
+
+      try {
+        datetime = date.toLocaleString('ru-RU', { timeZone: utc })
+      } catch (e) {
+        datetime = ""
+      }
+      console.log("DATE:", date);
+      console.log("DATETIME:", datetime);
 
       return ({
         id: row.id,
