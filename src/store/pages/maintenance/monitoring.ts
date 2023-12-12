@@ -7,8 +7,8 @@ import config from "~/config";
 import { apiCallPending, apiCallRejected } from "~/store/utils";
 
 // Внимание!!! Это другой URL, не тот же, что используется на остальных страницах
-const BASE_URL = "https://wmf24.ru/api";
-// const BASE_URL = "https://backend.wmf24.ru"
+// const BASE_URL = "https://wmf24.ru/api";
+const BASE_URL = "https://backend.wmf24.ru"
 
 export interface IRow {
   id: number;

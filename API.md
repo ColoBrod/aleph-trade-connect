@@ -1,55 +1,53 @@
-Цвета ошибок:
-
-
-
-
-
 # API docs
-
-Линия тренда
-Убрать UTC, добавить колонки в таблицу
-Высота фильтров над таблицей  
 
 ## Навигация
 
-- [API docs](#API-docs)
-  - [Навигация](#Навигация)
-  - [Общая информация](#Общая-информация)
-  - [Params](#Params)
-  - [Routes](#Routes)
-    - [`GET /api/entities`](#GET-apientities)
-    - [`GET /api/entities/coffee-machines`](#GET-apientitiescoffee-machines)
-    - [`GET /api/entities/business-units`](#GET-apientitiesbusiness-units)
-    - [`GET /api/entities/recipes`](#GET-apientitiesrecipes)
-    - [`GET /api/entities/errors`](#GET-apientitieserrors)
-    - [`POST /api/analytics/trends/header`](#POST-apianalyticstrendsheader)
-    - [`POST /api/analytics/trends/overview/dispensings-by-date`](#POST-apianalyticstrendsoverviewdispensings-by-date)
-    - [`POST /api/analytics/trends/overview/consumptions`](#POST-apianalyticstrendsoverviewconsumptions)
-    - [`POST /api/analytics/trends/overview/cleanings`](#POST-apianalyticstrendsoverviewcleanings)
-    - [`POST /api/analytics/trends/overview/dispensings-by-hierarchy-level`](#POST-apianalyticstrendsoverviewdispensings-by-hierarchy-level)
-    - [`POST /api/analytics/trends/sales/dispensings-by-date`](#POST-apianalyticstrendssalesdispensings-by-date)
-    - [`POST /api/analytics/trends/sales/dispensings-by-cup-size`](#POST-apianalyticstrendssalesdispensings-by-cup-size)
-    - [`POST /api/analytics/trends/sales/dispensings-by-recipe`](#POST-apianalyticstrendssalesdispensings-by-recipe)
-    - [`POST /api/analytics/trends/sales/dispensings-by-weekday-and-time`](#POST-apianalyticstrendssalesdispensings-by-weekday-and-time)
-    - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#POST-apianalyticstrendssalesdispensings-previous-vs-current)
-    - [`POST /api/analytics/trends/sales/dispensings-by-path`](#POST-apianalyticstrendssalesdispensings-by-path)
-    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-restaurant`](#POST-apianalyticstrendsdayly-reportsdispensings-by-restaurant)
-    - [`POST /api/analytics/trends/dayly-reports/cleanings-by-restaurant`](#POST-apianalyticstrendsdayly-reportscleanings-by-restaurant)
-    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-hour`](#POST-apianalyticstrendsdayly-reportsdispensings-by-hour)
-    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-weekday`](#POST-apianalyticstrendsdayly-reportsdispensings-by-weekday)
-    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-recipe`](#POST-apianalyticstrendsdayly-reportsdispensings-by-recipe)
-    - [`POST /api/analytics/trends/dayly-reports/dispensings-by-cup-size`](#POST-apianalyticstrendsdayly-reportsdispensings-by-cup-size)
-    - [`POST /api/maintenance/working-hours/overview/downtime-by-hour`](#POST-apimaintenanceworking-hoursoverviewdowntime-by-hour)
-    - [`POST /api/maintenance/working-hours/overview/downtime-causes`](#POST-apimaintenanceworking-hoursoverviewdowntime-causes)
-    - [`POST /api/maintenance/working-hours/overview/downtime-errors`](#POST-apimaintenanceworking-hoursoverviewdowntime-errors)
-    - [`POST /api/maintenance/working-hours/overview/downtime-by-weekday`](#POST-apimaintenanceworking-hoursoverviewdowntime-by-weekday)
-    - [`POST /api/maintenance/working-hours/overview/downtime-by-week`](#POST-apimaintenanceworking-hoursoverviewdowntime-by-week)
-    - [`POST /api/maintenance/working-hours/overview/downtime-by-buisness-unit`](#POST-apimaintenanceworking-hoursoverviewdowntime-by-buisness-unit)
-  - [Interfaces](#Interfaces)
-    - [IByDay](#IByDay)
-    - [ICoffeeMachine](#ICoffeeMachine)
-    - [IBusinessUnit](#IBusinessUnit)
-
+- [API docs](#api-docs)
+  - [Навигация](#навигация)
+  - [Общая информация](#общая-информация)
+  - [Params](#params)
+  - [Routes](#routes)
+    - [`POST /auth/login`](#post-authlogin)
+    - [`POST /auth/login`](#post-authlogin-1)
+    - [`GET /api/entities`](#get-apientities)
+    - [`POST /api/analytics/trends/header`](#post-apianalyticstrendsheader)
+    - [`POST /api/analytics/trends/overview/dispensings-by-date`](#post-apianalyticstrendsoverviewdispensings-by-date)
+    - [`POST /api/analytics/trends/overview/consumptions`](#post-apianalyticstrendsoverviewconsumptions)
+    - [`POST /api/analytics/trends/overview/cleanings`](#post-apianalyticstrendsoverviewcleanings)
+    - [`POST /api/analytics/trends/overview/dispensings-by-hierarchy-level`](#post-apianalyticstrendsoverviewdispensings-by-hierarchy-level)
+    - [`POST /api/analytics/trends/sales/dispensings-by-date`](#post-apianalyticstrendssalesdispensings-by-date)
+    - [`POST /api/analytics/trends/sales/dispensings-by-cup-size`](#post-apianalyticstrendssalesdispensings-by-cup-size)
+    - [`POST /api/analytics/trends/sales/dispensings-by-recipe`](#post-apianalyticstrendssalesdispensings-by-recipe)
+    - [`POST /api/analytics/trends/sales/dispensings-by-weekday-and-time`](#post-apianalyticstrendssalesdispensings-by-weekday-and-time)
+    - [`POST /api/analytics/trends/sales/dispensings-previous-vs-current`](#post-apianalyticstrendssalesdispensings-previous-vs-current)
+    - [`POST /api/analytics/trends/sales/dispensings-by-path`](#post-apianalyticstrendssalesdispensings-by-path)
+    - [`POST /api/analytics/dayly-reports/dispensings-by-restaurant`](#post-apianalyticsdayly-reportsdispensings-by-restaurant)
+    - [`POST /api/analytics/dayly-reports/cleanings-by-restaurant`](#post-apianalyticsdayly-reportscleanings-by-restaurant)
+    - [`POST /api/analytics/dayly-reports/dispensings-by-hour`](#post-apianalyticsdayly-reportsdispensings-by-hour)
+    - [`POST /api/analytics/dayly-reports/dispensings-by-weekday`](#post-apianalyticsdayly-reportsdispensings-by-weekday)
+    - [`POST /api/analytics/dayly-reports/dispensings-by-recipe`](#post-apianalyticsdayly-reportsdispensings-by-recipe)
+    - [`POST /api/analytics/dayly-reports/dispensings-by-cup-size`](#post-apianalyticsdayly-reportsdispensings-by-cup-size)
+    - [`POST /api/analytics/data-export/beverages`](#post-apianalyticsdata-exportbeverages)
+    - [`POST /api/analytics/data-export/cleanings`](#post-apianalyticsdata-exportcleanings)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-hour`](#post-apimaintenanceworking-hoursoverviewdowntime-by-hour)
+    - [`POST /api/maintenance/working-hours/overview/downtime-causes`](#post-apimaintenanceworking-hoursoverviewdowntime-causes)
+    - [`POST /api/maintenance/working-hours/overview/downtime-errors`](#post-apimaintenanceworking-hoursoverviewdowntime-errors)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-weekday`](#post-apimaintenanceworking-hoursoverviewdowntime-by-weekday)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-week`](#post-apimaintenanceworking-hoursoverviewdowntime-by-week)
+    - [`POST /api/maintenance/working-hours/overview/downtime-by-buisness-unit`](#post-apimaintenanceworking-hoursoverviewdowntime-by-buisness-unit)
+    - [`GET /api/consoledata`](#get-apiconsoledata)
+    - [`POST /api/timeerrordown`](#post-apitimeerrordown)
+    - [Pusher](#pusher)
+  - [Interfaces](#interfaces)
+    - [EventType](#eventtype)
+    - [IByDay](#ibyday)
+    - [ICoffeeMachine](#icoffeemachine)
+    - [ICoffeeMachineVendor](#icoffeemachinevendor)
+    - [ICoffeeMachineModel](#icoffeemachinemodel)
+    - [IBusinessUnit](#ibusinessunit)
+    - [IError](#ierror)
+    - [IRecipe](#irecipe)
+    - [IRecipeBaseType](#irecipebasetype)
 
 
 ## Общая информация
@@ -168,92 +166,6 @@ interface Params {
   ~~~
   #### Пример JSON
   ~~~json
-  ~~~
-
-
-  ### `GET /api/entities/coffee-machines`
-
-  #### Info:
-
-  Для SearchBar в шапке и фильтров. 1 раз при загрузке приложения.
-
-  - [`ICoffeeMachine`](#icoffeemachine)
-
-  #### Request:
-  Без дополнительных параметров.
-
-  #### Response:
-
-  ✔ 200
-
-  ~~~ts
-  {
-    coffeeMachines: ICoffeeMachine[];
-  }
-  ~~~
-
-  ### `GET /api/entities/business-units`
-
-  #### Info:
-
-  Для SearchBar в шапке и фильтров. 1 раз при загрузке приложения.
-  - [`IBusinessUnit`](#ibusinessunit)
-
-  #### Request:
-  Без дополнительных параметров.
-
-  #### Response:
-
-  ✔ 200
-
-  ~~~ts
-  {
-    businessUnits: IBusinessUnit[];
-  }
-  ~~~
-
-  ### `GET /api/entities/recipes`
-
-  #### Info:
-
-  Используется на странице **Аналитика - Трендовая Аналитика - Настройки**
-
-  #### Request:
-  Без дополнительных параметров.
-
-  #### Response:
-
-  ✔ 200
-
-  ~~~ts
-  {
-    recipes: {
-      id: number;
-      name: string; // Название рецепта
-    }[];
-  }
-  ~~~
-
-  ### `GET /api/entities/errors`
-
-  #### Info:
-
-  Используется на странице **Обслуживание - Время работы - Настройки**
-
-  #### Request:
-  Без дополнительных параметров.
-
-  #### Response:
-
-  ✔ 200
-
-  ~~~ts
-  {
-    errors: {
-      id: number;
-      name: string; // Название ошибки
-    }[];
-  }
   ~~~
 
   ### `POST /api/analytics/trends/header`
