@@ -29,6 +29,7 @@ import { store } from './store';
 // if (savedLocation) window.location.href = savedLocation;
 
 const container = document.getElementById('root');
+
 if (container) {
   const root = ReactDOM.createRoot(container);
   // const element = React.createElement(App, {}, null);

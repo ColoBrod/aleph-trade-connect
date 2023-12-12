@@ -28,12 +28,11 @@ const LayoutMain = () => {
       <LeftPanel />
       <div className="layout-main__inner">
         <Outlet />
-      </div>
-      { 
         <ModalBox> 
           {/* { modalBox[modalBoxPageName] } */}
         </ModalBox>
-      }
+      </div>
+      
       <Tooltip />
     </div>
   );

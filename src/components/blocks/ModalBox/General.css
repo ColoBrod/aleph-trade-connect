@@ -1,0 +1,22 @@
+.modal-box__page-general {
+  display: flex;
+  padding: 60px 14px;
+  flex-direction: column;
+  gap: 10px;
+
+  .item {
+    .title, .content {
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .title {
+      font-size: 11px;
+    }
+    .content {
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+
+}

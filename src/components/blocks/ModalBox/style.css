@@ -1,21 +1,128 @@
 .modal-box {
   position: absolute;
-  width: 80vw;
-  height: 80vh;
+  /* z-index: 100; */
+  width: 81.33%;
+  height: 84%;
+  padding: 0 54px;
+  border-radius: 6px;
+  /* height: 80vh; */
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   margin: auto;
   background-color: white;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+
+  &__dim {
+    position: absolute;
+    z-index: 100;
+    /* width: 100vw;
+    width: 100dwh;
+    height: 100vh;
+    height: 100dvh; */
+    width: 100%;
+    height: calc(100vh - 72px);
+    background-color: rgba(0,0,0, 0.45);
+  }
 
   &__top-panel {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
+    align-items: center;
+    height: 64px;
+    border-color: #BDBDBD;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    padding: 0 16px;
+    gap: 40px;
   }
 
+  &__restaurant,
+  &__coffee-machine-model,
+  &__serial-number {
+    color: black;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  &__spacer {
+    flex-grow: 1;
+  }
+
+  &__remote-actions {
+    padding: 10px 12px;
+    border-style: solid;
+    border-width: 0 0 1px 0;
+    border-color: #BDBDBD;
+    background-color: transparent;
+    appearance: none;
+    background-image: url("./ddl-arrow.svg");
+    background-repeat: no-repeat;
+    background-position: top 50% right 10px;
+    width: 248px;
+    font-size: 14px;
+    line-height: 20px;
+    color: (--clr-font);
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__main {
+    display: flex;
+    height: calc(100% - 64px);
+
+    
+    /* align-items: stretch; */
+  }
+
+  &__nav-area {
+    padding: 50px 16px;
+    /* background-color: gray; */
+    border-color: #BDBDBD;
+    border-width: 0 2px 0 0;
+    border-style: solid;
+    flex-basis: 260px;
+    flex-shrink: 0;
+  }
+
+  &__content-area {
+    flex-grow: 1;
+    overflow-y: auto;
+  }
+
+  &__nav-box {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__nav-header, &__nav-elem {
+    padding: 10px;
+    font-size: 16px;
+    line-height: 22px;
+    color: black;
+    user-select: none;
+  }
+
+  &__nav-header {
+    font-weight: bold;
+  }
+
+  &__nav-elem {
+    padding-left: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    &.active {
+      background-color: #BDBDBD;
+    }
+  }
+
+
   &__close-btn {
+    /* margin-left: auto;
+    margin-right: -6px; */
     cursor: pointer;
     font-size: 2rem;
     padding: .2rem;

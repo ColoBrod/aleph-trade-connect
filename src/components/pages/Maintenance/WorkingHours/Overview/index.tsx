@@ -31,13 +31,6 @@ const Overview = () => {
         {/* Неделя к неделе */}
         {/* По бизнес-юнитам */}
 
-
-        
-
-        
-
-        
-
         <InfoBlock layout='chart-4' header='Неделя к неделе'>
           <Diagram 
             id="downtimes-week-to-week"

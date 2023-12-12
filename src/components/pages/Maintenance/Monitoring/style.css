@@ -1,0 +1,6 @@
+.table__cell-path a {
+  color: var(--clr-font-accent);
+  &:hover {
+    text-decoration: none;
+  }
+}

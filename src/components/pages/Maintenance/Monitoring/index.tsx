@@ -1,6 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { channel } from '~/services/pusher';
+import { Link } from 'react-router-dom';
+import { visibilitySet } from '~/store/ui/modal-box';
+
+// ?modal-box=coffee-machine
 
 import Button from '~/components/ui/Button';
 import './style.css';
@@ -177,7 +181,11 @@ const Monitoring = () => {
   const page = sorted.slice((activePage - 1) * perPage, activePage * perPage);
   const fmtArr = page.map((row: IRowFmt) => [
     row.businessUnit, 
-    row.path,
+    <a onClick={(e) => {
+      dispatch(visibilitySet(true))
+      e.preventDefault();
+    }} href='#' >{row.path}</a>,
+    // row.path,
     row.model,
     row.serialNumber,
     row.errorCode,
@@ -186,7 +194,7 @@ const Monitoring = () => {
     row.duration,
   ]);
 
-  const tableContent: (string|number)[][] = [
+  const tableContent: (string|number|ReactNode)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата и время", "Длительность" ],
     ...fmtArr,
   ];
