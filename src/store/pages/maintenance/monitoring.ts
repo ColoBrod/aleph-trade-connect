@@ -8,6 +8,7 @@ import { apiCallPending, apiCallRejected } from "~/store/utils";
 
 // Внимание!!! Это другой URL, не тот же, что используется на остальных страницах
 const BASE_URL = "https://wmf24.ru/api";
+// const BASE_URL = "https://backend.wmf24.ru"
 
 export interface IRow {
   id: number;
@@ -60,7 +61,7 @@ export const fetchEvents = createAsyncThunk<any, void, { state: RootState }>(
       method: 'get',
     };
     const response = await axios(config);
-    console.log(response.data)
+    console.log("RESPONSE:", response.data)
     return response.data;
   }
 )

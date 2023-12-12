@@ -1,0 +1,12 @@
+@import "style/media-queries";
+
+.filters-aside__toggle-btn {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--clr-font);
+  border-radius: 4px;
+  cursor: pointer;
+  /* opacity: 0.7; */
+
+  @media (--xl-min) { display: none; }
+}

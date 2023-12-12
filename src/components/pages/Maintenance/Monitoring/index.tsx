@@ -38,6 +38,7 @@ import { IPusherMap } from '~/interfaces/pusher';
 import EventsFilter from '~/components/blocks/EventsFilter';
 
 import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
+import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 
 const Monitoring = () => {
   const { type } = useParams();
@@ -88,8 +89,9 @@ const Monitoring = () => {
   useEffect(() => {
     let intervalId: any;
     intervalId = setInterval(() => {
+      console.log("timer...");
       dispatch(updateTime())
-    }, 3000)
+    }, 10000)
     return () => clearInterval(intervalId)
   }, [])
 
@@ -233,6 +235,7 @@ const Monitoring = () => {
           {/* <Button onClick={() => console.log("empty")} layout='light'>
             Обновить
           </Button> */}
+          <FiltersAsideButton />
           <DropDownList
             onChange={(e) => {
               // const utc = parseInt(e.currentTarget.value);

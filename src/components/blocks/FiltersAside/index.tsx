@@ -7,6 +7,7 @@ import { use_LG_MAX } from '~/media-queries';
 import { visibilitySet } from '~/store/ui/filters-aside';
 
 import imgFilter from './filters.svg';
+import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 
 interface Props {
   component: {
@@ -42,17 +43,17 @@ const FiltersAside = (props: Props) => {
   //   state => state.filters.analytics.daylyReports.serialNumbers.list
   // );
 
-  const renderCloseBtn = (): ReactNode => {
-    return (
-      <img 
-        className='filters-aside__toggle-btn'
-        src={imgFilter} 
-        alt="Показать/Скрыть фильтры" 
-        onClick={() => dispatch(visibilitySet(undefined))}
-        />
-      // <div style={{color: 'red', fontSize: '20px'}}>LG and less</div>
-    )
-  }
+  // const renderCloseBtn = (): ReactNode => {
+  //   return (
+  //     <img 
+  //       className='filters-aside__toggle-btn'
+  //       src={imgFilter} 
+  //       alt="Показать/Скрыть фильтры" 
+  //       onClick={() => dispatch(visibilitySet(undefined))}
+  //       />
+  //     // <div style={{color: 'red', fontSize: '20px'}}>LG and less</div>
+  //   )
+  // }
 
   const renderDateTimeSection = (): ReactNode => (
     <div className="filters-section">
@@ -116,22 +117,18 @@ const FiltersAside = (props: Props) => {
   )
 
   return (
-    <>
-      {lgMax ? renderCloseBtn() : null}
-      <div
-        className={`filters filters-aside ${visible ? "visible" : "hidden"}`}
-      >
-        <div className="filters-aside__inner">
-          {component.datePicker && component.timePicker
-            ? renderDateTimeSection()
-            : null}
-          {component.regionTree ? renderRestaurantsSection() : null}
-          {component.coffeeMachineFilter ? renderCoffeeMachines() : null}
-          {component.serialNumbersFilter ? renderSerialNumbers() : null}
-          {component.eventsFilter ? renderEventsFilter() : null}
-        </div>
+    <div className={`filters filters-aside ${visible ? "visible" : "hidden"}`} >
+      <div className="filters-aside__inner">
+        {component.datePicker && component.timePicker
+          ? renderDateTimeSection()
+          : null}
+        {component.regionTree ? renderRestaurantsSection() : null}
+        {component.coffeeMachineFilter ? renderCoffeeMachines() : null}
+        {component.serialNumbersFilter ? renderSerialNumbers() : null}
+        {component.eventsFilter ? renderEventsFilter() : null}
       </div>
-    </>
+      <FiltersAsideButton />
+    </div>
   );
 }
  

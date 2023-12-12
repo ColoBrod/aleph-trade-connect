@@ -23,13 +23,10 @@
     padding: 0 16px;
   }
 
-  &__toggle-btn {
-    display: block;
+  & &__toggle-btn {
     position: absolute;
-    top: -24px;
-    left: 16px;
-    z-index: 2;
-    cursor: pointer;
+    top: 16px;
+    right: 16px;
   }
   
   .filters-section {
@@ -96,7 +93,7 @@
     top: -16px;
     left: 0;
     &__inner {
-      padding-top: 32px;
+      padding-top: 46px;
     }
   }
 }

@@ -20,7 +20,7 @@
   &-wrapper::after {
     display: block;
     content: '';
-    z-index: 10;
+    /* z-index: 10; */
     width: 1px;
     background-color: var(--clr-info-light);
     height: 100%;

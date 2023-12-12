@@ -33,7 +33,7 @@ const Tabs = (props: Props) => {
   if (items.length === 0) return null;
   return (
     <nav className={`tabs tabs-${layout} colorschema-${colors}`}>
-      <div className="container">
+      <div className="container-tabs">
         {
           items.map(item => <Tab layout={layout} key={item.path} path={item.path}>{item.children}</Tab>  )
         }
