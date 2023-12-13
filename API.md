@@ -139,6 +139,9 @@ interface Params {
   - [`ICoffeeMachineModel`](#icoffeemachinemodel)
   - [`ICoffeeMachineVendors`](#icoffeemachinevendors)
   - [`IBusinessUnit`](#ibusinessunit)
+  - [`IRecipe`](#irecipe)
+  - [`IError`](#ierror)
+
 
   #### Request:
   Без дополнительных параметров.
@@ -152,15 +155,8 @@ interface Params {
     coffeeMachineModels: ICoffeeMachineModel[];
     coffeeMachineVendors: ICoffeeMachineVendors[];
     businessUnits: IBusinessUnit[];
-    recipes: {
-      id: number;
-      name: string; // Название рецепта
-    }[];
-    errors: {
-      id: number;
-      code: string;
-      name: string; // Название ошибки
-    }[];
+    recipes: IRecipe[];
+    errors: IError[];
   }
   ~~~
   #### Пример JSON
@@ -872,7 +868,7 @@ interface IBusinessUnit {
 ~~~ts
 interface IError {
   id: string;
-  type: string; // 1d 1a
+  type: string; 
   code: number;
   description: string; 
 }
@@ -880,15 +876,12 @@ interface IError {
 
 ### IRecipe
 ~~~ts
-// interface IRecipe {
-
-// }
-~~~
-
-### IRecipeBaseType 
-~~~ts
-interface IRecipeBaseType {
+interface IRecipe {
   id: string;
-  
+  name: string;
+  cupSize: "S" | "M" | "L";
 }
 ~~~
+
+
+
