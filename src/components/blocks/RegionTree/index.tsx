@@ -49,10 +49,6 @@ const RegionTree = (props: Props) => {
   const renderCheckbox = () => {
     let n: 0 | 1 | 2;
     const ids = items.filter(item => item.type === 0).map(item => item.id);
-
-    console.log("IDs:", ids);
-    console.log("Checked:", checked);
-
     if (ids.length === checked.length) n = 1;
     else if (checked.length === 0) n = 0;
     else n = 2;

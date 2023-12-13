@@ -826,11 +826,8 @@ interface ICoffeeMachine {
   id: string; // Aleph id
   modelId: number; // ID модели
   restaurantId: string; // Aleph ID ресторана
-  code: string;
+  serialNumber: string;
   name: string;
-  type: string; // Model
-  restarauntId: string; // Rest aleph id
-  status: number;
 }
 ~~~
 

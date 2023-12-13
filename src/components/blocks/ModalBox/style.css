@@ -14,6 +14,20 @@
   background-color: white;
   /* border: 1px solid black; */
 
+  &__tabs {
+    height: 72px;
+    border-width: 0 0 2px 0;
+    border-style: solid;
+    border-color: #BDBDBD;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+  }
+
+  &__filters {
+    
+  }
+
   &__dim {
     position: absolute;
     z-index: 100;

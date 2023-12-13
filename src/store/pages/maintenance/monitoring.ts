@@ -8,30 +8,36 @@ import { apiCallPending, apiCallRejected } from "~/store/utils";
 
 // Внимание!!! Это другой URL, не тот же, что используется на остальных страницах
 // const BASE_URL = "https://wmf24.ru/api";
-const BASE_URL = "https://backend.wmf24.ru"
+const BASE_URL = "https://backend.wmf24.ru/api"
 
 export interface IRow {
-  id: number;
-  name?: string; // Только в Пушере
-  company: string;
-  device_code: string;
-  error_code: string;
-  start_datetime: string;
-  end_datetime: string;
-  error_text: string;
-  updated_at: string;
-  created_at: string;
+  id: string;
+  coffeeMachineId: string;
+  startDateTime: string;
   duration: string;
+  errorCode: string;
+  errorText: string;
+
+  // name?: string; // Только в Пушере
+  // company: string;
+  // error_code: string;
+  // start_datetime: string;
+  // end_datetime: string;
+  // error_text: string;
+  // updated_at: string;
+  // created_at: string;
+  // duration: string;
 }
 
 export interface IRowFmt {
-  id: number;
+  id: string;
   businessUnit: string;
   model: string;
   path: string;
   serialNumber: string;
   errorCode: string;
   errorDesc: string;
+  dateObj: Date;
   datetime: string;
   duration: string;
 }

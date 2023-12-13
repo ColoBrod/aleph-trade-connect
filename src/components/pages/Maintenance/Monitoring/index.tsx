@@ -39,6 +39,7 @@ import EventsFilter from '~/components/blocks/EventsFilter';
 
 import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
+import UTC_DDL from '~/components/elements/UTC_DDL';
 
 const Monitoring = () => {
   const { type } = useParams();
@@ -60,7 +61,6 @@ const Monitoring = () => {
   useEffect(() => {
     if (type === 'all') {
       const json = localStorage.getItem('filters/maintenance/monitoring/events');
-      console.log("JSON:", json);
       const eventList = json ? JSON.parse(json) : eventTypes;
       dispatch(eventSet(eventList));
     }
@@ -89,7 +89,6 @@ const Monitoring = () => {
   useEffect(() => {
     let intervalId: any;
     intervalId = setInterval(() => {
-      console.log("timer...");
       dispatch(updateTime())
     }, 10000)
     return () => clearInterval(intervalId)
@@ -110,12 +109,12 @@ const Monitoring = () => {
 
   const formatData = (data: IRow[]): IRowFmt[] => {
     const fmt = data.map(row => {
-      const match = row.company.match(/.*, (.*)/);
-      const path = match === null ? row.company : match[1];
+      // const match = row.company.match(/.*, (.*)/);
+      // const path = match === null ? row.company : match[1];
       // const [date, time] = row.start_datetime.split(" ") as [string, string];
-      const date = new Date(row.start_datetime);
+      const date = new Date(row.startDateTime);
 
-      let datetime;
+      let datetime: string;
 
       try {
         datetime = date.toLocaleString('ru-RU', { timeZone: utc })
@@ -129,10 +128,10 @@ const Monitoring = () => {
         id: row.id,
         businessUnit: "",
         model: "",
-        path,
-        serialNumber: row.device_code,
-        errorCode: row.error_code,
-        errorDesc: row.error_text,
+        path: "",
+        serialNumber: row.coffeeMachineId,
+        errorCode: row.errorCode,
+        errorDesc: row.errorText,
         dateObj: date,
         datetime,
         // date: date.toLocaleDateString('ru-RU'),
@@ -140,7 +139,7 @@ const Monitoring = () => {
         duration: row.duration,
       })
     })
-    return fmt;
+    return fmt; 
   }
 
   const sortData = (
@@ -178,7 +177,7 @@ const Monitoring = () => {
 
   const filterData = (data: IRow[]): IRow[] => {
     return data.filter(row => {
-      const type = errorType[row.error_code];
+      const type = errorType[row.errorCode];
       if (events.includes(type)) return true;
       else return false;
     })
@@ -186,7 +185,7 @@ const Monitoring = () => {
   
   // const curPage =
 
-  const filtered = filterData(data);
+  const filtered = type !== 'all' ? filterData(data) : data;
   const fmt = formatData(filtered);
   const sorted = sortData(fmt, orderBy);
   const page = sorted.slice((activePage - 1) * perPage, activePage * perPage);
@@ -204,6 +203,8 @@ const Monitoring = () => {
     row.datetime,
     row.duration,
   ]);
+
+  console.log("Table:", fmtArr);
 
   const tableContent: (string|number|ReactNode)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата и время", "Длительность" ],
@@ -245,7 +246,8 @@ const Monitoring = () => {
             Обновить
           </Button> */}
           <FiltersAsideButton />
-          <DropDownList
+          <UTC_DDL utc={utc} utcSet={utcSet} />
+          {/* <DropDownList
             onChange={(e) => {
               // const utc = parseInt(e.currentTarget.value);
               dispatch(utcSet(e.currentTarget.value));
@@ -265,7 +267,7 @@ const Monitoring = () => {
               { value: '+08:00', innerHTML: "+08:00" },
               { value: '+09:00', innerHTML: "+09:00" },
             ]}
-          />
+          /> */}
           <DropDownList 
             onChange={(e) => {
               const value = parseInt(e.currentTarget.value);
@@ -277,8 +279,6 @@ const Monitoring = () => {
             label="Показать по" 
             name='pages' 
             items={[
-              { value: "2", innerHTML: "2" },
-              { value: "3", innerHTML: "3" },
               { value: "10", innerHTML: "10" },
               { value: "20", innerHTML: "20" },
               { value: "50", innerHTML: "50" },

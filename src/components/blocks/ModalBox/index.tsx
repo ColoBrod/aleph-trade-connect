@@ -7,7 +7,6 @@ import imgDDLArrow from './ddl-arrow.svg';
 import DropDownList from '~/components/ui/DropDownList';
 import Button from '~/components/ui/Button';
 
-import { NavLink } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { ModalBoxTab, tabSet, visibilitySet } from '~/store/ui/modal-box';
 import General from './General';
@@ -56,7 +55,7 @@ const ModalBox = (props: Props): ReactNode => {
           <span className="modal-box__serial-number">Серийный номер: 265892</span>
           <span className="modal-box__spacer"></span>
           {renderDDL()}
-          <Button onClick={e => 1} layout={'light'}>Обновить</Button>
+          {/* <Button onClick={e => 1} layout={'light'}>Обновить</Button> */}
           <img src={imgCross} className='modal-box__close-btn' onClick={handleClose} alt="Закрыть модальное окно" />
         </div>
         <div className="modal-box__main">

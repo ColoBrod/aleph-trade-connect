@@ -2,13 +2,15 @@ import React, { ChangeEvent, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import Checkbox from '~/components/ui/Checkbox';
 import { ErrorType } from '~/services/errors';
+import './style.css';
 
 interface Props {
   events: ErrorType[];
   action: Function;
+  layout?: "column" | "row";
 }
 
-const EventsFilter = ({ events, action }: Props) => {
+const EventsFilter = ({ events, action, layout = "column" }: Props) => {
 
   const dispatch = useAppDispatch();
 
@@ -18,7 +20,7 @@ const EventsFilter = ({ events, action }: Props) => {
   }
 
   return (
-    <div className="component-events-filter">
+    <div className={`component-events-filter layout-${layout}`}>
       <Checkbox 
         id={'event'} 
         color='event' 
