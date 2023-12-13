@@ -137,10 +137,8 @@ interface Params {
 
   - [`ICoffeeMachine`](#icoffeemachine)
   - [`ICoffeeMachineModel`](#icoffeemachinemodel)
+  - [`ICoffeeMachineVendors`](#icoffeemachinevendors)
   - [`IBusinessUnit`](#ibusinessunit)
-  - [`IRecipe`](#irecipe)
-  - [`IError`](#ierror)
-
 
   #### Request:
   Без дополнительных параметров.
@@ -152,6 +150,7 @@ interface Params {
   {
     coffeeMachines: ICoffeeMachine[];
     coffeeMachineModels: ICoffeeMachineModel[];
+    coffeeMachineVendors: ICoffeeMachineVendors[];
     businessUnits: IBusinessUnit[];
     recipes: {
       id: number;
