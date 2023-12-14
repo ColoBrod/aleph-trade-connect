@@ -117,8 +117,9 @@ const Monitoring = () => {
       let datetime: string;
 
       try {
-        datetime = date.toLocaleString('ru-RU', { timeZone: utc })
+        datetime = date.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })
       } catch (e) {
+        console.log("TIMEZONE:", e);
         datetime = ""
       }
       console.log("DATE:", date);

@@ -8,10 +8,14 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByHierarchyLevel } from '~/store/pages/analytics/trends/overview';
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
+import { getPeriod } from '~/store/selectors';
 
 const AverageDispensingsPerMachine = () => {
-  const period = 30;
-  const header = `Среднее количество напитков за ${period} дней на одну машину`;
+  // const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
+  const period = getPeriod(dateRange);
+  // console.log("PERIOD:", dateRange, period);
+  const header = `Среднее количество напитков за ${period} на одну машину`;
   const dispatch = useAppDispatch();
   const { dispensingsPerMachineAverage } = useAppSelector(state => state.pages.analytics.trends.overview);
 

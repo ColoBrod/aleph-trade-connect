@@ -9,11 +9,15 @@ import { fetchDispensingsByDate } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
 
 import { COLOR_2 } from '~/components/elements/Diagram/colors';
+import { getPeriod } from '~/store/selectors';
 
 // import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
 
 const DispensingsByDate = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
+  const period = getPeriod(dateRange);
+  // console.log("PERIOD:", dateRange, period);
+  // const period = 30;
   const header = 'Напитки по дням';
   const dispatch = useAppDispatch();
   const { dispensingsByDate } = useAppSelector(state => state.pages.analytics.trends.sales);
@@ -87,7 +91,7 @@ const DispensingsByDate = () => {
       />
       <Widget 
         amount={total}
-        description={`Приготовлено напитков за последние ${period} дней`}
+        description={`Приготовлено напитков за ${period}`}
         layout='chart'
         align='center'
       />

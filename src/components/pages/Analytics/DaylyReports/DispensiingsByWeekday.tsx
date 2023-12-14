@@ -10,10 +10,12 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 import imgCalendar from './img/calendar.svg'
 import imgBeverage from './img/beverage.svg'
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByWeekday = () => { 
   const header = 'Напитки по дням';
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const dispatch = useAppDispatch();
 
   const { dispensingsByWeekday } = useAppSelector(state => state.pages.analytics.daylyReports);
@@ -70,7 +72,7 @@ const DispensingsByWeekday = () => {
       <Widget 
         icon={imgCalendar}
         amount={"Вторник"}
-        description={`Самый популярный день за рассматриваемые ${period} дней`}
+        description={`Самый популярный день за ${period}`}
         layout='dayly-reports-2'
         align='left'
       />

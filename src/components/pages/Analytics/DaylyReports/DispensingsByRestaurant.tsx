@@ -8,10 +8,12 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByRestaurant } from '~/store/pages/analytics/dayly-reports'; 
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByRestaurant = () => { 
   const header = 'Напитки по ресторанам';
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const dispatch = useAppDispatch();
 
   const { dispensingsByRestaurant } = useAppSelector(state => state.pages.analytics.daylyReports);
@@ -71,7 +73,7 @@ const DispensingsByRestaurant = () => {
       />
       <Widget 
         amount={"Бургер-РУС 3276"}
-        description={`Лучшие рестораны за последние ${period} дней`}
+        description={`Лучшие рестораны за ${period}`}
         layout='dayly-reports'
         align='left'
       />

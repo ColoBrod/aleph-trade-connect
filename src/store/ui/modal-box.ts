@@ -9,7 +9,7 @@ interface State {
 }
 
 const initialState: State = {
-  visibility: true,
+  visibility: false,
   page: "coffee-machine",
   tab: "monitoring",
 };
@@ -26,7 +26,6 @@ const slice = createSlice({
       const tab = action.payload;
       state.tab = tab;
     },
-
   }
 });
 

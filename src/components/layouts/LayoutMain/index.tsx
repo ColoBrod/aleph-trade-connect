@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Outlet } from 'react-router-dom';
 import ModalBox from '~/components/blocks/ModalBox';
 import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
@@ -13,8 +13,6 @@ import Tooltip from '~/components/ui/Tooltip';
 
 const LayoutMain = () => {
   const dispatch = useAppDispatch();
-  const location = useLocation().pathname;
-  // localStorage.setItem('location', location);
 
   const { status, error, data } = useAppSelector(state => state.entities);
 

@@ -16,6 +16,7 @@ import {
 } from '~/store/filters/analytics';
 import { recipeToggled, recipesSelected, recipesUnselected } from '~/store/filters/analytics/trends';
 import { coffeeMachineModelSelected } from '~/store/filters/analytics';
+import { dateRangeSet } from '~/store/filters/analytics/trends';
 
 const Settings = () => {
   const { recipes, businessUnits, coffeeMachineModels } = useAppSelector(
@@ -30,7 +31,7 @@ const Settings = () => {
     businessUnitsFilterChanged,
     businessUnitsSelectedAll,
   };
-  const { recipes: recipesFilters } = useAppSelector(
+  const { recipes: recipesFilters, dateRange } = useAppSelector(
     state => state.filters.analytics.trends
   );
   // const checked = businessUnits.map(unit => {
@@ -53,6 +54,7 @@ const Settings = () => {
 
         <InfoBlock layout='single-item' header='Структура ресторанов'>
           <RegionTree 
+            path='analytics/trends'
             items={businessUnits}
             selector={businessUnitsFilters}
             actions={businessUnitsActions}
@@ -64,7 +66,7 @@ const Settings = () => {
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Период данных'>
-          <DateRange />
+          <DateRange dateRange={dateRange} dateRangeSet={dateRangeSet} />
           <div className="data-available-for-the-last-62-days">Обратите внимание: данные доступны только за последние 62 дня</div>
         </InfoBlock>
 

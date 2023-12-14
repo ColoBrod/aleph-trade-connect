@@ -110,6 +110,7 @@ const Events = () => {
   const timePicker = <TimePicker timeRangeSet={timeRangeSet} time={{...time}} />
 
   const regionTree = <RegionTree 
+    path='maintenance'
     actions={{
       businessUnitsSet,
       businessUnitsExpanded,

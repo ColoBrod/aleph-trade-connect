@@ -44,6 +44,7 @@ const Beverages = () => {
   const filtersAnalyticsDataExport = useAppSelector(state => state.filters.analytics.dataExport.shared);
 
   const { date, time } = useAppSelector(state => state.filters.analytics.dataExport.shared.dateRange);
+
   const { 
     list: filtersSerialNumbers 
   } = useAppSelector(state => state.filters.analytics.dataExport.shared.serialNumbers);

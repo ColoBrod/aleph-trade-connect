@@ -10,6 +10,7 @@ import Diagram from '~/components/elements/Diagram';
 
 import { COLOR_2 } from '~/components/elements/Diagram/colors';
 import TimeRange from '~/components/elements/TimeRange';
+import { getPeriod } from '~/store/selectors';
 
 const weekFullName = {
   "Пн": "Понедельник", 
@@ -22,7 +23,9 @@ const weekFullName = {
 }
 
 const DowntimeByWeekdayAndTime = () => {
-  const period = 55;
+  const { dateRange } = useAppSelector(state => state.filters.maintenance.workingHours);
+  const period = getPeriod(dateRange);
+  
   const header = 'Простои по дням';
   const dispatch = useAppDispatch();
   const { downtimeByWeekday } = useAppSelector(state => state.pages.maintenance.workingHours);
@@ -90,7 +93,7 @@ const DowntimeByWeekdayAndTime = () => {
       <Widget 
         // @ts-ignore
         amount={weekFullName[bestDay]}
-        description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
+        description={<>Наиболее популярный день недели за {period}</>}
         layout='chart-doughnut'
         align='center'
       />

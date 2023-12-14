@@ -6,8 +6,15 @@ import imgCoffeeMaker from './img/coffee-maker.svg';
 import imgClock from './img/clock.svg';
 import imgCoffee from './img/coffee.svg';
 
+// Redux
+import { useAppSelector } from '~/hooks';
+
+// Format period
+import { getPeriod } from '~/store/selectors';
+
 const HeaderWidgets = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends)
+  const period = getPeriod(dateRange, "short");
 
   return (
     <div className="header-widgets">
@@ -21,7 +28,7 @@ const HeaderWidgets = () => {
         icon={imgCoffee}
         layout='header'
         amount={4120}
-        description={<>За {period} дней</>}
+        description={<>За {period}</>}
       />
       <Widget
         icon={imgClock}

@@ -819,14 +819,12 @@ interface IByDay {
 ~~~ts
 interface ICoffeeMachine {
   id: string; // Aleph id
-  modelId: number; // ID модели
+  modelId: string; // Aleph ID модели
   restaurantId: string; // Aleph ID ресторана
   serialNumber: string;
   name: string;
 }
 ~~~
-
-
 
 ### ICoffeeMachineVendor
 ~~~ts

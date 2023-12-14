@@ -8,9 +8,11 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchCleaningsByRestaurant } from '~/store/pages/analytics/dayly-reports'; 
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
+import { getPeriod } from '~/store/selectors';
 
 const CleaningsByRestaurant = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const header = "Соблюдение правил чистки ресторанами";
   const dispatch = useAppDispatch();
 
@@ -64,7 +66,7 @@ const CleaningsByRestaurant = () => {
       />
       <Widget 
         amount={"Бургер-РУС 3276"}
-        description={`Самый недисциплинированный ресторан за последние ${period} дней`}
+        description={`Самый недисциплинированный ресторан за ${period}`}
         layout='dayly-reports'
         align='left'
       />

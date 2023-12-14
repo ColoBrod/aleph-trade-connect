@@ -11,6 +11,7 @@ import {
   IFiltersEvents,
 } from "~/interfaces/filters";
 import { RootState } from "..";
+import memory from "../memory";
 
 type FilterKey =
   | "businessUnits"
@@ -24,7 +25,7 @@ type FilterKey =
   | "orderBy"
   | "events";
 
-interface Filters {
+export interface Filters {
   "analytics": FilterKey[];
   "analytics/trends": FilterKey[];
   "analytics/dayly-reports": FilterKey[];
@@ -134,6 +135,21 @@ class InitialFilters {
   }
 
   private static businessUnits(path: keyof Filters): IFiltersBusinessUnits {
+    // const saved = memory.get(path) as IFiltersBusinessUnits;
+    // const filters: IFiltersBusinessUnits = saved === null 
+    //   ? {
+    //       businessUnits: {
+    //         checked: ["1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009", "1010", "1011", "1012", "1013", "1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021", "1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033", "1034", "1035", "1036", "1037", "1038", "1039", "1040", "1041", "1042", "1043", "1044", "1045", "1046", "1047", "1048", "1049", "1050", "1051", "1052", "1053", "1054", "1055"],
+    //         expanded: [],
+    //         filteredNodes: [],
+    //         filterText: "",
+    //       },
+    //     } 
+    //   : {
+    //       businessUnits: saved.businessUnits,
+    //     };
+    // return filters;
+    
     return {
       businessUnits: {
         checked: ["1001", "1002", "1003", "1004", "1005", "1006", "1007", "1008", "1009", "1010", "1011", "1012", "1013", "1014", "1015", "1016", "1017", "1018", "1019", "1020", "1021", "1022", "1023", "1024", "1025", "1026", "1027", "1028", "1029", "1030", "1031", "1032", "1033", "1034", "1035", "1036", "1037", "1038", "1039", "1040", "1041", "1042", "1043", "1044", "1045", "1046", "1047", "1048", "1049", "1050", "1051", "1052", "1053", "1054", "1055"],
@@ -142,6 +158,8 @@ class InitialFilters {
         filterText: "",
       },
     };
+
+    // return initial
   }
 
   private static coffeeMachineModels(

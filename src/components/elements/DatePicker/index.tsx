@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 // import ReactInputDateMask from 'react-input-date-mask';
 import InputMask from 'react-input-mask'; 
 
@@ -39,9 +39,18 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
   
   const s = date.start.split('/');
   const e = date.end.split('/');
-  const start = `${s[1]}.${s[0]}.${s[2]}`;
-  const end = `${e[1]}.${e[0]}.${e[2]}`;
+  // const start = `${s[1]}.${s[0]}.${s[2]}`;
+  // const end = `${e[1]}.${e[0]}.${e[2]}`;
+  const start = fmtLeadZero(s);
+  const end = fmtLeadZero(e);
+
+
+
+  // const leadZeroStart = s[0].toString().padStart(2, '0');
+  // const leadZeroEnd = end.toString().padStart(2, '0')
+
   // const [d1, setD1] = useState(start);
+  // useEffect(() => {}, [start, end])
 
   // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
   //   const input = e.currentTarget;
@@ -85,7 +94,10 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.currentTarget;
+    const { id, value } = e.currentTarget;
+    const key = id.includes('start') 
+      ? 'start'
+      : 'end';
     if (value.match(/_/)) return;
     const match = value.match(/(\d\d)\.(\d\d)\.(\d\d\d\d)/);
     if (!match) return;
@@ -94,8 +106,9 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
     const yyyy = match[3];
     const dateStr = `${yyyy}-${mm}-${dd}`;
     if (validateDate(dateStr)) {
-      console.log(`${mm}/${dd}/${yyyy}`);
-      dispatch(dateRangeSet(`${mm}/${dd}/${yyyy}`));
+      const payload = { [key]: `${mm}/${dd}/${yyyy}` }
+      console.log(payload);
+      dispatch(dateRangeSet(payload));
     }
     else alert("Неправильная дата");
 
@@ -104,19 +117,19 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
 
   return (
     <div className="picker picker-date">
-      <div className="picker__input start" id="date-start" data-date={date.start}>
+      <div key={start} className="picker__input start" id="date-start" data-date={date.start}>
         {/* <input 
           onChange={handleChange} 
           value={d1}
           type="text" 
           /> */}
           {/* <ReactInputDateMask /> */}
-        <InputMask mask="99.99.9999" maskChar="_" onChange={handleChange} defaultValue={start} />
+        <InputMask id='date-input-start' mask="99.99.9999" maskChar="_" onChange={handleChange} defaultValue={start} />
         <div onClick={handleClick} className="picker-date__icon"></div>
       </div>
-      <div className="picker__input end" id="date-end" data-date={date.end}>
+      <div key={end} className="picker__input end" id="date-end" data-date={date.end}>
         {/* { end } */}
-        <InputMask mask="99.99.9999" maskChar="_" onChange={handleChange} defaultValue={end} />
+        <InputMask id='date-input-end' mask="99.99.9999" maskChar="_" onChange={handleChange} defaultValue={end} />
         <div onClick={handleClick} className="picker-date__icon"></div>
       </div>
       {/* <input onClick={handleClick} value={start} className='picker__input start' type="text" name="date-start" id="date-start" />
@@ -124,5 +137,12 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
     </div>
   );
 }
- 
+
+function fmtLeadZero(d: string[]) {
+  const dd = d[1].padStart(2, '0');
+  const mm = d[0].padStart(2, '0');
+  const yyyy = d[2];
+  return `${dd}.${mm}.${yyyy}`;
+}
+
 export default DatePicker;

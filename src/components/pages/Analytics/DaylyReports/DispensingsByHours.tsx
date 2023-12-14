@@ -11,14 +11,15 @@ import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
 
 import imgClock from './img/clock.svg';
 import imgBeverage from './img/beverage.svg';
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByHour = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const header = "Напитки по часам";
   const dispatch = useAppDispatch();
 
   const { dispensingsByHour } = useAppSelector(state => state.pages.analytics.daylyReports);
-
 
   useEffect(() => {
     if (dispensingsByHour.status === 'idle') dispatch(fetchDispensingsByHour()); 
@@ -70,7 +71,7 @@ const DispensingsByHour = () => {
       <Widget 
         icon={imgClock}
         amount={"09:00"}
-        description={`Самый популярный час последние ${period} дней`}
+        description={`Самый популярный час ${period}`}
         layout='dayly-reports-2'
         align='left'
       />

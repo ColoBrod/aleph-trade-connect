@@ -15,6 +15,7 @@ import {
   businessUnitsFilterChanged,
   businessUnitsSelectedAll,
 } from '~/store/filters/maintenance';
+import { dateRangeSet } from '~/store/filters/maintenance/working-hours';
 import { coffeeMachineModelSelected } from '~/store/filters/maintenance';
 import { errorToggled, errorsSelected, errorsUnselected } from '~/store/filters/maintenance';
 
@@ -25,6 +26,7 @@ const Settings = () => {
   const { businessUnits: businessUnitsFilters } = useAppSelector(
     state => state.filters.maintenance.shared
   );
+  const { dateRange } = useAppSelector(state => state.filters.maintenance.workingHours);
   const businessUnitsActions = {
     businessUnitsSet,
     businessUnitsExpanded,
@@ -64,7 +66,7 @@ const Settings = () => {
         </InfoBlock>
 
         <InfoBlock layout='single-item' header='Период данных'>
-          <DateRange />
+          <DateRange dateRange={dateRange} dateRangeSet={dateRangeSet} />
           <div className="data-available-for-the-last-62-days">Обратите внимание: данные доступны только за последние 62 дня</div>
         </InfoBlock>
 

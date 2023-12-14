@@ -9,9 +9,12 @@ import { fetchDispensingsByPath } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_3 } from '~/components/elements/Diagram/colors';
 import { IBusinessUnit } from '~/interfaces/entities';
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByPath = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
+  const period = getPeriod(dateRange);
+  // const period = 30;
   const dispatch = useAppDispatch();
   const { businessUnits } = useAppSelector(state => state.entities.data);
   const { dispensingsByPath } = useAppSelector(state => state.pages.analytics.trends.sales);
@@ -74,7 +77,7 @@ const DispensingsByPath = () => {
       />
       <Widget 
         amount={bestPath}
-        description={<>Performs best within the last <b>{period}</b> days</>}
+        description={<>Лучше всего работает {period}</>}
         layout='dayly-reports'
         align='left'
       />

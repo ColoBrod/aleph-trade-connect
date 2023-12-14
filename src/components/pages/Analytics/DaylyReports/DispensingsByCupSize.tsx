@@ -11,10 +11,12 @@ import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors'
 
 import imgBeverage40 from './img/beverage-40.svg';
 import imgDispensing40 from './img/dispensing-40.svg';
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByCupSize = () => { 
   const header = 'По размеру чашки (S-M-L)';
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const dispatch = useAppDispatch();
 
   const { dispensingsByCupSize } = useAppSelector(state => state.pages.analytics.daylyReports);
@@ -71,7 +73,7 @@ const DispensingsByCupSize = () => {
       <Widget 
         icon={imgBeverage40}
         amount={maxValue + " раздачи"}
-        description={`Были поданы чашки размера Regular за последние ${period} дней`}
+        description={`Были поданы чашки размера Regular за ${period}`}
         layout='dayly-reports-3'
         align='center'
       />

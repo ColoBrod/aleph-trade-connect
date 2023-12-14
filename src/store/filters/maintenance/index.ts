@@ -14,6 +14,7 @@ import {
 
 import monitoringReducer from './monitoring';
 import dataExportReducer from './data-export';
+import workingHoursReducer from './working-hours';
 
 const state = new InitialFilters('maintenance');
 export const initialState = { ...state } as IFilters_Maintenance;
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   shared: slice.reducer,
   monitoring: monitoringReducer,
   dataExport: dataExportReducer,
+  workingHours: workingHoursReducer,
   // daylyReports: daylyReportsReducer,
   // trends: trendsReducer,
   // dataExport: dataExportReducer,

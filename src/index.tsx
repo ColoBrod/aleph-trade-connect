@@ -18,16 +18,6 @@ import router from './routes';
 import { Provider } from 'react-redux';
 import { store } from './store';
 
-// Редирект на сохраненную страницу. Отключить, когда буду делать страницу 
-// авторизации
-// const savedLocation = localStorage.getItem('location');
-// const currentLocation = window.location.pathname;
-// console.log("Saved:", savedLocation);
-// console.log("Current:", currentLocation);
-// if (savedLocation && savedLocation !== currentLocation) 
-//   window.location.href = savedLocation;
-// if (savedLocation) window.location.href = savedLocation;
-
 const container = document.getElementById('root');
 
 if (container) {

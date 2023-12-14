@@ -9,9 +9,13 @@ import { fetchDowntimeErrors } from '~/store/pages/maintenance/working-hours';
 import Diagram from '~/components/elements/Diagram';
 
 import { COLOR_3 } from '~/components/elements/Diagram/colors';
+import { getPeriod } from '~/store/selectors';
 
 const DowntimeErrors = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.maintenance.workingHours);
+  const period = getPeriod(dateRange);
+
+  // const period = 30;
   const header = 'Наиболее популярные ошибки';
   const dispatch = useAppDispatch();
   const { downtimeErrors } = useAppSelector(state => state.pages.maintenance.workingHours);
@@ -56,7 +60,7 @@ const DowntimeErrors = () => {
       />
       <Widget 
         amount={maxLabel}
-        description={<>Самая популярная за последние <b>{period}</b> дней</>}
+        description={<>Самая популярная за {period}</>}
         layout='description'
         align='left'
       />

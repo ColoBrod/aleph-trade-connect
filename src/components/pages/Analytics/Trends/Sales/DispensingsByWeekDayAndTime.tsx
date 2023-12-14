@@ -9,6 +9,7 @@ import { fetchDispensingsByWeekdayAndTime, timeSet } from '~/store/pages/analyti
 import TimeRange from '~/components/elements/TimeRange/index'; 
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2 } from '~/components/elements/Diagram/colors';
+import { getPeriod } from '~/store/selectors';
 
 const weekFullName = {
   "Пн": "Понедельник", 
@@ -21,7 +22,9 @@ const weekFullName = {
 }
 
 const DispensingsByWeekdayAndTime = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
+  const period = getPeriod(dateRange);
+  // const period = 30;
   const header = 'Напитки по дням недели и часам';
   const dispatch = useAppDispatch();
   const { dispensingsByWeekdayAndTime } = useAppSelector(state => state.pages.analytics.trends.sales);
@@ -93,7 +96,7 @@ const DispensingsByWeekdayAndTime = () => {
       <Widget 
         // @ts-ignore
         amount={weekFullName[bestDay]}
-        description={<>Наиболее популярный день недели за последние <b>{period}</b> дней</>}
+        description={<>Наиболее популярный день недели за {period}</>}
         layout='chart-doughnut'
         align='center'
       />

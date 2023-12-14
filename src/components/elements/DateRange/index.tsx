@@ -6,20 +6,22 @@ import { useAppDispatch, useAppSelector } from "~/hooks";
 import { dateRangeSet } from "~/store/filters/analytics/trends";
 
 import './style.css';
+import { IFiltersDateRange } from "~/interfaces/filters";
 
 const STEP = 1;
 const MIN = -62;
 const MAX = 0;
 
 interface Props {
+  dateRange: IFiltersDateRange['dateRange'];
+  dateRangeSet: Function;
 }
 
-const DateRange = (props: Props) => {
-
-  let { start: dateStart, end: dateEnd }: any = useAppSelector(
-    state => state.filters.analytics.trends.dateRange.date
-    // state => state.filters.analytics.common.dateRange.date
-  );
+const DateRange = ({ dateRange, dateRangeSet }: Props) => {
+  let { start: dateStart, end: dateEnd }: any = dateRange.date;
+  // let { start: dateStart, end: dateEnd }: any = useAppSelector(
+  //   state => state.filters.analytics.trends.dateRange.date
+  // );
 
   const dispatch = useAppDispatch();
 

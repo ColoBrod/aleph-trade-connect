@@ -15,7 +15,8 @@ export const _businessUnitsSet = (
   state: IFiltersBusinessUnits,
   action: { type: string; payload: string[]; },
 ) => {
-  state.businessUnits.checked = action.payload;
+  const businessUnits = action.payload
+  state.businessUnits.checked = businessUnits;
 }
 
 export const _businessUnitsSelectedAll = (

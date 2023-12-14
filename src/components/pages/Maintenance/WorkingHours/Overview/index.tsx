@@ -12,9 +12,15 @@ import DowntimeErrors from './DowntimeErrors';
 import DowntimeByWeekdayAndTime from './DowntimeByWeekdayAndTime';
 import DowntimeByWeek from './DowntimeByWeek';
 import DowntimeByPath from './DowntimeByPath';
+import { getPeriod } from '~/store/selectors';
+import { useAppSelector } from '~/hooks';
 
 const Overview = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.maintenance.workingHours);
+  console.log("Working Hours, dateRange", dateRange);
+
+  const period = getPeriod(dateRange);
+  // const period = 30;
 
   return (
     <div className='page page-maintenance__working-hours__overview'>
@@ -99,7 +105,7 @@ const Overview = () => {
           />
           <Widget 
             amount={"Москва"}
-            description={<>Москва самая простаивающая за последние <b>{period}</b> дней</>}
+            description={<>Москва самая простаивающая за {period}</>}
             layout='dayly-reports'
             align='left'
           />

@@ -10,10 +10,12 @@ import Diagram from '~/components/elements/Diagram';
 import { COLOR_1, COLOR_2, COLOR_3 } from '~/components/elements/Diagram/colors';
 
 import imgBeverage from './img/beverage.svg';
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByRecipe = () => { 
   const header = 'По рецептам';
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.daylyReports);
+  const period = getPeriod(dateRange);
   const dispatch = useAppDispatch();
 
   const { dispensingsByRecipe } = useAppSelector(state => state.pages.analytics.daylyReports);
@@ -71,7 +73,7 @@ const DispensingsByRecipe = () => {
       <Widget 
         icon={imgBeverage}
         amount={"Американо 200мл"}
-        description={`Самый популярный рецепт за последние ${period} дней`}
+        description={`Самый популярный рецепт за ${period}`}
         layout='dayly-reports-2'
         align='left'
       />

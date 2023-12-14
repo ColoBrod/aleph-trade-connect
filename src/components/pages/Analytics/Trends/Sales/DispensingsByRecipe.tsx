@@ -8,9 +8,11 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { fetchDispensingsByRecipe } from '~/store/pages/analytics/trends/sales';
 import Diagram from '~/components/elements/Diagram';
 import { COLOR_3 } from '~/components/elements/Diagram/colors';
+import { getPeriod } from '~/store/selectors';
 
 const DispensingsByRecipe = () => {
-  const period = 30;
+  const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
+  const period = getPeriod(dateRange);
   const header = 'По рецептам';
   const dispatch = useAppDispatch();
   const { dispensingsByRecipe } = useAppSelector(state => state.pages.analytics.trends.sales);
@@ -71,7 +73,7 @@ const DispensingsByRecipe = () => {
       />
       <Widget 
         amount={mostPopular}
-        description={<>Самый популярный рецепт за последние <b>{period}</b> дней</>}
+        description={<>Самый популярный рецепт за последние {period}</>}
         layout='dayly-reports'
         align='left'
       />

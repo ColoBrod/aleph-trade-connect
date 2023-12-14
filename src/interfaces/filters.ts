@@ -134,8 +134,7 @@ export interface IFilters_Maintenance
 
 export interface IFilters_Maintenance_WorkingHours
   extends
-    IFiltersDateRange,
-    IFiltersErrors {}
+    IFiltersDateRange {}
 
 export interface IFilters_Maintenance_Monitoring
   extends
