@@ -8,5 +8,9 @@
   cursor: pointer;
   /* opacity: 0.7; */
 
+  &.no-outline {
+    border: none;
+  }
+
   @media (--xl-min) { display: none; }
 }

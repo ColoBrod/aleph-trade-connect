@@ -1,6 +1,16 @@
 $gap: 5px;
 $pageSize: 20px;
 
+.filters-top .pagination {
+  justify-content: flex-start;
+}
+
+.filters-bottom .pagination {
+  width: 300px;
+  margin-top: 30px;
+  justify-content: center;
+}
+
 .pagination {
   display: flex;
   gap: $gap;

@@ -1,21 +1,27 @@
 export interface ICoffeeMachine {
-  id: number;
-  modelId: number;
-  businessUnitId: number;
+  id: string;
+  modelId: string;
+  restaurantId: string;
   name: string;
-  code: string;
+  serialNumber: string;
 }
 
 export interface ICoffeeMachineModel {
-  id: number;
+  id: string;
+  name: string;
+  vendorId: number;
+}
+
+export interface ICoffeeMachineVendor {
+  id: string;
   name: string;
 }
 
 export interface IBusinessUnit {
-  id: number;
-  parentId: number;
+  id: string;
+  parentId: string | null;
   name: string;
-  type: number;
+  type: '1' | '2' | '3';
   chatTelegramId: string;
   address?: string;
 }

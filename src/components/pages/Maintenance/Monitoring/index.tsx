@@ -40,6 +40,7 @@ import EventsFilter from '~/components/blocks/EventsFilter';
 import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 import UTC_DDL from '~/components/elements/UTC_DDL';
+import { IBusinessUnit } from '~/interfaces/entities';
 
 const tz = {
   "+02:00": "Europe/Kaliningrad",
@@ -75,7 +76,7 @@ const Monitoring = () => {
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
   const { status, error, data, utc } = useAppSelector(state => state.pages.maintenance.monitoring)
   // const { orderBy } =
-  const { businessUnits } = useAppSelector(state => state.entities.data);
+  const { coffeeMachines, coffeeMachineModels, coffeeMachineVendors, businessUnits } = useAppSelector(state => state.entities.data);
   const {
     businessUnits: filtersBusinessUnits
   } = useAppSelector(state => state.filters.maintenance.shared);
@@ -140,25 +141,47 @@ const Monitoring = () => {
       // const path = match === null ? row.company : match[1];
       // const [date, time] = row.start_datetime.split(" ") as [string, string];
       const date = new Date(row.startDateTime);
+      const cm = coffeeMachines.find(cm => cm.id === row.coffeeMachineId); 
+      const model = coffeeMachineModels.find(m => m.id === cm?.modelId);
+      // @ts-ignore
+      const vendor = coffeeMachineVendors.find(v => v.id === model?.vendorId);
+      // @ts-ignore
+      const bu = businessUnits.find(b => b.id === cm?.restaurantId);
+      //   // @ts-ignore
+      const datetime = date.toLocaleString('ru-RU', { timeZone: tz[utc] });
 
-      let datetime: string;
 
-      try {
-        // @ts-ignore
-        datetime = date.toLocaleString('ru-RU', { timeZone: tz[utc] })
-      } catch (e) {
-        console.log("TIMEZONE:", e);
-        datetime = ""
-      }
+      // const buildPath = (bu: IBusinessUnit, path = "") => {
+      //   let parent: IBusinessUnit | undefined;
+      //   const sub = bu.name + "/" + path;
+      //   // @ts-ignore
+      //   if (bu.parentId) parent = businessUnits.find(b => b.id === bu.parentId);
+      //   if (parent) buildPath(parent, sub);
+      //   else return sub;
+      // }
+
+      // const path = bu ? buildPath(bu) : "";
+
+      // console.log(path);
+
+      // const path = bu ? buildPath(bu) : "";
+
+      // try {
+      //   // @ts-ignore
+      //   datetime = date.toLocaleString('ru-RU', { timeZone: tz[utc] })
+      // } catch (e) {
+      //   console.log("TIMEZONE:", e);
+      //   datetime = ""
+      // }
       console.log("DATE:", date);
       console.log("DATETIME:", datetime);
 
       return ({
         id: row.id,
-        businessUnit: "",
-        model: "",
-        path: "",
-        serialNumber: row.coffeeMachineId,
+        businessUnit: bu ? bu.name : "",
+        model: (vendor ? vendor.name + " " : "") + (model ? model.name : ""),
+        path: bu ? bu.address : "",
+        serialNumber: cm?.serialNumber ? cm.serialNumber : "",
         errorCode: row.errorCode,
         errorDesc: row.errorText,
         dateObj: date,

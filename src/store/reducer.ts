@@ -5,6 +5,7 @@ import overviewReducer from "./pages/analytics/trends/overview";
 import pagesReducer from "./pages";
 import filtersReducer from "./filters";
 
+// @ts-ignore
 const reducer = combineReducers({
   filters: filtersReducer,
   pages: pagesReducer,

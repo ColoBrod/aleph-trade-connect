@@ -36,7 +36,8 @@ const RegionTree = (props: Props) => {
   const [filterText, setFilterText] = useState("");
   const { checked, expanded, /*filterText,*/ filteredNodes } = selector
   const dispatch = useAppDispatch();
-  const nodes = buildTree(props.items);
+  const nodes = buildTree([...props.items]);
+  console.log("Nodes:", nodes);
 
   const onFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterText(e.target.value);
@@ -59,7 +60,7 @@ const RegionTree = (props: Props) => {
 
   const renderCheckbox = () => {
     let n: 0 | 1 | 2;
-    const ids = items.filter(item => item.type === 0).map(item => item.id);
+    const ids = items.filter(item => item.type === '1').map(item => item.id);
     if (ids.length === checked.length) n = 1;
     else if (checked.length === 0) n = 0;
     else n = 2;
@@ -99,7 +100,7 @@ const RegionTree = (props: Props) => {
 
   const renderFiltered = () => {
     const copy = [...items];
-    const filtered = copy.filter(item => item.name.includes(filterText) && item.type === 0);
+    const filtered = copy.filter(item => item.name.includes(filterText) && item.type === '1');
     console.log("Copy of all filtered elements: ", filtered);
     return filtered.map(({ id, name }) => {
       const isChecked = checked.find(item => item === String(id))
@@ -142,13 +143,16 @@ const RegionTree = (props: Props) => {
   );
 }
 
-function buildTree(data: IBusinessUnit[], parentId = 0): Node[] {
+function buildTree(data: IBusinessUnit[], parentId: string | null = null): Node[] {
   const tree: Node[] = [];
-  data.forEach((item: IBusinessUnit) => {
+  data.forEach((item: IBusinessUnit, i) => {
+    
+    // console.log("==========", item.parentId, parentId);
     if (item.parentId === parentId) {
+      delete data[i];
       const children = buildTree(data, item.id);
       const node: Node = {
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
         children: children.length > 0 ? children : undefined
       };
@@ -157,5 +161,21 @@ function buildTree(data: IBusinessUnit[], parentId = 0): Node[] {
   });
   return tree;
 }
+
+// function buildTreeBak(data: IBusinessUnit[], parentId: (string | null) = null): Node[] {
+//   const tree: Node[] = [];
+//   data.forEach((item: IBusinessUnit) => {
+//     if (item.parentId === parentId) {
+//       const children = buildTree(data, item.id);
+//       const node: Node = {
+//         value: item.id,
+//         label: item.name,
+//         children: children.length > 0 ? children : undefined
+//       };
+//       tree.push(node);
+//     }
+//   });
+//   return tree;
+// }
 
 export default RegionTree;

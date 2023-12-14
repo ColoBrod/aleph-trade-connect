@@ -127,7 +127,7 @@ const FiltersAside = (props: Props) => {
         {component.serialNumbersFilter ? renderSerialNumbers() : null}
         {component.eventsFilter ? renderEventsFilter() : null}
       </div>
-      <FiltersAsideButton />
+      <FiltersAsideButton layout='no-outline' />
     </div>
   );
 }

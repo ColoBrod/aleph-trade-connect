@@ -80,15 +80,17 @@ export const updateTime = createAsyncThunk<any, void, { state: RootState }>(
     const config: AxiosRequestConfig = {
       url: BASE_URL + '/timeerrordown',
       method: 'post',
+      data: rows.map(row => row.id),
     }
-    const result = await Promise.all(rows.map(async (row) => {
-      config.data = { id: row.id };
-      const res = await axios(config);
-      // console.log("Res:", res);
-      return res.data;
-      // return ({ id: res.id, duration: res.duration, end_datetime: res.end_datetime });
-      // row.duration = response.duration;
-    }))
+    const result = await axios(config);
+    // const result = await Promise.all(rows.map(async (row) => {
+    //   config.data = { id: row.id };
+    //   const res = await axios(config);
+    //   // console.log("Res:", res);
+    //   return res.data;
+    //   // return ({ id: res.id, duration: res.duration, end_datetime: res.end_datetime });
+    //   // row.duration = response.duration;
+    // }))
     return result;
     // await axios()
     // const config = {

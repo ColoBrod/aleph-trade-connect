@@ -7,7 +7,8 @@ import {
   ICoffeeMachineModel,
   IBusinessUnit,
   IRecipe,
-  IError
+  IError,
+  ICoffeeMachineVendor
 } from "~/interfaces/entities";
 
 const PAGE_URL = "/entities";
@@ -18,6 +19,7 @@ export interface Entities {
   data: {
     coffeeMachines: ICoffeeMachine[];
     coffeeMachineModels: ICoffeeMachineModel[];
+    coffeeMachineVendors: ICoffeeMachineVendor[];
     businessUnits: IBusinessUnit[];
     recipes: IRecipe[];
     errors: IError[];
@@ -30,6 +32,7 @@ export const initialState: Entities = {
   data: {
     coffeeMachines: [],
     coffeeMachineModels: [],
+    coffeeMachineVendors: [],
     businessUnits: [],
     recipes: [],
     errors: [],
@@ -48,6 +51,7 @@ const slice = createSlice({
       .addCase(fetchEntities.pending, apiCallPending)
       .addCase(fetchEntities.fulfilled, (state, action) => {
         state.data = action.payload;
+        console.log("ENTITIES: ", action.payload);
       })
       .addCase(fetchEntities.rejected, apiCallRejected)
   }

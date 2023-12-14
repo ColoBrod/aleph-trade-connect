@@ -846,11 +846,11 @@ interface ICoffeeMachineModel {
 ### IBusinessUnit
 
 ~~~ts
-enum Type { RESTAURANT: 1, CLIENT: 2, STRUCTURE: 3 }
+enum Type { RESTAURANT: '1', CLIENT: '2', STRUCTURE: '3' }
 
 interface IBusinessUnit {
   id: string;
-  parentId: string;
+  parentId: string | null;
   name: string;
   type: Type;
   chatTelegramId: string;

@@ -6,10 +6,11 @@ interface Props {
   handler: (pageIndex: number) => void;
   pagesTotal: number;
   activePage: number;
+  layout?: 'top' | 'bottom';
 }
 
 const Pagination = (props: Props) => {
-  const { pagesTotal, activePage, handler } = props;
+  const { pagesTotal, activePage, handler, layout = 'top' } = props;
   const pages = [];
   for (let i = 1; i <= pagesTotal; i++) {
     if (activePage === i)
@@ -25,7 +26,7 @@ const Pagination = (props: Props) => {
     : 'flex-end';
 
   return (
-    <div className="pagination">
+    <div className={`pagination pagination-${layout}`}>
       <span 
         onClick={() => handler(1)} 
         className="pagination__first">

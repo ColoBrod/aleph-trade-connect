@@ -5,28 +5,19 @@ import InitialFilters from "~/store/filters/initial";
 import { IFilters_Analytics, IFilters_Analytics_DaylyReports } from "~/interfaces/filters";
 import { RootState } from "~/store";
 
-const API_URL = config.api.url;
+let API_URL = config.api.url;
+// const API_URL = config.api.url;
 
 const FILTER_ERR = new Error("Не указаны передаваемые фильтры или endpoint API (path) не существует.")
 
 export const createCustomAsyncThunk = (method: "get" | "post", path: string, filters?: (state: RootState) => any[]) => {
   return createAsyncThunk<any, void, { state: RootState }>(path, async (arg, { getState }) => {
     const state = getState();
-    // const filters = Object.assign(
-    //   {},
-    //   state.filters.analytics.common,
-    //   state.filters.analytics.daylyReports,
-    //   state.filters.analytics.dataExport.beverages,
-    // )
-    // state.filters.analytics.daylyReports;
-    // const testFilters = getFilters(path);
-    // console.log("Filters", testFilters);
-
     // @ts-ignore
     const filters = InitialFilters.getPageFilters(state, path);
     // @ts-ignore
     const filtersFmt = InitialFilters.formatFilters(filters);
-
+    if (path.includes('/entities')) API_URL = "https://backend.wmf24.ru/api"
     const axiosConfig = {
       url: API_URL + path,
       method,
@@ -45,7 +36,6 @@ function getFilters(path: string): Object {
   keys.shift();
   console.log("Keys", keys);
   const filters = {};
-
   return {}
 }
 
