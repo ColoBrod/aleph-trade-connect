@@ -41,6 +41,33 @@ import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 import UTC_DDL from '~/components/elements/UTC_DDL';
 
+const tz = {
+  "+02:00": "Europe/Kaliningrad",
+  "+03:00": "Europe/Moscow",
+  "+04:00": "Europe/Samara",
+  "+05:00": "Asia/Yekaterinburg",
+  "+06:00": "Asia/Omsk",
+  "+07:00": "Asia/Krasnoyarsk",
+  "+08:00": "Asia/Irkutsk",
+  "+09:00": "Asia/Yakutsk",
+  "+10:00": "Asia/Vladivostok",
+  "+11:00": "Asia/Magadan",
+  "+12:00": "Asia/Kamchatka",
+}
+
+// Time in Russia
+// KALT	Kaliningrad Time	UTC+2	(MSK−1)
+// MSK	Moscow Time	UTC+3	(MSK±0)
+// SAMT	Samara Time	UTC+4	(MSK+1)
+// YEKT	Yekaterinburg Time	UTC+5	(MSK+2)
+// OMST	Omsk Time	UTC+6	(MSK+3)
+// KRAT	Krasnoyarsk Time	UTC+7	(MSK+4)
+// IRKT	Irkutsk Time	UTC+8	(MSK+5)
+// YAKT	Yakutsk Time	UTC+9	(MSK+6)
+// VLAT	Vladivostok Time	UTC+10	(MSK+7)
+// MAGT	Magadan Time	UTC+11	(MSK+8)
+// PETT	Kamchatka Time	UTC+12	(MSK+9)
+
 const Monitoring = () => {
   const { type } = useParams();
   const dispatch = useAppDispatch();
@@ -117,7 +144,8 @@ const Monitoring = () => {
       let datetime: string;
 
       try {
-        datetime = date.toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' })
+        // @ts-ignore
+        datetime = date.toLocaleString('ru-RU', { timeZone: tz[utc] })
       } catch (e) {
         console.log("TIMEZONE:", e);
         datetime = ""

@@ -20,8 +20,6 @@ const UTC_DDL = ({ utc, utcSet }: Props) => {
       label='UTC+'
       name='utc'
       items={[
-        { value: '+00:00', innerHTML: "+00:00" },
-        { value: '+01:00', innerHTML: "+01:00" },
         { value: '+02:00', innerHTML: "+02:00" },
         { value: '+03:00', innerHTML: "+03:00" },
         { value: '+04:00', innerHTML: "+04:00" },
@@ -30,9 +28,24 @@ const UTC_DDL = ({ utc, utcSet }: Props) => {
         { value: '+07:00', innerHTML: "+07:00" },
         { value: '+08:00', innerHTML: "+08:00" },
         { value: '+09:00', innerHTML: "+09:00" },
+        { value: '+10:00', innerHTML: "+10:00" },
+        { value: '+11:00', innerHTML: "+11:00" },
+        { value: '+12:00', innerHTML: "+12:00" },
       ]}
     />
   )
 }
+
+// { value: '+02:00', innerHTML: "+02:00" },
+// { value: '+03:00', innerHTML: "+03:00" },
+// { value: '+04:00', innerHTML: "+04:00" },
+// { value: '+05:00', innerHTML: "+05:00" },
+// { value: '+06:00', innerHTML: "+06:00" },
+// { value: '+07:00', innerHTML: "+07:00" },
+// { value: '+08:00', innerHTML: "+08:00" },
+// { value: '+09:00', innerHTML: "+09:00" },
+// { value: '+10:00', innerHTML: "+10:00" },
+// { value: '+11:00', innerHTML: "+11:00" },
+// { value: '+12:00', innerHTML: "+12:00" },
 
 export default UTC_DDL;
