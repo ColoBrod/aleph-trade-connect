@@ -90,7 +90,6 @@
     padding: 0 12px 4px;
   }
   &__grid-inner {
-    /* background-color: yellow; */
     height: 100%;
     display: grid;
     grid-template-columns: repeat(7, 48px);

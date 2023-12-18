@@ -18,6 +18,7 @@ export const createCustomAsyncThunk = (method: "get" | "post", path: string, fil
     // @ts-ignore
     const filtersFmt = InitialFilters.formatFilters(filters);
     if (path.includes('/entities')) API_URL = "https://backend.wmf24.ru/api"
+    else API_URL = config.api.url;
     const axiosConfig = {
       url: API_URL + path,
       method,

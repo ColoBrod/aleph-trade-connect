@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 
-export type ModalBoxTab = "general" | "location" | "monitoring" | "events-history" | "maintenance" | "spare-parts" 
+export type ModalBoxTab = "general" | "location" | "monitoring" | "events-history" | "maintenance" | "spare-parts";
 
 interface State {
   visibility: boolean;
@@ -9,7 +9,7 @@ interface State {
 }
 
 const initialState: State = {
-  visibility: false,
+  visibility: true,
   page: "coffee-machine",
   tab: "monitoring",
 };

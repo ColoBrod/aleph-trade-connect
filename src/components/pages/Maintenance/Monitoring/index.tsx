@@ -41,20 +41,20 @@ import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 import UTC_DDL from '~/components/elements/UTC_DDL';
 import { IBusinessUnit } from '~/interfaces/entities';
-
-const tz = {
-  "+02:00": "Europe/Kaliningrad",
-  "+03:00": "Europe/Moscow",
-  "+04:00": "Europe/Samara",
-  "+05:00": "Asia/Yekaterinburg",
-  "+06:00": "Asia/Omsk",
-  "+07:00": "Asia/Krasnoyarsk",
-  "+08:00": "Asia/Irkutsk",
-  "+09:00": "Asia/Yakutsk",
-  "+10:00": "Asia/Vladivostok",
-  "+11:00": "Asia/Magadan",
-  "+12:00": "Asia/Kamchatka",
-}
+import { timezones as tz } from '~/services/timezones';
+// const tz = {
+//   "+02:00": "Europe/Kaliningrad",
+//   "+03:00": "Europe/Moscow",
+//   "+04:00": "Europe/Samara",
+//   "+05:00": "Asia/Yekaterinburg",
+//   "+06:00": "Asia/Omsk",
+//   "+07:00": "Asia/Krasnoyarsk",
+//   "+08:00": "Asia/Irkutsk",
+//   "+09:00": "Asia/Yakutsk",
+//   "+10:00": "Asia/Vladivostok",
+//   "+11:00": "Asia/Magadan",
+//   "+12:00": "Asia/Kamchatka",
+// }
 
 // Time in Russia
 // KALT	Kaliningrad Time	UTC+2	(MSK−1)
@@ -117,7 +117,8 @@ const Monitoring = () => {
   useEffect(() => {
     let intervalId: any;
     intervalId = setInterval(() => {
-      dispatch(updateTime())
+      console.log('updating...');
+      // dispatch(updateTime())
     }, 10000)
     return () => clearInterval(intervalId)
   }, [])

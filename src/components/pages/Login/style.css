@@ -53,11 +53,26 @@
     cursor: pointer;
   }
 
-  .component-btn {
-    /* display: block; */
-    width: 100%;
+  .form-buttons {
+    display: flex;
+    gap: 6px;
+    .btn:nth-child(1) {
+      /* flex-grow: 1; */
+      /* font-weight: bold; */
+      flex: 1 0 100px;
+    }
+    .btn:nth-child(2) {
+      flex: 0 0 40px;
+      img {
+        margin: -6px 0 0 0;
+      }
 
+    }
   }
+
+  /* .component-btn { */
+  /*   width: 100%; */
+  /* } */
   
 
 }

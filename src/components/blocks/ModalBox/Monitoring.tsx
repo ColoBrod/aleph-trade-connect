@@ -6,6 +6,8 @@ import { eventSet } from '~/store/filters/maintenance/monitoring';
 import Button from "~/components/ui/Button";
 import UTC_DDL from "~/components/elements/UTC_DDL";
 import { utcSet } from "~/store/pages/maintenance/monitoring";
+import Pagination from "~/components/elements/Pagination";
+// import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/maintenance/monitoring';
 
 interface Props {
 
@@ -15,6 +17,16 @@ const Monitoring = ({}: Props) => {
   const dispatch = useAppDispatch();
   const { events } = useAppSelector(state => state.filters.maintenance.monitoring);
   const { utc } = useAppSelector(state => state.pages.maintenance.monitoring);
+
+  // const pagination = <Pagination
+  //   handler={
+  //     (pageIndex: number) => {
+  //       dispatch(activePageSet(pageIndex))
+  //     }
+  //   }
+  //   pagesTotal={pagesTotal}
+  //   activePage={activePage}
+  //   />
 
   return (
     <div className="modal-box__page modal-box__page-monitoring">

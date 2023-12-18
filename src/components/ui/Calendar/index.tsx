@@ -18,7 +18,7 @@ interface CalendarProps {
   type?: "any-date" | "62-days";
   actionCreator: Function;
 }
-
+ 
 const Calendar = (props: CalendarProps) => {
   const { type = "any-date", actionCreator } = props;
   const dispatch = useAppDispatch();
@@ -335,7 +335,5 @@ function get62(): { dates: Date[], periods: Period[] } {
   }
   return { dates, periods };
 }
-
-
 
 export default Calendar;

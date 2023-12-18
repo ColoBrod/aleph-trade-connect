@@ -25,7 +25,10 @@
   }
 
   &__filters {
-    
+    display: flex;
+    align-items: center;
+    padding: 24px 0;
+    gap: 37px;
   }
 
   &__dim {

@@ -127,6 +127,94 @@ interface Params {
 ## Routes
 
   ### `POST /auth/login`
+  #### Request:
+  ~~~ts
+  {
+    phone: string;
+  } |
+  {
+    phone: string;
+    password: string;
+  } |
+  {
+    phone: string;
+    code: string; // Код из SMS
+  }
+  ~~~
+  #### Response:
+  ❌ 404
+  ~~~json
+  {
+    "error": "Пользователь с номером +7 (XXX) XXX-XX-XX не найден в системе."
+  }
+  ~~~
+  ❌ 400 - Если номер указан в неправильном формате
+  ~~~json
+  {
+    "error": "Неверный формат телефонного номера - +7 (XXX) XXX-XX-XX."
+  }
+  ~~~
+  ❌ 401 - Если пользователь указал неверный пароль
+  ~~~json
+  {
+    "error": "Неверный пароль."
+  }
+  ~~~
+  ❌ 401 - Если пользователь указал неверный код подтверждения
+  ~~~json
+  {
+    "error": "Неверный код из SMS."
+  }
+  ~~~
+  ✔ 200 - Пользователь отправлял только телефон. Пользователь найден в системе
+  ~~~json
+  {
+    "message": "Код с подтверждением отправлен на номер: +7 (XXX) XXX-XX-XX."
+  }
+  ~~~
+  ✔ 200 - Пользователь успешно авторизовался в системе.
+  ~~~json
+  {
+    "user": {
+      "firstName": "",
+      "lastName": "",
+      "phone": "",
+      "email": "",
+      "utc": "+03:00"
+    },
+    "token": "eyJpdiI6InUvQXgrQlFTVEV0NmJsMUVvWklqMFE9PSIsInZhbHVlIjoidGIzcVZsNktnNnVvcnpESzRvUThOL0ZsWDE1K0hYL255SGpvZ0FDRllRTVhiUSt4R0F0SHNHM1hhQUtaZFpXcTlxRktKTGFsemVQSUNRc2xMdWU0SDYzT0lGdVl5bUVpOHBDWGQ4TFJlSDhXTGRDZ2VNRXZyT3MyN3pweGxUWUoiLCJtYWMiOiJiMTY5ZGJkMzAyNDM1NTdiMmYzOTRhOThlODQ5MTA3Y2RiNzZlOTVjOGJjNzAxZmEzNzZjNjBjMTEwZmE0NWJmIiwidGFnIjoiIn0%3D"
+  }
+  ~~~
+
+  ### `POST /auth/register`
+  #### Request:
+  ~~~ts
+  {
+    phone: string;
+    password: string;
+  } 
+  ~~~
+  #### Response:
+  ❌ 404 - Если пользователь с таким номером не найден в системе
+  ~~~json
+  {
+    "error": "Пользователь с номером +7 (XXX) XXX-XX-XX не найден в системе."
+  }
+  ~~~
+  ✔ 200 - Пароль и подтверждение совпали. Пользователь зарегистрирован
+  ~~~json
+  {
+    "user": {
+      "firstName": "",
+      "lastName": "",
+      "phone": "",
+      "email": "",
+      "utc": "+03:00"
+    },
+    "token": "eyJpdiI6InUvQXgrQlFTVEV0NmJsMUVvWklqMFE9PSIsInZhbHVlIjoidGIzcVZsNktnNnVvcnpESzRvUThOL0ZsWDE1K0hYL255SGpvZ0FDRllRTVhiUSt4R0F0SHNHM1hhQUtaZFpXcTlxRktKTGFsemVQSUNRc2xMdWU0SDYzT0lGdVl5bUVpOHBDWGQ4TFJlSDhXTGRDZ2VNRXZyT3MyN3pweGxUWUoiLCJtYWMiOiJiMTY5ZGJkMzAyNDM1NTdiMmYzOTRhOThlODQ5MTA3Y2RiNzZlOTVjOGJjNzAxZmEzNzZjNjBjMTEwZmE0NWJmIiwidGFnIjoiIn0%3D"
+  }
+  ~~~
+
   ### `POST /auth/login`
 
   ### `GET /api/entities`
