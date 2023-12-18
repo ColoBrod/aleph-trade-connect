@@ -8,7 +8,7 @@
   - [Params](#params)
   - [Routes](#routes)
     - [`POST /auth/login`](#post-authlogin)
-    - [`POST /auth/login`](#post-authlogin-1)
+    - [`POST /auth/register`](#post-authregister)
     - [`GET /api/entities`](#get-apientities)
     - [`POST /api/analytics/trends/header`](#post-apianalyticstrendsheader)
     - [`POST /api/analytics/trends/overview/dispensings-by-date`](#post-apianalyticstrendsoverviewdispensings-by-date)
@@ -47,7 +47,6 @@
     - [IBusinessUnit](#ibusinessunit)
     - [IError](#ierror)
     - [IRecipe](#irecipe)
-    - [IRecipeBaseType](#irecipebasetype)
 
 
 ## Общая информация
@@ -127,6 +126,34 @@ interface Params {
 ## Routes
 
   ### `POST /auth/login`
+
+  #### Интерфейсы
+  ~~~ts
+  // ID поля на котором выводим ошибку
+  type InputField = "phone" | "password" | "code" | "password-confirmation";
+  // Идентификатор формы. "set-password" отправляет данные на эндпоинт
+  // /auth/login
+  // Если указан в ответе, то переводим пользователя на следующую в форму с 
+  // одним из идентификаторов:
+  type Step = 'phone' | 'phone-password' | 'phone-sms-code' | 'set-password';
+  // После успешной авторизации, или сразу после завершения регистрации пользо-
+  // вателя (установка нового пароля), ожидаем объект с пользовательскими дан-
+  // ными
+  interface User {
+    // Полное имя пользователя
+    "fullName": string;
+    // Насколько я понял, эти два поля объединяем в одно
+    // "firstName": string,
+    // "lastName": string,
+    // Телефон пользователя в формате: +7ХХХХХХХХХХ
+    "phone": string;
+    "email": string;
+    // Часовой пояс пользователя в формате "+03:00". Оффсет относительно UTC, 
+    // Обратить внимание на leading zero после +
+    "utc": string; 
+  }
+  ~~~
+
   #### Request:
   ~~~ts
   {
@@ -141,47 +168,90 @@ interface Params {
     code: string; // Код из SMS
   }
   ~~~
-  #### Response:
+  ___
+  #### Response с формы "phone":
+  ___
   ❌ 404
   ~~~json
   {
+    "inputField": "phone",
     "error": "Пользователь с номером +7 (XXX) XXX-XX-XX не найден в системе."
   }
   ~~~
   ❌ 400 - Если номер указан в неправильном формате
   ~~~json
   {
+    "inputField": "phone",
     "error": "Неверный формат телефонного номера - +7 (XXX) XXX-XX-XX."
   }
   ~~~
+  ✔ 200 - Пользователь отправлял только телефон. Пользователь найден в системе 
+  без установленного пароля
+  ~~~json
+  {
+    "inputField": "code",
+    "message": "Код с подтверждением отправлен на номер: +7 (XXX) XXX-XX-XX.",
+    "nextStep": "phone-sms-code"
+  }
+  ~~~
+  ✔ 200 - Пользователь отправлял только телефон. Пользователь найден в системе. 
+  Пароль есть.
+  ~~~json
+  {
+    "inputField": "password",
+    "message": "Введите пароль",
+    "nextStep": "phone-password"
+  }
+  ~~~
+  
+  ___
+  #### Response с формы "phone-password":
+  ___
   ❌ 401 - Если пользователь указал неверный пароль
   ~~~json
   {
+    "inputField": "password",
     "error": "Неверный пароль."
   }
   ~~~
+  
+
+  ___
+  #### Response с формы "phone-sms-code":
+  ___
+
   ❌ 401 - Если пользователь указал неверный код подтверждения
   ~~~json
   {
+    "inputField": "code",
     "error": "Неверный код из SMS."
   }
   ~~~
-  ✔ 200 - Пользователь отправлял только телефон. Пользователь найден в системе
+
+  ✔ 200 - Пользователь отправлял телефон и код подтверждения. Пользователь 
+  найден в системе без установленного пароля. Направляем на регистрацию.
   ~~~json
   {
-    "message": "Код с подтверждением отправлен на номер: +7 (XXX) XXX-XX-XX."
+    "inputField": "code",
+    "message": "Код с подтверждением отправлен на номер: +7 (XXX) XXX-XX-XX.",
+    "nextStep": "set-password"
   }
   ~~~
+
+  ___
+  #### Response с формы "phone-sms-code" или "phone-password":
+  ___
+  
   ✔ 200 - Пользователь успешно авторизовался в системе.
   ~~~json
   {
     "user": {
-      "firstName": "",
-      "lastName": "",
+      "fullName": "",
       "phone": "",
       "email": "",
       "utc": "+03:00"
     },
+    "status" true,
     "token": "eyJpdiI6InUvQXgrQlFTVEV0NmJsMUVvWklqMFE9PSIsInZhbHVlIjoidGIzcVZsNktnNnVvcnpESzRvUThOL0ZsWDE1K0hYL255SGpvZ0FDRllRTVhiUSt4R0F0SHNHM1hhQUtaZFpXcTlxRktKTGFsemVQSUNRc2xMdWU0SDYzT0lGdVl5bUVpOHBDWGQ4TFJlSDhXTGRDZ2VNRXZyT3MyN3pweGxUWUoiLCJtYWMiOiJiMTY5ZGJkMzAyNDM1NTdiMmYzOTRhOThlODQ5MTA3Y2RiNzZlOTVjOGJjNzAxZmEzNzZjNjBjMTEwZmE0NWJmIiwidGFnIjoiIn0%3D"
   }
   ~~~
@@ -190,7 +260,10 @@ interface Params {
   #### Request:
   ~~~ts
   {
+    // Телефон пользователя в формате: +7ХХХХХХХХХХ
     phone: string;
+    // Подтверждение пароля (повторный ввод) происходит на стороне клиента 
+    // перед отправкой запроса на сервер
     password: string;
   } 
   ~~~
@@ -198,6 +271,7 @@ interface Params {
   ❌ 404 - Если пользователь с таким номером не найден в системе
   ~~~json
   {
+    "inputField": "password",
     "error": "Пользователь с номером +7 (XXX) XXX-XX-XX не найден в системе."
   }
   ~~~
@@ -205,17 +279,15 @@ interface Params {
   ~~~json
   {
     "user": {
-      "firstName": "",
-      "lastName": "",
+      "fullName": "",
       "phone": "",
       "email": "",
       "utc": "+03:00"
     },
+    "status" true,
     "token": "eyJpdiI6InUvQXgrQlFTVEV0NmJsMUVvWklqMFE9PSIsInZhbHVlIjoidGIzcVZsNktnNnVvcnpESzRvUThOL0ZsWDE1K0hYL255SGpvZ0FDRllRTVhiUSt4R0F0SHNHM1hhQUtaZFpXcTlxRktKTGFsemVQSUNRc2xMdWU0SDYzT0lGdVl5bUVpOHBDWGQ4TFJlSDhXTGRDZ2VNRXZyT3MyN3pweGxUWUoiLCJtYWMiOiJiMTY5ZGJkMzAyNDM1NTdiMmYzOTRhOThlODQ5MTA3Y2RiNzZlOTVjOGJjNzAxZmEzNzZjNjBjMTEwZmE0NWJmIiwidGFnIjoiIn0%3D"
   }
   ~~~
-
-  ### `POST /auth/login`
 
   ### `GET /api/entities`
 
