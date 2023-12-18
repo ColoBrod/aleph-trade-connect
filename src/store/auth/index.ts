@@ -1,9 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
-import axios from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 // import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
 import { apiCallPending, apiCallRejected } from "~/store/utils";
-const PAGE_URL_LOGIN = "http://localhost:9000/auth/login";
-const PAGE_URL_REGISTER = "http://localhost:9000/auth/register";
+const PAGE_URL_LOGIN = "http://localhost:9000/api/login";
+const PAGE_URL_REGISTER = "http://localhost:9000/api/register";
 import { Status } from "~/interfaces/common";
 
 // export const 
@@ -38,8 +38,24 @@ export const login = createAsyncThunk('auth/login', async (data: LoginData) => {
     method: "post",
     data,
   }
-  const response = await axios(config);
-  return response;
+  try {
+    const response = await axios(config);
+    return { status: response.status, message: response.data.message };
+  } 
+  catch (e) {
+    // if (!axios.isAxiosError(error))
+    const error = e as AxiosError;
+    const { response } = error;
+    // @ts-ignore
+    return { status: response.status, message: response.data.error };
+    // return error;
+    // return { status: error.status, message: error.data.message };
+    // if (error?.response) res = err.response;
+    // response = e;
+  }
+  // @ts-ignore
+  // return res;
+  // return ({ status: res.status, message: res.data. });
 })
 
 const slice = createSlice({
