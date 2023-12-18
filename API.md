@@ -157,13 +157,16 @@ interface Params {
   #### Request:
   ~~~ts
   {
+    step: Step; // см. выше
     phone: string;
   } |
   {
+    step: Step;
     phone: string;
     password: string;
   } |
   {
+    step: Step;
     phone: string;
     code: string; // Код из SMS
   }

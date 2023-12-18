@@ -10,7 +10,7 @@ import imgBack from './back.svg';
 import { stepSet } from '~/store/pages/auth';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
-import { login, LoginData } from '~/store/auth';
+import { login, LoginData, register } from '~/store/pages/auth';
 
 const Login = () => {
   const [phone, setPhone] = useState("");
@@ -20,7 +20,6 @@ const Login = () => {
 
   const dispatch = useAppDispatch();
   const { step } = useAppSelector(state => state.pages.auth);
-  // const 
 
   const input = {
     phone: (
@@ -81,13 +80,63 @@ const Login = () => {
     )
   }
 
-  let inputs: ReactNode[];
+  const button = {
+    submit: (
+      <Button 
+        key='submit'
+        layout='dark-shadow' 
+        onClick={e => {
+          if (!phone) return;
+          const data: LoginData = { step, phone };
+          if (password) data.password = password;
+          if (code) data.code = code;
+          if (step !== 'set-password') dispatch(login(data));
+          else dispatch(register(data));
+        }}
+        >Вход</Button>
+    ),
+    back: (
+      <Button 
+        key='back'
+        layout='dark-shadow' 
+        onClick={e => 1}
+        >
+        <img src={imgBack} alt="Go back" />
+      </Button>
+    ),
+    sms: (
+      <Button 
+        key='sms'
+        layout='dark-shadow' 
+        onClick={e => {
+          
+        }}
+        >Отправить SMS</Button>
+    )
+  }
 
-  if (step === 'phone') inputs = [input.phone];
-  else if (step === 'phone-password') inputs = [input.phone, input.password];
-  else if (step === 'phone-sms-code') inputs = [input.phone, input.code];
-  else if (step === 'set-password') inputs = [];
-  else inputs = [];
+  let inputs: ReactNode[], buttons: ReactNode[];
+
+  if (step === 'phone') {
+    inputs = [input.phone];
+    // buttons = [button.submit, button.back]
+  }
+  else if (step === 'phone-password') {
+    inputs = [input.phone, input.password];
+    // buttons = [button.submit]
+  }
+  else if (step === 'phone-sms-code') {
+    inputs = [input.phone, input.code];
+    // buttons = [button.submit]
+  }
+  else if (step === 'set-password') {
+    inputs = [];
+    // buttons = [button.submit]
+  }
+  else {
+    inputs = [];
+    // buttons = [];
+  }
 
   return (
     <div className="page page-login">
@@ -99,24 +148,10 @@ const Login = () => {
         {inputs}
       </div>
       <div className="form-buttons">
-        <Button 
-          layout='dark-shadow' 
-          onClick={e => {
-            if (!phone) return;
-            const data: LoginData = { phone };
-            if (password) data.password = password;
-            if (code) data.code = code;
-            dispatch(login(data));
-          }}
-          >Вход</Button>
-        <Button layout='dark-shadow' onClick={e => 1}>
-          <img src={imgBack} alt="Go back" />
-        </Button>
-
+        {/* {button} */}
       </div>
       <span className="another-login-methods">
         другие способы входа
-
       </span>
       {/* <span style={{ height: '40px', lineHeight: '40px', fontSize: '14px', textAlign: 'center', cursor: 'pointer' }}>
       </span> */}

@@ -102,6 +102,7 @@ const Monitoring = () => {
 
   useEffect(() => {
     channel.bind('map', (data: IPusherMap) => {
+      console.log("Pushed")
       dispatch(idleSet(null));
     });
     return () => { channel.unbind('map'); }
