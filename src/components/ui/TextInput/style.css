@@ -1,11 +1,18 @@
 .input-text {
+
+  &.error {
+    label { color: red; }
+    input { border-color: red; }
+  }
+
+
   position: relative;
   label {
     width: 100%;
     font-size: 14px;
     display: block;
     color: var(--clr-info-light);
-    height: 20px;
+    min-height: 20px;
     line-height: 20px;
     margin-bottom: 10px;
   }

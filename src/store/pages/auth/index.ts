@@ -5,6 +5,7 @@ const PAGE_URL_LOGIN = "http://localhost:9000/api/login";
 const PAGE_URL_REGISTER = "http://localhost:9000/api/register";
 
 interface State {
+  status: 'idle' | 'redirect';
   display: 'logo' | 'login';
   step: Step;
   notification: {
@@ -12,7 +13,6 @@ interface State {
     input: string;
     text: string;
   } | null;
-  
 
   // error: '' 
   //   | 'Такой номер не зарегистрирован в системе'
@@ -23,6 +23,7 @@ interface State {
 }
 
 const initialState: State = {
+  status: 'idle',
   display: 'login',
   step: 'phone',
   notification: null,
@@ -46,14 +47,20 @@ export const login = createAsyncThunk('auth/login', async (data: LoginData) => {
   }
   try {
     const response = await axios(config);
-    return response;
+    return {
+      status: response.status,
+      data: response.data,
+    };
     // return { status: response.status, message: response.data.message };
   } 
   catch (e) {
     // if (!axios.isAxiosError(error))
     const error = e as AxiosError;
-    const { response } = error;
-    return response as AxiosResponse;
+    const response = error.response as AxiosResponse;
+    return {
+      status: response.status,
+      data: response.data,
+    };
     // @ts-ignore
 
     // return { status: response.status, message: response.data.error };
@@ -107,7 +114,11 @@ const slice = createSlice({
         const { status, data } = action.payload;
         const { inputField, message, error, nextStep, user, token } = data;
         if (token) {
-          /** ... */
+          console.log("AUthorized! Redirecting...");
+          const userSerialized = JSON.stringify(user);
+          localStorage.setItem("token", token);
+          localStorage.setItem("user", userSerialized);
+          state.status = 'redirect';
           return;
         }
         if (nextStep) state.step = nextStep;
@@ -121,6 +132,7 @@ const slice = createSlice({
           // state.notification.text = message ? message : error;
           // state.notification.type = message ? 'message' : 'error';
         }
+        console.log("Next step:", nextStep)
 
 
         // console.log(action.payload);

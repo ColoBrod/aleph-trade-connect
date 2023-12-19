@@ -2,6 +2,7 @@ import React, { ChangeEventHandler, useRef, useState } from 'react';
 
 import "./style.css";
 import imgShowPassword from './show-password.svg'
+import InputMask from 'react-input-mask'; 
 
 interface Props {
   type?: 'password' | 'text';
@@ -9,7 +10,10 @@ interface Props {
   label?: string;
   placeholder?: string;
   value?: string;
+  disabled?: boolean;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  modi?: "" | "error" | "message";
+  mask?: string;
 }
 
 const TextInput = (props: Props) => {
@@ -20,6 +24,9 @@ const TextInput = (props: Props) => {
     label = "", 
     placeholder = "",
     onChange: handleChange,
+    modi = "",
+    disabled = false,
+    mask = "",
   } = props;
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -30,21 +37,38 @@ const TextInput = (props: Props) => {
       : 'password';
 
   return (
-    <div className="input-text">
+    <div className={`input-text  ${modi}`}>
       {label && <label htmlFor={name}>{label}</label>}
-      <input 
-        ref={ref}
-        type={type}
-        id={name} 
-        name={name} 
-        value={value}
-        onChange={handleChange}
-        placeholder={ placeholder ? placeholder : "" } 
-        />
+      {
+        mask !== "" 
+          ? <InputMask
+              mask={mask}
+              maskChar="_"
+              ref={ref}
+              type={type}
+              id={name} 
+              name={name} 
+              value={value}
+              onChange={handleChange}
+              placeholder={ placeholder ? placeholder : "" } 
+              disabled={disabled}
+              />
+          : <input 
+              ref={ref}
+              type={type}
+              id={name} 
+              name={name} 
+              value={value}
+              onChange={handleChange}
+              placeholder={ placeholder ? placeholder : "" } 
+              disabled={disabled}
+              />
+      }
+        
       {
         typeProp === 'password' 
           ? <img 
-              className='icon-show-password' 
+              className={`icon-show-password`}
               onClick={e => setVisible(!visible)}
               src={imgShowPassword} 
               alt="Icon - show password" 

@@ -4,13 +4,14 @@ import './style.css';
 interface Props {
   children: ReactNode;
   layout?: "light" | "dark" | "dark-shadow";
+  disabled?: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
 }
 
 const Button = (props: Props) => {
-  const { children, layout = "light", onClick } = props;
+  const { children, layout = "light", onClick, disabled = false } = props;
   return (
-    <div className={`btn btn-${layout}`} onClick={onClick}>
+    <div className={`btn btn-${layout} ${disabled ? 'disabled' : ''}`} onClick={onClick}>
       { children }
     </div>
   );

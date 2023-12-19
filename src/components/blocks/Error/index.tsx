@@ -8,9 +8,9 @@ interface Props {
 const Error = (props: Props) => {
   const { message } = props;
   return (
-    <div className="error">
-      <div className="error__header">Ошибка</div>
-      <div className="error__message">
+    <div className="info-block-error">
+      <div className="info-block-error__header">Ошибка</div>
+      <div className="info-block-error__message">
         {message}
       </div>
     </div>

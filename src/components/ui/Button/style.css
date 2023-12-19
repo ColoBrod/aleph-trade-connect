@@ -7,6 +7,11 @@
   text-align: center;
   font-size: 18px;
   line-height: 20px;
+  user-select: none;
+
+  &.disabled {
+    opacity: 0.5;
+  }
 
   img {
     display: inline-block;

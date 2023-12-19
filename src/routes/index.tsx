@@ -21,6 +21,7 @@ import Contact from "~/components/pages/Contact";
 import LayoutAuth from "~/components/layouts/LayoutAuth";
 import Login from "~/components/pages/Login";
 import Register from "~/components/pages/Register";
+import Reset from "~/components/pages/Reset";
 // import Profile from "~/components/pages/Profile";
 
 const router = createBrowserRouter([
@@ -64,6 +65,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         element: <Register />,
+      },
+      {
+        path: "reset",
+        element: <Reset />,
       },
     ],
   },

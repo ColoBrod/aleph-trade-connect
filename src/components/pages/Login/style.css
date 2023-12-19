@@ -46,6 +46,7 @@
   }
 
   .another-login-methods {
+    user-select: none;
     height: 40px;
     line-height: 40px;
     font-size: 14px;
@@ -56,6 +57,7 @@
   .form-buttons {
     display: flex;
     gap: 6px;
+
     .btn:nth-child(1) {
       /* flex-grow: 1; */
       /* font-weight: bold; */

@@ -24,8 +24,12 @@ const initialState: Auth = {
   token: "",
 }
 
-
-
+const token = localStorage.getItem("token");
+const userSerialized = localStorage.getItem("user");
+if (token) {
+  initialState.token = token;
+  initialState.user = userSerialized ? JSON.parse(userSerialized) : null;
+}
 
 const slice = createSlice({
   name: 'entities',

@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 
 import './style.css';
 import Logo from '~/components/elements/Logo';
@@ -11,26 +11,100 @@ import { stepSet } from '~/store/pages/auth';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 
 import { login, LoginData, register } from '~/store/pages/auth';
+import { Navigate, useNavigate } from 'react-router-dom';
+
+const SMS_TIMEOUT = 5;
 
 const Login = () => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [code, setCode] = useState("");
+  const { status } = useAppSelector(state => state.pages.auth);
+  const [codeTimeout, setCodeTimeout] = useState(0);
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { step } = useAppSelector(state => state.pages.auth);
+  const { step, notification } = useAppSelector(state => state.pages.auth);
+  // if (token) return <Navigate to={`/`} replace={false} />
+
+
+  const handleSubmit = () => {
+    console.log("SUMIT")
+    if (!phone) return;
+    const data: LoginData = { step, phone };
+    if (password) data.password = password;
+    if (code) data.code = code;
+    if (step !== 'set-password') dispatch(login(data));
+    else dispatch(register(data));
+  }
+
+  /**
+   * Подтверждение формы при нажатии на Enter
+   */
+  useEffect(() => {
+    const handleEnter = (e: KeyboardEvent) => {
+      if (e.key === "Enter") {
+        console.log("ENTER")
+        handleSubmit();
+      }
+    }
+    document.addEventListener('keypress', handleEnter)
+    return () => document.removeEventListener('keypress', handleEnter);
+  }, [])
+
+  /**
+   * Очищаем пароль и код при переключении между этапами
+   */
+  useEffect(() => {
+    setPassword("");
+    setCode("");
+  }, [step])
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (status === 'idle') return;
+    else if (status === 'redirect' && token) navigate('/');
+  }, [status])
+
+  /**
+   * Устанавливаем обратный отсчет на повторную отправку SMS
+   */
+  useEffect(() => {
+    if (notification?.input === 'code' && notification.text.includes("Код с подтверждением отправлен") && codeTimeout === 0) {
+      setCodeTimeout(SMS_TIMEOUT);
+      console.log("Code timeout")
+      let seconds: number = SMS_TIMEOUT;
+      let intervalId: number;
+      // @ts-ignore
+      intervalId = setInterval(() => {
+        seconds -= 1;
+        console.log(seconds);
+        if (seconds > 0) setCodeTimeout(seconds);
+        else {
+          setCodeTimeout(0);
+          clearInterval(intervalId);
+        }
+      }, 1000)
+
+    }
+  }, [notification])
 
   const input = {
     phone: (
       <TextInput 
         key='phone'
         name='phone'
-        label='Телефон'
+        mask="+7 (999) 999-99-99"
+        label={notification?.input === 'phone' ? notification.text : 'Телефон'}
+        modi={notification?.input === 'phone' ? notification.type : ""}
         type='text'
         value={phone}
+        disabled={step === 'phone' ? false : true}
         onChange={(e) => {
-          const { value } = e.currentTarget;
+          let { value } = e.currentTarget;
+          value = value.replace(/[^0-9+]/g, "");
+          console.log(value);
           setPhone(value);
         }}
         placeholder='Номер телефона' 
@@ -41,7 +115,8 @@ const Login = () => {
         key='password'
         type='password'
         name='password'
-        label='Пароль'
+        label={notification?.input === 'password' ? notification.text : 'Пароль'}
+        modi={notification?.input === 'password' ? notification.type : ""}
         value={password}
         onChange={(e) => {
           const { value } = e.currentTarget;
@@ -55,7 +130,8 @@ const Login = () => {
         key='password-confirmation'
         type='password'
         name='password-confirmation'
-        label='Пароль'
+        label={notification?.input === 'password' ? 'Подтверждение пароля' : 'Подтверждение пароля'}
+        modi={notification?.input === 'password' ? notification.type : ""}
         value={passwordConfirmation}
         onChange={(e) => {
           const { value } = e.currentTarget;
@@ -69,7 +145,8 @@ const Login = () => {
         key='code'
         type='text'
         name='code'
-        label='Код из SMS'
+        label={notification?.input === 'code' ? notification.text : 'Код из SMS'}
+        modi={notification?.input === 'code' ? notification.type : ""}
         value={code}
         onChange={(e) => {
           const { value } = e.currentTarget;
@@ -77,7 +154,7 @@ const Login = () => {
         }}
         placeholder='Код из SMS' 
         />
-    )
+    ),
   }
 
   const button = {
@@ -85,21 +162,14 @@ const Login = () => {
       <Button 
         key='submit'
         layout='dark-shadow' 
-        onClick={e => {
-          if (!phone) return;
-          const data: LoginData = { step, phone };
-          if (password) data.password = password;
-          if (code) data.code = code;
-          if (step !== 'set-password') dispatch(login(data));
-          else dispatch(register(data));
-        }}
+        onClick={handleSubmit}
         >Вход</Button>
     ),
     back: (
       <Button 
         key='back'
         layout='dark-shadow' 
-        onClick={e => 1}
+        onClick={() => dispatch(stepSet('phone'))}
         >
         <img src={imgBack} alt="Go back" />
       </Button>
@@ -107,11 +177,15 @@ const Login = () => {
     sms: (
       <Button 
         key='sms'
+        disabled={codeTimeout > 0 ? true : false}
         layout='dark-shadow' 
         onClick={e => {
-          
+          if (codeTimeout > 0) return;
+          if (!phone) return;
+          const data: LoginData = { step, phone };
+          dispatch(login(data))
         }}
-        >Отправить SMS</Button>
+        >Отправить SMS {codeTimeout > 0 ? `(${codeTimeout})` : ''}</Button>
     )
   }
 
@@ -138,6 +212,15 @@ const Login = () => {
     // buttons = [];
   }
 
+  const anotherLoginMethods = (
+    <span className="another-login-methods" onClick={() => {
+      if (step === 'phone-password') dispatch(stepSet('phone-sms-code'));
+      else if (step === 'phone-sms-code') dispatch(stepSet('phone-password'));
+    }}>
+      другие способы входа
+    </span>
+  );
+
   return (
     <div className="page page-login">
       <div className="logo-section">
@@ -148,14 +231,12 @@ const Login = () => {
         {inputs}
       </div>
       <div className="form-buttons">
-        {/* {button} */}
+        {step === 'phone-sms-code' ? [button.submit, button.back] : button.submit}
       </div>
-      <span className="another-login-methods">
-        другие способы входа
-      </span>
+      {step === 'phone-sms-code' || step === 'phone-password' ? anotherLoginMethods : null}
       {/* <span style={{ height: '40px', lineHeight: '40px', fontSize: '14px', textAlign: 'center', cursor: 'pointer' }}>
       </span> */}
-      <Button layout='dark-shadow' onClick={e => 1}>Отправить SMS</Button>
+      {step === 'phone-sms-code' ? button.sms : null}
       {/* <Checkbox id='remember-me' label='Запомнить меня' checked={true} /> */}
       {/* <Button>Войти</Button> */}
       {/* <Button>Зарегистрироваться</Button> */}

@@ -9,9 +9,9 @@ interface State {
 }
 
 const initialState: State = {
-  visibility: true,
+  visibility: false,
   page: "coffee-machine",
-  tab: "monitoring",
+  tab: "general",
 };
 
 const slice = createSlice({

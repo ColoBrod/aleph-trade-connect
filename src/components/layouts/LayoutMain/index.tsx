@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import ModalBox from '~/components/blocks/ModalBox';
 import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
@@ -15,6 +15,12 @@ const LayoutMain = () => {
   const dispatch = useAppDispatch();
 
   const { status, error, data } = useAppSelector(state => state.entities);
+
+  /**
+   * Редирект на страницу авторизации, если нету токена
+   */
+  const token = localStorage.getItem("token");
+  if (!token) return <Navigate to="/auth/login" replace={true} />
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchEntities())
