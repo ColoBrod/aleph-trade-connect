@@ -1,4 +1,5 @@
-.table__cell-path a {
+.table__cell-path a, 
+.table__cell-serialNumber a {
   color: var(--clr-font-accent);
   &:hover {
     text-decoration: none;

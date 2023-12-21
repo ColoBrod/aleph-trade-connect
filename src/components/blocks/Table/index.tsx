@@ -49,6 +49,7 @@ const Table = (props: TableProps) => {
       </thead>
       <tbody>
         {data.map((row, i) => {
+          // Заголовки таблицы
           if (i === 0) return null;
 
           return (
@@ -56,15 +57,13 @@ const Table = (props: TableProps) => {
               {
                 row.map((td, k, row) => {
                   const field = keys[k];
-                  // field === 'errorDesc'
-                  // field === 'errorDesc' ||
-                  const errClass = field === 'errorCode'
-                    ? "err-" + error[row[k]]
-                    : "";
-                  const innerHTML = field !== 'errorCode'
-                    ? td
-                    : <span className={`err-badge ${errClass}`}>{td}</span>
-                  return (<td key={k} className={`table__cell table__cell-${field} ${errClass }`}>{innerHTML}</td>)
+                  // const errClass = field === 'errorCode'
+                  //   ? "err-" + error[row[k]]
+                  //   : "";
+                  // const innerHTML = field !== 'errorCode'
+                  //   ? td
+                  //   : <span className={`err-badge ${errClass}`}>{td}</span>
+                  return (<td key={k} className={`table__cell table__cell-${field}`}>{td}</td>)
                 })
               }
             </tr>

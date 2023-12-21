@@ -38,7 +38,7 @@ export interface IFiltersRecipes {
 }
 
 export interface IFiltersErrors {
-  errors: number[];
+  errors: string[];
 }
 
 export interface IFiltersCoffeeMachineModels {
@@ -157,6 +157,12 @@ export interface IFilters_Maintenance_DataExport_Events
   extends
     IFiltersPagination,
     IFiltersOrderBy {}
+
+export interface IFilters_ModalBox_CoffeeMachine_Monitoring
+  extends
+    IFiltersPagination,
+    IFiltersOrderBy,
+    IFiltersEvents {}
 
 // export const initialFilters_Analytics: IFilters_Analytics = {
 //   businessUnits: [],

@@ -5,7 +5,16 @@
   align-items: stretch;
   gap: 38px;
 
-  
+  .horizontal {
+    display: flex;
+    flex-direction: row;
+    justify-conten: flex-start;
+    gap: 10px;
+  }
+
+  .vertical {
+    flex: 1 1 50%;
+  }
 
   section {
     display: flex;

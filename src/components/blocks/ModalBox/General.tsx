@@ -1,24 +1,33 @@
 import React from "react";
 import './General.css';
+import { useAppSelector } from "~/hooks";
 
 interface Props {
 
 }
 
 const General = ({}: Props) => {
+
+  const { coffeeMachine } = useAppSelector(state => state.ui.modalBox);
+  const { coffeeMachineModels, coffeeMachineVendors, businessUnits } = useAppSelector(state => state.entities.data);
+
+  const model = coffeeMachineModels.find(m => m.id === coffeeMachine?.modelId);
+  const vendor = coffeeMachineVendors.find(v => v.id === model?.vendorId);
+  const rest = businessUnits.find(bu => bu.id === coffeeMachine?.restaurantId);
+
   return (
     <div className="modal-box__page modal-box__page-general">
       <div className="item">
         <div className="title">Имя</div>
-        <div className="content">WMF 1500S+ русский</div>
+        <div className="content">{vendor?.name} {model?.name}</div>
       </div>
       <div className="item">
         <div className="title">Модель</div>
-        <div className="content">WMF 1500S+</div>
+        <div className="content">{vendor?.name} {model?.name}</div>
       </div>
       <div className="item">
         <div className="title">Серийный номер</div>
-        <div className="content">139921</div>
+        <div className="content">{coffeeMachine?.serialNumber}</div>
       </div>
       <div className="item">
         <div className="title">Статус</div>
@@ -31,7 +40,7 @@ const General = ({}: Props) => {
       </div>
       <div className="item">
         <div className="title">Информация о часовом поясе (UTC +/- X:XX)</div>
-        <div className="content">04:00:00</div>
+        <div className="content">Откуда взять???</div>
       </div>
     </div>
   )

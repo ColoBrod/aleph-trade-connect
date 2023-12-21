@@ -1,8 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios, { AxiosError, AxiosResponse } from "axios";
 export type Step = 'phone' | 'phone-password' | 'phone-sms-code' | 'set-password';
-const PAGE_URL_LOGIN = "http://localhost:9000/api/login";
-const PAGE_URL_REGISTER = "http://localhost:9000/api/register";
+const PAGE_URL_LOGIN = process.env.NODE_ENV === 'production'
+  ? "http://demo.wmf24.ru:9000/api/login"
+  : "http://localhost:9000/api/login";
+const PAGE_URL_REGISTER = process.env.NODE_ENV === 'production'
+  ? "http://demo.wmf24.ru:9000/api/register"
+  : "http://localhost:9000/api/register";
 
 interface State {
   status: 'idle' | 'redirect';

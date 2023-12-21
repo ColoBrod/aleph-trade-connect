@@ -46,6 +46,9 @@ const Settings = () => {
     // state => state.filters.analytics.common.coffeeMachineModels.list
   );
 
+  console.log("%cОшибки:", "color: red; font-size: 20px;")
+  console.table(errors);
+
   return (
     <div className="page page-analytics__maintenance__settings  page-shared__settings">
       <div className="page__content container">
@@ -81,7 +84,7 @@ const Settings = () => {
           <ErrorsFilter
             filters={errorsFilters}
             errors={errors}
-            onClick={(id: number) => dispatch(errorToggled(id))}
+            onClick={(id: string) => dispatch(errorToggled(id))}
             handleSelectAll={() => {
               const ids = errors.map(error => error.id)
               dispatch(errorsSelected(ids))

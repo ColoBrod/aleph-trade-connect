@@ -16,9 +16,7 @@ interface Props {
 const DatePicker = ({ dateRangeSet, date }: Props) => {
   
   // const { start, end } = useAppSelector(state => state.filters.analytics.common.dateRange);
-
   // e: MouseEvent<HTMLInputElement, MouseEvent<Element, MouseEvent>>
-
   // const { start, end } = useAppSelector(state => state.filters.analytics.daylyReports.dateRange.date);
 
   const { visible } = useAppSelector(state => state.ui.calendar);

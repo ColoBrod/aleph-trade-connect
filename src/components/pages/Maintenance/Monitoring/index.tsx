@@ -1,25 +1,18 @@
 import React, { ReactNode, useEffect } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { channel } from '~/services/pusher';
-import { Link } from 'react-router-dom';
-import { visibilitySet } from '~/store/ui/modal-box';
+import { coffeeMachineSet, visibilitySet } from '~/store/ui/modal-box';
 
-// ?modal-box=coffee-machine
-
-import Button from '~/components/ui/Button';
 import './style.css';
 import DropDownList from '~/components/ui/DropDownList';
 import Table from '~/components/blocks/Table';
 
-import imgExcel from './excel.svg'
 import FiltersAside from '~/components/blocks/FiltersAside';
 
 import Loader from '~/components/blocks/Loader';
 
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { rowsPerPageSet, activePageSet, orderBySet } from '~/store/filters/maintenance/monitoring';
-import DatePicker from '~/components/elements/DatePicker';
-import TimePicker from '~/components/elements/TimePicker';
 import RegionTree from '~/components/blocks/RegionTree';
 import { fetchEvents, updateTime, utcSet } from '~/store/pages/maintenance/monitoring';
 
@@ -37,37 +30,11 @@ import { IFiltersOrderBy } from '~/interfaces/filters';
 import { IPusherMap } from '~/interfaces/pusher';
 import EventsFilter from '~/components/blocks/EventsFilter';
 
-import { ErrorType, error as errorType, eventTypes } from '~/services/errors';
+import { ErrorType, error as errorClasses, eventTypes } from '~/services/errors';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 import UTC_DDL from '~/components/elements/UTC_DDL';
 import { IBusinessUnit } from '~/interfaces/entities';
 import { timezones as tz } from '~/services/timezones';
-// const tz = {
-//   "+02:00": "Europe/Kaliningrad",
-//   "+03:00": "Europe/Moscow",
-//   "+04:00": "Europe/Samara",
-//   "+05:00": "Asia/Yekaterinburg",
-//   "+06:00": "Asia/Omsk",
-//   "+07:00": "Asia/Krasnoyarsk",
-//   "+08:00": "Asia/Irkutsk",
-//   "+09:00": "Asia/Yakutsk",
-//   "+10:00": "Asia/Vladivostok",
-//   "+11:00": "Asia/Magadan",
-//   "+12:00": "Asia/Kamchatka",
-// }
-
-// Time in Russia
-// KALT	Kaliningrad Time	UTC+2	(MSK−1)
-// MSK	Moscow Time	UTC+3	(MSK±0)
-// SAMT	Samara Time	UTC+4	(MSK+1)
-// YEKT	Yekaterinburg Time	UTC+5	(MSK+2)
-// OMST	Omsk Time	UTC+6	(MSK+3)
-// KRAT	Krasnoyarsk Time	UTC+7	(MSK+4)
-// IRKT	Irkutsk Time	UTC+8	(MSK+5)
-// YAKT	Yakutsk Time	UTC+9	(MSK+6)
-// VLAT	Vladivostok Time	UTC+10	(MSK+7)
-// MAGT	Magadan Time	UTC+11	(MSK+8)
-// PETT	Kamchatka Time	UTC+12	(MSK+9)
 
 const Monitoring = () => {
   const { type } = useParams();
@@ -76,7 +43,7 @@ const Monitoring = () => {
   const filtersMonitoring = useAppSelector(state => state.filters.maintenance.monitoring);
   const { status, error, data, utc } = useAppSelector(state => state.pages.maintenance.monitoring)
   // const { orderBy } =
-  const { coffeeMachines, coffeeMachineModels, coffeeMachineVendors, businessUnits } = useAppSelector(state => state.entities.data);
+  const { coffeeMachines, coffeeMachineModels, coffeeMachineVendors, businessUnits, errors } = useAppSelector(state => state.entities.data);
   const {
     businessUnits: filtersBusinessUnits
   } = useAppSelector(state => state.filters.maintenance.shared);
@@ -178,6 +145,9 @@ const Monitoring = () => {
       console.log("DATE:", date);
       console.log("DATETIME:", datetime);
 
+      const err = errors.find(err => err.code === row.errorCode);
+      const errorType = err !== undefined ? err.type : 'unknown';
+
       return ({
         id: row.id,
         businessUnit: bu ? bu.name : "",
@@ -185,6 +155,7 @@ const Monitoring = () => {
         path: bu ? bu.address : "",
         serialNumber: cm?.serialNumber ? cm.serialNumber : "",
         errorCode: row.errorCode,
+        errorType,
         errorDesc: row.errorText,
         dateObj: date,
         datetime,
@@ -229,36 +200,59 @@ const Monitoring = () => {
     return sorted;
   }
 
+  console.log("Events:", events);
+
   const filterData = (data: IRow[]): IRow[] => {
     return data.filter(row => {
-      const type = errorType[row.errorCode];
-      if (events.includes(type)) return true;
+      const err = errors.find(err => err.code === row.errorCode);
+      const errorType = err ? err.type : null;
+      const errorClass = errorType ? errorClasses[errorType] : 'unknown';
+      // const errorClass = errorClasses[row.errorType]
+      // const type = errorType[row.errorCode];
+      if (errorClass !== 'unknown' && events.includes(errorClass)) return true;
       else return false;
     })
   }
   
   // const curPage =
+  // console.log("%cFormatting error table:", "color: blue; font-size: 20px;");
 
-  const filtered = type !== 'all' ? filterData(data) : data;
+  // const filtered = type !== 'all' ? filterData(data) : data;
+  const filtered = filterData(data);
   const fmt = formatData(filtered);
   const sorted = sortData(fmt, orderBy);
   const page = sorted.slice((activePage - 1) * perPage, activePage * perPage);
-  const fmtArr = page.map((row: IRowFmt) => [
-    row.businessUnit, 
-    <a onClick={(e) => {
-      dispatch(visibilitySet(true))
-      e.preventDefault();
-    }} href='#' >{row.path}</a>,
-    // row.path,
-    row.model,
-    row.serialNumber,
-    row.errorCode,
-    row.errorDesc,
-    row.datetime,
-    row.duration,
-  ]);
-
-  console.log("Table:", fmtArr);
+  const fmtArr = page.map((row: IRowFmt) => {
+    const { errorType } = row;
+    const errorClass = errorType !== 'unknown' 
+      ? errorClasses[errorType] 
+      : 'unknown';
+    return (
+      [
+        row.businessUnit, 
+        // <a onClick={(e) => {
+        //   dispatch(visibilitySet(true))
+        //   e.preventDefault();
+        // }} href='#' >{row.path}</a>,
+        row.path,
+        row.model,
+        <a onClick={(e) => {
+          const serialNumber = e.currentTarget.innerHTML;
+          const coffeeMachine = coffeeMachines.find(m => m.serialNumber === serialNumber);
+          if (coffeeMachine === undefined) {
+            return alert("Выбранная кофе-машина не найдена в системе");
+          }
+          dispatch(coffeeMachineSet(coffeeMachine));
+          dispatch(visibilitySet(true));
+          e.preventDefault();
+        }} href='#' >{row.serialNumber}</a>,
+        <span className={`err-badge err-${errorClass}`}>{row.errorCode}</span>,
+        row.errorDesc,
+        row.datetime,
+        row.duration,
+      ]
+    );
+  });
 
   const tableContent: (string|number|ReactNode)[][] = [
     ["Бизнес-единица", "Ресторан", "Модель машины", "Серийный номер", "Код ошибки", "Описание ошибки", "Дата и время", "Длительность" ],

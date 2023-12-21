@@ -39,6 +39,8 @@ export interface Filters {
   "maintenance/data-export": FilterKey[];
   "maintenance/data-export/time": FilterKey[];
   "maintenance/data-export/events": FilterKey[];
+
+  "modal-box/coffee-machine/monitoring": FilterKey[];
 }
 
 class InitialFilters {
@@ -59,6 +61,8 @@ class InitialFilters {
     ],
     "maintenance/data-export/time": ["pagination", "orderBy"],
     "maintenance/data-export/events": ["pagination", "orderBy", "events"],
+
+    "modal-box/coffee-machine/monitoring": ["pagination", "orderBy", "events"],
   };
 
   public businessUnits?: IFiltersBusinessUnits["businessUnits"];
@@ -210,7 +214,7 @@ class InitialFilters {
 
   private static errors(path: keyof Filters): IFiltersErrors {
     return {
-      errors: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      errors: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'],
     };
   }
 

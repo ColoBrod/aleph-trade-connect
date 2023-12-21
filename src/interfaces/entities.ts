@@ -9,7 +9,7 @@ export interface ICoffeeMachine {
 export interface ICoffeeMachineModel {
   id: string;
   name: string;
-  vendorId: number;
+  vendorId: string;
 }
 
 export interface ICoffeeMachineVendor {
@@ -24,6 +24,8 @@ export interface IBusinessUnit {
   type: '1' | '2' | '3';
   chatTelegramId: string;
   address?: string;
+  lat?: string;
+  lon?: string;
 }
 
 export interface IRecipe {
@@ -32,7 +34,8 @@ export interface IRecipe {
 }
 
 export interface IError {
-  id: number;
+  id: string;
   code: string;
-  name: string;
+  type: string;
+  description: string;
 }

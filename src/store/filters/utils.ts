@@ -108,7 +108,7 @@ export const _recipesSelected = (
 
 export const _errorToggled = (
   state: IFiltersErrors, 
-  action: { type: string; payload: number }
+  action: { type: string; payload: string }
 ) => {
   const { errors } = state;
   const id = action.payload;
@@ -119,7 +119,7 @@ export const _errorToggled = (
 
 export const _errorsSelected = (
   state: IFiltersErrors, 
-  action: { type: string; payload: number[]; }
+  action: { type: string; payload: string[]; }
 ) => {
   const ids = action.payload;
   ids.forEach(id => {

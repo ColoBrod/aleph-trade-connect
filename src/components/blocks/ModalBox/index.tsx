@@ -40,19 +40,25 @@ const ModalBox = (props: Props): ReactNode => {
   // const page = params.get("modal-box");
   // @ts-ignore
   // const content = page ? modalBox[page] : null;
-  const { tab, page, visibility } = useAppSelector(state => state.ui.modalBox);
+  const { tab, page, visibility, coffeeMachine } = useAppSelector(state => state.ui.modalBox);
+  const { coffeeMachineModels, coffeeMachineVendors, businessUnits } = useAppSelector(state => state.entities.data);
   const dispatch = useAppDispatch();
   const display = visibility === true ? 'block' : 'none';
   const activeTab = pages.find(p => p[0] === tab);
+
+  const model = coffeeMachineModels.find(m => m.id === coffeeMachine?.modelId);
+  const vendor = coffeeMachineVendors.find(v => v.id === model?.vendorId);
+  const rest = businessUnits.find(bu => bu.id === coffeeMachine?.restaurantId);
+
 
   return (
     <div className='modal-box__dim' style={{ display }} >
       <div className='modal-box'>
         <div className="modal-box__top-panel">
           {/* <div className="modal-box__title">{content}</div> */}
-          <span className="modal-box__restaurant">Бургер Кинг 2569</span>
-          <span className="modal-box__coffee-machine-model">WMF 1500S+</span>
-          <span className="modal-box__serial-number">Серийный номер: 265892</span>
+          <span className="modal-box__restaurant">{rest?.name}</span>
+          <span className="modal-box__coffee-machine-model">{vendor?.name} {model?.name}</span>
+          <span className="modal-box__serial-number">Серийный номер: {coffeeMachine?.serialNumber}</span>
           <span className="modal-box__spacer"></span>
           {renderDDL()}
           {/* <Button onClick={e => 1} layout={'light'}>Обновить</Button> */}

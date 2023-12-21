@@ -1,3 +1,9 @@
 .modal-box__page-monitoring {
-  
+  .modal-box__filters {
+    padding-left: 14px;
+  }
+
+  .table-wrapper {
+    padding: 0 14px;
+  }
 }

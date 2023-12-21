@@ -36,6 +36,7 @@ export interface IRowFmt {
   path: string;
   serialNumber: string;
   errorCode: string;
+  errorType: string;
   errorDesc: string;
   dateObj: Date;
   datetime: string;
@@ -114,7 +115,6 @@ const slice = createSlice({
     utcSet: (state, action) => {
       const utc = action.payload;
       console.log("UTC set:", utc)
-      // if (typeof utc !== 'number') return;
       state.utc = utc;
     },
     idleSet: (state, action) => {
