@@ -3,6 +3,9 @@ import { Navigate, RouteObject } from "react-router-dom";
 import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import InnerWithNestedTabs from "~/components/layouts/InnerWithNestedTabs";
 
+import Machines from '~/components/pages/Administration/Machines';
+import CompanyStructure from '~/components/pages/Administration/CompanyStructure';
+
 const administration: RouteObject = { 
   path: "administration", 
   element: <InnerWithTabs tabs={[
@@ -21,7 +24,7 @@ const administration: RouteObject = {
       children: [
         {
           path: "",
-          element: <h1>Кофе-машины</h1>,
+          element: <Machines />,
         },
       ],
     },

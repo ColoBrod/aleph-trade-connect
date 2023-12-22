@@ -19,6 +19,8 @@ interface Props {
   mark: Mark;
 }
 
+
+
 const YandexMap = ({ width, height, mark }: Props) => (
   <YMaps>
     <Map defaultState={{ center: [mark.lon, mark.lat], zoom: 13 }} style={{ width, height }}>

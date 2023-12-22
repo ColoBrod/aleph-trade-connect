@@ -50,8 +50,6 @@ const slice = createSlice({
         state.status = 'success';
         const { payload: rows } = action;
         state.data = rows;
-        console.log("Modal Box Monitoring:");
-        console.table(action.payload);
       })
       .addCase(fetchEvents.rejected, apiCallRejected)
       .addCase(updateTime.fulfilled, (state, action) => {

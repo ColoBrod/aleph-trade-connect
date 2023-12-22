@@ -164,6 +164,22 @@ export interface IFilters_ModalBox_CoffeeMachine_Monitoring
     IFiltersOrderBy,
     IFiltersEvents {}
 
+export interface IFilters_ModalBox_CoffeeMachine_EventsHistory
+  extends
+    IFiltersPagination,
+    IFiltersOrderBy,
+    IFiltersEvents {}
+
+export interface IFilters_Administration_Machines
+  extends
+    IFiltersBusinessUnits,
+    IFiltersCoffeeMachineModels,
+    IFiltersSerialNumbers,
+    IFiltersPagination,
+    IFiltersOrderBy {}
+
+export interface IFilters_Administration_CompanyStructure {}
+
 // export const initialFilters_Analytics: IFilters_Analytics = {
 //   businessUnits: [],
 //   recipes: [],

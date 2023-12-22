@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IFilters_Analytics_Trends } from "~/interfaces/filters";
 import InitialFilters from "../../initial";
-import { _recipeToggled, _recipesSelected, _recipesUnselected } from "~/store/filters/utils";
-import { _dateRangeSet } from "~/store/filters/utils";
+import { _recipeToggled, _recipesSelected, _recipesUnselected, _dateRangeSet } from "~/store/filters/utils";
 
 // export const initialState = new InitialFilters('analytics/trends') as IFilters_Analytics_Trends; 
 // const serializable = { ...initialState };

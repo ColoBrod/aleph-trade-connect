@@ -40,6 +40,9 @@ export interface Filters {
   "maintenance/data-export/time": FilterKey[];
   "maintenance/data-export/events": FilterKey[];
 
+  "administration/machines": FilterKey[];
+  "administration/company-structure": FilterKey[];
+
   "modal-box/coffee-machine/monitoring": FilterKey[];
 }
 
@@ -61,6 +64,9 @@ class InitialFilters {
     ],
     "maintenance/data-export/time": ["pagination", "orderBy"],
     "maintenance/data-export/events": ["pagination", "orderBy", "events"],
+
+    "administration/machines": ["businessUnits", "coffeeMachineModels", "serialNumbers", "pagination", "orderBy"],
+    "administration/company-structure": [],
 
     "modal-box/coffee-machine/monitoring": ["pagination", "orderBy", "events"],
   };
@@ -234,7 +240,11 @@ class InitialFilters {
   }
 
   private static orderBy(path: keyof Filters): IFiltersOrderBy {
-    const column = path === 'maintenance/monitoring' ? 'datetime' : "";
+    const column = 
+      path === 'maintenance/monitoring' ||
+      path === 'administration/machines' 
+        ? 'datetime' 
+        : "";
     return {
       orderBy: {
         column,

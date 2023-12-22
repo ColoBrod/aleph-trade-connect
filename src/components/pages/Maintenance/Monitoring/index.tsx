@@ -69,7 +69,6 @@ const Monitoring = () => {
 
   useEffect(() => {
     channel.bind('map', (data: IPusherMap) => {
-      console.log("Pushed")
       dispatch(idleSet(null));
     });
     return () => { channel.unbind('map'); }
@@ -86,7 +85,7 @@ const Monitoring = () => {
     let intervalId: any;
     intervalId = setInterval(() => {
       console.log('updating...');
-      // dispatch(updateTime())
+      // dispatch(updateTime());
     }, 10000)
     return () => clearInterval(intervalId)
   }, [])

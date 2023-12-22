@@ -17,6 +17,7 @@ export interface IRow {
   duration: string;
   errorCode: string;
   errorText: string;
+  status: boolean;
 
   // name?: string; // Только в Пушере
   // company: string;
@@ -28,6 +29,10 @@ export interface IRow {
   // created_at: string;
   // duration: string;
 }
+
+// export type IRowGroupped = {
+//   [IRow['coffeeMachineId']]: 
+// }
 
 export interface IRowFmt {
   id: string;
@@ -48,7 +53,6 @@ interface State {
   error: string;
   data: IRow[];
   utc: string;
-  // orderBy: keyof IRowFmt | "";
 }
 
 const initialState: State = {
@@ -56,19 +60,16 @@ const initialState: State = {
   error: '',
   data: [],
   utc: "+03:00",
-  // orderBy: "",
 };
 
 export const fetchEvents = createAsyncThunk<any, void, { state: RootState }>(
   '/consoledata', 
   async (arg, { getState }) => {
-    const state = getState();
     const config = {
       url: BASE_URL + '/consoledata',
       method: 'get',
     };
     const response = await axios(config);
-    console.log("RESPONSE:", response.data)
     return response.data;
   }
 )
@@ -127,19 +128,13 @@ const slice = createSlice({
       .addCase(fetchEvents.fulfilled, (state, action) => {
         state.status = 'success';
         const { payload: rows } = action;
-        // rows.forEach((row, i, rows) => {
-          // rows[i].date
-          // rows[i]
-        // })
-        // state.data = action.payload;
         state.data = rows;
-        console.table(action.payload);
       })
       .addCase(fetchEvents.rejected, apiCallRejected)
       .addCase(updateTime.fulfilled, (state, action) => {
         // console.log(action.payload);
         state.data.forEach((row, i) => {
-          // @ts-ignore
+          console.log(action.payload);
           const proxy = action.payload.find(r => r.id === row.id);
           if (proxy) row.duration = proxy.end_datetime;
           else state.data.splice(i, 1);

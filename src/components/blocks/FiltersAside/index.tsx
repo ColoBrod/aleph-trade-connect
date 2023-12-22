@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import { use_LG_MAX } from '~/media-queries';
 import { visibilitySet } from '~/store/ui/filters-aside';
 
-import imgFilter from './filters.svg';
 import FiltersAsideButton from '~/components/elements/FiltersAsideButton';
 
 interface Props {

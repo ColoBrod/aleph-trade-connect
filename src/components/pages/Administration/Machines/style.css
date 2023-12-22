@@ -1,0 +1,31 @@
+.table__cell-machineName {
+
+  vertical-align: middle;
+
+  .circle {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 10px;
+    margin-right: 10px;
+
+    &-grey    { 
+      background-color: var(--clr-err-disabled); 
+      box-shadow: 0 0 3px 1px var(--clr-err-disabled);
+    }
+    &-red     { 
+      background-color: var(--clr-err-error); 
+      box-shadow: 0 0 3px 1px var(--clr-err-error);
+    }
+    &-yellow  { 
+      background-color: var(--clr-err-maintenance); 
+      box-shadow: 0 0 3px 1px var(--clr-err-maintenance);
+    }
+    &-green   { 
+      background-color: var(--clr-err-event); 
+      box-shadow: 0 0 3px 1px var(--clr-err-event);
+    }
+
+  }
+
+  
+}
