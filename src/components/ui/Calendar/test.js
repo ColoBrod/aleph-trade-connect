@@ -26,8 +26,6 @@ const lastDayIndex = fmtDayIndex(new Date(
   0
 ).getDay());
 
-// console.log(firstDayIndex, lastDayIndex);
-
 // Устанавливает Понедельник как 0, Вс - 6
 function fmtDayIndex(index) {
   index -= 1;
@@ -52,8 +50,6 @@ for (let i = 0; i < lastDay; i++) {
   d.setDate(d.getDate() + 1);
   dates.push(d.toString());
 }
-
-// console.log(dates);
 
 //
 for (let i = lastDayIndex; i < 6; i++) {
@@ -86,4 +82,3 @@ console.log(dates);
 // var numDays = 34; // Number of days you want
 
 // var calendarDates = generateCalendarDates(startDate.getFullYear(), startDate.getMonth(), startDate.getDate(), numDays);
-// console.log(calendarDates);

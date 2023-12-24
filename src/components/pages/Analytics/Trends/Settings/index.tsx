@@ -43,8 +43,6 @@ const Settings = () => {
     state => state.filters.analytics.common.coffeeMachineModels.list
   );
 
-  // console.log(businessUnits);
-  
   return (
     <div className="page page-analytics__trends__settings page-shared__settings">
       <div className="page__content container">
@@ -87,7 +85,6 @@ const Settings = () => {
             handleSelectAll={() => {
 
               const ids = recipes.map(recipe => recipe.id)
-              console.log(ids)
               dispatch(recipesSelected(ids))
             }}
             handleUnselectAll={() => {

@@ -31,7 +31,6 @@ const Monitoring = () => {
 
   useEffect(() => {
     channel.bind('map', (data: IPusherMap) => {
-      console.log("Pushed")
       dispatch(idleSet(null));
     });
     return () => { channel.unbind('map'); }
@@ -47,7 +46,6 @@ const Monitoring = () => {
   useEffect(() => {
     let intervalId: any;
     intervalId = setInterval(() => {
-      console.log('updating...');
       // dispatch(updateTime())
     }, 10000)
     return () => clearInterval(intervalId)
@@ -90,7 +88,6 @@ const Monitoring = () => {
         itemA = new Date(a.dateObj);
         // @ts-ignore
         itemB = new Date(b.dateObj);
-        // console.log("Dates", itemA, itemB);
       }
       else {
         // @ts-ignore

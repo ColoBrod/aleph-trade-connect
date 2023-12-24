@@ -81,7 +81,6 @@ const DateRange = ({ dateRange, dateRangeSet }: Props) => {
         allowOverlap={false}
         onChange={(values) => {
           handleChange(values);
-          // console.log(values[0], values[1]);
           // if (Math.abs(values[0]) - Math.abs(values[1]) < 1) return;
           // const start = values[0];
           // const end = values[1];

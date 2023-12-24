@@ -49,7 +49,6 @@ export const apiCallFullfilled = <T extends State>(
   }, never>
 ) => {
   state.status = 'success';
-  console.log(action.payload);
   Object.assign(state, action.payload);
 }
 

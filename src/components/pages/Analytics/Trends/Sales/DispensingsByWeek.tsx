@@ -32,8 +32,6 @@ const DispensingsByWeek = () => {
 
   const { current, previous } = dispensingsByWeek.data;
   
-  // console.log("Current, Previous:", current, previous);
-
   let diff = Math.abs(100 - (current / previous) * 100).toFixed(0);
   let description;
   if (current > previous) description = "На столько побили предыдущую неделю";

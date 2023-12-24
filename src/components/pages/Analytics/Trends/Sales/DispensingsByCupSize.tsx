@@ -16,10 +16,6 @@ const DispensingsByCupSize = () => {
   const isXL = use_XL();
   const { dispensingsByCupSize } = useAppSelector(state => state.pages.analytics.trends.sales);
 
-  // useEffect(() => {
-  //   console.log("XL:", isXL)
-  // }, [isXL])
-
   useEffect(() => {
     if (dispensingsByCupSize.status === 'idle') dispatch(fetchDispensingsByCupSize()); 
   }, [dispensingsByCupSize.status])

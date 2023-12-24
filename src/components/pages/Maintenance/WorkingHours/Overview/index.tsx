@@ -17,10 +17,7 @@ import { useAppSelector } from '~/hooks';
 
 const Overview = () => {
   const { dateRange } = useAppSelector(state => state.filters.maintenance.workingHours);
-  console.log("Working Hours, dateRange", dateRange);
-
   const period = getPeriod(dateRange);
-  // const period = 30;
 
   return (
     <div className='page page-maintenance__working-hours__overview'>

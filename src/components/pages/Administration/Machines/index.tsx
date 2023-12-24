@@ -48,9 +48,6 @@ const Machines = () => {
     errors
   } = useAppSelector(state => state.entities.data);
 
-  console.log("%cTesting pusher");
-  console.table(data);
-
   /**
    * 
    */
@@ -143,7 +140,6 @@ const Machines = () => {
         itemA = new Date(a.dateObj);
         // @ts-ignore
         itemB = new Date(b.dateObj);
-        // console.log("Dates", itemA, itemB);
       }
       else if (column === 'serialNumber') {
         itemA = parseInt(a[column]);
@@ -162,12 +158,8 @@ const Machines = () => {
     return sorted;
   }
 
-  // console.log("JSON");
-  // console.log(JSON.stringify(data));
   const fmt = formatData(data);
   const sorted = sortData(fmt, orderBy);
-  console.log("Formated:");
-  console.log(fmt);
 
   // "Бизнес единица", "Ресторан", "Имя машины", "Серийный номер", "Модель", "Дата добавления"
   const fmtArr = sorted.map((row: IRowFmt) => {

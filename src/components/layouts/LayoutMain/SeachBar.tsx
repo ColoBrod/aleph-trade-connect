@@ -9,22 +9,18 @@ interface Props {
 const SearchBar = ({ items }: Props) => {
 
   const handleOnSearch = (string: string, results: any) => {
-    console.log(string, results);
   };
 
   const handleOnHover = (result: any) => {
-    console.log(result);
   };
 
   const handleOnSelect = (item: any) => {
-    console.log(item);
   };
 
   const handleOnFocus = () => {
   };
 
   const handleOnClear = () => {
-    console.log("Cleared");
   };
 
   const formatResult = (item: any) => {

@@ -77,15 +77,14 @@ const Monitoring = () => {
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchEvents());
-      // dispatch(updateTime());
+      dispatch(updateTime());
     }
   }, [status])
   
   useEffect(() => {
     let intervalId: any;
     intervalId = setInterval(() => {
-      console.log('updating...');
-      // dispatch(updateTime());
+      dispatch(updateTime());
     }, 10000)
     return () => clearInterval(intervalId)
   }, [])
@@ -130,7 +129,6 @@ const Monitoring = () => {
 
       // const path = bu ? buildPath(bu) : "";
 
-      // console.log(path);
 
       // const path = bu ? buildPath(bu) : "";
 
@@ -138,11 +136,8 @@ const Monitoring = () => {
       //   // @ts-ignore
       //   datetime = date.toLocaleString('ru-RU', { timeZone: tz[utc] })
       // } catch (e) {
-      //   console.log("TIMEZONE:", e);
       //   datetime = ""
       // }
-      console.log("DATE:", date);
-      console.log("DATETIME:", datetime);
 
       const err = errors.find(err => err.code === row.errorCode);
       const errorType = err !== undefined ? err.type : 'unknown';
@@ -180,7 +175,6 @@ const Monitoring = () => {
         itemA = new Date(a.dateObj);
         // @ts-ignore
         itemB = new Date(b.dateObj);
-        // console.log("Dates", itemA, itemB);
       }
       else if (column === 'serialNumber') {
         itemA = parseInt(a[column]);
@@ -199,8 +193,6 @@ const Monitoring = () => {
     return sorted;
   }
 
-  console.log("Events:", events);
-
   const filterData = (data: IRow[]): IRow[] => {
     return data.filter(row => {
       const err = errors.find(err => err.code === row.errorCode);
@@ -213,9 +205,6 @@ const Monitoring = () => {
     })
   }
   
-  // const curPage =
-  // console.log("%cFormatting error table:", "color: blue; font-size: 20px;");
-
   // const filtered = type !== 'all' ? filterData(data) : data;
   const filtered = filterData(data);
   const fmt = formatData(filtered);
@@ -289,32 +278,8 @@ const Monitoring = () => {
           }}
         />
         <div className='filters-top'>
-          {/* <Button onClick={() => console.log("empty")} layout='light'>
-            Обновить
-          </Button> */}
           <FiltersAsideButton />
           <UTC_DDL utc={utc} utcSet={utcSet} />
-          {/* <DropDownList
-            onChange={(e) => {
-              // const utc = parseInt(e.currentTarget.value);
-              dispatch(utcSet(e.currentTarget.value));
-            }}
-            value={utc}
-            label='UTC+'
-            name='utc'
-            items={[
-              { value: '+00:00', innerHTML: "+00:00" },
-              { value: '+01:00', innerHTML: "+01:00" },
-              { value: '+02:00', innerHTML: "+02:00" },
-              { value: '+03:00', innerHTML: "+03:00" },
-              { value: '+04:00', innerHTML: "+04:00" },
-              { value: '+05:00', innerHTML: "+05:00" },
-              { value: '+06:00', innerHTML: "+06:00" },
-              { value: '+07:00', innerHTML: "+07:00" },
-              { value: '+08:00', innerHTML: "+08:00" },
-              { value: '+09:00', innerHTML: "+09:00" },
-            ]}
-          /> */}
           <DropDownList 
             onChange={(e) => {
               const value = parseInt(e.currentTarget.value);

@@ -1,0 +1,42 @@
+.region-tree-select {
+
+  /**
+   * Отключает дефолтную стрелку
+   */
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  &__node {
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+  }
+
+  &__node-name, &__restaurant {
+    &.active {
+      background-color: yellow;
+
+    }
+  }
+
+  &__node-name {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    white-space: nowrap;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+  }
+
+  &__restaurant {
+    padding: 10px;
+  }
+}

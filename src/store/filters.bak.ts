@@ -68,7 +68,6 @@ const slice = createSlice({
   reducers: {
     coffeeMachineModelsAllSelected: (state, action) => {
       const { value } = action.payload;
-      console.log(value);
       state.coffeeMachineModels.selectAll = value;
       state.coffeeMachineModels.list.forEach(el => el.checked = value);
     },

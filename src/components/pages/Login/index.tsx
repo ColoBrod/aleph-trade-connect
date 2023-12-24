@@ -30,7 +30,6 @@ const Login = () => {
 
 
   const handleSubmit = () => {
-    console.log("SUMIT")
     if (!phone) return;
     const data: LoginData = { step, phone };
     if (password) data.password = password;
@@ -45,7 +44,6 @@ const Login = () => {
   useEffect(() => {
     const handleEnter = (e: KeyboardEvent) => {
       if (e.key === "Enter") {
-        console.log("ENTER")
         handleSubmit();
       }
     }
@@ -73,13 +71,11 @@ const Login = () => {
   useEffect(() => {
     if (notification?.input === 'code' && notification.text.includes("Код с подтверждением отправлен") && codeTimeout === 0) {
       setCodeTimeout(SMS_TIMEOUT);
-      console.log("Code timeout")
       let seconds: number = SMS_TIMEOUT;
       let intervalId: number;
       // @ts-ignore
       intervalId = setInterval(() => {
         seconds -= 1;
-        console.log(seconds);
         if (seconds > 0) setCodeTimeout(seconds);
         else {
           setCodeTimeout(0);
@@ -104,7 +100,6 @@ const Login = () => {
         onChange={(e) => {
           let { value } = e.currentTarget;
           value = value.replace(/[^0-9+]/g, "");
-          console.log(value);
           setPhone(value);
         }}
         placeholder='Номер телефона' 

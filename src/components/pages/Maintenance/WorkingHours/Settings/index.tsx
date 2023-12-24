@@ -43,11 +43,7 @@ const Settings = () => {
   const dispatch = useAppDispatch()
   const filtersCoffeeMachineModels = useAppSelector(
     state => state.filters.maintenance.shared.coffeeMachineModels.list
-    // state => state.filters.analytics.common.coffeeMachineModels.list
   );
-
-  console.log("%cОшибки:", "color: red; font-size: 20px;")
-  console.table(errors);
 
   return (
     <div className="page page-analytics__maintenance__settings  page-shared__settings">

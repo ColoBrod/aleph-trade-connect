@@ -43,7 +43,6 @@ const ProfileElement = (props: Props) => {
   }
 
   // useEffect(() => {
-  //   console.log(displayPopup);
   //   if (displayPopup) document.addEventListener("click", handleClickOutside) 
   //   // else document.removeEventListener("click", handleClickOutside);
   //   return () => document.removeEventListener("click", handleClickOutside);

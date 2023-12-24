@@ -14,7 +14,6 @@ const AverageDispensingsPerMachine = () => {
   // const period = 30;
   const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
   const period = getPeriod(dateRange);
-  // console.log("PERIOD:", dateRange, period);
   const header = `Среднее количество напитков за ${period} на одну машину`;
   const dispatch = useAppDispatch();
   const { dispensingsPerMachineAverage } = useAppSelector(state => state.pages.analytics.trends.overview);

@@ -106,7 +106,6 @@ class Diagram extends Component<Props> {
 	}
 
   componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<{}>, snapshot?: any): void {
-    // console.log(this.config.data.datasets)
     const initial = JSON.stringify(this.config.data.datasets);
     const final = JSON.stringify(this.props.datasets);
     if (initial === final) return;

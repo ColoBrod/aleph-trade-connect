@@ -13,7 +13,6 @@ interface Props {
 const TopPanel = (props: Props) => {
   const { coffeeMachines, businessUnits } = useAppSelector(state => state.entities.data);
   const items = [...coffeeMachines, ...businessUnits];
-  // console.log("ITEMS:", coffeeMachines);
 
   return (
     <div className="panel panel-top">

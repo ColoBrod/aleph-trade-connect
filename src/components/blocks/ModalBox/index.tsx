@@ -16,9 +16,6 @@ import Maintenance from './Maintenance';
 import Monitoring from './Monitoring';
 import SpareParts from './SpareParts';
 
-interface Props {
-}
-
 // const modalBox = {
 //   "coffee-machine": <h1>Кофе-машина</h1>,
 //   "new-ticket": <h1>Новое обращение</h1>,
@@ -35,7 +32,7 @@ const pages: Page[] = [
   ['spare-parts', <SpareParts />],
 ];
  
-const ModalBox = (props: Props): ReactNode => {
+const ModalBox = (): ReactNode => {
   const [params, setParams] = useSearchParams();
   // const page = params.get("modal-box");
   // @ts-ignore

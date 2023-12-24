@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Navigate, Outlet, useSearchParams } from 'react-router-dom';
+import { Navigate, Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import ModalBox from '~/components/blocks/ModalBox';
 import TopPanel from './TopPanel';
 import LeftPanel from './LeftPanel';
@@ -16,11 +16,15 @@ import {
   tabSet,
   coffeeMachineSet
 } from '~/store/ui/modal-box';
+import ModalBoxUsers from '~/components/blocks/ModalBoxUsers';
 
 const LayoutMain = () => {
   const dispatch = useAppDispatch();
 
   const { status, error, data } = useAppSelector(state => state.entities);
+
+  const { pathname } = useLocation();
+  console.log("path:", pathname)
 
   /**
    * Получаем информацию о выбранной кофе-машине из Мониторинга или Я.Карт
@@ -56,14 +60,14 @@ const LayoutMain = () => {
       <LeftPanel />
       <div className="layout-main__inner">
         <Outlet />
-        <ModalBox> 
-          {/* { modalBox[modalBoxPageName] } */}
-        </ModalBox>
+        {pathname.includes('/administration/company-structure')
+          ? <ModalBoxUsers />
+          : <ModalBox /> }
       </div>
       
       <Tooltip />
     </div>
   );
 }
-
+// <ModalBoxUsers />
 export default LayoutMain;

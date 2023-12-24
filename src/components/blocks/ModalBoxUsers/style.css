@@ -1,0 +1,71 @@
+.modal-box-users {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: calc(100vh - 72px);
+  z-index: 100;
+  background-color: rgba(0,0,0, 0.45);
+
+  &_visible {
+    display: block;
+  }
+
+  &_hidden {
+    display: none;
+  }
+
+  &__header {
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: bold;
+  }
+
+  .input-text {
+    margin-top: 26px;
+  }
+
+  .btn {
+    width: 100%;
+    margin-top: 11px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  &__inner {
+    border-radius: 8px;
+    background-color: white;
+    position: absolute;
+    width: 380px;
+    height: 542px;
+    top: 66px;
+    left: 0; right: 0;
+    margin: auto;
+    padding: 70px 48px 30px;
+
+  }
+
+  &__list {
+    margin-top: 27px;
+    height: 220px;
+    overflow-y: hidden;
+  }
+
+  &__user {
+    padding: 10px;
+    height: 44px;
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 14px;
+  }
+
+  &__close-btn {
+    position: absolute;
+    top: 30px;
+    right: 48px;
+    cursor: pointer;
+    user-select: none;
+
+  }
+}

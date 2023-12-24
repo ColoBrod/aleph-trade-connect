@@ -148,7 +148,7 @@ const Events = () => {
           <Button onClick={() => dispatch(idleSet(null))} layout='light'>
             Обновить
           </Button>
-          <Button onClick={() => console.log("empty")} layout='light'>
+          <Button onClick={() => 1} layout='light'>
             <>
               <img src={imgExcel} alt="Excel icon" />
               Скачать

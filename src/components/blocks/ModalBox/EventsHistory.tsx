@@ -4,10 +4,20 @@ import { ICoffeeMachine } from "~/interfaces/entities";
 import Button from "~/components/ui/Button";
 import UTC_DDL from "~/components/elements/UTC_DDL";
 import EventsFilter from "../EventsFilter";
+import Table from "~/components/blocks/Table";
+import Loader from "~/components/blocks/Loader";
 
 const EventsHistory = () => {
 
   const { coffeeMachine } = useAppSelector(state => state.ui.modalBox);
+
+  const tableHeaders = [
+    "Код ошибки", "Описание ошибки", "Дата/Время", "UTC+", "Длительность"
+  ]
+
+  const tableContent = [
+    
+  ]
 
   return (
     <div className="modal-box__page modal-box__page-events-history">

@@ -7,8 +7,11 @@
   "scripts": {
     "dev": "webpack serve --mode development --env development --progress ",
     "build": "webpack --mode production --progress",
+    "build:test": "webpack --mode test --progress",
+    "build:prod": "webpack --mode production --progress",
     "doc": "typedoc src/index.ts",
-    "deploy": "./deploy.bash"
+    "deploy:test": "./deploy.bash -m test",
+    "deploy:prod": "./deploy.bash -m prod"
   },
   "author": "",
   "license": "ISC",

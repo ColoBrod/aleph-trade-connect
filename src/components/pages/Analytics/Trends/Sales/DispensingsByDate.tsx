@@ -16,8 +16,6 @@ import { getPeriod } from '~/store/selectors';
 const DispensingsByDate = () => {
   const { dateRange } = useAppSelector(state => state.filters.analytics.trends);
   const period = getPeriod(dateRange);
-  // console.log("PERIOD:", dateRange, period);
-  // const period = 30;
   const header = 'Напитки по дням';
   const dispatch = useAppDispatch();
   const { dispensingsByDate } = useAppSelector(state => state.pages.analytics.trends.sales);

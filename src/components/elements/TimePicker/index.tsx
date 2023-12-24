@@ -31,9 +31,6 @@ const TimePicker = (props: Props) => {
     const { id, value } = e.target;
     if (id.includes('start')) dispatch(timeRangeSet({ start: value }));
     if (id.includes('end')) dispatch(timeRangeSet({ end: value }));
-    // console.log(id, value);
-    
-    // dispatch(timeRangeSet())
     
   }
 

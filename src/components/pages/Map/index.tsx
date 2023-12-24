@@ -49,8 +49,6 @@ const MapPage = () => {
     })
   });
 
-  console.log(marks);
-
   const showModalBox = (serialNumber: string) => {
     if (!serialNumber || !coffeeMachines) return;
     const coffeeMachine = 

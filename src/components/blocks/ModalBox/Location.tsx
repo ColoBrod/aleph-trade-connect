@@ -1,5 +1,4 @@
 import React from "react";
-// import Iframe from 'react-iframe';
 import YandexMap, {Mark} from "../YandexMap";
 import './Location.css'
 import { useAppSelector } from "~/hooks";
@@ -29,7 +28,6 @@ const Location = ({}: Props) => {
     <div className="modal-box__page modal-box__page-location">
       <section id="map">
         <YandexMap width="100%" height="100%" mark={mark} />
-        {/* <Iframe url='https://wmf24.ru/map' frameBorder={0} /> */}
       </section>
       <div className="horizontal">
         <div className="vertical">

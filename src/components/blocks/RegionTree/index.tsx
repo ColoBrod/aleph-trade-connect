@@ -37,7 +37,6 @@ const RegionTree = (props: Props) => {
   const { checked, expanded, /*filterText,*/ filteredNodes } = selector
   const dispatch = useAppDispatch();
   const nodes = buildTree([...props.items]);
-  console.log("Nodes:", nodes);
 
   const onFilterChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFilterText(e.target.value);
@@ -48,7 +47,6 @@ const RegionTree = (props: Props) => {
     dispatch(actions.businessUnitsSet(checked));
     // if (path) {
     //   const saved = memory.get(path) as IFiltersBusinessUnits;
-    //   console.log("PATH:", path, saved);
     //   saved.businessUnits.checked = checked;
     //   memory.set(path, saved);
     // }
@@ -70,7 +68,6 @@ const RegionTree = (props: Props) => {
         label='Выбрать все' 
         checked={n}  
         onChange={() => {
-          // console.log(actions.businessUnitsSelectedAll)
           dispatch(actions.businessUnitsSelectedAll(ids))
         }}
         />
@@ -101,7 +98,6 @@ const RegionTree = (props: Props) => {
   const renderFiltered = () => {
     const copy = [...items];
     const filtered = copy.filter(item => item.name.includes(filterText) && item.type === '1');
-    console.log("Copy of all filtered elements: ", filtered);
     return filtered.map(({ id, name }) => {
       const isChecked = checked.find(item => item === String(id))
         ? true
@@ -146,8 +142,6 @@ const RegionTree = (props: Props) => {
 function buildTree(data: IBusinessUnit[], parentId: string | null = null): Node[] {
   const tree: Node[] = [];
   data.forEach((item: IBusinessUnit, i) => {
-    
-    // console.log("==========", item.parentId, parentId);
     if (item.parentId === parentId) {
       delete data[i];
       const children = buildTree(data, item.id);

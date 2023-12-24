@@ -28,7 +28,6 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
     if (parent === null) return;
     const rect = parent.getBoundingClientRect();
     const { id, dataset: { date } } = parent;
-    console.log("Parent:", id, date, rect.left, rect.top, rect.height);
     if (visible === false)
       setTimeout(() => dispatch(displaySet({ 
         id, date, x: rect.left, y: rect.top + rect.height 
@@ -73,14 +72,10 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
   //   const str = res.join('');
   //   setD1(str);
   //   // const pos = substr.length;
-  //   // console.log(input);
-  //   // console.log("length:", pos)
-  //   console.log(pos);
   //   setTimeout(() => input.setSelectionRange(pos, pos), 1) ;
 
   //   // substr.split('').forEach((l, i) => res[i] = l);
   //   // setD1(res.join(''));
-  //   // console.log(res, substr)
   //   // const dd = match[1] || "__"
   //   // const mm = match[2] || "__"
   //   // const yyyy = match[3] || "____"
@@ -105,12 +100,9 @@ const DatePicker = ({ dateRangeSet, date }: Props) => {
     const dateStr = `${yyyy}-${mm}-${dd}`;
     if (validateDate(dateStr)) {
       const payload = { [key]: `${mm}/${dd}/${yyyy}` }
-      console.log(payload);
       dispatch(dateRangeSet(payload));
     }
     else alert("Неправильная дата");
-
-    // console.log(value);
   }
 
   return (

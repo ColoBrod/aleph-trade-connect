@@ -1,7 +1,8 @@
 import React, { ChangeEventHandler, useRef, useState } from 'react';
 
 import "./style.css";
-import imgShowPassword from './show-password.svg'
+import imgShowPassword from './show-password.svg';
+import imgSearch from './search.svg';
 import InputMask from 'react-input-mask'; 
 
 interface Props {
@@ -14,6 +15,7 @@ interface Props {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   modi?: "" | "error" | "message";
   mask?: string;
+  isSearch?: boolean;
 }
 
 const TextInput = (props: Props) => {
@@ -27,6 +29,7 @@ const TextInput = (props: Props) => {
     modi = "",
     disabled = false,
     mask = "",
+    isSearch = false,
   } = props;
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -37,7 +40,7 @@ const TextInput = (props: Props) => {
       : 'password';
 
   return (
-    <div className={`input-text  ${modi}`}>
+    <div className={`input-text  ${modi} ${isSearch ? 'search' : ''}`}>
       {label && <label htmlFor={name}>{label}</label>}
       {
         mask !== "" 

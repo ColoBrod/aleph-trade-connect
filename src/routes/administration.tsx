@@ -35,7 +35,7 @@ const administration: RouteObject = {
       children: [
         {
           path: "",
-          element: <h1>Структура компании</h1>,
+          element: <CompanyStructure />,
         },
       ],
     },

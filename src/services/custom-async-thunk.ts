@@ -35,7 +35,6 @@ export const createCustomAsyncThunk = (method: "get" | "post", path: string, fil
 function getFilters(path: string): Object {
   const keys = path.split("/");
   keys.shift();
-  console.log("Keys", keys);
   const filters = {};
   return {}
 }

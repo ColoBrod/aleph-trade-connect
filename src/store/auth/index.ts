@@ -43,7 +43,6 @@ const slice = createSlice({
       // .addCase(fetchEntities.pending, apiCallPending)
       // .addCase(fetchEntities.fulfilled, (state, action) => {
       //   state.data = action.payload;
-      //   console.log("ENTITIES: ", action.payload);
       // })
       // .addCase(fetchEntities.rejected, apiCallRejected)
   }
