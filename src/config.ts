@@ -6,17 +6,17 @@ const config = {
       url: 'http://localhost:9000/api'
     },
   },
-  test: {
-    api: {
-      url: 'https://backend.wmf24.ru/api/'
-    },
-  },
   production: {
     api: {
-      url: 'https://backend.wmf24.ru/api/'
-      // url: 'http://62.113.111.120:9000/api'
+      url: 'http://62.113.111.120:9000/api'
     },
   },
+  // production: {
+  //   api: {
+  //     url: 'https://backend.wmf24.ru/api'
+  //     // url: 'http://62.113.111.120:9000/api'
+  //   },
+  // },
   
 };
 

@@ -23,7 +23,7 @@ interface Props {
 
 const YandexMap = ({ width, height, mark }: Props) => (
   <YMaps>
-    <Map defaultState={{ center: [mark.lon, mark.lat], zoom: 13 }} style={{ width, height }}>
+    <Map defaultState={{ center: [mark.lat, mark.lon], zoom: 13 }} style={{ width, height }}>
       <Placemark 
         options={{
           preset: 'islands#circleIcon',
@@ -35,7 +35,7 @@ const YandexMap = ({ width, height, mark }: Props) => (
           balloonContentBody: `${mark.coffeeMachine.name} - ${mark.coffeeMachine.serialNumber}`,
           balloonContentFooter: mark.address,
         }}
-        defaultGeometry={[mark.lon, mark.lat]}
+        defaultGeometry={[mark.lat, mark.lon]}
         modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
         />
     </Map>

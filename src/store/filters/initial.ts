@@ -44,6 +44,7 @@ export interface Filters {
   "administration/company-structure": FilterKey[];
 
   "modal-box/coffee-machine/monitoring": FilterKey[];
+  "modal-box/coffee-machine/events-history": FilterKey[];
 }
 
 class InitialFilters {
@@ -69,6 +70,7 @@ class InitialFilters {
     "administration/company-structure": [],
 
     "modal-box/coffee-machine/monitoring": ["pagination", "orderBy", "events"],
+    "modal-box/coffee-machine/events-history": ["pagination", "orderBy", "events"],
   };
 
   public businessUnits?: IFiltersBusinessUnits["businessUnits"];

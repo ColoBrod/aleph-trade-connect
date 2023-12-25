@@ -31,16 +31,6 @@ const ErrorsFilter = ({ errors, filters, onClick: handleClick, handleSelectAll, 
                 >
                 {code}
               </ErrorButton>
-
-              // <Button 
-              //   key={id}
-              //   layout={active ? "dark" : "light"}
-              //   onClick={() => {
-              //     handleClick(id)
-              //   }}
-              //   >
-              //     {code}
-              // </Button>
             )
           })
         }

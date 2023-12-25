@@ -17,8 +17,12 @@ import {
   coffeeMachineSet
 } from '~/store/ui/modal-box';
 import ModalBoxUsers from '~/components/blocks/ModalBoxUsers';
+import config from "~/config";
 
 const LayoutMain = () => {
+  console.log("ENVIRONEMNT:", process.env.NODE_ENV);
+  console.log("API_URL:", config.api.url);
+
   const dispatch = useAppDispatch();
 
   const { status, error, data } = useAppSelector(state => state.entities);

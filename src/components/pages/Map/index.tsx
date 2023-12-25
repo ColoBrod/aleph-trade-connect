@@ -25,9 +25,13 @@ const MapPage = () => {
   const { coffeeMachines, businessUnits } = useAppSelector(state => state.entities.data);
   const marks: Mark[] = []
   const dispatch = useAppDispatch();
+  console.log(coffeeMachines);
+  console.log(businessUnits);
 
   coffeeMachines.forEach((cm, i) => {
     const rest = businessUnits.find(bu => cm.restaurantId === bu.id);
+    console.log("%cRestaurant:", "color: green; font-size: 20px;")
+    console.log(rest);
     if (rest === undefined) return;
     // Если ресторан уже есть в списке меток
     const mark = marks.find(m => rest.id === m.restId);
@@ -44,8 +48,8 @@ const MapPage = () => {
         name: cm.name,
         serialNumber: cm.serialNumber,
       }],
-      lat: parseFloat(rest.lat),
-      lon: parseFloat(rest.lon),
+      lat: parseFloat(rest.lon),
+      lon: parseFloat(rest.lat),
     })
   });
 

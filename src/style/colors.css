@@ -27,8 +27,14 @@
   --clr-err-maintenance: #ffc107;
   --clr-err-error: #dc3545;
   --clr-err-tech-info: #007bff;
-
   --clr-err-disabled: gray;
+
+  --clr-err-light-event: #7ac28a;
+  --clr-err-light-info: #74a8b0;
+  --clr-err-light-maintenance: #fce9ae;
+  --clr-err-light-error: #cf9398;
+  --clr-err-light-tech-info: #a0c8f2;
+  --clr-err-light-disabled: #949494;
 
 
   /**

@@ -96,33 +96,67 @@ const Machines = () => {
 
   const formatData = (data: IRow[]): IRowFmt[] => {
     const grouped: IRowFmt[] = [];
-    data.forEach(row => {
-      const coffeeMachineId = row.coffeeMachineId;
-      const groupedRow = grouped.find(r => r.id === coffeeMachineId);
-      const err = errors.find(err => err.code === row.errorCode);
-      const errorType = err !== undefined ? err.type : 'unknown';
-      const errorObj = { code: row.errorCode, type: errorType, desc: row.errorText };
-
-      const date = new Date(row.startDateTime);
-      const cm = coffeeMachines.find(cm => cm.id === row.coffeeMachineId); 
+    console.log("Coffee Machines:", coffeeMachines);
+    coffeeMachines.forEach(cm => {
+      const { id } = cm;
       const model = coffeeMachineModels.find(m => m.id === cm?.modelId);
       const vendor = coffeeMachineVendors.find(v => v.id === model?.vendorId);
       const bu = businessUnits.find(b => b.id === cm?.restaurantId);
-      const datetime = date.toLocaleString('ru-RU', { timeZone: tz["+03:00"] });
 
-      if (!groupedRow) grouped.push({
-        id: coffeeMachineId,
-        errors: [ errorObj ],
+      grouped.push({
+        id,
+        errors: [],
         path: bu ? bu.name : "",
         restaurant: bu ? bu.name : "",
         machineName: cm?.name ? cm.name : "",
         serialNumber: cm?.serialNumber ? cm.serialNumber : "",
         modelName: model?.name ? model.name : "",
-        dateObj: date,
-        datetime,
+        dateObj: null,
+        datetime: "",
+      });
+
+      data.forEach(row => {
+        const { coffeeMachineId } = row;
+        const groupedRow = grouped.find(r => r.id === coffeeMachineId);
+        if (groupedRow === undefined) return;
+        const err = errors.find(err => err.code === row.errorCode);
+        const errorType = err !== undefined ? err.type : 'unknown';
+        const errorObj = { code: row.errorCode, type: errorType, desc: row.errorText };
+        const date = new Date(row.startDateTime);
+        const datetime = date.toLocaleString('ru-RU', { timeZone: tz["+03:00"] });
+        groupedRow.errors.push(errorObj);
+        groupedRow.dateObj = date;
+        groupedRow.datetime = datetime;
       })
-      else groupedRow.errors.push(errorObj)
-    });
+    })
+
+    // data.forEach(row => {
+    //   const coffeeMachineId = row.coffeeMachineId;
+    //   const groupedRow = grouped.find(r => r.id === coffeeMachineId);
+    //   const err = errors.find(err => err.code === row.errorCode);
+    //   const errorType = err !== undefined ? err.type : 'unknown';
+    //   const errorObj = { code: row.errorCode, type: errorType, desc: row.errorText };
+    //
+    //   const date = new Date(row.startDateTime);
+    //   const cm = coffeeMachines.find(cm => cm.id === row.coffeeMachineId); 
+    //   const model = coffeeMachineModels.find(m => m.id === cm?.modelId);
+    //   const vendor = coffeeMachineVendors.find(v => v.id === model?.vendorId);
+    //   const bu = businessUnits.find(b => b.id === cm?.restaurantId);
+    //   const datetime = date.toLocaleString('ru-RU', { timeZone: tz["+03:00"] });
+    //
+    //   if (!groupedRow) grouped.push({
+    //     id: coffeeMachineId,
+    //     errors: [ errorObj ],
+    //     path: bu ? bu.name : "",
+    //     restaurant: bu ? bu.name : "",
+    //     machineName: cm?.name ? cm.name : "",
+    //     serialNumber: cm?.serialNumber ? cm.serialNumber : "",
+    //     modelName: model?.name ? model.name : "",
+    //     dateObj: date,
+    //     datetime,
+    //   })
+    //   else groupedRow.errors.push(errorObj)
+    // });
     return grouped;
   }
 
