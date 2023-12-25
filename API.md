@@ -140,6 +140,7 @@ interface Params {
   // вателя (установка нового пароля), ожидаем объект с пользовательскими дан-
   // ными
   interface User {
+    "id": string;
     // Полное имя пользователя
     "fullName": string;
     // Насколько я понял, эти два поля объединяем в одно
@@ -986,6 +987,8 @@ interface ICoffeeMachine {
   restaurantId: string; // Aleph ID ресторана
   serialNumber: string;
   name: string;
+  createdAt: string;
+  updatedAt: string;
 }
 ~~~
 

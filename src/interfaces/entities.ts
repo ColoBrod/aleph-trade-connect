@@ -1,3 +1,12 @@
+export interface IUser {
+  id: string;
+  fullName: string;
+  phone: string;
+  email: string;
+  utc: string; 
+  businessUnitsIds: string[];
+}
+
 export interface ICoffeeMachine {
   id: string;
   modelId: string;

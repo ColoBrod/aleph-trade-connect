@@ -12,16 +12,18 @@ interface RegionNodeProps {
   type: string;
 }
 
-
 const RegionNode = ({ id, text, children, depth, type }: RegionNodeProps) => {
   const dispatch = useAppDispatch();
+
   const { businessUnitId: activeId } = useAppSelector(
     state => state.pages.administration.companyStructure
   );
+
   const handleClick = (e: React.MouseEvent) => {
     const { id } = e.currentTarget;
     if (id) dispatch(businessUnitSet(id));
   }
+
   const paddingLeft = depth === 0 ? '10px' : '30px';
   if (type === '1') return (
     <div 
@@ -33,11 +35,13 @@ const RegionNode = ({ id, text, children, depth, type }: RegionNodeProps) => {
   );
   else return (
     <details 
-      id={id}
-      onClick={handleClick}
-      className={`region-tree-select__node ${activeId === id ? 'active' : ''}`} 
+      className={`region-tree-select__node `} 
       style={{ paddingLeft }}>
-      <summary className="region-tree-select__node-name">
+      <summary 
+        id={id}
+        className={`region-tree-select__node-name ${activeId === id ? 'active' : ''}`}
+        onClick={handleClick}
+        >
         {text}
       </summary>
       {children as ReactNode}

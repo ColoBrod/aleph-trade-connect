@@ -36,7 +36,7 @@
     background-color: white;
     position: absolute;
     width: 380px;
-    height: 542px;
+    /* height: 542px; */
     top: 66px;
     left: 0; right: 0;
     margin: auto;
@@ -47,12 +47,23 @@
   &__list {
     margin-top: 27px;
     height: 220px;
-    overflow-y: hidden;
+    overflow-y: auto;
   }
 
   &__user {
+    user-select: none;
+    cursor: pointer;
     padding: 10px;
     height: 44px;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin-top: 24px;
+
+    .input-text { margin-top: 0; }
   }
 
   &__buttons {
@@ -60,12 +71,19 @@
     gap: 14px;
   }
 
-  &__close-btn {
+  &__close-btn, &__back-btn {
     position: absolute;
-    top: 30px;
-    right: 48px;
     cursor: pointer;
     user-select: none;
+  }
 
+  &__close-btn {
+    top: 30px;
+    right: 48px;
+  }
+
+  &__back-btn {
+    top: 23px;
+    left: 40px;
   }
 }

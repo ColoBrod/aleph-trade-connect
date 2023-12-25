@@ -1,12 +1,11 @@
 import { PayloadAction, SerializedError } from "@reduxjs/toolkit";
 import { Status } from "~/interfaces/common";
 
-interface State {
+export interface State {
   status: Status;
   error: string;
   data?: Object;
 }
-
 
 export const apiCallPending = (
   state: State, 
