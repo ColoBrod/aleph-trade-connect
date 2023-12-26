@@ -13,6 +13,7 @@ type ModalBoxPage = 'add-user' | 'all-users';
 
 interface State extends StateBase {
   modalBox: {
+    userId: string;
     users: IUser[];
     isVisible: boolean;
     page: ModalBoxPage;
@@ -26,6 +27,7 @@ const initialState: State = {
   status: 'idle',
   error: "",
   modalBox: {
+    userId: "",
     users: [],
     isVisible: false,
     page: 'all-users',
@@ -65,6 +67,34 @@ export const removeUser =
     
   })
 
+  export const addUser = 
+  createAsyncThunk("administration/company-structure/add-user", async (data: {
+    userId: string;
+    businessUnitId: string;
+  }) => {
+    const config = {
+      url: BASE_URL + "/add-user",
+      method: "post",
+      data,
+    }
+    try {
+      const response = await axios(config);
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+    catch (e) {
+      const error = e as AxiosError;
+      const response = error.response as AxiosResponse;
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+    
+  })
+
 
 
 
@@ -75,6 +105,9 @@ const slice = createSlice({
   name: 'company-structure',
   initialState,
   reducers: {
+    modalBoxUserSet: (state, action: { type: string; payload: string; }) => {
+      state.modalBox.userId = action.payload;
+    },
     modalBoxUsersSet: (state, action: { type: string; payload: IUser[]; }) => {
       state.modalBox.users = action.payload;
     },
@@ -111,7 +144,13 @@ const slice = createSlice({
         // state.status = 'idle';
         // console.log("%cPayload: ", "color: blue; font-size: 20px;")
         // console.log(action.payload);
-
+      })
+      .addCase(addUser.fulfilled, (state, action) => {
+        // @ts-ignore
+        const { data, status } = action.payload;
+        const { users } = data;
+        state.userId = "";
+        state.users = users;
       })
 
 
@@ -124,6 +163,7 @@ const slice = createSlice({
 });
 
 export const { 
+  modalBoxUserSet,
   modalBoxUsersSet, 
   modalBoxToggled, 
   modalBoxPageSet, 

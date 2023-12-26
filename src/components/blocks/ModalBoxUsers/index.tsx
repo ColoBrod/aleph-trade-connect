@@ -5,14 +5,17 @@ import './style.css';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import TextInput from '~/components/ui/TextInput';
 import Button from '~/components/ui/Button';
-import { modalBoxPageSet, modalBoxToggled } from '~/store/pages/administration/company-structure';
+import { addUser, modalBoxPageSet, modalBoxToggled, modalBoxUserSet } from '~/store/pages/administration/company-structure';
 import { IUser } from '~/interfaces/entities';
 
 const ModalBoxUsers = () => {
   const [phone, setPhone] = useState("");
   const [fullName, setFullName] = useState("");
   const dispatch = useAppDispatch();
-  const { isVisible, page, users } = useAppSelector(
+  const { businessUnitId } = useAppSelector(
+    state => state.pages.administration.companyStructure
+  );
+  const { isVisible, page, users, userId } = useAppSelector(
     state => state.pages.administration.companyStructure.modalBox
   );
   const [search, setSearch] = useState("");
@@ -73,14 +76,26 @@ const ModalBoxUsers = () => {
       <div className="modal-box-users__list">
         {
           filtered.map(user => (
-            <div className="modal-box-users__user">
+            <div 
+              className={`modal-box-users__user ${userId === user.id ? 'active' : ''}`}
+              onClick={() => {
+                dispatch(modalBoxUserSet(user.id));
+              }}
+            >
               <span>{user.phone}</span> - <span>{user.fullName}</span> 
             </div>
           ))
         }
       </div>
       <div className="modal-box-users__buttons">
-        <Button onClick={e => 1}>Добавить</Button>
+        <Button 
+          onClick={(e) => {
+            dispatch(addUser({ userId, businessUnitId }));
+            dispatch(modalBoxToggled(false));
+            dispatch(modalBoxPageSet('all-users'));
+          }}
+          >Добавить
+        </Button>
         <Button onClick={e => 1}>Отмена</Button>
       </div>
     </div>
