@@ -6,9 +6,9 @@ import Button from '~/components/ui/Button';
 import RegionTreeSelect from '~/components/blocks/RegionTreeSelect';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 import { IBusinessUnit, IUser } from '~/interfaces/entities';
-import { fetchUsers } from '~/store/pages/administration/company-structure';
+import { fetchUsers, removeUser } from '~/store/pages/administration/company-structure';
 import Loader from '~/components/blocks/Loader';
-import { modalBoxToggled, modalBoxPageSet, modalBoxUsersSet } from '~/store/pages/administration/company-structure';
+import { modalBoxToggled, modalBoxPageSet, modalBoxUsersSet, userSet } from '~/store/pages/administration/company-structure';
 
 const CompanyStructure = () => {
   const dispatch = useAppDispatch();
@@ -51,16 +51,21 @@ const CompanyStructure = () => {
     return users.map(user => {
       const { fullName } = user;
       const phone = formatPhone(user.phone);
+      const active = userId === user.id ? 'active' : '';
       return (
-        <div key={user.id} className="business-unit-users__user">
+        <div 
+          id={user.id} 
+          key={user.id} 
+          onClick={(e) => {
+            const { id } = e.currentTarget;
+            dispatch(userSet(id));
+          }}
+          className={`business-unit-users__user ${active}`}>
           <span>{phone}</span> - <span>{fullName}</span>
         </div>
       )
     })
   }
-
-  
-
 
   return (
     <div className='page page-administration__company-structure'>
@@ -100,7 +105,12 @@ const CompanyStructure = () => {
                 dispatch(modalBoxPageSet('all-users'));
                 dispatch(modalBoxToggled(true));
               }}>Добавить</Button>
-              <Button onClick={e => 1}>Удалить</Button>
+              <Button 
+                onClick={(e) => {
+                  dispatch(removeUser({ userId }))
+                }}>
+                  Удалить
+              </Button>
             </div>
             <div className="business-unit-users__list">
               {renderUsers(filteredUsers)}

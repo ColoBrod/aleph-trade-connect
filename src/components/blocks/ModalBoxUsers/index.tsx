@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import imgCloseBtn from './close-btn.svg';
 import imgBack from './back.svg';
 import './style.css';
@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '~/hooks';
 import TextInput from '~/components/ui/TextInput';
 import Button from '~/components/ui/Button';
 import { modalBoxPageSet, modalBoxToggled } from '~/store/pages/administration/company-structure';
+import { IUser } from '~/interfaces/entities';
 
 const ModalBoxUsers = () => {
   const [phone, setPhone] = useState("");
@@ -15,7 +16,11 @@ const ModalBoxUsers = () => {
     state => state.pages.administration.companyStructure.modalBox
   );
   const [search, setSearch] = useState("");
-  // const 
+  const [filtered, setFiltered] = useState<IUser[]>([])
+
+  useEffect(() => {
+    setFiltered([...users]);
+  }, [users])
 
   const closeBtn = (
     <img 
@@ -35,9 +40,15 @@ const ModalBoxUsers = () => {
       />
   )
 
-  const handleSearch = (e: ChangeEvent) => {
-    // @ts-ignore
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.currentTarget;
+    const lowercase = value.toLowerCase();
+    const f = users.filter(user => {
+      const str = user.phone + " - " + user.fullName;
+      return str.toLowerCase().includes(lowercase);
+    })
+    console.log(f);
+    setFiltered(f);
     setSearch(value);
   }
 
@@ -61,7 +72,7 @@ const ModalBoxUsers = () => {
       </Button>
       <div className="modal-box-users__list">
         {
-          users.map(user => (
+          filtered.map(user => (
             <div className="modal-box-users__user">
               <span>{user.phone}</span> - <span>{user.fullName}</span> 
             </div>

@@ -59,6 +59,10 @@
           height: 44px;
           padding: 10px;
           font-size: 16px;
+
+          &.active {
+            background-color: yellow;
+          }
         }
         &__cancel {
           margin-top: 26px;

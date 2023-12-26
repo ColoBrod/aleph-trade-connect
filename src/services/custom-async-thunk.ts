@@ -10,7 +10,7 @@ let API_URL = config.api.url;
 
 const FILTER_ERR = new Error("Не указаны передаваемые фильтры или endpoint API (path) не существует.")
 
-export const createCustomAsyncThunk = (method: "get" | "post", path: string, filters?: (state: RootState) => any[]) => {
+export const createCustomAsyncThunk = (method: "get" | "post" | "put" | "delete", path: string, filters?: (state: RootState) => any[]) => {
   return createAsyncThunk<any, void, { state: RootState }>(path, async (arg, { getState }) => {
     const state = getState();
     // @ts-ignore

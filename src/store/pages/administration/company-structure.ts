@@ -3,6 +3,11 @@ import { IUser } from "~/interfaces/entities";
 import { createCustomAsyncThunk } from "~/services/custom-async-thunk";
 import { State as StateBase, apiCallPending, apiCallRejected } from "~/store/utils";
 import { Status } from "~/interfaces/common";
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import config from "~/config";
+const BASE_URL = config.api.url + "/administration/company-structure";
+
 
 type ModalBoxPage = 'add-user' | 'all-users';
 
@@ -32,6 +37,39 @@ const initialState: State = {
 
 export const fetchUsers = 
   createCustomAsyncThunk("post", "/administration/company-structure");
+
+export const removeUser = 
+  createAsyncThunk("administration/company-structure/remove-user", async (data: {
+    userId: string
+  }) => {
+    const config = {
+      url: BASE_URL + "/remove-user",
+      method: "post",
+      data,
+    }
+    try {
+      const response = await axios(config);
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+    catch (e) {
+      const error = e as AxiosError;
+      const response = error.response as AxiosResponse;
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+    
+  })
+
+
+
+
+// export const removeUser =
+  // createCustomAsyncThunk("post", "/administration/company-structure/remove-user");
 
 const slice = createSlice({
   name: 'company-structure',
@@ -64,6 +102,19 @@ const slice = createSlice({
         state.status = 'success';
         state.users = action.payload.users;
       })
+      .addCase(removeUser.fulfilled, (state, action) => {
+        // @ts-ignore
+        const { data, status } = action.payload;
+        const { users } = data;
+        state.userId = ""; 
+        state.users = users;
+        // state.status = 'idle';
+        // console.log("%cPayload: ", "color: blue; font-size: 20px;")
+        // console.log(action.payload);
+
+      })
+
+
       // .addCase(fetchUsers.fulfilled, (state, action) => {
       //   // state.users = action.payload.users;
       // })
@@ -72,5 +123,11 @@ const slice = createSlice({
   },
 });
 
-export const { modalBoxUsersSet, modalBoxToggled, modalBoxPageSet, businessUnitSet, userSet } = slice.actions;
+export const { 
+  modalBoxUsersSet, 
+  modalBoxToggled, 
+  modalBoxPageSet, 
+  businessUnitSet, 
+  userSet 
+} = slice.actions;
 export default slice.reducer;
