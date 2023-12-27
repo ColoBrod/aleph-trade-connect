@@ -1,18 +1,68 @@
 .page-profile {
+  position: relative;
+  padding-top: 72px;
   flex-grow: 1;
   display: flex;
   flex-direction: row;
 
   &__nav {
-    flex-basis: 30%;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 388px;
+    padding: 0 56px;
+    
+    border-width: 0 2px 0 0;
+    border-style: solid;
+    border-color: #BDBDBD;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    &-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      min-height: 781px;
+      width: 276px;
+    }
+
+    &-header, &-link {
+      display: block;
+      height: 44px;
+      padding: 10px;
+      line-height: 24px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      border-radius: 4px;
+      text-decoration: none;
+      color: var(--clr-font);
+      user-select: none;
+    }
+
+    &-header {
+      font-weight: bold;
+    }
+
+    &-link {
+      padding-left: 20px;
+      
+      &.active {
+        background-color: #BDBDBD;
+      }
+    }
   }
 
   &__content {
+    padding: 6px 24px;
     flex-grow: 1;
   }
+
+  &__tab {
+    overflow-y: auto;
+    h1 {
+      font-size: 24px;
+      margin-bottom: 35px;
+    }
+  }
+
+
 }

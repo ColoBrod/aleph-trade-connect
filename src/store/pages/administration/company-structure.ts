@@ -42,7 +42,8 @@ export const fetchUsers =
 
 export const removeUser = 
   createAsyncThunk("administration/company-structure/remove-user", async (data: {
-    userId: string
+    userId: string,
+    businessUnitId: string,
   }) => {
     const config = {
       url: BASE_URL + "/remove-user",
@@ -67,7 +68,7 @@ export const removeUser =
     
   })
 
-  export const addUser = 
+export const addUser = 
   createAsyncThunk("administration/company-structure/add-user", async (data: {
     userId: string;
     businessUnitId: string;
@@ -95,8 +96,32 @@ export const removeUser =
     
   })
 
-
-
+export const createUser = 
+  createAsyncThunk("administration/company-structure/create-user", async (data: {
+    fullName: string;
+    phone: string;
+  }) => {
+    const config = {
+      url: BASE_URL + "/create-user",
+      method: "post",
+      data,
+    }
+    try {
+      const response = await axios(config);
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+    catch (e) {
+      const error = e as AxiosError;
+      const response = error.response as AxiosResponse;
+      return {
+        status: response.status,
+        data: response.data,
+      }
+    }
+  })
 
 // export const removeUser =
   // createCustomAsyncThunk("post", "/administration/company-structure/remove-user");
@@ -150,6 +175,12 @@ const slice = createSlice({
         const { data, status } = action.payload;
         const { users } = data;
         state.userId = "";
+        state.users = users;
+      })
+      .addCase(createUser.fulfilled, (state, action) => {
+        // @ts-ignore
+        const { data, status } = action.payload;
+        const { users } = data;
         state.users = users;
       })
 

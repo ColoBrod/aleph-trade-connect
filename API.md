@@ -920,15 +920,11 @@ interface Params {
 
   #### Request:
   ~~~ts
-  {
-    ids: number[];
-  }
+  string[];
   ~~~
   Пример JSON:
   ~~~json
-  {
-    "ids": [ 655, 1024, 713 ]
-  }
+  [ "655", "1024", "713" ]
   ~~~
   #### Response:
   ✔ 200

@@ -131,14 +131,24 @@ const slice = createSlice({
         state.data = rows;
       })
       .addCase(fetchEvents.rejected, apiCallRejected)
-      .addCase(updateTime.fulfilled, (state, action) => {
-        // console.log(action.payload);
+      .addCase(updateTime.fulfilled, (state, action: {
+        type: string;
+        payload: {
+          data: { 
+            id: string; 
+            duration: string; 
+            end_datetime: string;
+          }[]
+        }
+      }) => {
+        const { data } = action.payload;
         state.data.forEach((row, i) => {
-          console.log(action.payload);
-          const proxy = action.payload.find(r => r.id === row.id);
+          const proxy = data.find(r  => {
+            console.log(r.id, row.id);
+            return r.id == row.id;
+          });
           if (proxy) row.duration = proxy.end_datetime;
           else state.data.splice(i, 1);
-          // console.log(proxy);
         })
         // console.log("Data:", current(state.data));
       })

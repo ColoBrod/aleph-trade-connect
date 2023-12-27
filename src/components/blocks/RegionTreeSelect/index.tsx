@@ -24,19 +24,20 @@ const RegionNode = ({ id, text, children, depth, type }: RegionNodeProps) => {
     if (id) dispatch(businessUnitSet(id));
   }
 
-  const paddingLeft = depth === 0 ? '10px' : '30px';
+  const paddingLeft = depth === 0 ? '40px' : '40px';
   if (type === '1') return (
     <div 
       id={id}
       onClick={handleClick}
       className={`region-tree-select__restaurant ${activeId === id ? 'active' : ''}`} 
-      style={{ paddingLeft }}
+      style={{ marginLeft: '40px' }}
     >{text}</div>
   );
   else return (
     <details 
       className={`region-tree-select__node `} 
-      style={{ paddingLeft }}>
+      style={{ paddingLeft }}
+      >
       <summary 
         id={id}
         className={`region-tree-select__node-name ${activeId === id ? 'active' : ''}`}

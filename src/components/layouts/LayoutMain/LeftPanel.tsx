@@ -1,5 +1,5 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import imgAccountGroup from './img/account-group.svg';
 import imgClipboardText from './img/clipboard-text.svg';
@@ -23,6 +23,15 @@ interface Props {
 
 const TopPanel = (props: Props) => {
   const dispatch = useAppDispatch();
+  // const { pathname } = useLocation();
+
+  // useEffect(() => {
+    // const pathArr = pathname.split("/").filter(el => el);
+    // const item = items.find(item => pathname.includes(item.path));
+    // console.log("%cPath:", "color: green; font-size: 30px;")
+    // console.log(pathname, pathArr, item);
+    // if (item) item.path = pathname;
+  // }, [pathname])
 
   return (
     <div className="panel panel-left">
@@ -35,8 +44,6 @@ const TopPanel = (props: Props) => {
               const { x, y, width, height } = e.currentTarget.getBoundingClientRect();
               const abs_x = x + 60;
               const abs_y = y + 18;
-              
-
               dispatch(tooltipShown({ 
                 text: item.name, 
                 coords: { x: abs_x, y: abs_y },

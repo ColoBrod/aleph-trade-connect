@@ -1,0 +1,10 @@
+.page-profile__tab-delete-account {
+
+  .section-buttons {
+    margin-top: 108px;
+    display: flex;
+    gap: 11px;
+    padding: 0 0 3px 3px;
+  }
+
+}

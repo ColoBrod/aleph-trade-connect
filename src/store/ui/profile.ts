@@ -5,6 +5,9 @@ interface Profile {
   lastName: string;
   email: string;
   displayPopup: boolean;
+  uploadImage: {
+    display: 'flex' | 'none';
+  };
 }
 
 const initialState: Profile = {
@@ -12,6 +15,9 @@ const initialState: Profile = {
   lastName: "Лазарев",
   email: "lazarev.n.f@outlook.com",
   displayPopup: false,
+  uploadImage: {
+    display: 'flex',
+  },
 };
 
 const slice = createSlice({
@@ -24,8 +30,15 @@ const slice = createSlice({
         : !profile.displayPopup
       profile.displayPopup = displayPopup;
     },
+    uploadImageToggled: (state, action: {
+      type: string;
+      payload: boolean;
+    }) => {
+      const display = action.payload === true ? 'flex' : 'none';
+      state.uploadImage.display = display;
+    },
   }
 });
 
-export const { popupToggled } = slice.actions;
+export const { popupToggled, uploadImageToggled } = slice.actions;
 export default slice.reducer;

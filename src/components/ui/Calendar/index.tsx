@@ -56,7 +56,7 @@ const Calendar = (props: CalendarProps) => {
     if (!calendar.visible) return
     const handleClickOutside = (e: MouseEvent<Document>): void => {
       // @ts-ignore
-      if (e.target.classList.contains('picker__input')) return
+      if (e.target.classList.contains('picker__input')) return;
       // @ts-ignore
       if (e.target.closest('.calendar')) return;
       dispatch(displaySet({ visible: false }))

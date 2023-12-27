@@ -22,7 +22,7 @@ const CompanyStructure = () => {
   const [chatTelegramId, setChatTelegramId] = useState(defaultChatTelegramId);
   // console.log("Default TG chat id:", defaultChatTelegramId);
   // console.log("chatTelegramId:", chatTelegramId);
-  const address = businessUnit?.address ? businessUnit.address : "Нет адреса";
+  const address = businessUnit?.address ? businessUnit.address : <>&nbsp;</>;
 
   let filteredUsers: IUser[] = [];
   if (businessUnitId) 
@@ -40,6 +40,15 @@ const CompanyStructure = () => {
     const list = users.filter(user => filteredUsers.includes(user) === false);
     dispatch(modalBoxUsersSet(list));
   }, [businessUnitId])
+
+  const rmBtnDisabled = () => {
+    const user = users.find(u => u.id === userId);
+    if (user === undefined) return true;
+    if (user.businessUnitsIds.includes(businessUnitId)) return false;
+    return true;
+  }
+
+  console.log("Disabled:", rmBtnDisabled())
 
   // useEffect(() => {
   //   const u = users.filter(user => filteredUsers.includes(user) === false);
@@ -60,8 +69,9 @@ const CompanyStructure = () => {
             const { id } = e.currentTarget;
             dispatch(userSet(id));
           }}
-          className={`business-unit-users__user ${active}`}>
-          <span>{phone}</span> - <span>{fullName}</span>
+          className={`business-unit-users__user ${active}`}
+        >
+          {phone} - {fullName}
         </div>
       )
     })
@@ -76,7 +86,9 @@ const CompanyStructure = () => {
         <main>
           <div className="business-unit header">
             {path}
-            {/* Центральный федеральный округ / Московская область / Москва / Бургер-1234 */}
+          </div>
+          <div className="address header">
+            {address}
           </div>
           <div className="telegram-chat">
             <span className='telegram-chat__title header'>
@@ -93,21 +105,23 @@ const CompanyStructure = () => {
             <Button onClick={e => 1}>Сохранить</Button>
             <Button onClick={e => 1}>Отмена</Button>
           </div>
-          <div className="address header">
-            {address}
-          </div>
           <div className="business-unit-users">
             <div className="business-unit-users__header header">
               Пользователи бизнес единицы
             </div>
             <div className="business-unit-users__buttons">
-              <Button onClick={e => {
-                dispatch(modalBoxPageSet('all-users'));
-                dispatch(modalBoxToggled(true));
-              }}>Добавить</Button>
               <Button 
+                disabled={businessUnitId ? false : true}
+                onClick={e => {
+                  dispatch(modalBoxPageSet('all-users'));
+                  dispatch(modalBoxToggled(true));
+                }}>
+                  Добавить
+              </Button>
+              <Button 
+                disabled={ rmBtnDisabled() }
                 onClick={(e) => {
-                  dispatch(removeUser({ userId }))
+                  dispatch(removeUser({ userId, businessUnitId }))
                 }}>
                   Удалить
               </Button>

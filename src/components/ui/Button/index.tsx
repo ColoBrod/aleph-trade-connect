@@ -6,12 +6,18 @@ interface Props {
   layout?: "light" | "dark" | "dark-shadow";
   disabled?: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
+  className?: string;
 }
 
 const Button = (props: Props) => {
-  const { children, layout = "light", onClick, disabled = false } = props;
+  const { children, layout = "light", onClick, disabled = false, className = "" } = props;
   return (
-    <div className={`btn btn-${layout} ${disabled ? 'disabled' : ''}`} onClick={onClick}>
+    <div 
+      className={`btn btn-${layout} ${disabled ? 'disabled' : ''} ${className}`} 
+      onClick={(e) => {
+        if (!disabled) onClick(e);
+      }}
+    >
       { children }
     </div>
   );

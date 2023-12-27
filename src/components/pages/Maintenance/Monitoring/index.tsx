@@ -85,7 +85,7 @@ const Monitoring = () => {
     let intervalId: any;
     intervalId = setInterval(() => {
       dispatch(updateTime());
-    }, 10000)
+    }, 1000)
     return () => clearInterval(intervalId)
   }, [])
 

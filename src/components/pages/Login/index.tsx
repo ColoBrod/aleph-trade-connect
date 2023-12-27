@@ -28,7 +28,6 @@ const Login = () => {
   const { step, notification } = useAppSelector(state => state.pages.auth);
   // if (token) return <Navigate to={`/`} replace={false} />
 
-
   const handleSubmit = () => {
     if (!phone) return;
     const data: LoginData = { step, phone };

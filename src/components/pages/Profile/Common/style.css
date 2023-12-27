@@ -1,0 +1,103 @@
+.page-profile__tab-common {
+  position: relative;
+
+  .row {
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 594px;
+    max-width: 800px;
+    gap: 16px;
+
+    .label {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .input-text {
+      width: 342px;
+    }
+
+    .btn { 
+      padding-left: 10px;
+      padding-right: 10px;
+      width: 162px;
+    }
+
+  }
+
+  .section-top {
+    display: flex;
+    align-items: flex-end;
+    gap: 24px;
+
+    .rows {
+      display: flex;
+      gap: 24px;
+      flex-direction: column;
+    }
+    
+    .row .label {
+      width: 90px;
+    }
+
+    .avatar {
+      cursor: pointer;
+      background-color: gray;
+      background-image: url('user-default-image.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      border-radius: 8px;
+      width: 150px;
+      height: 150px;
+      border-color: var(--clr-font-accent);
+      border-width: 2px;
+      border-style: solid;
+    }
+  }
+
+  .section-bottom {
+    margin-top: 33px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    .row .label {
+      width: 264px;
+    }
+
+    select {
+      width: 342px;
+      height: 40px;
+      border-radius: 6px;
+      cursor: pointer;
+      background-color: white;
+      border-color: var(--clr-info-light);
+      appearance: none;
+      font-size: 16px;
+      line-height: 40px;
+      padding: 0 10px;
+      color: var(--clr-font);
+      background-image: url('./arrow.svg');
+      background-position: top 16px right 16px;
+      background-repeat: no-repeat;
+
+      &:focus {
+        border-color: var(--clr-font-accent);
+        outline: none;
+      }
+    }
+
+    option {
+
+    }
+  }
+
+  .section-buttons {
+    margin-top: 24px;
+    gap: 11px;
+    width: 622px;
+    display: flex;
+    justify-content: flex-end;
+  }
+}

@@ -132,11 +132,24 @@ class InitialFilters {
     }
   }
 
-  public static formatFilters(original: any) {
+  public static formatFilters(state: RootState, original: any) {
     const filters: any = {};
-    
-    if ('serialNumbers' in original) 
-      filters.serialNumbers = original.serialNumbers.list;
+    const { coffeeMachines } = state.entities.data;
+    let copy = coffeeMachines.map(cm => cm);
+
+    if ('businessUnits' in original && original.businessUnits.length > 0) {
+      copy = copy.filter(cm => original.businessUnits.includes(cm.restaurantId))
+    }
+    if ('coffeeMachineModels' in original && original.coffeeMachineModels.length > 0) {
+      copy = copy.filter(cm => original.coffeeMachineModels.includes(cm.modelId));
+    }
+    if ('serialNumbers' in original && original.serialNumbers.length > 0) {
+      copy = copy.filter(cm => original.serialNumbers.includes(cm.serialNumber));
+    }
+    if (copy.length !== coffeeMachines.length) filters.coffeeMachines = copy.map(cm => cm.id);
+
+    // if ('serialNumbers' in original) 
+    //   filters.serialNumbers = original.serialNumbers.list;
 
     if ('pagination' in original)
       filters.pagination = original.pagination;

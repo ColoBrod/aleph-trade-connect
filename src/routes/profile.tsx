@@ -3,6 +3,10 @@ import React, { Children } from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import Profile from "~/components/pages/Profile";
 
+import Common from "~/components/pages/Profile/Common";
+import Credentials from "~/components/pages/Profile/Credentials";
+import DeleteAccount from "~/components/pages/Profile/DeleteAccount";
+
 const profile: RouteObject = {
   path: "profile", 
   element: <Profile />,
@@ -13,15 +17,15 @@ const profile: RouteObject = {
     },
     {
       path: "common",
-      element: <h1>Личные данные</h1>,
+      element: <Common />,
     },
     {
       path: "credentials",
-      element: <h1>Пароль</h1>,
+      element: <Credentials />,
     },
     {
       path: "delete-account",
-      element: <h1>Удалить аккаунт</h1>,
+      element: <DeleteAccount />,
     },
     
   ],

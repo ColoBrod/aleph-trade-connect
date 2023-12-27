@@ -5,3 +5,11 @@ import type { RootState, AppDispatch } from './store';
 type DispatchFunc = () => AppDispatch;
 export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+/**
+ * My hooks
+ */
+// import { RoutesState } from './store/ui/tabs';
+// export const getDynamicLink = (path: keyof RoutesState): string => {
+//   return "";
+// }

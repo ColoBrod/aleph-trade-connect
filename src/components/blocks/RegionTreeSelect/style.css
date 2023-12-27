@@ -11,6 +11,14 @@
   }
 
   &__node {
+    background-image: url('arrow-closed.svg');
+    background-position: top 10px left 10px;
+    background-repeat: no-repeat;
+
+    &[open] {
+      background-image: url('arrow.svg');
+    }
+
     &::-webkit-details-marker {
       display: none;
     }
@@ -18,25 +26,26 @@
   }
 
   &__node-name, &__restaurant {
-    &.active {
-      background-color: yellow;
+    padding: 10px;
+    /* padding: 10px 10px 10px 38px; */
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
+    &.active {
+      background-color: var(--clr-bg-select);
     }
   }
 
-  &__node-name {
-    padding: 10px;
-    cursor: pointer;
-    font-size: 16px;
-    white-space: nowrap;
 
+  &__node-name {
     &::-webkit-details-marker {
       display: none;
     }
-
   }
 
   &__restaurant {
-    padding: 10px;
   }
 }
