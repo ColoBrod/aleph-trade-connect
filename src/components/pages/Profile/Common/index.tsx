@@ -5,12 +5,12 @@ import TextInput from '~/components/ui/TextInput';
 import Button from '~/components/ui/Button';
 // import UploadImage from '../UploadImage';
 import { uploadImageToggled } from '~/store/ui/profile';
-import { useAppDispatch } from '~/hooks';
-import imgDefaultAvatar from './user-default-image.jpg'
-
+import { useAppDispatch, useAppSelector } from '~/hooks';
 
 const Common = () => {
   const dispatch = useAppDispatch();
+  const { avatar } = useAppSelector(state => state.ui.profile);
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [emailCode, setEmailCode] = useState("");
@@ -23,6 +23,9 @@ const Common = () => {
       <h1>Личные данные</h1>
       <section className='section-top'>
         <div 
+          style={{
+            backgroundImage: `url(${avatar})`,
+          }}
           onClick={(e) => {
             dispatch(uploadImageToggled(true));
           }}

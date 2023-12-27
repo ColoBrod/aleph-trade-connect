@@ -18,7 +18,7 @@ interface Props {
 const ProfileElement = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { firstName, lastName, email, displayPopup } = useAppSelector(
+  const { fullName, email, displayPopup } = useAppSelector(
     (state) => state.ui.profile 
   );
   const ref = useRef(null)
@@ -54,7 +54,7 @@ const ProfileElement = (props: Props) => {
         <div className="profile-element__icon">
           <img src={imgAccount} alt="" />
         </div>
-        <div className="profile-element__name">{firstName} {lastName}</div>
+        <div className="profile-element__name">{fullName}</div>
         <div className="profile-element__arrow">
           <img src={imgArrow} alt="" />
           {/* { displayPopup ? ARROW_UP : ARROW_DOWN } */}
@@ -65,7 +65,7 @@ const ProfileElement = (props: Props) => {
         <div ref={ref} className="profile-element__popup">
           <div onClick={openProfileInfoPage} className="profile-element__popup__user">
             <div className="profile-element__popup__user__full-name">
-              {firstName} {lastName}
+              {fullName}
             </div>
             <div className="profile-element__popup__user__email">
               {email}

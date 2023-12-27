@@ -45,7 +45,7 @@
     .avatar {
       cursor: pointer;
       background-color: gray;
-      background-image: url('user-default-image.jpg');
+      /* background-image: url('user-default-image.jpg'); */
       background-size: cover;
       background-repeat: no-repeat;
       border-radius: 8px;

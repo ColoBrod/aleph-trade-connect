@@ -2,19 +2,22 @@ import React, { ChangeEvent, MouseEvent, useState, useRef, useEffect } from 'rea
 import './style.css';
 import Cropper, { ReactCropperElement } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import defaultSrc from '../Common/user-default-image.jpg';
+// import defaultSrc from './user-default-image.jpg';
+import Button from '~/components/ui/Button';
 // const defaultSrc =
 //   "https://raw.githubusercontent.com/roadmanfong/react-cropper/master/example/img/child.jpg";
 
 import { useAppSelector, useAppDispatch } from '~/hooks';
-import { uploadImageToggled } from '~/store/ui/profile';
+import { uploadImageToggled, avatarSet } from '~/store/ui/profile';
+import imgClose from './close-btn.svg';
 
 const UploadImage = () => {
   const dispatch = useAppDispatch();
   const { display } = useAppSelector(state => state.ui.profile.uploadImage);
 
-  const [image, setImage] = useState(defaultSrc);
-  const [cropData, setCropData] = useState("#");
+  const { fullName, email, phone, avatar } = useAppSelector(state => state.ui.profile);
+  const [image, setImage] = useState("");
+  // const [cropData, setCropData] = useState("#");
   const cropperRef = useRef<ReactCropperElement>(null);
 
   useEffect(() => {
@@ -46,14 +49,16 @@ const UploadImage = () => {
     }
   }, [display])
 
+  useEffect(() => {
+    setImage(avatar);
+    console.log("Crop Data:", avatar);
+  }, [avatar])
+
   const onChange = (e: any) => {
     e.preventDefault();
     let files;
-    if (e.dataTransfer) {
-      files = e.dataTransfer.files;
-    } else if (e.target) {
-      files = e.target.files;
-    }
+    if (e.dataTransfer) files = e.dataTransfer.files;
+    else if (e.target) files = e.target.files;
     const reader = new FileReader();
     reader.onload = () => {
       setImage(reader.result as any);
@@ -63,21 +68,37 @@ const UploadImage = () => {
 
   const getCropData = () => {
     if (typeof cropperRef.current?.cropper !== "undefined") {
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+      const newAvatar = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
+      // console.log(newAvatar);
+      dispatch(avatarSet(newAvatar));
+      
+      dispatch(uploadImageToggled(false));
     }
   };
+
+  const handleClose = () => {
+    dispatch(uploadImageToggled(false));
+  }
 
   return (
     <div className="modal-box-upload-image" style={{display}}>
       <div className="modal-box-upload-image__inner">
+        <img 
+          className='modal-box-upload-image__close-btn' 
+          onClick={handleClose} 
+          src={imgClose} 
+          alt="Закрыть окно" 
+          />
         <h1>Загрузить изображение</h1>
-        <div style={{ width: "100%" }}>
-          <input type="file" onChange={onChange}  />
-          <button>Сбросить</button>
-          <br />
-          <br />
+        <div>
+          <section className="top-panel">
+            <input className='choose-files' type="file" onChange={onChange}  />
+            <button className='reset'>Сбросить</button>
+          </section>
           <Cropper
-            style={{ height: 300, width: "100%" }}
+            // className='cropper'
+            style={{ height: 400, width: 400 }}
+            aspectRatio={1}
             initialAspectRatio={1}
             preview=".img-preview"
             src={image}
@@ -91,28 +112,22 @@ const UploadImage = () => {
             checkOrientation={false} // https://github.com/fengyuanchen/cropperjs/issues/671
           />
         </div>
-        <div>
-          <div className="box" style={{ width: "50%", float: "right" }}>
-            <h1>Preview</h1>
+
+        <section className="bottom-panel">
+
+          <div className="box">
             <div
               className="img-preview"
-              style={{ width: "100%", float: "left", height: "300px" }}
             />
           </div>
-          <div
-            className="box"
-            style={{ width: "50%", float: "right", height: "300px" }}
-          >
-            <h1>
-              <span>Crop</span>
-              <button style={{ float: "right" }} onClick={getCropData}>
-                Crop Image
-              </button>
-            </h1>
-            <img style={{ width: "100%" }} src={cropData} alt="cropped" />
+
+          <div className="box">
+            <Button onClick={getCropData}>Сохранить</Button>
+            <Button onClick={handleClose}>Отмена</Button>
           </div>
-        </div>
-        <br style={{ clear: "both" }} />
+
+        </section>
+
       </div>
     </div>
   )

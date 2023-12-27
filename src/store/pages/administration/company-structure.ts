@@ -8,7 +8,6 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import config from "~/config";
 const BASE_URL = config.api.url + "/administration/company-structure";
 
-
 type ModalBoxPage = 'add-user' | 'all-users';
 
 interface State extends StateBase {

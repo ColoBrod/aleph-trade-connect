@@ -7,6 +7,7 @@ import LeftPanel from './LeftPanel';
 import { useAppDispatch, useAppSelector } from '~/hooks';
 // import { dateRangeSet } from '~/store/filters/analytics';
 import { fetchEntities } from '~/store/entities';
+import { fetchUser } from '~/store/ui/profile';
 
 import './style.css';
 import Tooltip from '~/components/ui/Tooltip';
@@ -55,7 +56,10 @@ const LayoutMain = () => {
   if (!token) return <Navigate to="/auth/login" replace={true} />
 
   useEffect(() => {
-    if (status === 'idle') dispatch(fetchEntities())
+    if (status === 'idle') {
+      dispatch(fetchUser())
+      dispatch(fetchEntities())
+    }
   }, [status])
 
   return (
