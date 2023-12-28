@@ -61,3 +61,19 @@
     background-size: 32px 32px;
     background-position: right 3px; */
 }
+
+.input-text_layout-form {
+  label {
+    font-size: 18px;
+    color: var(--clr-font);
+    margin-bottom: 8px;
+  }
+
+  input {
+    background-color: #EEEEEE;
+    border-color: var(--clr-info-light);
+  }
+
+}
+
+

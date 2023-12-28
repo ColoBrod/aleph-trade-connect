@@ -9,7 +9,7 @@ import InnerWithTabs from "~/components/layouts/InnerWithTabs";
 import Loader from "~/components/pages/Loader";
 import NotFound from "~/components/pages/NotFound";
 import Map from "~/components/pages/Map";
-import Docs from "~/components/pages/Docs";
+import Feedback from "~/components/pages/Feedback";
 
 // Routes
 import analytics from './analytics';
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       profile,
       { path: "contact", element: <Contact /> },
       { path: 'map', element: <Map />},
-      { path: 'docs', element: <Docs />},
+      { path: 'feedback', element: <Feedback />},
       { path: '*', element: <NotFound />},
     ],
   },

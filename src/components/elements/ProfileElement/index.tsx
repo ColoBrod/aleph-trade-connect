@@ -18,7 +18,7 @@ interface Props {
 const ProfileElement = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { fullName, email, displayPopup } = useAppSelector(
+  const { fullName, email, avatar, displayPopup } = useAppSelector(
     (state) => state.ui.profile 
   );
   const ref = useRef(null)
@@ -52,7 +52,7 @@ const ProfileElement = (props: Props) => {
     <div className="profile-element">
       <div onClick={() => dispatch(popupToggled({}))} className="profile-element__inner">
         <div className="profile-element__icon">
-          <img src={imgAccount} alt="" />
+          <img src={avatar ? avatar : imgAccount} alt="" />
         </div>
         <div className="profile-element__name">{fullName}</div>
         <div className="profile-element__arrow">

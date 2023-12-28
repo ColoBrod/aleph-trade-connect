@@ -16,6 +16,7 @@ interface Props {
   modi?: "" | "error" | "message";
   mask?: string;
   isSearch?: boolean;
+  layout?: 'default' | 'form';
 }
 
 const TextInput = (props: Props) => {
@@ -30,6 +31,7 @@ const TextInput = (props: Props) => {
     disabled = false,
     mask = "",
     isSearch = false,
+    layout = 'default',
   } = props;
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -40,7 +42,7 @@ const TextInput = (props: Props) => {
       : 'password';
 
   return (
-    <div className={`input-text  ${modi} ${isSearch ? 'search' : ''}`}>
+    <div className={`input-text input-text_layout-${layout}  ${modi} ${isSearch ? 'search' : ''}`}>
       {label && <label htmlFor={name}>{label}</label>}
       {
         mask !== "" 

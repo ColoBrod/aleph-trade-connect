@@ -1,0 +1,80 @@
+.page-feedback {
+  padding: 75px 66px;
+  h1 {
+    font-size: 24px;
+    line-height: 24px;
+    font-weight: bold;
+  }
+
+  .form {
+    margin-top: 40px;
+    display: flex;
+    gap: 48px;
+
+    .text-area {
+      height: 347px;
+    }
+
+    .react-dadata__container {
+      /* height: 100px; */
+      &::before {
+        font-size: 18px;
+        color: var(--clr-font);
+        content: "Населенный пункт";
+        display: block;
+        margin-bottom: 8px;
+      }
+    }
+
+    input.react-dadata__input {
+      height: 40px;
+      background-color: #EEEEEE;
+      border-color: var(--clr-info-light);
+      &:focus {
+        box-shadow: none;
+      }
+    }
+
+  }
+
+  .column {
+    width: 342px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+  }
+  
+  .column-1 {
+    .btn {
+      width: 162px;
+    }
+  }
+
+  .column-2 {
+    width: 400px;
+    .row {
+      margin-top: 53px;
+      display: flex;
+      align-items: center;
+      gap: 21px;
+      .attach-file-text {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+    }
+  }
+
+  section.privacy-policy {
+    margin-top: 30px;
+    a {
+      line-height: 50px;
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      color: var(--clr-font);
+
+    }
+  }
+
+}

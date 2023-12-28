@@ -54,6 +54,8 @@
 
     .cropper-container {
       margin-top: 10px;
+      width: 400px !important;
+      height: 400px !important;
     }
 
     section.bottom-panel {

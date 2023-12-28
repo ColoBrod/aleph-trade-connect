@@ -71,13 +71,16 @@ const UploadImage = () => {
       const newAvatar = cropperRef.current?.cropper.getCroppedCanvas().toDataURL();
       // console.log(newAvatar);
       dispatch(avatarSet(newAvatar));
-      
       dispatch(uploadImageToggled(false));
     }
   };
 
   const handleClose = () => {
     dispatch(uploadImageToggled(false));
+  }
+
+  const handleReset = () => {
+    dispatch(avatarSet(""));
   }
 
   return (
@@ -93,7 +96,7 @@ const UploadImage = () => {
         <div>
           <section className="top-panel">
             <input className='choose-files' type="file" onChange={onChange}  />
-            <button className='reset'>Сбросить</button>
+            <button className='reset' onClick={handleReset}>Сбросить</button>
           </section>
           <Cropper
             // className='cropper'
@@ -116,9 +119,7 @@ const UploadImage = () => {
         <section className="bottom-panel">
 
           <div className="box">
-            <div
-              className="img-preview"
-            />
+            <div className="img-preview" />
           </div>
 
           <div className="box">

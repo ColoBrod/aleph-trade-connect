@@ -8,6 +8,7 @@ interface Profile {
   fullName: string;
   email: string;
   phone: string;
+  org: string;
   avatar: string;
   displayPopup: boolean;
   uploadImage: {
@@ -19,10 +20,11 @@ const initialState: Profile = {
   fullName: "",
   email: "",
   phone: "",
+  org: "",
   avatar: "",
   displayPopup: false,
   uploadImage: {
-    display: 'flex',
+    display: 'none',
   },
 };
 
